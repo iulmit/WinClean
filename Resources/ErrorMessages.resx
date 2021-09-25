@@ -123,8 +123,8 @@
   <data name="BadOSVersion" xml:space="preserve">
     <value>Cette version du système d'exploitation n'est pas supportée.</value>
   </data>
-  <data name="CantCreateLogFile" xml:space="preserve">
-    <value>Impossible de créer le fichier journal.</value>
+  <data name="CantCreateLogDir" xml:space="preserve">
+    <value>Impossible de créer le répertoire du fichier journal.</value>
   </data>
   <data name="CantDeleteLogFile" xml:space="preserve">
     <value>Impossible de supprimer le fichier journal.</value>

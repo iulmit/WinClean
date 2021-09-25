@@ -5,38 +5,18 @@
 // </Auto-Generated>
 
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using CsvHelper;
 using CsvHelper.Configuration;
-using System.Globalization;
 
 namespace RaphaëlBardini.WinClean
 {
     /// <summary>Provides CSV and TraceSource logging.</summary>
     public static class LogManager
     {
-        #region Public Methods
-
-        public static void Init(in CsvWriter writer)
-        {
-            try
-            {
-                Helpers.m(Constants.LOG_FILE_PATH);
-                _ = Directory.CreateDirectory(Path.GetDirectoryName(Constants.LOG_FILE_PATH));
-            }
-            catch (IOException e)
-            {
-                e.HandleDontLog(Resources.ErrorMessages.CantCreateLogFile, TraceEventType.Critical);
-            }
-
-            writer.WriteHeader<LogEntry>();
-            writer.NextRecord();
-            s_logIndex++;
-        }
-
-        #endregion Public Methods
 
         #region Private Fields
 
@@ -46,9 +26,25 @@ namespace RaphaëlBardini.WinClean
         /// <summary>Count of log entries wrote.</summary>
         private static int s_logIndex = 0;
 
+        private static readonly StreamWriter s_streamWriter = new(Constants.LOG_FILE_PATH, true, System.Text.Encoding.Unicode);
+        private static readonly CsvWriter s_csvWriter = new(s_streamWriter, new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = Constants.LOG_DELIMITER.ToString() });
+
         #endregion Private Fields
 
         #region Public Methods
+        public static void ClearLogsFolder() => Directory.EnumerateFiles(Path.GetDirectoryName(Constants.LOG_FILE_PATH), "*.csv")
+                        .Where((csvFile) => CanLogFileBeDeleted(csvFile))
+                        .ForEach((path) =>
+                        {
+                            try
+                            {
+                                File.Delete(path);
+                            }
+                            catch (Exception e) when (e is DirectoryNotFoundException or UnauthorizedAccessException || e.GetType().Equals(typeof(IOException)))
+                            {
+                                e.Handle(Resources.ErrorMessages.CantDeleteLogFile);
+                            }
+                        });
 
         /// <summary>Logs a string.</summary>
         /// <param name="str">The string to log.</param>
@@ -62,11 +58,11 @@ namespace RaphaëlBardini.WinClean
                                  [CallerLineNumber] int callLine = 0,
                                  [CallerFilePath] string callFile = "\\Not Found\\")
         {
-            using StreamWriter streamWriter = new(Constants.LOG_FILE_PATH, true, System.Text.Encoding.Unicode);
-            using CsvWriter csvWriter = new(streamWriter, new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = Constants.LOG_DELIMITER.ToString() });
+            Init();
+
             if (s_logIndex == 0)
-                Init(csvWriter);
-            csvWriter.WriteRecord(new LogEntry()
+                WriteHeader(s_csvWriter);
+            s_csvWriter.WriteRecord(new LogEntry()
             {
                 Date = DateTime.Now,
                 Index = s_logIndex,
@@ -77,7 +73,7 @@ namespace RaphaëlBardini.WinClean
                 CallFile = callFile,
                 CallLine = callLine
             });
-            csvWriter.NextRecord();
+            s_csvWriter.NextRecord();
 
             s_trace.TraceEvent(lvl, s_logIndex, $"{happening} : {str} in {caller} at line {callLine}, in {callFile}");
             s_logIndex++;
@@ -85,22 +81,28 @@ namespace RaphaëlBardini.WinClean
             s_trace.Close();
         }
 
-        public static void ClearLogsFolder() => Directory.EnumerateFiles(Path.GetDirectoryName(Constants.LOG_FILE_PATH), "*.csv")
-                .Where((csvFile) => CanLogFileBeDeleted(csvFile))
-                .ForEach((path) =>
-                {
-                    try
-                    {
-                        File.Delete(path);
-                    }
-                    catch (Exception e) when (e is DirectoryNotFoundException or UnauthorizedAccessException || e.GetType().Equals(typeof(IOException)))
-                    {
-                        e.Handle(Resources.ErrorMessages.CantDeleteLogFile);
-                    }
-                });
         #endregion Public Methods
 
         #region Private Methods
+
+        /// <summary>Creates the appropriate log folder if missing.</summary>
+        private static void Init()
+        {
+            try
+            {
+                _ = Directory.CreateDirectory(Path.GetDirectoryName(Constants.LOG_FILE_PATH));
+            }
+            catch (IOException e)
+            {
+                e.HandleDontLog(Resources.ErrorMessages.CantCreateLogDir, TraceEventType.Critical);
+            }
+        }
+        private static void WriteHeader(in CsvWriter writer)
+        {
+            writer.WriteHeader<LogEntry>();
+            writer.NextRecord();
+            s_logIndex++;
+        }
 
         /// <summary>Checks that a log file is valid for deletion. Doesn't throw.</summary>
         /// <param name="fileNameOrPath">The filename or path of the log file.</param>
@@ -117,15 +119,21 @@ namespace RaphaëlBardini.WinClean
                 return false;
             }
         }
-
+        public static void Dispose()
+        {
+            // If we dispose the other way around, throws an ObjectDisposedException.
+            s_csvWriter.Dispose();
+            s_streamWriter.Dispose();
+        }
         #endregion Private Methods
 
-        #region Public Structs
+        #region Prviate Structs
 
         ///<remarks>The fields are in the order we want the CSV header to be in. Topmost = leftmost</remarks>
-        public struct LogEntry
+        private struct LogEntry
         {
             #region Public Properties
+
             public int Index { get; set; }
             public TraceEventType Level { get; set; }
             public string Caller { get; set; }
@@ -137,6 +145,6 @@ namespace RaphaëlBardini.WinClean
             #endregion Public Properties
         }
 
-        #endregion Public Structs
+        #endregion Private Structs
     }
 }

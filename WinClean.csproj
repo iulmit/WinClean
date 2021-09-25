@@ -11,7 +11,8 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG</DefineConstants>
-    <NoWarn>NU1701;1701;1702</NoWarn>
+    <NoWarn>NU1701;1701;1702;CS0169</NoWarn>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

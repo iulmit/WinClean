@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using RaphaëlBardini.WinClean.Logic;
@@ -26,10 +27,8 @@ namespace RaphaëlBardini.WinClean
         #endregion Debug
 
         #region Public Methods
-
-
-        public static IEnumerable<ListViewItem> ToListViewItems(this IEnumerable<Presentation.Preset> presets) => presets.Select((p) => p.ToListViewItem());
         public static IEnumerable<ListViewItem> ToListViewItems(this IEnumerable<Presentation.Script> scripts) => scripts.Select((s) => s.ToListViewItem());
+
         /// <summary>Makes the <see cref="ListViewItem"/> available for rename by the end-user.</summary>
         /// <remarks>When the call is done, the <see cref="ListViewItem"/> is not yet renamed. It is renamed when the <see cref="ListView.AfterLabelEdit"/> event
         /// is triggered.</remarks>

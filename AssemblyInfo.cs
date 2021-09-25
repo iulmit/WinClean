@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 [assembly: System.Reflection.AssemblyDescription("Utilitaire d'optimisation et amélioration des performances Windows")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright © Raphaël Bardini - 2021")]
 // Le GUID suivant concerne l'ID de typelib si ce projet est exposé à COM.
 
 [assembly: Guid("0c474b65-161e-4439-98f0-99a239559fcd")]

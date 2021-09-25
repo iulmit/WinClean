@@ -79,11 +79,11 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Impossible de créer le fichier journal..
+        ///   Recherche une chaîne localisée semblable à Impossible de créer le répertoire du fichier journal..
         /// </summary>
-        internal static string CantCreateLogFile {
+        internal static string CantCreateLogDir {
             get {
-                return ResourceManager.GetString("CantCreateLogFile", resourceCulture);
+                return ResourceManager.GetString("CantCreateLogDir", resourceCulture);
             }
         }
         

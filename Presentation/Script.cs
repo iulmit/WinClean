@@ -27,7 +27,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         public static Script RetrieveTag(ListViewItem item) => item is null
                 ? throw new ArgumentNullException(nameof(item))
                 : item.Tag is not Script s
-                ? throw new ArgumentException($"Is not a valid {nameof(Preset)}", nameof(item.Tag))
+                ? throw new ArgumentException($"Tag Is not a valid {nameof(Script)}", nameof(item))
                 : s;
 
         /// <summary>Creates a <see cref="ListViewItem"/> from the instance and references it into it's <see cref="ListViewItem.Tag">Tag</see> property.</summary>

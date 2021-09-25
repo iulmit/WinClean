@@ -17,20 +17,11 @@ namespace RaphaëlBardini.WinClean
 
         static Program()
         {
-            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
             Scripts = DefaultScripts.ToList();
-            Presets = DefaultPresets.ToList();
             MainForm = new MainForm();
         }
-
-        public static IReadOnlyCollection<Preset> DefaultPresets => new Preset[]
-        {
-                new Preset(Resources.Presets.AllName, Resources.Presets.AllDesc, Scripts),
-                new Preset(Resources.Presets.NoneName, Resources.Presets.NoneDesc),
-                new Preset(Resources.Presets.MaintenanceName, Resources.Presets.MaintenanceDesc, Scripts),
-                new Preset(Resources.Presets.DebloatName, Resources.Presets.DebloatDesc, Scripts)
-        };
 
         public static IReadOnlyCollection<Script> DefaultScripts => new Script[]
         {
@@ -45,7 +36,6 @@ namespace RaphaëlBardini.WinClean
         #region Public Properties
 
         public static MainForm MainForm { get; }
-        public static ICollection<Preset> Presets { get; }
         public static ICollection<Script> Scripts { get; }
 
         #endregion Public Properties
@@ -113,6 +103,7 @@ namespace RaphaëlBardini.WinClean
         {
             CheckStartAble();
             Application.Run(MainForm);
+            LogManager.Dispose();
         }
 
         /// <summary>Enables support for non-standard DPI displays.</summary>

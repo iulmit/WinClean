@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace RaphaëlBardini.WinClean.Logic
+namespace RaphaëlBardini.WinClean.Operation
 {
     /// <summary>Provides methods to show the administrator icon next to a ButtonControl.</summary>
     public static class ButtonShieldExtension
