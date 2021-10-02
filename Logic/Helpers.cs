@@ -3,39 +3,39 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+
 using RaphaëlBardini.WinClean.Logic;
 
-namespace RaphaëlBardini.WinClean
+namespace RaphaëlBardini.WinClean.Logic
 {
     /// <summary>Provides a set of extension methods that fulfill a relatively generic role.</summary>
     public static class Helpers
     {
+        #region Public Methods
+
         #region Debug
 
 #if DEBUG
 
-        /// <summary>
-        /// Debug only. Shortcut to <see cref="MessageBox.Show(string)"/>
-        /// </summary>
-        public static void m(this object o) => MessageBox.Show(o.ToString());
+        /// <summary>Debug only. Shortcut to <see cref="MessageBox.Show(string)"/></summary>
+        public static void m(this object o) => MessageBox.Show(o.ToString(), "Debug");
 
 #endif
 
         #endregion Debug
 
-        #region Public Methods
+        public static void SetAllChecked(this ListView.ListViewItemCollection items, bool @checked) => items.ToEnumerable().ForEach((i) => i.Checked = @checked);
+
         public static IEnumerable<ListViewItem> ToListViewItems(this IEnumerable<Presentation.Script> scripts) => scripts.Select((s) => s.ToListViewItem());
 
         /// <summary>Makes the <see cref="ListViewItem"/> available for rename by the end-user.</summary>
-        /// <remarks>When the call is done, the <see cref="ListViewItem"/> is not yet renamed. It is renamed when the <see cref="ListView.AfterLabelEdit"/> event
-        /// is triggered.</remarks>
+        /// <remarks>When the call is done, the <see cref="ListViewItem"/> is not yet renamed. It is renamed when the <see cref="ListView.AfterLabelEdit"/> event is triggered.</remarks>
         /// <param name="item"></param>
         public static void StartRename(this ListViewItem item)
         {
-            if (item.ListView is null)
+            if ((item ?? throw new ArgumentNullException(nameof(item))).ListView is null)
                 throw new InvalidOperationException($"The {nameof(ListViewItem)} must be part of a {nameof(ListView)} control.");
 
             item.ListView.LabelEdit = true;
@@ -52,16 +52,17 @@ namespace RaphaëlBardini.WinClean
             bool oldLabelEdit = item.ListView.LabelEdit;
             string oldTTT = item.ToolTipText;
 
-            Validator v = new(new (string, bool)[]
+            string newText = e.Label.Trim();
+            Validator v = new(new (bool, string)[]
             {
-                    (Resources.ErrorMessages.NameAlreadyExists, item.ListView.ChecksForItemsWithSameText(item.Text.Trim())),
-                    (Resources.ErrorMessages.EmptyName, string.IsNullOrWhiteSpace(item.Text.Trim()))
+                    (!item.ListView.ChecksForItemsWithSameText(newText), Resources.ErrorMessages.NameAlreadyExists(newText)),
+                    (!string.IsNullOrWhiteSpace(newText), Resources.ErrorMessages.EmptyName)
             });
 
-            if (e.CancelEdit = v.ActiveErrors.Any())
+            if (e.CancelEdit = v.FalseAssertions.Any())
             {
                 item.ListView.ShowItemToolTips = true;
-                item.ToolTipText = v.ActiveErrors.ToMultiLineString();
+                item.ToolTipText = v.FalseAssertions.ToMultiLineString();
             }
             else
             {
@@ -72,7 +73,7 @@ namespace RaphaëlBardini.WinClean
         }
 
         public static bool ChecksForItemsWithSameText(this ListView list, string text) =>
-                    list.Items.ToEnumerable().Any((item) => item.Text.Equals(text));
+                    (list ?? throw new ArgumentNullException(nameof(list))).Items.ToEnumerable().Any((item) => item.Text.Equals(text, StringComparison.Ordinal));
 
         /// <summary>Sets the <see cref="ListViewItem.Checked"/> property to <paramref name="checked"/> for all items of the specified collection.</summary>
         /// <param name="checked">The value to set the <see cref="ListViewItem.Checked"/> property of all items to.</param>
@@ -93,37 +94,30 @@ namespace RaphaëlBardini.WinClean
         }
 
         /// <summary>Searches a <see cref="StringTag"/> in a string</summary>
-        /// <returns>The substring located between the first occurences of <c>tag.a</c> and <c>tag.b</c> without including them.
-        /// If <c>tag.a</c> or <c>tag.b</c> are not found, an empty string.</returns>
+        /// <returns>The substring located between the first occurences of <c>tag.a</c> and <c>tag.b</c> without including them. If <c>tag.a</c> or <c>tag.b</c> are not found, an empty string.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="s"/> is <see langword="null"/>.</exception>
         public static string Between(this string s, in StringTag tag)
         {
-            int IA = s.IndexOf(tag.Start, tag.IgnoreCase ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture);
+            int IA = (s ?? throw new ArgumentNullException(nameof(s))).IndexOf(tag.Start, tag.IgnoreCase ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture);
 
             int IB = s.IndexOf(tag.End, IA, tag.IgnoreCase ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture);
             return s.Substring(IA + tag.Start.Length, (IB == -1) ? s.Length : IB - IA - tag.End.Length);
         }
 
         /// <summary>Searches an array of <see cref="StringTag"/> in a string.</summary>
-        /// <returns>The substring located between the first occurences of one of <paramref name="tags"/> elements in <paramref name="s"/> without including them.
-        /// If nothing was found, an emptry string.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="s"/> is <see langword="null"/>.</exception>
-        public static string Between(this string s, in StringTag[] tags)
+        /// <returns>
+        /// The substring located between the first occurences of one of <paramref name="tags"/> elements in <paramref name="s"/> without including them. If nothing was found, an emptry string.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">If <paramref name="s"/> or <paramref name="tags"/> are <see langword="null"/>.</exception>
+        public static string Between(this string s, in IEnumerable<StringTag> tags)
         {
-            foreach (StringTag tag in tags)
+            foreach (StringTag tag in tags ?? throw new ArgumentNullException(nameof(tags)))
             {
-                string r;
-                if ((r = s.Between(tag)) != "")
-                    return r;
+                string result;
+                if (!string.IsNullOrEmpty(result = s.Between(tag)))
+                    return result;
             }
             return "";
-        }
-
-        /// <summary>Logs the exit and quits the program.</summary>
-        public static void Exit()
-        {
-            $"Exiting the application.".Log("Exit", TraceEventType.Information);
-            Application.Exit();
         }
 
         /// <summary>Exécute l'action spécifiée sur chaque élément de <see cref="IEnumerable{}"/> en fournissant son index.</summary>
@@ -146,21 +140,11 @@ namespace RaphaëlBardini.WinClean
                 (action ?? throw new ArgumentNullException(nameof(list))).Invoke(element);
         }
 
-        /// <summary>Prompts the user for quitting the application after showing the exception's details and logs it.</summary>
-        /// <param name="message">A complementary message to show to the user.</param>
-        /// <param name="lvl">The seriousness of the exception.</param>
-        public static void Handle(this Exception e, string message = "", TraceEventType lvl = TraceEventType.Error)
+        public static void Exit()
         {
-            e.ToString().Log("Exception", lvl);
-            HandleDontLog(e, message, lvl);
-        }
-
-        /// <inheritdoc cref="Handle(Exception, string, TraceEventType)"/>
-        /// <remarks>Performs no log operation. Useful if a log operation failed and would fail again.</remarks>
-        public static void HandleDontLog(this Exception e, string message = "", TraceEventType lvl = TraceEventType.Error)
-        {
-            if (PromptQuit(e, message, lvl))
-                Application.Exit();
+            "Exiting the application".Log("Exit");
+            LogManager.Dispose();
+            Application.Exit();
         }
 
         public static ListViewGroup[] ToArray(this ListViewGroupCollection c) => c.OfType<ListViewGroup>().ToArray();
@@ -182,6 +166,9 @@ namespace RaphaëlBardini.WinClean
         /// <returns>A multi-line string beginning with <c>'{'</c>, each line corresponding to <see cref="object.ToString"/>.</returns>
         public static string ToMultiLineString<T>(this IEnumerable<T> enmerable)
         {
+            if (enmerable is null)
+                throw new ArgumentNullException(nameof(enmerable));
+
             System.Text.StringBuilder sb = new();
             _ = sb.Append("{ ");
             foreach (T val in enmerable)
@@ -192,27 +179,18 @@ namespace RaphaëlBardini.WinClean
             _ = sb.Append('}');
             return sb.ToString();
         }
-
-        #endregion Public Methods
-
-        #region Private Methods
-
-        private static (MessageBoxIcon icon, string title, bool quit) Parse(this TraceEventType lvl) => lvl switch
+        public static string ToUserFriendlyMultilineString<T>(this IEnumerable<T> enumerable)
         {
-            TraceEventType.Critical => (MessageBoxIcon.Error, Resources.ErrorStrings.Critical, true),
-            TraceEventType.Error => (MessageBoxIcon.Error, Resources.ErrorStrings.Error, false),
-            TraceEventType.Warning => (MessageBoxIcon.Warning, Resources.ErrorStrings.Warning, false),
-            _ => (MessageBoxIcon.Information, Resources.ErrorStrings.Info, false)
-        };
+            if (enumerable is null)
+                throw new ArgumentNullException(nameof(enumerable));
 
-        private static bool PromptQuit(Exception e, string complementaryMessage, TraceEventType lvl)
-        {
-            (MessageBoxIcon icon, string title, bool quit) = lvl.Parse();
-            return MessageBox.Show(
-            $"{Application.ProductName} a rencontré une erreur :\n\n{e.Message}\n\n{complementaryMessage}\n\n{(quit ? Resources.ErrorMessages.ClickOKToExit : Resources.ErrorMessages.PromptContinueApp)}"
-            , title, quit ? MessageBoxButtons.OK : MessageBoxButtons.YesNo, icon) != DialogResult.Yes;
+            System.Text.StringBuilder sb = new();
+            foreach (T val in enumerable)
+            {
+                _ = sb.AppendLine(val.ToString());
+            }
+            return sb.ToString();
         }
-
-        #endregion Private Methods
+        #endregion Public Methods
     }
 }

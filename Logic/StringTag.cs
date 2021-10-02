@@ -4,7 +4,7 @@
 namespace RaphaëlBardini.WinClean
 {
     /// <summary>A tag used for searching a substring in another.</summary>
-    public struct StringTag
+    public struct StringTag : IEquatable<StringTag>
     {
         #region Public Constructors
 
@@ -24,9 +24,25 @@ namespace RaphaëlBardini.WinClean
         public bool IgnoreCase { get; set; }
         public string Start { get; set; }
 
+        public override bool Equals(object obj) => obj is StringTag tag && Equals(tag);
+
+        public bool Equals(StringTag other) => End.Equals(other.End, StringComparison.Ordinal) && IgnoreCase == other.IgnoreCase && Start.Equals(other.Start, StringComparison.Ordinal);
+
+        public override int GetHashCode() => HashCode.Combine(End, IgnoreCase, Start);
+
         #endregion Public Properties
 
         #region Public Methods
+
+        public static bool operator !=(StringTag left, StringTag right)
+        {
+            return !(left == right);
+        }
+
+        public static bool operator ==(StringTag left, StringTag right)
+        {
+            return left.Equals(right);
+        }
 
         public override string ToString() => $"Start = \"{Start}\", End = \"{End}\", IgnoreCase = {IgnoreCase}";
 

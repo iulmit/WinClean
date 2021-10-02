@@ -12,11 +12,11 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Constructors
 
         /// <param name="impacts">The potential impacts of executing a scripts on the system.</param>
-        /// <param name="relativePath">The name of the script file located in the <see cref="Constants.SCRIPTS_DIR_PATH"/> folder.</param>
+        /// <param name="filenameOrPath">The name or path of the script file located in the <see cref="Constants.ScriptsDirPath"/> folder, with the extension.</param>
         /// <exception cref="ArgumentNullException">Any of the parameters are <see langword="null"/>.</exception>
         /// <exception cref="BadFileExtensionException"><paramref name="relativePath"/>'s extension is not supported.</exception>
         /// <exception cref="ArgumentException"><paramref name="relativePath"/> contains unsupported path chars.</exception>
-        public Script(IEnumerable<Impact> impacts, string relativePath, string name, string description = "") : base(relativePath)
+        protected Script(string name, string description, string filenameOrPath, IEnumerable<Impact> impacts) : base(filenameOrPath)
         {
             Impacts = impacts ?? throw new ArgumentNullException(nameof(impacts));
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -37,7 +37,7 @@ namespace RaphaëlBardini.WinClean.Logic
         #endregion Public Properties
 
         /// <summary>The supported file extensions by the script type;</summary>
-        public abstract string[] Extensions { get; }
+        public abstract IReadOnlyCollection<string> Extensions { get; }
 
         /// <summary>The user friendly name of the corresponding script host.</summary>
         public abstract string HostDisplayName { get; }
@@ -45,15 +45,15 @@ namespace RaphaëlBardini.WinClean.Logic
         public override bool Equals(object obj) => Equals(obj as Script);
 
         public bool Equals(Script other) => other != null
-                                            && Description.Equals(other.Description)
-                                            && Name.Equals(other.Name)
-                                            && HostDisplayName.Equals(other.HostDisplayName)
+                                            && Description.Equals(other.Description, StringComparison.Ordinal)
+                                            && Name.Equals(other.Name, StringComparison.Ordinal)
+                                            && HostDisplayName.Equals(other.HostDisplayName, StringComparison.Ordinal)
                                             && Extensions.SequenceEqual(other.Extensions)
                                             && Impacts.SequenceEqual(other.Impacts)
-                                            && base.Equals(other: other);// Explicitly call the IEquatable<Script> version.
-
-        public override string ToString() => $"[{nameof(Name)} = {Name}, {nameof(Description)} = {Description}, {nameof(HostDisplayName)} = {HostDisplayName}, {nameof(Extensions)} = {Extensions.ToMultiLineString()}, {nameof(Impacts)} = {Impacts.ToMultiLineString()}, base.ToString() = {base.ToString()}]";
+                                            && FullPath.Equals(other.FullPath, StringComparison.Ordinal);// Explicitly call the IEquatable<Script> version.
 
         public override int GetHashCode() => HashCode.Combine(Description, Impacts, Name, Extensions, HostDisplayName, base.GetHashCode());
+
+        public override string ToString() => $"[{nameof(Name)} = {Name}, {nameof(Description)} = {Description}, {nameof(HostDisplayName)} = {HostDisplayName}, {nameof(Extensions)} = {Extensions.ToMultiLineString()}, {nameof(Impacts)} = {Impacts.ToMultiLineString()}, base.ToString() = {base.ToString()}]";
     }
 }

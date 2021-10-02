@@ -6,8 +6,10 @@ using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
-    partial class AboutBox : Form
+    internal partial class AboutBox : Form
     {
+        #region Public Constructors
+
         public AboutBox()
         {
             InitializeComponent();
@@ -19,20 +21,20 @@ namespace RaphaëlBardini.WinClean.Presentation
             textBoxDescription.Text = AssemblyDescription;
         }
 
+        #endregion Public Constructors
+
         #region Accesseurs d'attribut de l'assembly
 
-        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-        public static string AssemblyDescription
+        public static string AssemblyCompany
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
                 if (attributes.Length == 0)
                 {
                     return "";
                 }
-                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
+                return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
 
@@ -49,18 +51,21 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        public static string AssemblyCompany
+        public static string AssemblyDescription
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0)
                 {
                     return "";
                 }
-                return ((AssemblyCompanyAttribute)attributes[0]).Company;
+                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
-        #endregion
+
+        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+        #endregion Accesseurs d'attribut de l'assembly
     }
 }

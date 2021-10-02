@@ -1,10 +1,10 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System.Drawing;
-using System.Windows.Forms;
-using RaphaëlBardini.WinClean.Operation;
 using System.Linq;
+using System.Windows.Forms;
+
+using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
@@ -16,7 +16,8 @@ namespace RaphaëlBardini.WinClean.Presentation
         {
             InitializeComponent();
             buttonContinue.AddShield();
-            pictureBox.Image = new Icon(Resources.Icons.warning, pictureBox.Size).ToBitmap();
+            pictureBox.Size = new System.Drawing.Size(SystemMetrics.Get(PInvokes.SystemMetric.SM_CXICON), SystemMetrics.Get(PInvokes.SystemMetric.SM_CYICON));
+            pictureBox.Image = SystemIcons.GetIcon(PInvokes.SHSTOCKICONID.SIID_WARNING, PInvokes.SHGSI.SHGSI_LARGEICON).ToBitmap();
         }
 
         #endregion Public Constructors

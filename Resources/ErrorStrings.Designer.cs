@@ -9,7 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace RaphaëlBardini.WinClean.Resources {
-    using System;
     
     
     /// <summary>

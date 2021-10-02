@@ -15,7 +15,7 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Methods
 
         /// <summary>Returns the corresponding symbol, or an empty string if the value is not a valid <see cref="ImpactLevel"/>.</summary>
-        public static string ToStringEx(this ImpactLevel lvl) => $"{lvl switch { ImpactLevel.Positive => '+', ImpactLevel.Negative => '-', ImpactLevel.Mixed => '•', _ => string.Empty, }}";
+        public static string ToString(this ImpactLevel lvl) => $"{lvl switch { ImpactLevel.Positive => '+', ImpactLevel.Negative => '-', ImpactLevel.Mixed => '•', _ => string.Empty, }}";
 
         #endregion Public Methods
     }
@@ -24,7 +24,7 @@ namespace RaphaëlBardini.WinClean.Logic
     {
         #region Public Constructors
 
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="type"/> or <paramref name="lvl"/> are not valid <see cref="ImpactType"/> or <see cref="ImpactLevel"/> values.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="lvl"/> is not avalid <see cref="ImpactLevel"/> value.</exception>
         public Impact(string type, ImpactLevel lvl)
         {
             if (string.IsNullOrWhiteSpace(type))
@@ -49,11 +49,11 @@ namespace RaphaëlBardini.WinClean.Logic
 
         public override bool Equals(object obj) => obj is Impact i && Equals(i);
 
-        public bool Equals(Impact other) => Level == other.Level && Type.Equals(other.Type);
+        public bool Equals(Impact other) => other is not null && Level == other.Level && Type.Equals(other.Type, StringComparison.Ordinal);
 
         public override int GetHashCode() => HashCode.Combine(Level, Type);
 
-        public override string ToString() => $"{Level.ToStringEx()} {Type}";
+        public override string ToString() => $"{ImpactExtensions.ToString(Level)} {Type}";
 
         #endregion Public Methods
     }

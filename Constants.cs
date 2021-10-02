@@ -11,36 +11,49 @@ namespace RaphaëlBardini.WinClean
     /// <summary>Constant and readonly fields that manages config settings for the whole program.</summary>
     public static class Constants
     {
+        #region Public Constructors
+
+#if DEBUG
+
+        static Constants()
+        {
+            // If no invalid filename chars are found
+            System.Diagnostics.Debug.Assert(DateTimeFilenameFormat.IndexOfAny(Path.GetInvalidFileNameChars()) == -1);
+        }
+
+#endif
+
+        #endregion Public Constructors
+
         #region Public Fields
 
         #region Constants
 
-        /// <summary>Padding of errorProvider controls relative to their associated controls.</summary>
-        public const int ERROR_PROVIDER_PADDING = 8;
+        /// <summary>Format string used by <see cref="DateTime.ToString(string?)"/> used for NTFS filenames.</summary>
+        public const string DateTimeFilenameFormat = "yyyy-MM-dd--HH-mm-ss";
 
         /// <summary>CSV Log entry column delimiter.</summary>
-        public const char LOG_DELIMITER = ';';
+        public const char LogDelimiter = ';';
 
         /// <summary>Global TraceSource log level.</summary>
-        public const System.Diagnostics.SourceLevels LOG_LEVEL = System.Diagnostics.SourceLevels.All;
+        public const System.Diagnostics.SourceLevels TraceLevel = System.Diagnostics.SourceLevels.All;
 
         /// <summary>Number of milliseconds the program will wait for a script to finish executing.</summary>
-        public const int SCRIPT_TIMEOUT = 20 * 60 * 1000;// 20 minutes
+        public const int ScriptTimeoutSeconds = 20 * 60 * 1000;// 20 minutes
 
-        public const string DATE_TIME_FILE_FORMAT = "yyyy-MM-dd--HH-mm-ss";
         #endregion Constants
 
         #region File and Folder Paths
 
-        // chaud : a lire de puis le registre entree installation
+        // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
         /// <summary>Application install dir full path</summary>
-        public static readonly string INSTALL_DIR = Application.StartupPath;
+        public static readonly string InstallDir = Application.StartupPath;
 
         /// <summary>Full path of the log file for this session of the application.</summary>
-        public static readonly string LOG_FILE_PATH = Path.Combine(INSTALL_DIR, "Logs", $"{System.Diagnostics.Process.GetCurrentProcess().StartTime.ToString(DATE_TIME_FILE_FORMAT, DateTimeFormatInfo.InvariantInfo)}.csv");
+        public static readonly string LogFilePath = Path.Combine(InstallDir, "Logs", $"{System.Diagnostics.Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv");
 
         /// <summary>Full path of the scripts dir.</summary>
-        public static readonly string SCRIPTS_DIR_PATH = Path.Combine(INSTALL_DIR, "Scripts");
+        public static readonly string ScriptsDirPath = Path.Combine(InstallDir, "Scripts");
 
         #endregion File and Folder Paths
 
