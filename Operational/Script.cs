@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 
 using static RaphaëlBardini.WinClean.Logic.Helpers;
 
@@ -42,8 +43,12 @@ namespace RaphaëlBardini.WinClean.Operational
 
         #region Public Methods
 
-        public void Execute()
+        /// <summary>Executes the associated script host process and runs the script.</summary>
+        /// <exception cref="FileNotFoundException">The script file does not exists.</exception>
+        public void Run()
         {
+            if (!File.Exists(FullPath))
+                throw new FileNotFoundException(Resources.FormattableErrorMessages.ScriptFileNotFound(FullPath), Path.GetFileName(FullPath));
             ToString().Log($"Script execution");
             using Process process = Process.Start(new ProcessStartInfo(ScriptHostExecutable, ScriptHostArguments)
             {
@@ -52,18 +57,30 @@ namespace RaphaëlBardini.WinClean.Operational
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
             });
-
-            if (process.WaitForExit(Constants.ScriptTimeoutSeconds))
+            Logic.Helpers.m(process);
+            bool retry = true;
+            while (retry)
             {
-                "Script terminated".Log("Script execution");
+                if (process.WaitForExit(Constants.ScriptTimeoutMilliseconds))
+                    retry = false;
+                else
+                {
+                    "Script hung !".Log("Script execution", Logic.UserFriendlyError.Level.Error);
+                    switch (PromptHungScriptAction())
+                    {
+                        case HungScriptAction.Kill:
+                            process.Kill();
+                            retry = false;
+                            break;
+                        case HungScriptAction.Restart:
+                            process.Kill();
+                            Debug.Assert(process.Start());
+                            break;
+                    }
+                }
             }
-            else
-            {
-                "Script hung!".Log("Script execution", TraceEventType.Error);
-                throw new Logic.HungScriptException(this);
-            }
-            process.StandardError.ReadToEnd().Log($"Standard error stream of script execution");// chaud possible deadlock
-            process.StandardOutput.ReadToEnd().Log($"Standard output stream of script execution");// chaud possible deadlock
+            process.StandardError.ReadToEnd().Log($"Standard error stream of script execution");
+            process.StandardOutput.ReadToEnd().Log($"Standard output stream of script execution");
         }
 
         /// <summary>Finds the first comment of the script's file.</summary>
@@ -93,5 +110,22 @@ namespace RaphaëlBardini.WinClean.Operational
         public override string ToString() => $"[{nameof(FullPath)} = {FullPath}]";
 
         #endregion Public Methods
+
+        private static HungScriptAction PromptHungScriptAction() => MessageBox.Show(Resources.FormattableErrorMessages.HungScript(Constants.ScriptTimeoutMilliseconds),
+                                                                                    Resources.ErrorMessages.HungScript,
+                                                                                    MessageBoxButtons.AbortRetryIgnore,
+                                                                                    MessageBoxIcon.Warning) switch
+        {
+            DialogResult.Abort => HungScriptAction.Kill,
+            DialogResult.Retry => HungScriptAction.Restart,
+            _ => HungScriptAction.Ignore,
+        };
+
+        private enum HungScriptAction
+        {
+            Ignore,
+            Kill,
+            Restart,
+        }
     }
 }

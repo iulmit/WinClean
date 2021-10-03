@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace RaphaëlBardini.WinClean.Resources {
+    using System;
     
     
     /// <summary>
@@ -56,15 +57,6 @@ namespace RaphaëlBardini.WinClean.Resources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Erreur irrécupérable.
-        /// </summary>
-        internal static string Critical {
-            get {
-                return ResourceManager.GetString("Critical", resourceCulture);
             }
         }
         

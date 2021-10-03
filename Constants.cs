@@ -39,7 +39,7 @@ namespace RaphaëlBardini.WinClean
         public const System.Diagnostics.SourceLevels TraceLevel = System.Diagnostics.SourceLevels.All;
 
         /// <summary>Number of milliseconds the program will wait for a script to finish executing.</summary>
-        public const int ScriptTimeoutSeconds = 20 * 60 * 1000;// 20 minutes
+        public const int ScriptTimeoutMilliseconds = 20 * 60 * 1000;// 20 minutes
 
         #endregion Constants
 

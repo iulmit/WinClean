@@ -15,8 +15,9 @@ namespace RaphaëlBardini.WinClean.Presentation
         public FormConfirm()
         {
             InitializeComponent();
+            buttonContinue.Width += SystemInformation.SmallIconSize.Width;
+            buttonContinue.Location = new(buttonContinue.Location.X - SystemInformation.SmallIconSize.Width, buttonContinue.Location.Y);
             buttonContinue.AddShield();
-            pictureBox.Size = new System.Drawing.Size(SystemMetrics.Get(PInvokes.SystemMetric.SM_CXICON), SystemMetrics.Get(PInvokes.SystemMetric.SM_CYICON));
             pictureBox.Image = SystemIcons.GetIcon(PInvokes.SHSTOCKICONID.SIID_WARNING, PInvokes.SHGSI.SHGSI_LARGEICON).ToBitmap();
         }
 

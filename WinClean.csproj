@@ -33,6 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\ErrorMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ErrorStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -56,9 +61,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\ErrorMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\ErrorStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\FormattableErrorMessages.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\FormattableStrings.resx">
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Icons.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -71,9 +86,6 @@
     <EmbeddedResource Update="Resources\Presets.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Presets.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\ErrorMessages.resx">
-      <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
 

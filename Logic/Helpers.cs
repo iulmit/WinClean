@@ -20,11 +20,26 @@ namespace RaphaëlBardini.WinClean.Logic
 #if DEBUG
 
         /// <summary>Debug only. Shortcut to <see cref="MessageBox.Show(string)"/></summary>
-        public static void m(this object o) => MessageBox.Show(o.ToString(), "Debug");
+        public static void m(this object o) => MessageBox.Show(o?.ToString(), "Debug");
 
 #endif
 
         #endregion Debug
+
+        #region ToEnumerables
+
+        /* We can't use type arguments for this one because it would require the caller to cast to IEnumerable<T>, and this would be unnecessary complicated.
+        Soo... we just add these here when necessary.*/
+
+        public static IEnumerable<ListViewItem> ToEnumerable(this ListView.CheckedListViewItemCollection c) => c.OfType<ListViewItem>();
+
+        public static IEnumerable<ListViewItem> ToEnumerable(this ListView.ListViewItemCollection c) => c.OfType<ListViewItem>();
+
+        public static IEnumerable<ListViewItem> ToEnumerable(this ListView.SelectedListViewItemCollection c) => c.OfType<ListViewItem>();
+
+        public static IEnumerable<ToolStripItem> ToEnumerable(this ToolStripItemCollection c) => c.OfType<ToolStripItem>();
+
+        #endregion ToEnumerables
 
         public static void SetAllChecked(this ListView.ListViewItemCollection items, bool @checked) => items.ToEnumerable().ForEach((i) => i.Checked = @checked);
 
@@ -55,14 +70,14 @@ namespace RaphaëlBardini.WinClean.Logic
             string newText = e.Label.Trim();
             Validator v = new(new (bool, string)[]
             {
-                    (!item.ListView.ChecksForItemsWithSameText(newText), Resources.ErrorMessages.NameAlreadyExists(newText)),
+                    (!item.ListView.ChecksForItemsWithSameText(newText), Resources.FormattableErrorMessages.NameAlreadyExists(newText)),
                     (!string.IsNullOrWhiteSpace(newText), Resources.ErrorMessages.EmptyName)
             });
 
-            if (e.CancelEdit = v.FalseAssertions.Any())
+            if (e.CancelEdit = v.ActiveErrors.Any())
             {
                 item.ListView.ShowItemToolTips = true;
-                item.ToolTipText = v.FalseAssertions.ToMultiLineString();
+                item.ToolTipText = v.ActiveErrors.ToMultiLineString();
             }
             else
             {
@@ -89,7 +104,7 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <remarks>Performs no filesystem operation on it's own.</remarks>
         public static bool AskForReplace(string path)
         {
-            $"{path} already exists. Prompting user for overwrite.".Log("File overwrite operation", TraceEventType.Warning);
+            $"{path} already exists. Prompting user for overwrite.".Log("File overwrite operation", ErrorLevel.Warning);
             return MessageBox.Show($"{path}{Constants.NL}{Resources.ErrorMessages.FileReplacePrompt}", Resources.ErrorStrings.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
         }
 
@@ -140,27 +155,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 (action ?? throw new ArgumentNullException(nameof(list))).Invoke(element);
         }
 
-        public static void Exit()
-        {
-            "Exiting the application".Log("Exit");
-            LogManager.Dispose();
-            Application.Exit();
-        }
-
         public static ListViewGroup[] ToArray(this ListViewGroupCollection c) => c.OfType<ListViewGroup>().ToArray();
-
-        #region ToEnumerables
-
-        /* We can't use type arguments for this one because it would require the caller to cast to IEnumerable<T>, and this would be unnecessary complicated.
-        Soo... we just add these here when necessary.*/
-
-        public static IEnumerable<ListViewItem> ToEnumerable(this ListView.CheckedListViewItemCollection c) => c.OfType<ListViewItem>();
-
-        public static IEnumerable<ListViewItem> ToEnumerable(this ListView.ListViewItemCollection c) => c.OfType<ListViewItem>();
-
-        public static IEnumerable<ListViewItem> ToEnumerable(this ListView.SelectedListViewItemCollection c) => c.OfType<ListViewItem>();
-
-        #endregion ToEnumerables
 
         /// <summary>Generates a formatted <see cref="string"/> out of an <see cref="IEnumerable{T}"/>.</summary>
         /// <returns>A multi-line string beginning with <c>'{'</c>, each line corresponding to <see cref="object.ToString"/>.</returns>

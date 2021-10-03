@@ -4,7 +4,7 @@
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
-    partial class AboutBox
+    public partial class AboutBox
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -36,9 +36,9 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
+            this.okButton = new System.Windows.Forms.Button();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.okButton = new System.Windows.Forms.Button();
             tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             logoPictureBox = new System.Windows.Forms.PictureBox();
             tableLayoutPanel.SuspendLayout();
@@ -74,8 +74,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             // logoPictureBox
             // 
-            logoPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            logoPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             logoPictureBox.Image = global::RaphaëlBardini.WinClean.Resources.Icons.main;
             logoPictureBox.Location = new System.Drawing.Point(4, 3);
@@ -89,8 +89,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             // labelProductName
             // 
-            this.labelProductName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.labelProductName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelProductName.AutoSize = true;
             this.labelProductName.CausesValidation = false;
@@ -100,14 +100,13 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.labelProductName.Name = "labelProductName";
             this.labelProductName.Size = new System.Drawing.Size(316, 25);
             this.labelProductName.TabIndex = 19;
-            this.labelProductName.Text = "(product name)";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelProductName.UseMnemonic = false;
             // 
             // labelVersion
             // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelVersion.AutoSize = true;
             this.labelVersion.CausesValidation = false;
@@ -117,14 +116,13 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(316, 25);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelVersion.UseMnemonic = false;
             // 
             // labelCopyright
             // 
-            this.labelCopyright.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.labelCopyright.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCopyright.AutoSize = true;
             this.labelCopyright.CausesValidation = false;
@@ -134,43 +132,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(316, 25);
             this.labelCopyright.TabIndex = 21;
-            this.labelCopyright.Text = "(copyright)";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelCopyright.UseMnemonic = false;
-            // 
-            // labelCompanyName
-            // 
-            this.labelCompanyName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelCompanyName.AutoSize = true;
-            this.labelCompanyName.CausesValidation = false;
-            this.labelCompanyName.Location = new System.Drawing.Point(167, 249);
-            this.labelCompanyName.Margin = new System.Windows.Forms.Padding(7, 0, 4, 0);
-            this.labelCompanyName.MinimumSize = new System.Drawing.Size(0, 25);
-            this.labelCompanyName.Name = "labelCompanyName";
-            this.labelCompanyName.Size = new System.Drawing.Size(316, 25);
-            this.labelCompanyName.TabIndex = 22;
-            this.labelCompanyName.Text = "(company)";
-            this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelCompanyName.UseMnemonic = false;
-            // 
-            // textBoxDescription
-            // 
-            this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDescription.CausesValidation = false;
-            this.textBoxDescription.Location = new System.Drawing.Point(167, 78);
-            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(7, 3, 4, 3);
-            this.textBoxDescription.Multiline = true;
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.ReadOnly = true;
-            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxDescription.Size = new System.Drawing.Size(316, 168);
-            this.textBoxDescription.TabIndex = 23;
-            this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "(description)";
             // 
             // okButton
             // 
@@ -183,6 +146,38 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.okButton.Size = new System.Drawing.Size(88, 27);
             this.okButton.TabIndex = 24;
             this.okButton.Text = "&OK";
+            // 
+            // labelCompanyName
+            // 
+            this.labelCompanyName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelCompanyName.AutoSize = true;
+            this.labelCompanyName.CausesValidation = false;
+            this.labelCompanyName.Location = new System.Drawing.Point(167, 249);
+            this.labelCompanyName.Margin = new System.Windows.Forms.Padding(7, 0, 4, 0);
+            this.labelCompanyName.MinimumSize = new System.Drawing.Size(0, 25);
+            this.labelCompanyName.Name = "labelCompanyName";
+            this.labelCompanyName.Size = new System.Drawing.Size(316, 25);
+            this.labelCompanyName.TabIndex = 22;
+            this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelCompanyName.UseMnemonic = false;
+            // 
+            // textBoxDescription
+            // 
+            this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDescription.CausesValidation = false;
+            this.textBoxDescription.Location = new System.Drawing.Point(167, 78);
+            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(7, 3, 4, 3);
+            this.textBoxDescription.Multiline = true;
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.ReadOnly = true;
+            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxDescription.Size = new System.Drawing.Size(316, 168);
+            this.textBoxDescription.TabIndex = 23;
+            this.textBoxDescription.TabStop = false;
             // 
             // AboutBox
             // 
@@ -200,11 +195,10 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.MinimizeBox = false;
             this.Name = "AboutBox";
             this.Opacity = 0.96D;
-            this.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "AboutBox";
             tableLayoutPanel.ResumeLayout(false);
             tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(logoPictureBox)).EndInit();

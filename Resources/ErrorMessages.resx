@@ -120,12 +120,6 @@
   <data name="AppAlreadyRunning" xml:space="preserve">
     <value>L'application est déjà en cours d'exécution.</value>
   </data>
-  <data name="CantCreateLogDir" xml:space="preserve">
-    <value>Impossible de créer le répertoire de journalisation : "{0}".</value>
-  </data>
-  <data name="CantDeleteLogFile" xml:space="preserve">
-    <value>Impossible de supprimer le fichier journal "{0}".</value>
-  </data>
   <data name="ClickOKToExit" xml:space="preserve">
     <value>Cliquez sur OK pour quitter l'application.</value>
   </data>
@@ -139,10 +133,7 @@
     <value>Le fichier existe déjà. Remplacer le fichier ?</value>
   </data>
   <data name="HungScript" xml:space="preserve">
-    <value>Le script est en cours d'exécution depuis {0} secondes. Voulez vous forcer l'arrêt du script ?</value>
-  </data>
-  <data name="NameAlreadyExists" xml:space="preserve">
-    <value>Le nom "{0}" est déjà utilisé.</value>
+    <value>Script bloqué</value>
   </data>
   <data name="NoGroupSelected" xml:space="preserve">
     <value>Aucun groupe sélectionné.</value>
@@ -151,9 +142,6 @@
     <value>Continuer l'exécution ?</value>
   </data>
   <data name="SetProcessDpiAwareReturnedFalse" xml:space="preserve">
-    <value>SetProcessDPIAware a retourné 0. Redémarrer l'application peut résoudre le problème. Sinon, contactez le support. Si vous continuez, l'application ne sera pas compatibles avec les écrans au DPI non-standard.</value>
-  </data>
-  <data name="WrongExecutablePath" xml:space="preserve">
-    <value>Le fichier exécutable de l'application "{0}" est situé dans un répertoire incorrect. Pour résoudre le problème, vous pouvez déplacer le fichier exécutable dans le répertoire d'installation de l'application "{1}".</value>
+    <value>SetProcessDPIAware a retourné 0. Redémarrer l'application peut résoudre le problème. Sinon, contactez le support. Si vous continuez, l'application ne sera pas compatible avec les écrans au DPI non-standard.</value>
   </data>
 </root>

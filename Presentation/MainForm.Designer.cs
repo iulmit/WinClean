@@ -32,6 +32,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TableLayoutPanel tableLayoutPanelAll;
             System.Windows.Forms.Label labelTitleInfo;
             System.Windows.Forms.FlowLayoutPanel flowLayoutPanelInfo;
@@ -39,10 +40,10 @@ namespace RaphaëlBardini.WinClean.Presentation
             System.Windows.Forms.MenuStrip mainMenuStrip;
             System.Windows.Forms.ToolStripMenuItem MainMenuFile;
             System.Windows.Forms.ToolStripMenuItem MainMenuClearLogs;
+            System.Windows.Forms.ToolStripMenuItem MainMenuSelect;
             System.Windows.Forms.ToolStripMenuItem MainMenuSettings;
             System.Windows.Forms.ToolStripMenuItem MainMenuHelp;
             System.Windows.Forms.ToolStripMenuItem MainMenuShowHelp;
-            System.Windows.Forms.ToolStripMenuItem MainMenuSelect;
             System.Windows.Forms.ToolStripContainer toolStripContainerAll;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.listViewScripts = new RaphaëlBardini.WinClean.Presentation.ListViewEvent();
@@ -54,11 +55,16 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonQuit = new System.Windows.Forms.Button();
             this.buttonAddScripts = new System.Windows.Forms.Button();
-            this.MainMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectNothing = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectMaintenance = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectDebloat = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripScripts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ContextMenuScriptsDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuScriptsRename = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuScriptsExecute = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuScriptsNew = new System.Windows.Forms.ToolStripMenuItem();
             tableLayoutPanelAll = new System.Windows.Forms.TableLayoutPanel();
             labelTitleInfo = new System.Windows.Forms.Label();
             flowLayoutPanelInfo = new System.Windows.Forms.FlowLayoutPanel();
@@ -66,10 +72,10 @@ namespace RaphaëlBardini.WinClean.Presentation
             mainMenuStrip = new System.Windows.Forms.MenuStrip();
             MainMenuFile = new System.Windows.Forms.ToolStripMenuItem();
             MainMenuClearLogs = new System.Windows.Forms.ToolStripMenuItem();
+            MainMenuSelect = new System.Windows.Forms.ToolStripMenuItem();
             MainMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
             MainMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             MainMenuShowHelp = new System.Windows.Forms.ToolStripMenuItem();
-            MainMenuSelect = new System.Windows.Forms.ToolStripMenuItem();
             toolStripContainerAll = new System.Windows.Forms.ToolStripContainer();
             tableLayoutPanelAll.SuspendLayout();
             flowLayoutPanelInfo.SuspendLayout();
@@ -78,6 +84,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             toolStripContainerAll.ContentPanel.SuspendLayout();
             toolStripContainerAll.TopToolStripPanel.SuspendLayout();
             toolStripContainerAll.SuspendLayout();
+            this.contextMenuStripScripts.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanelAll
@@ -113,11 +120,13 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.listViewScripts.CheckBoxes = true;
             this.listViewScripts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.scriptHeaderName});
+            this.listViewScripts.ContextMenuStrip = this.contextMenuStripScripts;
             this.listViewScripts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewScripts.HideSelection = false;
             this.listViewScripts.Location = new System.Drawing.Point(2, 19);
             this.listViewScripts.Margin = new System.Windows.Forms.Padding(0);
             this.listViewScripts.Name = "listViewScripts";
+            this.listViewScripts.Scrollable = false;
             this.listViewScripts.Size = new System.Drawing.Size(433, 371);
             this.listViewScripts.TabIndex = 7;
             this.listViewScripts.UseCompatibleStateImageBehavior = false;
@@ -136,6 +145,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             | System.Windows.Forms.AnchorStyles.Right)));
             labelTitleInfo.BackColor = System.Drawing.SystemColors.Control;
             labelTitleInfo.CausesValidation = false;
+            labelTitleInfo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             labelTitleInfo.Location = new System.Drawing.Point(440, 2);
             labelTitleInfo.Name = "labelTitleInfo";
             labelTitleInfo.Size = new System.Drawing.Size(355, 15);
@@ -152,6 +162,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTitleScriptCount.BackColor = System.Drawing.SystemColors.Control;
             this.labelTitleScriptCount.CausesValidation = false;
+            this.labelTitleScriptCount.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelTitleScriptCount.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
             this.labelTitleScriptCount.Location = new System.Drawing.Point(5, 2);
             this.labelTitleScriptCount.Name = "labelTitleScriptCount";
@@ -182,6 +193,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             this.labelName.AutoSize = true;
             this.labelName.CausesValidation = false;
+            this.labelName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelName.Location = new System.Drawing.Point(3, 0);
             this.labelName.MinimumSize = new System.Drawing.Size(0, 30);
             this.labelName.Name = "labelName";
@@ -195,6 +207,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             this.labelDescription.AutoSize = true;
             this.labelDescription.CausesValidation = false;
+            this.labelDescription.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelDescription.Location = new System.Drawing.Point(3, 30);
             this.labelDescription.MinimumSize = new System.Drawing.Size(0, 30);
             this.labelDescription.Name = "labelDescription";
@@ -208,6 +221,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             this.labelInfo.AutoSize = true;
             this.labelInfo.CausesValidation = false;
+            this.labelInfo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelInfo.Location = new System.Drawing.Point(3, 60);
             this.labelInfo.MinimumSize = new System.Drawing.Size(0, 30);
             this.labelInfo.Name = "labelInfo";
@@ -249,6 +263,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.buttonNext.AutoSize = true;
             this.buttonNext.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonNext.CausesValidation = false;
+            this.buttonNext.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonNext.Location = new System.Drawing.Point(681, 12);
             this.buttonNext.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
             this.buttonNext.Name = "buttonNext";
@@ -265,6 +280,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.buttonQuit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonQuit.AutoSize = true;
             this.buttonQuit.CausesValidation = false;
+            this.buttonQuit.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonQuit.Location = new System.Drawing.Point(745, 12);
             this.buttonQuit.Margin = new System.Windows.Forms.Padding(0);
             this.buttonQuit.Name = "buttonQuit";
@@ -283,6 +299,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.buttonAddScripts.AutoSize = true;
             this.buttonAddScripts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonAddScripts.CausesValidation = false;
+            this.buttonAddScripts.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonAddScripts.Location = new System.Drawing.Point(171, 12);
             this.buttonAddScripts.Margin = new System.Windows.Forms.Padding(0);
             this.buttonAddScripts.Name = "buttonAddScripts";
@@ -303,9 +320,9 @@ namespace RaphaëlBardini.WinClean.Presentation
             mainMenuStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             MainMenuFile,
+            MainMenuSelect,
             MainMenuSettings,
-            MainMenuHelp,
-            MainMenuSelect});
+            MainMenuHelp});
             mainMenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
@@ -316,7 +333,6 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             // MainMenuFile
             // 
-            MainMenuFile.AutoSize = false;
             MainMenuFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             MainMenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             MainMenuClearLogs});
@@ -328,48 +344,11 @@ namespace RaphaëlBardini.WinClean.Presentation
             // MainMenuClearLogs
             // 
             MainMenuClearLogs.AccessibleDescription = "Effacer tous les fichiers journaux de l\'application.";
-            MainMenuClearLogs.AutoSize = false;
             MainMenuClearLogs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             MainMenuClearLogs.Name = "MainMenuClearLogs";
-            MainMenuClearLogs.Size = new System.Drawing.Size(180, 22);
+            MainMenuClearLogs.Size = new System.Drawing.Size(152, 22);
             MainMenuClearLogs.Text = "Effacer les logs";
-            // 
-            // MainMenuSettings
-            // 
-            MainMenuSettings.AutoSize = false;
-            MainMenuSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            MainMenuSettings.Name = "MainMenuSettings";
-            MainMenuSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.O)));
-            MainMenuSettings.Size = new System.Drawing.Size(61, 20);
-            MainMenuSettings.Text = "Options";
-            // 
-            // MainMenuHelp
-            // 
-            MainMenuHelp.AutoSize = false;
-            MainMenuHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            MainMenuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            MainMenuShowHelp,
-            this.MainMenuAbout});
-            MainMenuHelp.Name = "MainMenuHelp";
-            MainMenuHelp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
-            MainMenuHelp.Size = new System.Drawing.Size(43, 20);
-            MainMenuHelp.Text = "Aide";
-            // 
-            // MainMenuShowHelp
-            // 
-            MainMenuShowHelp.AutoSize = false;
-            MainMenuShowHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            MainMenuShowHelp.Name = "MainMenuShowHelp";
-            MainMenuShowHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            MainMenuShowHelp.Size = new System.Drawing.Size(192, 22);
-            MainMenuShowHelp.Text = "Afficher l\'aide";
-            // 
-            // MainMenuAbout
-            // 
-            this.MainMenuAbout.AutoSize = false;
-            this.MainMenuAbout.Name = "MainMenuAbout";
-            this.MainMenuAbout.Size = new System.Drawing.Size(192, 22);
-            this.MainMenuAbout.Text = "À propos de WinClean";
+            MainMenuClearLogs.Click += new System.EventHandler(this.MainMenuStripClearLogs_Click);
             // 
             // MainMenuSelect
             // 
@@ -386,25 +365,22 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             // MainMenuSelectAll
             // 
-            this.MainMenuSelectAll.AutoSize = false;
             this.MainMenuSelectAll.Name = "MainMenuSelectAll";
-            this.MainMenuSelectAll.Size = new System.Drawing.Size(180, 22);
+            this.MainMenuSelectAll.Size = new System.Drawing.Size(143, 22);
             this.MainMenuSelectAll.Text = "Tout";
             this.MainMenuSelectAll.Click += new System.EventHandler(this.MainMenuSelectAll_Click);
             // 
             // MainMenuSelectNothing
             // 
-            this.MainMenuSelectNothing.AutoSize = false;
             this.MainMenuSelectNothing.Name = "MainMenuSelectNothing";
-            this.MainMenuSelectNothing.Size = new System.Drawing.Size(180, 22);
+            this.MainMenuSelectNothing.Size = new System.Drawing.Size(143, 22);
             this.MainMenuSelectNothing.Text = "Rien";
             this.MainMenuSelectNothing.Click += new System.EventHandler(this.MainMenuSelectNothing_Click);
             // 
             // MainMenuSelectMaintenance
             // 
-            this.MainMenuSelectMaintenance.AutoSize = false;
             this.MainMenuSelectMaintenance.Name = "MainMenuSelectMaintenance";
-            this.MainMenuSelectMaintenance.Size = new System.Drawing.Size(180, 22);
+            this.MainMenuSelectMaintenance.Size = new System.Drawing.Size(143, 22);
             this.MainMenuSelectMaintenance.Text = "Maintenance";
             this.MainMenuSelectMaintenance.Click += new System.EventHandler(this.MainMenuSelectMaintenance_Click);
             // 
@@ -414,6 +390,41 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.MainMenuSelectDebloat.Size = new System.Drawing.Size(143, 22);
             this.MainMenuSelectDebloat.Text = "Debloat";
             this.MainMenuSelectDebloat.Click += new System.EventHandler(this.MainMenuSelectDebloat_Click);
+            // 
+            // MainMenuSettings
+            // 
+            MainMenuSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            MainMenuSettings.Name = "MainMenuSettings";
+            MainMenuSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.O)));
+            MainMenuSettings.Size = new System.Drawing.Size(61, 20);
+            MainMenuSettings.Text = "Options";
+            MainMenuSettings.Click += new System.EventHandler(this.MainMenuStripSettings_Click);
+            // 
+            // MainMenuHelp
+            // 
+            MainMenuHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            MainMenuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            MainMenuShowHelp,
+            this.MainMenuAbout});
+            MainMenuHelp.Name = "MainMenuHelp";
+            MainMenuHelp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
+            MainMenuHelp.Size = new System.Drawing.Size(43, 20);
+            MainMenuHelp.Text = "Aide";
+            // 
+            // MainMenuShowHelp
+            // 
+            MainMenuShowHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            MainMenuShowHelp.Name = "MainMenuShowHelp";
+            MainMenuShowHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            MainMenuShowHelp.Size = new System.Drawing.Size(180, 22);
+            MainMenuShowHelp.Text = "Afficher l\'aide";
+            MainMenuShowHelp.Click += new System.EventHandler(this.MainMenuStripShowHelp_Click);
+            // 
+            // MainMenuAbout
+            // 
+            this.MainMenuAbout.Name = "MainMenuAbout";
+            this.MainMenuAbout.Size = new System.Drawing.Size(180, 22);
+            this.MainMenuAbout.Click += new System.EventHandler(this.MainMenuStripAbout_Click);
             // 
             // toolStripContainerAll
             // 
@@ -457,6 +468,45 @@ namespace RaphaëlBardini.WinClean.Presentation
             toolStripContainerAll.TopToolStripPanel.CausesValidation = false;
             toolStripContainerAll.TopToolStripPanel.Controls.Add(mainMenuStrip);
             // 
+            // contextMenuStripScripts
+            // 
+            this.contextMenuStripScripts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextMenuScriptsDelete,
+            this.ContextMenuScriptsRename,
+            this.ContextMenuScriptsExecute,
+            this.ContextMenuScriptsNew});
+            this.contextMenuStripScripts.Name = "contextMenuStripScripts";
+            this.contextMenuStripScripts.Size = new System.Drawing.Size(181, 114);
+            this.contextMenuStripScripts.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripScripts_Opening);
+            // 
+            // ContextMenuScriptsDelete
+            // 
+            this.ContextMenuScriptsDelete.Name = "ContextMenuScriptsDelete";
+            this.ContextMenuScriptsDelete.Size = new System.Drawing.Size(180, 22);
+            this.ContextMenuScriptsDelete.Text = "Supprimer";
+            this.ContextMenuScriptsDelete.Click += new System.EventHandler(this.ContextMenuScriptsDelete_Click);
+            // 
+            // ContextMenuScriptsRename
+            // 
+            this.ContextMenuScriptsRename.Name = "ContextMenuScriptsRename";
+            this.ContextMenuScriptsRename.Size = new System.Drawing.Size(180, 22);
+            this.ContextMenuScriptsRename.Text = "Renommer";
+            this.ContextMenuScriptsRename.Click += new System.EventHandler(this.ContextMenuScriptsRename_Click);
+            // 
+            // ContextMenuScriptsExecute
+            // 
+            this.ContextMenuScriptsExecute.Name = "ContextMenuScriptsExecute";
+            this.ContextMenuScriptsExecute.Size = new System.Drawing.Size(180, 22);
+            this.ContextMenuScriptsExecute.Text = "Exécuter";
+            this.ContextMenuScriptsExecute.Click += new System.EventHandler(this.ContextMenuScriptsExecute_Click);
+            // 
+            // ContextMenuScriptsNew
+            // 
+            this.ContextMenuScriptsNew.Name = "ContextMenuScriptsNew";
+            this.ContextMenuScriptsNew.Size = new System.Drawing.Size(180, 22);
+            this.ContextMenuScriptsNew.Text = "Nouveau(x)";
+            this.ContextMenuScriptsNew.Click += new System.EventHandler(this.NouveauxToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -485,6 +535,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             toolStripContainerAll.TopToolStripPanel.PerformLayout();
             toolStripContainerAll.ResumeLayout(false);
             toolStripContainerAll.PerformLayout();
+            this.contextMenuStripScripts.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -513,5 +564,10 @@ namespace RaphaëlBardini.WinClean.Presentation
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectMaintenance;
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectDebloat;
         private System.Windows.Forms.ColumnHeader scriptHeaderName;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuScriptsDelete;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuScriptsRename;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuScriptsExecute;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripScripts;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuScriptsNew;
     }
 }

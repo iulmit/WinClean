@@ -178,7 +178,6 @@ namespace RaphaëlBardini.WinClean.Presentation
                 new StringTag("//", Constants.NL, false),
                 new StringTag("/*", "*/", false),
                 new StringTag("<!--", "-->", false)
-                //chaud - est-ce qu'on a tout ?
             };
         }
 
@@ -191,7 +190,7 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region Public Properties
 
-        public override string[] Extensions => new string[] { ".vbs", ".vbe", ".wsf", ".wsc", ".js", ".jse" };
+        public override string[] Extensions => new string[] { ".vbs", ".vbe", ".wsf", ".js", ".jse" };
         public override string HostDisplayName => Operational.ShellPropertiesHelpers.GetFileDescription(ScriptHostExecutable);
 
         #endregion Public Properties

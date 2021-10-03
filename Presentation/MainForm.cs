@@ -21,16 +21,19 @@ namespace RaphaëlBardini.WinClean.Presentation
         {
             InitializeComponent();
             Text = $"{Application.ProductName} {Application.ProductVersion}";
+            MainMenuAbout.Text = Resources.FormattableStrings.About(Application.ProductName);
             _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
             _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
             listViewScripts.Groups.OfType<ListViewGroup>().ForEach((g) => g.CollapsedState = ListViewGroupCollapsedState.Expanded);
             listViewScripts.Items.AddRange(new Script[]
             {
-                new CmdScript("Foo", "foo description 0", listViewScripts.Groups[0], "foo.cmd", new Logic.Impact[] { new Logic.Impact(Resources.ImpactType.Visuals, Logic.ImpactLevel.Positive) }),
-                new WScript("Bar","bar description 1", listViewScripts.Groups[0],"bar.vbs",  new Logic.Impact[] { new Logic.Impact(Resources.ImpactType.Ergonomics, Logic.ImpactLevel.Mixed) }),
-                new RegScript("Dummy", "dummy description 2", listViewScripts.Groups[1], "dummy.reg", new Logic.Impact[] { new Logic.Impact(Resources.ImpactType.StartupTime, Logic.ImpactLevel.Negative) }),
-                new Ps1Script("Ps1", "hello world description 3", listViewScripts.Groups[1], "ps1script.ps1", new Logic.Impact[] { new Logic.Impact(Resources.ImpactType.ResponseTime, Logic.ImpactLevel.Positive) })
+                new CmdScript("Foo", "foo description 0", listViewScripts.Groups[0], "foo.cmd", new Impact[] { new Impact(Resources.ImpactType.Visuals, ImpactLevel.Positive) }),
+                new WScript("Bar","bar description 1", listViewScripts.Groups[0],"bar.vbs",  new Impact[] { new Impact(Resources.ImpactType.Ergonomics, ImpactLevel.Mixed) }),
+                new RegScript("Dummy", "dummy description 2", listViewScripts.Groups[1], "dummy.reg", new Impact[] { new Impact(Resources.ImpactType.StartupTime, ImpactLevel.Negative) }),
+                new Ps1Script("Ps1", "hello world description 3", listViewScripts.Groups[1], "ps1script.ps1", new Impact[] { new Impact(Resources.ImpactType.ResponseTime, ImpactLevel.Positive) })
             }.ToListViewItems().ToArray());
+
+            ContextMenuScriptsExecute.Image = Operational.SystemIcons.GetIcon(PInvokes.SHSTOCKICONID.SIID_SHIELD, PInvokes.SHGSI.SHGSI_SMALLICON).ToBitmap();
         }
 
         #endregion Public Constructors
@@ -39,7 +42,7 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region Event Handlers
 
-        #region Buttons Event Handlers
+        #region Buttons
 
         private void ButtonNewScript_Click(object sender = null, EventArgs e = null)
         {
@@ -49,9 +52,9 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         private void ButtonQuit_Click(object sender = null, EventArgs e = null) => DialogResult = DialogResult.Cancel;
 
-        #endregion Buttons Event Handlers
+        #endregion Buttons
 
-        #region _mainMenuStrip Event Handlers
+        #region mainMenuStrip
 
         private void MainMenuSelectAll_Click(object sender = null, EventArgs e = null) => listViewScripts.Items.SetAllChecked(true);
 
@@ -67,11 +70,7 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         private void MainMenuSelectNothing_Click(object sender = null, EventArgs e = null) => listViewScripts.Items.SetAllChecked(false);
 
-        private void MainMenuStripAbout_Click(object sender = null, EventArgs e = null)
-        {
-            using AboutBox about = new();
-            about.Show();
-        }
+        private void MainMenuStripAbout_Click(object sender = null, EventArgs e = null) => Program.ShowAboutBox(this);
 
         private void MainMenuStripClearLogs_Click(object sender = null, EventArgs e = null) => LogManager.ClearLogsFolder();
 
@@ -83,7 +82,38 @@ namespace RaphaëlBardini.WinClean.Presentation
         {
         }
 
-        #endregion _mainMenuStrip Event Handlers
+        #endregion mainMenuStrip
+
+        #region contextMenuStripScripts
+        private void ContextMenuStripScripts_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (listViewScripts.SelectedItems.Count == 0)
+            {
+                ContextMenuScriptsDelete.Enabled =
+                ContextMenuScriptsExecute.Enabled =
+                ContextMenuScriptsRename.Enabled = false;
+                ContextMenuScriptsNew.Enabled = true;
+            }
+            else
+                contextMenuStripScripts.Items.ToEnumerable().ForEach((item) => item.Enabled = true);
+        }
+        private void ContextMenuScriptsDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ContextMenuScriptsRename_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ContextMenuScriptsExecute_Click(object sender, EventArgs e)
+            => listViewScripts.SelectedItems.ToEnumerable().Select((item) => Script.Retrieve(item)).RunAll();
+        private void NouveauxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion contextMenuStripScripts
 
         #endregion Event Handlers
 

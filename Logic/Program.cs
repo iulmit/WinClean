@@ -1,9 +1,10 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+
+using RaphaëlBardini.WinClean.Presentation;
 using RaphaëlBardini.WinClean.Resources;
 
 namespace RaphaëlBardini.WinClean.Logic
@@ -39,12 +40,17 @@ namespace RaphaëlBardini.WinClean.Logic
             Validator validator = new(new (bool, string)[]
             {
                 (CheckSingleInstance(), ErrorMessages.AppAlreadyRunning),
-                (CheckStartupPath(), ErrorMessages.WrongExecutablePath(Application.StartupPath, Constants.InstallDir)),
-                (PInvokes.NativeMethods.SetProcessDPIAware(), ErrorMessages.SetProcessDpiAwareReturnedFalse)
+                (CheckStartupPath(), FormattableErrorMessages.WrongExecutablePath(Application.StartupPath, Constants.InstallDir)),
+                (Application.SetHighDpiMode(HighDpiMode.PerMonitorV2), ErrorMessages.SetProcessDpiAwareReturnedFalse)
             });
-            if (validator.FalseAssertions.Any())
+            if (validator.ActiveErrors.Any())
             {
-                validator.FalseAssertions.First().Handle(Error.Level.Error);
+                new UserFriendlyError()
+                {
+                    Level = ErrorLevel.Error,
+                    MainInstruction = validator.ActiveErrors.First(),
+                    
+                }
             }
         }
 
@@ -57,29 +63,72 @@ namespace RaphaëlBardini.WinClean.Logic
         [STAThread]
         private static void Main()
         {
-            using Presentation.MainForm mainForm = new();
-            using Presentation.FormConfirm formConfirm = new();
+            using MainForm mainForm = new();
+            using FormConfirm formConfirm = new();
 
             CheckStartAble();
             (DialogResult result, IEnumerable<Script> selectedScripts) = mainForm.ShowDialog();
             if (result == DialogResult.OK && formConfirm.ShowDialog() == DialogResult.OK)
             {
-                foreach (Script s in selectedScripts)
-                {
-                    try
-                    {
-                        s.Execute();
-                    }
-                    catch (HungScriptException e)
-                    {
-                        e.Handle(Error.Level.Error);
-                    }
-                }
+                selectedScripts.RunAll();
             }
-            "Exiting the application.".Log("Exit");
-            LogManager.Dispose();
+            Exit();
         }
 
+        private static void Run(Operational.Script script)
+        {
+            try
+            {
+                script.Run();
+            }
+            catch (System.IO.FileNotFoundException e)
+            {
+                TaskDialogButton deleteScript = new("Supprimer le script");
+                TaskDialogButton result = new UserFriendlyError(new TaskDialogPage
+                {
+                    Icon = TaskDialogIcon.Error,
+                    Heading = "Fichier de script introuvable",
+                    Caption = Application.ProductName,
+                    Text = FormattableErrorMessages.ScriptFileNotFound(s.FullPath),
+                    Buttons =
+                        {
+                            TaskDialogButton.Ignore,
+                            TaskDialogButton.Retry,
+                            deleteScript
+                        },
+
+
+                }).Show()
+                 if (result == deleteScript)
+                    ;// supprimer le script dans les paramètre de l'application chaud
+                else if (result == TaskDialogButton.Retry)
+                    Run(script);
+            }
+        }
         #endregion Private Methods
+
+        #region Public Methods
+
+        /// <summary>Shows the traditional about dialog box with the program's metadata.</summary>
+        /// <inheritdoc cref="Form.Show(IWin32Window)" path="/param"/>
+        public static void ShowAboutBox(IWin32Window owner)
+        {
+            using AboutBox about = new();
+            _ = about.ShowDialog(owner); // Use showdialog so the windows dosen't disappear immediately
+        }
+        /// <summary>Executes all the scripts in an <see cref="IEnumerable{Operational.Script}"/>.</summary>
+        /// <param name="scripts">The scripts to execute.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
+        public static void RunAll(this IEnumerable<Operational.Script> scripts)
+        {
+            scripts.ForEach((script) => Run(script));
+        }
+        public static void Exit()
+        {
+            "Exiting the application".Log("Exit");
+            LogManager.Dispose();
+            Application.Exit();
+        }
+        #endregion Public Methods
     }
 }

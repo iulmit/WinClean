@@ -12,11 +12,12 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Constructors
 
         /// <summary>Creates a new instance of the <see cref="Validator"/> class wtih the specified errors.</summary>
-        /// <param name="asserts">The possible errors.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="asserts"/> is <see langword="null"/>.</exception>
-        public Validator(IEnumerable<(bool assert, string text)> asserts) => Assertions = asserts ?? throw new ArgumentNullException(nameof(asserts));
+        /// <param name="errors">The possible errors.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="errors"/> is <see langword="null"/>.</exception>
+        public Validator(IReadOnlyDictionary<UserFriendlyError, bool> errors) => Errors = errors ?? throw new ArgumentNullException(nameof(errors));
 
-        public Validator(bool assert, string text) : this(new (bool, string)[1] { (assert, text) })
+        public Validator(UserFriendlyError errorDisplay, bool assert)
+            : this(new Dictionary<UserFriendlyError, bool>(new KeyValuePair<UserFriendlyError, bool>[1] { new KeyValuePair<UserFriendlyError, bool>(errorDisplay, assert) }))
         {
         }
 
@@ -25,18 +26,18 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Properties
 
         /// <summary>Asserts every error. If the assert statemenet is <see langword="false"/>, it's an active error.</summary>
-        public IEnumerable<string> FalseAssertions => Assertions.Where((e) => !e.assert).Select((e) => e.text);
+        public IEnumerable<UserFriendlyError> ActiveErrors => Errors.Where((e) => !e.Value).Select((e) => e.Key);
 
         /// <summary>Every error, even those that are not active.</summary>
-        public IEnumerable<(bool assert, string text)> Assertions { get; }
+        public IReadOnlyDictionary<UserFriendlyError, bool> Errors { get; }
 
         #endregion Public Properties
 
         #region Public Methods
 
-        public override bool Equals(object obj) => obj is Validator validator && Assertions.Equals(validator.Assertions);
+        public override bool Equals(object obj) => obj is Validator validator && Errors.Equals(validator.Errors);
 
-        public override int GetHashCode() => HashCode.Combine(Assertions);
+        public override int GetHashCode() => HashCode.Combine(Errors);
 
         #endregion Public Methods
     }

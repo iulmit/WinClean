@@ -6,24 +6,24 @@ using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
-    internal partial class AboutBox : Form
+    public partial class AboutBox : Form
     {
         #region Public Constructors
 
         public AboutBox()
         {
             InitializeComponent();
-            Text = Application.ProductVersion;
+            Text = Resources.FormattableStrings.About(Application.ProductName);
             labelProductName.Text = Application.ProductName;
-            labelVersion.Text = $"Version {Application.ProductVersion}";
+            labelVersion.Text = Resources.FormattableStrings.Version(Application.ProductVersion);
             labelCopyright.Text = AssemblyCopyright;
-            labelCompanyName.Text = AssemblyCompany;
+            labelCompanyName.Text = Resources.FormattableStrings.CreatedBy(AssemblyCompany);
             textBoxDescription.Text = AssemblyDescription;
         }
 
         #endregion Public Constructors
 
-        #region Accesseurs d'attribut de l'assembly
+        #region Assembly attributes accessors
 
         public static string AssemblyCompany
         {
@@ -32,7 +32,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
@@ -45,7 +45,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
@@ -58,7 +58,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
@@ -66,6 +66,6 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        #endregion Accesseurs d'attribut de l'assembly
+        #endregion Assembly attributes accessors
     }
 }

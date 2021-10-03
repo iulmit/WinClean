@@ -10,7 +10,7 @@ namespace RaphaëlBardini.WinClean.Operational
     {
         #region Public Methods
 
-        public static Icon GetIcon(PInvokes.SHSTOCKICONID id, PInvokes.SHGSI flags)
+        public static Icon GetIcon(PInvokes.SHSTOCKICONID id, PInvokes.SHGSI flags = 0)
         {
             PInvokes.SHSTOCKICONINFO sii = new()
             {

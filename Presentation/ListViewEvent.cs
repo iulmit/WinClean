@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Windows.Forms;
 
@@ -8,7 +7,12 @@ namespace RaphaëlBardini.WinClean.Presentation
     /// <summary>A <see cref="ListView"/> control, but with an additionnal event triggered when an item is added.</summary>
     public class ListViewEvent : ListView
     {
+        #region Public Constructors
+
         public ListViewEvent() => Items = new ListViewItemCollection(this);
+
+        #endregion Public Constructors
+
         #region Public Properties
 
         public new ListViewItemCollection Items { get; }
@@ -17,6 +21,8 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region Public Classes
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1010", Justification = "Not needed")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1034", Justification = "Base class override")]
         public new class ListViewItemCollection : ListView.ListViewItemCollection
         {
             #region Public Constructors
@@ -76,8 +82,12 @@ namespace RaphaëlBardini.WinClean.Presentation
             /// <inheritdoc cref="ListView.ListViewItemCollection.Insert(int, ListViewItem)"/>
             public new ListViewItem Insert(int index, ListViewItem item) => OnItemAdded(base.Insert(index, item));
 
-            /// <inheritdoc cref="ListView.ListViewItemCollection.Ins"/>
+            /// <inheritdoc cref="ListView.ListViewItemCollection.Insert(int, string)"/>
             public new ListViewItem Insert(int index, string text) => OnItemAdded(base.Insert(index, text));
+
+            #endregion Public Methods
+
+            #region Private Methods
 
             /// <summary>Triggers the <see cref="ItemAdded"/> event.</summary>
             /// <param name="sender">The sender of the event that is triggered.</param>
@@ -88,7 +98,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                 return sender;
             }
 
-            #endregion Public Methods
+            #endregion Private Methods
         }
 
         #endregion Public Classes

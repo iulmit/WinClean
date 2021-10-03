@@ -10,8 +10,8 @@ namespace RaphaëlBardini.WinClean.Operational
     {
         #region Private Fields
 
-        private const string DESCRIPTION_PROPERTY_GUID = "0CEF7D53-FA64-11D1-A203-0000F81FEDEE";
-        private const int DESCRIPTION_PROPERTY_INDEX = 3;
+        private const string DescriptionPropertyGuid = "0CEF7D53-FA64-11D1-A203-0000F81FEDEE";
+        private const int DescriptionPropertyIndex = 3;
 
         #endregion Private Fields
 
@@ -20,7 +20,7 @@ namespace RaphaëlBardini.WinClean.Operational
         public static string GetFileDescription(string path)
         {
             using ShellFile sh = new(path);
-            return sh.Properties.GetProperty<string>(new PropertyKey(DESCRIPTION_PROPERTY_GUID, DESCRIPTION_PROPERTY_INDEX)).Value;
+            return sh.Properties.GetProperty<string>(new PropertyKey(DescriptionPropertyGuid, DescriptionPropertyIndex)).Value;
         }
 
         #endregion Public Methods
