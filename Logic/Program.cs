@@ -1,11 +1,9 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 using RaphaëlBardini.WinClean.Presentation;
-using RaphaëlBardini.WinClean.Resources;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
@@ -24,49 +22,37 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Private Methods
 
-        /// <summary>Checks that this is the first instance of the program. If not, throws an <see cref="ApplicationException"/>.</summary>
-        /// <exception cref="ApplicationException"/>
-        /// <returns><see langword="true"/> if this is the first instance, <see langword="false"/> else.</returns>
-        private static bool CheckSingleInstance()
+        /// <summary>Ensures that this is the first instance of the program</summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000", Justification = "If the mutex is disposed, it won't work.")]
+        private static void EnsureSingleInstance()
         {
-            using System.Threading.Mutex singleInstanceEnforcer = new(true, $"Global\\{Application.ProductName}", out bool firstInstance);
+            System.Threading.Mutex singleInstanceEnforcer = new(true, $"Global\\{Application.ProductName}", out bool firstInstance);
             if (firstInstance)
                 GC.KeepAlive(singleInstanceEnforcer);
-            return firstInstance;
-        }
-
-        private static void CheckStartAble()
-        {
-            Validator validator = new(new (bool, string)[]
+            else
             {
-                (CheckSingleInstance(), ErrorMessages.AppAlreadyRunning),
-                (CheckStartupPath(), FormattableErrorMessages.WrongExecutablePath(Application.StartupPath, Constants.InstallDir)),
-                (Application.SetHighDpiMode(HighDpiMode.PerMonitorV2), ErrorMessages.SetProcessDpiAwareReturnedFalse)
-            });
-            if (validator.ActiveErrors.Any())
-            {
-                new UserFriendlyError()
-                {
-                    Level = ErrorLevel.Error,
-                    MainInstruction = validator.ActiveErrors.First(),
-                    
-                }
+                DisplayError.SingleInstanceOnly(Exit, EnsureSingleInstance);
+                singleInstanceEnforcer.Close();
             }
         }
 
-        /// <summary>Checks that the path of the executable of the current instance of the program is in the correct location. If not, throws an <see cref="ApplicationException"/>.</summary>
-        /// <exception cref="ApplicationException"/>
-        /// <returns><see langword="true"/> if the startup path is correct, <see langword="false"/> else.</returns>
-        private static bool CheckStartupPath() => Constants.InstallDir.Equals(Application.StartupPath, StringComparison.Ordinal);
+        /// <summary>Ensures that the path of the executable of the current instance of the program is in the correct location.</summary>
+        private static void EnsureStartupPath()
+        {
+            if (Helpers.PathEquals(Application.StartupPath, Constants.InstallDir))
+                DisplayError.WrongStartupPath(Exit, EnsureStartupPath);
+        }
 
         /// <summary>The application's entry point</summary>
         [STAThread]
         private static void Main()
         {
+            EnsureSingleInstance();
+            EnsureStartupPath();
+
             using MainForm mainForm = new();
             using FormConfirm formConfirm = new();
 
-            CheckStartAble();
             (DialogResult result, IEnumerable<Script> selectedScripts) = mainForm.ShowDialog();
             if (result == DialogResult.OK && formConfirm.ShowDialog() == DialogResult.OK)
             {
@@ -81,28 +67,9 @@ namespace RaphaëlBardini.WinClean.Logic
             {
                 script.Run();
             }
-            catch (System.IO.FileNotFoundException e)
+            catch (System.IO.FileNotFoundException)
             {
-                TaskDialogButton deleteScript = new("Supprimer le script");
-                TaskDialogButton result = new UserFriendlyError(new TaskDialogPage
-                {
-                    Icon = TaskDialogIcon.Error,
-                    Heading = "Fichier de script introuvable",
-                    Caption = Application.ProductName,
-                    Text = FormattableErrorMessages.ScriptFileNotFound(s.FullPath),
-                    Buttons =
-                        {
-                            TaskDialogButton.Ignore,
-                            TaskDialogButton.Retry,
-                            deleteScript
-                        },
-
-
-                }).Show()
-                 if (result == deleteScript)
-                    ;// supprimer le script dans les paramètre de l'application chaud
-                else if (result == TaskDialogButton.Retry)
-                    Run(script);
+                DisplayError.ScriptNotFound(script.FullPath, null/*chaud : supprimer le script des settings*/, () => { Run(script); });
             }
         }
         #endregion Private Methods
@@ -125,9 +92,10 @@ namespace RaphaëlBardini.WinClean.Logic
         }
         public static void Exit()
         {
+            "test".Log("t0");
             "Exiting the application".Log("Exit");
             LogManager.Dispose();
-            Application.Exit();
+            Environment.Exit(0);
         }
         #endregion Public Methods
     }

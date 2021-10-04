@@ -8,6 +8,7 @@
 	<LangVersion>preview</LangVersion>
 	<RootNamespace>RaphaëlBardini.WinClean</RootNamespace>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
+	<ApplicationIcon>Resources\mainIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -33,11 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\ErrorMessages.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ErrorMessages.resx</DependentUpon>
-    </Compile>
     <Compile Update="Resources\ErrorStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -61,16 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\ErrorMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\ErrorStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\FormattableErrorMessages.resx">
-      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\FormattableStrings.resx">
       <Generator></Generator>

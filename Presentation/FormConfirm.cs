@@ -11,7 +11,6 @@ namespace RaphaëlBardini.WinClean.Presentation
     public partial class FormConfirm : Form
     {
         #region Public Constructors
-
         public FormConfirm()
         {
             InitializeComponent();
@@ -19,6 +18,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             buttonContinue.Location = new(buttonContinue.Location.X - SystemInformation.SmallIconSize.Width, buttonContinue.Location.Y);
             buttonContinue.AddShield();
             pictureBox.Image = SystemIcons.GetIcon(PInvokes.SHSTOCKICONID.SIID_WARNING, PInvokes.SHGSI.SHGSI_LARGEICON).ToBitmap();
+            if (SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online)
+                checkBoxPlug.Checked = true;
         }
 
         #endregion Public Constructors

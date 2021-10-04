@@ -45,18 +45,7 @@ namespace RaphaëlBardini.WinClean
 
         public static void ClearLogsFolder() => Directory.EnumerateFiles(Path.GetDirectoryName(Constants.LogFilePath), "*.csv")
                         .Where((csvFile) => CanLogFileBeDeleted(csvFile))
-                        .ForEach((path) =>
-                        {
-                            try
-                            {
-                                File.Delete(path);
-                            }
-                            // For IOException, we don't want to handle derived classes. The "is" operator covers base classes too.
-                            catch (Exception e) when (e is DirectoryNotFoundException or UnauthorizedAccessException || e.GetType().Equals(typeof(IOException)))
-                            {
-                                e.Handle(UserFriendlyError.Level.Error, Resources.FormattableErrorMessages.CantDeleteLogFile(path));
-                            }
-                        });
+                        .ForEach((fullPath) => DeleteLogFile(fullPath));
 
         public static void Dispose()
         {
@@ -67,12 +56,6 @@ namespace RaphaëlBardini.WinClean
             s_trace.Close();
 #endif
         }
-
-        public static void Log(this string str, string happening, ErrorLevel lvl,
-                               [CallerMemberName] string caller = "Not Found",
-                               [CallerLineNumber] int callLine = 0,
-                               [CallerFilePath] string callFile = "Not Found")
-        => Log(str, happening, ToTraceEventType(lvl), caller, callLine, callFile);
 
         /// <summary>Logs a string.</summary>
         /// <param name="str">The string to log.</param>
@@ -102,7 +85,7 @@ namespace RaphaëlBardini.WinClean
             s_trace.TraceEvent(lvl, s_logIndex, $"{happening} : {str} in {caller} at line {callLine}, in {callFile}");
 #endif
         }
-        public static void Log(this Exception e, ErrorLevel lvl,
+        public static void Log(this Exception e, TraceEventType lvl,
                                [CallerMemberName] string caller = "Not Found",
                                [CallerLineNumber] int callLine = 0,
                                [CallerFilePath] string callFile = "Not Found")
@@ -111,6 +94,27 @@ namespace RaphaëlBardini.WinClean
 
         #region Private Methods
 
+        /// <summary>Deletes a log file.</summary>
+        /// <param name="fullPath">The full path of the log file to delete.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="fullPath"/> is <see langword="null"/>.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="fullPath"/> is in an invalid format.</exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length.</exception>
+        private static void DeleteLogFile(string fullPath)
+        {
+            try
+            {
+                File.Delete(fullPath);
+            }
+            // For IOException, we don't want to handle derived classes. The "is" operator covers derived classes too.
+            catch (Exception e) when (e is DirectoryNotFoundException or UnauthorizedAccessException || e.GetType().Equals(typeof(IOException)))
+            {
+                DisplayError.CantDeleteLogFile(fullPath, e.Message,
+                onRetry: () =>
+                {
+                    DeleteLogFile(fullPath);
+                });
+            }
+        }
         /// <summary>Checks that a log file is valid for deletion. Doesn't throw.</summary>
         /// <param name="fileNameOrPath">The filename or path of the log file.</param>
         /// <returns>
@@ -122,7 +126,10 @@ namespace RaphaëlBardini.WinClean
         {
             try
             {
-                return DateTime.TryParseExact(Path.GetFileNameWithoutExtension(fileNameOrPath), Constants.DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out _)
+                return DateTime.TryParseExact(Path.GetFileNameWithoutExtension(fileNameOrPath),
+                                              Constants.DateTimeFilenameFormat,
+                                              DateTimeFormatInfo.InvariantInfo,
+                                              DateTimeStyles.None, out _)
                        && fileNameOrPath != Constants.LogFilePath;
             }
             catch (ArgumentException)
@@ -140,7 +147,7 @@ namespace RaphaëlBardini.WinClean
             }
             catch (IOException e)
             {
-                e.HandleDontLog(UserFriendlyError.Level.Critical, Resources.FormattableErrorMessages.CantCreateLogDir(Constants.LogFilePath));
+                DisplayError.CantCreateLogDir(Path.GetDirectoryName(Constants.LogFilePath), e.Message, Program.Exit, CreateLogDir);
             }
         }
 
@@ -150,17 +157,6 @@ namespace RaphaëlBardini.WinClean
             writer.NextRecord();
             s_logIndex++;
         }
-
-        /// <summary>Converts an <see cref="UserFriendlyError.Level"/> to a <see cref="TraceEventType"/> enumeration.</summary>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException"><paramref name="level"/> is not a defined <see cref="UserFriendlyError.Level"/> constant.</exception>
-        private static TraceEventType ToTraceEventType(ErrorLevel level) => level switch
-        {
-            UserFriendlyError.Level.Critical => TraceEventType.Critical,
-            UserFriendlyError.Level.Error => TraceEventType.Error,
-            UserFriendlyError.Level.Warning => TraceEventType.Warning,
-            UserFriendlyError.Level.Info => TraceEventType.Information,
-            _ => throw new System.ComponentModel.InvalidEnumArgumentException(nameof(level), (int)level, typeof(UserFriendlyError.Level))
-        };
         #endregion Private Methods
 
         #region Private Structs
