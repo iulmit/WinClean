@@ -1,5 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Runtime.InteropServices;
 
@@ -10,7 +9,7 @@ using System.Runtime.InteropServices;
 // ComVisible sur True pour ce type.
 
 [assembly: ComVisible(false)]
-[assembly: System.Reflection.AssemblyDescription("Utilitaire d'optimisation et amélioration des performances Windows")]
+[assembly: System.Reflection.AssemblyDescription("Utilitaire d'optimisation et amélioration des performances Windows.")]
 [assembly: System.Reflection.AssemblyCopyright("copyright placeholder")]
 [assembly: System.Resources.NeutralResourcesLanguage("fr-FR")]
 [assembly: System.Reflection.AssemblyCompany("Raphaël Bardini")]

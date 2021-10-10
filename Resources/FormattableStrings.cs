@@ -29,10 +29,6 @@ namespace RaphaëlBardini.WinClean.Resources
         internal static string Version(string version)
             => string.Format(s_dataCulture, s_resourceManager.GetString("Version", s_uiCulture), version);
 
-        /// <summary>Gets a formattable localized string.</summary>
-        /// <returns>The localized string corresponding to "Created by creator".</returns>
-        internal static string CreatedBy(string creator)
-            => string.Format(s_dataCulture, s_resourceManager.GetString("CreatedBy", s_uiCulture), creator);
         #endregion Internal Properties
     }
 }

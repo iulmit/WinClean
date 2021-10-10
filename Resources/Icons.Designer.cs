@@ -61,62 +61,62 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
+        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
         /// </summary>
-        internal static byte[] error {
+        internal static System.Drawing.Icon Error {
             get {
-                object obj = ResourceManager.GetObject("error", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Error", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap main {
+        internal static System.Drawing.Bitmap Main {
             get {
-                object obj = ResourceManager.GetObject("main", resourceCulture);
+                object obj = ResourceManager.GetObject("Main", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
+        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
         /// </summary>
-        internal static byte[] mainIcon {
+        internal static System.Drawing.Icon MainIcon {
             get {
-                object obj = ResourceManager.GetObject("mainIcon", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("MainIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
+        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
         /// </summary>
-        internal static byte[] windows10 {
+        internal static System.Drawing.Icon Windows10 {
             get {
-                object obj = ResourceManager.GetObject("windows10", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Windows10", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
+        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
         /// </summary>
-        internal static byte[] windows11 {
+        internal static System.Drawing.Icon Windows11 {
             get {
-                object obj = ResourceManager.GetObject("windows11", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Windows11", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
-        ///   Recherche une ressource localisée de type System.Byte[].
+        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
         /// </summary>
-        internal static byte[] windows8 {
+        internal static System.Drawing.Icon Windows8 {
             get {
-                object obj = ResourceManager.GetObject("windows8", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Windows8", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

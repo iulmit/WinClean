@@ -1,59 +1,119 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
-using System.Linq;
+using System.Windows.Forms;
+
+using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
-    /// <summary>Represents an executable script.</summary>
-    public abstract class Script : Operational.Script
+    public class CmdScript : Script
     {
         #region Public Constructors
 
-        /// <param name="impacts">The potential impacts of executing a scripts on the system.</param>
-        /// <param name="filenameOrPath">The name or path of the script file located in the <see cref="Constants.ScriptsDirPath"/> folder, with the extension.</param>
-        /// <exception cref="ArgumentNullException">Any of the parameters are <see langword="null"/>.</exception>
-        /// <exception cref="BadFileExtensionException"><paramref name="relativePath"/>'s extension is not supported.</exception>
-        /// <exception cref="ArgumentException"><paramref name="relativePath"/> contains unsupported path chars.</exception>
-        protected Script(string name, string description, string filenameOrPath, IEnumerable<Impact> impacts) : base(filenameOrPath)
+        public CmdScript(Path path, string name, string description, IEnumerable<Impact> impacts, ListViewGroup group) : base(name, description, impacts, group)
+            => Host = new(path);
+
+        #endregion Public Constructors
+
+        #region Protected Properties
+
+        protected override Cmd Host { get; }
+
+        #endregion Protected Properties
+    }
+
+    public class Ps1Script : Script
+    {
+        #region Public Constructors
+
+        public Ps1Script(Path path, string name, string description, IEnumerable<Impact> impacts, ListViewGroup group) : base(name, description, impacts, group)
+            => Host = new(path);
+
+        #endregion Public Constructors
+
+        #region Protected Properties
+
+        protected override PowerShell Host { get; }
+
+        #endregion Protected Properties
+    }
+
+    public class RegScript : Script
+    {
+        #region Public Constructors
+
+        public RegScript(Path path, string name, string description, IEnumerable<Impact> impacts, ListViewGroup group) : base(name, description, impacts, group)
+            => Host = new(path);
+
+        #endregion Public Constructors
+
+        #region Protected Properties
+
+        protected override Regedit Host { get; }
+
+        #endregion Protected Properties
+    }
+
+    /// <summary>A script that can be executed from a script host program.</summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237", Justification = $"{nameof(Script)} does not support serialization.")]
+    public abstract class Script : ListViewItem
+    {
+        #region Private Fields
+
+        protected abstract ScriptHost Host { get; }
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
+        protected Script(string name, string description, IEnumerable<Impact> impacts, ListViewGroup group)
         {
-            Impacts = impacts ?? throw new ArgumentNullException(nameof(impacts));
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Description = description ?? throw new ArgumentNullException(nameof(description));
+            Impacts = impacts ?? throw new ArgumentNullException(nameof(impacts));
+            Group = group ?? throw new ArgumentNullException(nameof(group));
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
-        public string Description { get; set; }
-
-        /// <summary>Impacts on system performance and practicality.</summary>
+        public string Description { get => base.ToolTipText; set => base.ToolTipText = value; }
         public IEnumerable<Impact> Impacts { get; }
-
-        public string Name { get; set; }
+        public new string Name { get => base.Text; set => base.Text = value; }
+        public Path Path => Host.ScriptPath;
 
         #endregion Public Properties
 
-        /// <summary>The supported file extensions by the script type;</summary>
-        public abstract IReadOnlyCollection<string> Extensions { get; }
+        #region Private Properties
 
-        /// <summary>The user friendly name of the corresponding script host.</summary>
-        public abstract string HostDisplayName { get; }
+        private new string Text { get; set; }
+        private new string ToolTipText { get; set; }
 
-        public override bool Equals(object obj) => Equals(obj as Script);
+        #endregion Private Properties
 
-        public bool Equals(Script other) => other != null
-                                            && Description.Equals(other.Description, StringComparison.Ordinal)
-                                            && Name.Equals(other.Name, StringComparison.Ordinal)
-                                            && HostDisplayName.Equals(other.HostDisplayName, StringComparison.Ordinal)
-                                            && Extensions.SequenceEqual(other.Extensions)
-                                            && Impacts.SequenceEqual(other.Impacts)
-                                            && FullPath.Equals(other.FullPath, StringComparison.Ordinal);// Explicitly call the IEquatable<Script> version.
+        #region Public Methods
 
-        public override int GetHashCode() => HashCode.Combine(Description, Impacts, Name, Extensions, HostDisplayName, base.GetHashCode());
+        /// <inheritdoc cref="ScriptHost.Execute()"/>
+        public void Execute() => Host.Execute();
 
-        public override string ToString() => $"[{nameof(Name)} = {Name}, {nameof(Description)} = {Description}, {nameof(HostDisplayName)} = {HostDisplayName}, {nameof(Extensions)} = {Extensions.ToMultiLineString()}, {nameof(Impacts)} = {Impacts.ToMultiLineString()}, base.ToString() = {base.ToString()}]";
+        #endregion Public Methods
+    }
+
+    public class WshScript : Script
+    {
+        #region Public Constructors
+
+        public WshScript(Path path, string name, string description, IEnumerable<Impact> impacts, ListViewGroup group) : base(name, description, impacts, group)
+            => Host = new(path);
+
+        #endregion Public Constructors
+
+        #region Protected Properties
+
+        protected override WindowsScriptHost Host { get; }
+
+        #endregion Protected Properties
     }
 }

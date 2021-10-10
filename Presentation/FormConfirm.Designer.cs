@@ -32,32 +32,28 @@ namespace RaphaëlBardini.WinClean.Presentation
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Label labelTitle;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConfirm));
             System.Windows.Forms.Label labelSave;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConfirm));
             System.Windows.Forms.Label labelPrograms;
             System.Windows.Forms.Label labelPlug;
-            System.Windows.Forms.FlowLayoutPanel flowLayoutPanelAll;
-            this.checkBoxSave = new System.Windows.Forms.CheckBox();
-            this.checkBoxPrograms = new System.Windows.Forms.CheckBox();
-            this.checkBoxPlug = new System.Windows.Forms.CheckBox();
+            System.Windows.Forms.TableLayoutPanel tableLayoutPanelAll;
+            System.Windows.Forms.Label labelTitle;
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.checkBoxPlug = new System.Windows.Forms.CheckBox();
+            this.checkBoxPrograms = new System.Windows.Forms.CheckBox();
+            this.checkBoxSave = new System.Windows.Forms.CheckBox();
             this.buttonContinue = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            labelTitle = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             labelSave = new System.Windows.Forms.Label();
             labelPrograms = new System.Windows.Forms.Label();
             labelPlug = new System.Windows.Forms.Label();
-            flowLayoutPanelAll = new System.Windows.Forms.FlowLayoutPanel();
-            flowLayoutPanelAll.SuspendLayout();
+            tableLayoutPanelAll = new System.Windows.Forms.TableLayoutPanel();
+            labelTitle = new System.Windows.Forms.Label();
+            tableLayoutPanelAll.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // labelTitle
-            // 
-            resources.ApplyResources(labelTitle, "labelTitle");
-            labelTitle.CausesValidation = false;
-            labelTitle.Name = "labelTitle";
             // 
             // labelSave
             // 
@@ -77,18 +73,47 @@ namespace RaphaëlBardini.WinClean.Presentation
             labelPlug.CausesValidation = false;
             labelPlug.Name = "labelPlug";
             // 
-            // flowLayoutPanelAll
+            // tableLayoutPanelAll
             // 
-            flowLayoutPanelAll.CausesValidation = false;
-            flowLayoutPanelAll.Controls.Add(labelTitle);
-            flowLayoutPanelAll.Controls.Add(labelSave);
-            flowLayoutPanelAll.Controls.Add(this.checkBoxSave);
-            flowLayoutPanelAll.Controls.Add(labelPrograms);
-            flowLayoutPanelAll.Controls.Add(this.checkBoxPrograms);
-            flowLayoutPanelAll.Controls.Add(labelPlug);
-            flowLayoutPanelAll.Controls.Add(this.checkBoxPlug);
-            resources.ApplyResources(flowLayoutPanelAll, "flowLayoutPanelAll");
-            flowLayoutPanelAll.Name = "flowLayoutPanelAll";
+            tableLayoutPanelAll.BackColor = System.Drawing.SystemColors.Window;
+            tableLayoutPanelAll.CausesValidation = false;
+            resources.ApplyResources(tableLayoutPanelAll, "tableLayoutPanelAll");
+            tableLayoutPanelAll.Controls.Add(this.pictureBox, 0, 0);
+            tableLayoutPanelAll.Controls.Add(labelTitle, 1, 0);
+            tableLayoutPanelAll.Controls.Add(this.checkBoxPlug, 1, 1);
+            tableLayoutPanelAll.Controls.Add(labelPlug, 1, 2);
+            tableLayoutPanelAll.Controls.Add(this.checkBoxPrograms, 1, 5);
+            tableLayoutPanelAll.Controls.Add(this.checkBoxSave, 1, 3);
+            tableLayoutPanelAll.Controls.Add(labelPrograms, 1, 6);
+            tableLayoutPanelAll.Controls.Add(labelSave, 1, 4);
+            tableLayoutPanelAll.Name = "tableLayoutPanelAll";
+            // 
+            // pictureBox
+            // 
+            resources.ApplyResources(this.pictureBox, "pictureBox");
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.TabStop = false;
+            // 
+            // labelTitle
+            // 
+            resources.ApplyResources(labelTitle, "labelTitle");
+            labelTitle.CausesValidation = false;
+            labelTitle.Name = "labelTitle";
+            // 
+            // checkBoxPlug
+            // 
+            resources.ApplyResources(this.checkBoxPlug, "checkBoxPlug");
+            this.checkBoxPlug.CausesValidation = false;
+            this.checkBoxPlug.Name = "checkBoxPlug";
+            this.checkBoxPlug.UseVisualStyleBackColor = true;
+            this.checkBoxPlug.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
+            // 
+            // checkBoxPrograms
+            // 
+            resources.ApplyResources(this.checkBoxPrograms, "checkBoxPrograms");
+            this.checkBoxPrograms.Name = "checkBoxPrograms";
+            this.checkBoxPrograms.UseVisualStyleBackColor = true;
+            this.checkBoxPrograms.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
             // 
             // checkBoxSave
             // 
@@ -98,30 +123,10 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.checkBoxSave.UseVisualStyleBackColor = true;
             this.checkBoxSave.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
             // 
-            // checkBoxPrograms
-            // 
-            resources.ApplyResources(this.checkBoxPrograms, "checkBoxPrograms");
-            this.checkBoxPrograms.Name = "checkBoxPrograms";
-            this.checkBoxPrograms.UseVisualStyleBackColor = true;
-            this.checkBoxPrograms.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
-            // 
-            // checkBoxPlug
-            // 
-            resources.ApplyResources(this.checkBoxPlug, "checkBoxPlug");
-            this.checkBoxPlug.Name = "checkBoxPlug";
-            this.checkBoxPlug.UseVisualStyleBackColor = true;
-            this.checkBoxPlug.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
-            // 
-            // pictureBox
-            // 
-            resources.ApplyResources(this.pictureBox, "pictureBox");
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.TabStop = false;
-            // 
             // buttonContinue
             // 
-            resources.ApplyResources(this.buttonContinue, "buttonContinue");
             this.buttonContinue.CausesValidation = false;
+            resources.ApplyResources(this.buttonContinue, "buttonContinue");
             this.buttonContinue.Name = "buttonContinue";
             this.buttonContinue.UseVisualStyleBackColor = true;
             this.buttonContinue.Click += new System.EventHandler(this.ButtonContinue_Click);
@@ -134,34 +139,41 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
+            // flowLayoutPanel1
+            // 
+            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
+            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
+            this.flowLayoutPanel1.CausesValidation = false;
+            this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
+            this.flowLayoutPanel1.Controls.Add(this.buttonContinue);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            // 
             // FormConfirm
             // 
             this.AcceptButton = this.buttonContinue;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.CausesValidation = false;
-            this.Controls.Add(this.pictureBox);
-            this.Controls.Add(flowLayoutPanelAll);
-            this.Controls.Add(this.buttonContinue);
-            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(tableLayoutPanelAll);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormConfirm";
             this.Opacity = 0.96D;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            flowLayoutPanelAll.ResumeLayout(false);
-            flowLayoutPanelAll.PerformLayout();
+            tableLayoutPanelAll.ResumeLayout(false);
+            tableLayoutPanelAll.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Label labelSave;
         private System.Windows.Forms.CheckBox checkBoxSave;
@@ -170,5 +182,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         private System.Windows.Forms.CheckBox checkBoxPlug;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonContinue;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelAll;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

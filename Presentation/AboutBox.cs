@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Reflection;
 using System.Windows.Forms;
@@ -17,8 +16,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             labelProductName.Text = Application.ProductName;
             labelVersion.Text = Resources.FormattableStrings.Version(Application.ProductVersion);
             labelCopyright.Text = AssemblyCopyright;
-            labelCompanyName.Text = Resources.FormattableStrings.CreatedBy(AssemblyCompany);
-            textBoxDescription.Text = AssemblyDescription;
+            labelCompanyName.Text = AssemblyCompany;
+            labelDescription.Text = AssemblyDescription;
         }
 
         #endregion Public Constructors

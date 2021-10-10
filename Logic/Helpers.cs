@@ -2,11 +2,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
-
-using RaphaëlBardini.WinClean.Logic;
-
-using static System.IO.Path;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
@@ -19,7 +16,8 @@ namespace RaphaëlBardini.WinClean.Logic
 
 #if DEBUG
 
-        /// <summary>Debug only. Shortcut to <see cref="MessageBox.Show(string)"/></summary>
+        /// <summary>Shortcut to <see cref="MessageBox.Show(string)"/></summary>
+        /// <remarks>Debug only</remarks>
         public static void m(this object o) => MessageBox.Show(o?.ToString(), "Debug");
 
 #endif
@@ -28,44 +26,45 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region ToEnumerables
 
-        /* We can't use type arguments for this one because it would require the caller to cast to IEnumerable<T>, and this would be unnecessary complicated.
-        Soo... we just add these here when necessary.*/
+        /* can't use type arguments because it would require the caller to cast to IEnumerable<T>, and this would be unnecessary complicated.
+        Soo... just add these here when necessary.*/
 
         public static IEnumerable<ListViewItem> ToEnumerable(this ListView.CheckedListViewItemCollection c) => c.OfType<ListViewItem>();
+
         public static IEnumerable<ListViewItem> ToEnumerable(this ListView.ListViewItemCollection c) => c.OfType<ListViewItem>();
+
         public static IEnumerable<ListViewItem> ToEnumerable(this ListView.SelectedListViewItemCollection c) => c.OfType<ListViewItem>();
+
         public static IEnumerable<ToolStripItem> ToEnumerable(this ToolStripItemCollection c) => c.OfType<ToolStripItem>();
+
         public static IEnumerable<Form> ToEnumerable(this FormCollection c) => c.OfType<Form>();
 
         #endregion ToEnumerables
 
-        /// <summary>Searches a <see cref="StringTag"/> in a string</summary>
-        /// <returns>The substring located between the first occurences of <c>tag.a</c> and <c>tag.b</c> without including them. If <c>tag.a</c> or <c>tag.b</c> are not found, an empty string.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="s"/> is <see langword="null"/>.</exception>
-        public static string Between(this string s, in StringTag tag)
-        {
-            int IA = (s ?? throw new ArgumentNullException(nameof(s))).IndexOf(tag.Start, tag.IgnoreCase ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture);
+        public static string ParseForSentence(this string s) => ParseForSentence(s, System.Globalization.CultureInfo.CurrentCulture);
 
-            int IB = s.IndexOf(tag.End, IA, tag.IgnoreCase ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture);
-            return s.Substring(IA + tag.Start.Length, (IB == -1) ? s.Length : IB - IA - tag.End.Length);
-        }
-        /// <summary>Searches an array of <see cref="StringTag"/> in a string.</summary>
-        /// <returns>
-        /// The substring located between the first occurences of one of <paramref name="tags"/> elements in <paramref name="s"/> without including them. If nothing was found, an emptry string.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="s"/> or <paramref name="tags"/> are <see langword="null"/>.</exception>
-        public static string Between(this string s, in IEnumerable<StringTag> tags)
+        public static string ParseForSentence(this string s, System.Globalization.CultureInfo culture)
         {
-            foreach (StringTag tag in tags ?? throw new ArgumentNullException(nameof(tags)))
-            {
-                string result;
-                if (!string.IsNullOrEmpty(result = s.Between(tag)))
-                    return result;
-            }
-            return "";
+            // matches a sentence
+            System.Text.StringBuilder builder = new(Regex.Match(s, "\b[^.!?]*[.!?]").Value);
+            if (builder.ToString().Equals(Match.Empty.Value, StringComparison.Ordinal))
+                return s;
+            builder[0] = char.ToLower(builder[0], culture);
+            _ = builder.Remove(builder.Length - 1, 1);
+            return builder.ToString();
         }
-        public static bool ChecksForItemsWithSameText(this ListView list, string text) =>
-                    (list ?? throw new ArgumentNullException(nameof(list))).Items.ToEnumerable().Any((item) => item.Text.Equals(text, StringComparison.Ordinal));
+
+        public static char FirstLetter(this string s)
+            => s?.First((ch) => char.IsLetter(ch)) ?? throw new ArgumentException("No letters", nameof(s));
+
+        /// <inheritdoc cref="TaskDialog.ShowDialog(TaskDialogPage, TaskDialogStartupLocation)"/>
+        /// <remarks>The dialog is a modal dialog box to the currently active form.</remarks>
+        public static TaskDialogButton ShowDialog(this TaskDialogPage page, IWin32Window owner = null)
+        {
+            TaskDialogButton result = owner is null ? TaskDialog.ShowDialog(page) : TaskDialog.ShowDialog(owner, page);
+            return result;
+        }
+
         /// <summary>Exécute l'action spécifiée sur chaque élément de <see cref="IEnumerable{}"/> en fournissant son index.</summary>
         /// <typeparam name="T">Le type des éléments de la <see cref="IEnumerable{}"/> et du premier paramètre de l'action.</typeparam>
         /// <param name="action">L'action à exécuter.</param>
@@ -75,6 +74,7 @@ namespace RaphaëlBardini.WinClean.Logic
             for (int i = 0; i < (list ?? throw new ArgumentNullException(nameof(list))).Count(); ++i)
                 (action ?? throw new ArgumentNullException(nameof(list))).Invoke(list.ElementAt(i), i);
         }
+
         /// <summary>Exécute l'action spécifiée sur chaque élément de <see cref="IEnumerable{}"/>.</summary>
         /// <typeparam name="T">Le type des éléments de la <see cref="IEnumerable{}"/> et du premier paramètre de l'action.</typeparam>
         /// <param name="action">L'action à exécuter.</param>
@@ -84,36 +84,13 @@ namespace RaphaëlBardini.WinClean.Logic
             foreach (T element in list ?? throw new ArgumentNullException(nameof(list)))
                 (action ?? throw new ArgumentNullException(nameof(list))).Invoke(element);
         }
-        public static bool PathEquals(string path1, string path2) => GetFullPath(path1).Equals(GetFullPath(path2), StringComparison.OrdinalIgnoreCase);
-        public static void SetAllChecked(this ListView.ListViewItemCollection items, bool @checked) => items.ToEnumerable().ForEach((i) => i.Checked = @checked);
+
         /// <summary>Sets the <see cref="ListViewItem.Checked"/> property to <paramref name="checked"/> for all items of the specified collection.</summary>
         /// <param name="checked">The value to set the <see cref="ListViewItem.Checked"/> property of all items to.</param>
         /// <exception cref="ArgumentNullException"><paramref name="items"/> is <see langword="null"/>.</exception>
-        public static void SetAllChecked(this ListView.CheckedListViewItemCollection items, bool @checked)
-        {
-            foreach (ListViewItem item in items ?? throw new ArgumentNullException(nameof(items)))
-                item.Checked = @checked;
-        }
-        public static ListViewGroup[] ToArray(this ListViewGroupCollection c) => c.OfType<ListViewGroup>().ToArray();
-        public static IEnumerable<ListViewItem> ToListViewItems(this IEnumerable<Presentation.Script> scripts) => scripts.Select((s) => s.ToListViewItem());
-        /// <summary>Generates a formatted <see cref="string"/> out of an <see cref="IEnumerable{T}"/>.</summary>
-        /// <returns>A multi-line string beginning with <c>'{'</c>, each line corresponding to <see cref="object.ToString"/>.</returns>
-        public static string ToMultiLineString<T>(this IEnumerable<T> enmerable)
-        {
-            if (enmerable is null)
-                throw new ArgumentNullException(nameof(enmerable));
+        public static void SetAllChecked(this ListView.ListViewItemCollection items, bool @checked) => items.ToEnumerable().ForEach((i) => i.Checked = @checked);
 
-            System.Text.StringBuilder sb = new();
-            _ = sb.Append("{ ");
-            foreach (T val in enmerable)
-            {
-                _ = sb.Append(val.ToString());
-                _ = sb.Append(", ");
-            }
-            _ = sb.Append('}');
-            return sb.ToString();
-        }
-        public static string ToUserFriendlyMultilineString<T>(this IEnumerable<T> enumerable)
+        public static string ToMultilineString<T>(this IEnumerable<T> enumerable)
         {
             if (enumerable is null)
                 throw new ArgumentNullException(nameof(enumerable));

@@ -1051,7 +1051,7 @@ dotnet_diagnostic.CA1302.severity = warning
 
 dotnet_diagnostic.CA1303.severity = warning
 
-dotnet_diagnostic.CA1304.severity = warning
+dotnet_diagnostic.CA1304.severity = none
 
 dotnet_diagnostic.CA1305.severity = warning
 
@@ -1524,3 +1524,6 @@ dotnet_diagnostic.CA5401.severity = warning
 dotnet_diagnostic.CA5402.severity = warning
 
 dotnet_diagnostic.CA5403.severity = warning
+
+# IDE0079: Retirer la suppression inutile
+dotnet_diagnostic.IDE0079.severity = none

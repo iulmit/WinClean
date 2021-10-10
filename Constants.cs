@@ -1,10 +1,10 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 global using System;
 using System.Globalization;
-using System.IO;
 using System.Windows.Forms;
+
+using static System.IO.Path;
 
 namespace RaphaëlBardini.WinClean
 {
@@ -18,7 +18,7 @@ namespace RaphaëlBardini.WinClean
         static Constants()
         {
             // If no invalid filename chars are found
-            System.Diagnostics.Debug.Assert(DateTimeFilenameFormat.IndexOfAny(Path.GetInvalidFileNameChars()) == -1);
+            System.Diagnostics.Debug.Assert(DateTimeFilenameFormat.IndexOfAny(GetInvalidFileNameChars()) == -1);
         }
 
 #endif
@@ -47,13 +47,15 @@ namespace RaphaëlBardini.WinClean
 
         // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
         /// <summary>Application install dir full path</summary>
-        public static readonly string InstallDir = Application.StartupPath;
+        public static readonly Path InstallDir = new(Application.StartupPath);
+
+        public static readonly Path LogsDir = new(Combine(InstallDir, "Logs"));
 
         /// <summary>Full path of the log file for this session of the application.</summary>
-        public static readonly string LogFilePath = Path.Combine(InstallDir, "Logs", $"{System.Diagnostics.Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv");
+        public static readonly Path LogFile = new(Combine(LogsDir, $"{System.Diagnostics.Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
 
         /// <summary>Full path of the scripts dir.</summary>
-        public static readonly string ScriptsDirPath = Path.Combine(InstallDir, "Scripts");
+        public static readonly Path ScriptsDir = new(Combine(InstallDir, "Scripts"));
 
         #endregion File and Folder Paths
 

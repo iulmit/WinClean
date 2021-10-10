@@ -22,7 +22,7 @@ namespace RaphaëlBardini.WinClean
     {
         #region Private Fields
 
-        private static readonly StreamWriter s_streamWriter = new(Constants.LogFilePath, true, System.Text.Encoding.Unicode);
+        private static readonly StreamWriter s_streamWriter = new(Constants.LogFile, true, System.Text.Encoding.Unicode);
 
         private static readonly CsvWriter s_csvWriter = new(s_streamWriter, new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = Constants.LogDelimiter.ToString() });
 
@@ -43,9 +43,9 @@ namespace RaphaëlBardini.WinClean
 
         #region Public Methods
 
-        public static void ClearLogsFolder() => Directory.EnumerateFiles(Path.GetDirectoryName(Constants.LogFilePath), "*.csv")
-                        .Where((csvFile) => CanLogFileBeDeleted(csvFile))
-                        .ForEach((fullPath) => DeleteLogFile(fullPath));
+        public static void ClearLogsFolder() => Directory.EnumerateFiles(Constants.LogsDir, "*.csv").Select((fileString) => new Path(fileString))
+                        .Where((file) => CanLogFileBeDeleted(file))
+                        .ForEach((file) => DeleteLogFile(file));
 
         public static void Dispose()
         {
@@ -76,7 +76,7 @@ namespace RaphaëlBardini.WinClean
                 Happening = happening,
                 Message = str,
                 Caller = caller,
-                CallFile = callFile,
+                CallFileFullPath = callFile,
                 CallLine = callLine
             });
             s_csvWriter.NextRecord();
@@ -99,20 +99,20 @@ namespace RaphaëlBardini.WinClean
         /// <exception cref="ArgumentNullException"><paramref name="fullPath"/> is <see langword="null"/>.</exception>
         /// <exception cref="NotSupportedException"><paramref name="fullPath"/> is in an invalid format.</exception>
         /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length.</exception>
-        private static void DeleteLogFile(string fullPath)
+        private static void DeleteLogFile(Path path)
         {
             try
             {
-                File.Delete(fullPath);
+                File.Delete(path);
             }
             // For IOException, we don't want to handle derived classes. The "is" operator covers derived classes too.
             catch (Exception e) when (e is DirectoryNotFoundException or UnauthorizedAccessException || e.GetType().Equals(typeof(IOException)))
             {
-                DisplayError.CantDeleteLogFile(fullPath, e.Message,
+                ErrorDialog.CantDeleteLogFile(e.Message).ShowIgnoreRetry(null,
                 onRetry: () =>
                 {
-                    DeleteLogFile(fullPath);
-                });
+                    DeleteLogFile(path);
+                }, Program.MainForm);
             }
         }
         /// <summary>Checks that a log file is valid for deletion. Doesn't throw.</summary>
@@ -122,15 +122,15 @@ namespace RaphaëlBardini.WinClean
         /// filename is a valid log filename, and it's not the current session's log file. If one or
         /// more of these conditions are not met, <see langword="false"/>.
         /// </returns>
-        private static bool CanLogFileBeDeleted(string fileNameOrPath)
+        private static bool CanLogFileBeDeleted(Path path)
         {
             try
             {
-                return DateTime.TryParseExact(Path.GetFileNameWithoutExtension(fileNameOrPath),
+                return DateTime.TryParseExact(path.FilenameWithoutExtension,
                                               Constants.DateTimeFilenameFormat,
                                               DateTimeFormatInfo.InvariantInfo,
                                               DateTimeStyles.None, out _)
-                       && fileNameOrPath != Constants.LogFilePath;
+                       && path != Constants.LogFile;
             }
             catch (ArgumentException)
             {
@@ -143,11 +143,11 @@ namespace RaphaëlBardini.WinClean
         {
             try
             {
-                _ = Directory.CreateDirectory(Path.GetDirectoryName(Constants.LogFilePath));
+                _ = Directory.CreateDirectory(Constants.LogsDir);
             }
             catch (IOException e)
             {
-                DisplayError.CantCreateLogDir(Path.GetDirectoryName(Constants.LogFilePath), e.Message, Program.Exit, CreateLogDir);
+                ErrorDialog.CantCreateLogDir(e.Message).ShowCloseRetry(Program.Exit, CreateLogDir);
             }
         }
 
@@ -173,7 +173,7 @@ namespace RaphaëlBardini.WinClean
             public string Happening { get; set; }
             public string Message { get; set; }
             public DateTime Date { get; set; }
-            public string CallFile { get; set; }
+            public string CallFileFullPath { get; set; }
 
             #endregion Public Properties
         }

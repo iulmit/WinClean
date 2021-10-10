@@ -1,6 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 using RaphaëlBardini.WinClean.Presentation;
@@ -10,15 +11,17 @@ namespace RaphaëlBardini.WinClean.Logic
     /// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>
     public static class Program
     {
-        #region Public Constructors
+        #region Private Fields
 
-        static Program()
-        {
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.EnableVisualStyles();
-        }
+        private static readonly MainForm s_mainForm = new();
 
-        #endregion Public Constructors
+        #endregion Private Fields
+
+        #region Public Properties
+
+        public static IWin32Window MainForm => s_mainForm.Visible ? s_mainForm : null;
+
+        #endregion Public Properties
 
         #region Private Methods
 
@@ -31,7 +34,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 GC.KeepAlive(singleInstanceEnforcer);
             else
             {
-                DisplayError.SingleInstanceOnly(Exit, EnsureSingleInstance);
+                ErrorDialog.SingleInstanceOnly().ShowCloseRetry(Exit, EnsureSingleInstance);
                 singleInstanceEnforcer.Close();
             }
         }
@@ -39,42 +42,99 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <summary>Ensures that the path of the executable of the current instance of the program is in the correct location.</summary>
         private static void EnsureStartupPath()
         {
-            if (Helpers.PathEquals(Application.StartupPath, Constants.InstallDir))
-                DisplayError.WrongStartupPath(Exit, EnsureStartupPath);
+            if (Application.StartupPath != Constants.InstallDir)
+                ErrorDialog.WrongStartupPath().ShowCloseRetry(Exit, EnsureStartupPath);
         }
 
         /// <summary>The application's entry point</summary>
         [STAThread]
         private static void Main()
         {
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
             EnsureSingleInstance();
             EnsureStartupPath();
-
-            using MainForm mainForm = new();
-            using FormConfirm formConfirm = new();
-
-            (DialogResult result, IEnumerable<Script> selectedScripts) = mainForm.ShowDialog();
-            if (result == DialogResult.OK && formConfirm.ShowDialog() == DialogResult.OK)
-            {
-                selectedScripts.RunAll();
-            }
-            Exit();
+            Application.Run(s_mainForm);
         }
 
-        private static void Run(Operational.Script script)
-        {
-            try
-            {
-                script.Run();
-            }
-            catch (System.IO.FileNotFoundException)
-            {
-                DisplayError.ScriptNotFound(script.FullPath, null/*chaud : supprimer le script des settings*/, () => { Run(script); });
-            }
-        }
         #endregion Private Methods
 
         #region Public Methods
+
+        public static bool Confirm(IWin32Window owner)
+        {
+            using FormConfirm fc = new();
+            return fc.ShowDialog(owner) == DialogResult.OK;
+        }
+
+        /// <summary>Executes all the scripts in an <see cref="IEnumerable{Operational.Script}"/> and displays a dialog tracking the progress.</summary>
+        /// <param name="scripts">The scripts to execute.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
+        public static void ExecuteScriptsGUI(IEnumerable<Script> scriptsEnumerable, IWin32Window owner)
+        {
+            if (scriptsEnumerable is null)
+                throw new ArgumentNullException(nameof(scriptsEnumerable));
+            if (owner is null)
+                throw new ArgumentNullException(nameof(owner));
+            if (!scriptsEnumerable.Any())
+                return;
+
+            Script[] scripts = scriptsEnumerable.ToArray();
+
+            TaskDialogButton disabledCloseButton = TaskDialogButton.Close;
+            disabledCloseButton.Enabled = false;
+
+            TaskDialogPage page = new()
+            {
+                AllowMinimize = true,
+                Buttons = { disabledCloseButton },
+                Caption = "0% terminé",
+                Expander = new("Script actuel :\nTemps écoulé :"),
+                Icon = new TaskDialogIcon(NativeMethods.GetShellIcon(StockIcon.Software)),
+                ProgressBar = new() { Maximum = scripts.Length },
+                Text = "Nettoyage en cours. Cette opération peut jusqu'à une heure, selon les performances de votre ordinateur.",
+                Footnote = new("L'ordinateur redémarrera automatiquement à la fin de l'opération.") { Icon = TaskDialogIcon.Information },
+            };
+            page.Created += (sender, args) =>
+            {
+                System.Diagnostics.Stopwatch chrono = new();
+                chrono.Start();
+
+                page.BoundDialog.RemoveTitleBarIcon();
+                for (int i = 0; i < scripts.Length; i++)
+                {
+                    RunThrow();
+                    page.Caption = $"{Convert.ToInt32((double)i / scripts.Length):p} terminé";
+                    page.ProgressBar.Value = i+1;
+                    page.Expander.Text = $"Script actuel : {scripts[i].Path.Filename}\nTemps écoulé : {TimeSpan.FromSeconds(Convert.ToInt32(chrono.Elapsed.TotalSeconds)):g}";
+
+                    void RunThrow()
+                    {
+                        try
+                        {
+                            scripts[i].Execute();
+                        }
+                        catch (System.IO.FileNotFoundException)
+                        {
+                            page.ProgressBar.State = TaskDialogProgressBarState.Paused;
+                            ErrorDialog.ScriptNotFound(scripts[i].Path).ShowIgnoreRetryDelete(null, () => { RunThrow(); }, null/*chaud : supprimer le script des settings*/, page.BoundDialog);
+                            page.ProgressBar.State = TaskDialogProgressBarState.Normal;
+                        }
+                    }
+                }
+                page.Buttons[0].Enabled = true;
+
+                chrono.Stop();
+            };
+            _ = TaskDialog.ShowDialog(owner, page);
+        }
+
+        public static void Exit()
+        {
+            "Exiting the application".Log("Exit");
+            LogManager.Dispose();
+            Application.Exit();
+        }
 
         /// <summary>Shows the traditional about dialog box with the program's metadata.</summary>
         /// <inheritdoc cref="Form.Show(IWin32Window)" path="/param"/>
@@ -83,20 +143,7 @@ namespace RaphaëlBardini.WinClean.Logic
             using AboutBox about = new();
             _ = about.ShowDialog(owner); // Use showdialog so the windows dosen't disappear immediately
         }
-        /// <summary>Executes all the scripts in an <see cref="IEnumerable{Operational.Script}"/>.</summary>
-        /// <param name="scripts">The scripts to execute.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
-        public static void RunAll(this IEnumerable<Operational.Script> scripts)
-        {
-            scripts.ForEach((script) => Run(script));
-        }
-        public static void Exit()
-        {
-            "test".Log("t0");
-            "Exiting the application".Log("Exit");
-            LogManager.Dispose();
-            Environment.Exit(0);
-        }
+
         #endregion Public Methods
     }
 }

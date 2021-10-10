@@ -44,10 +44,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\ImpactType.Designer.cs">
+    <Compile Update="Resources\ImpactEffect.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ImpactType.resx</DependentUpon>
+      <DependentUpon>ImpactEffect.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Presets.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -68,9 +68,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\ImpactType.resx">
+    <EmbeddedResource Update="Resources\ImpactEffect.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ImpactType.Designer.cs</LastGenOutput>
+      <LastGenOutput>ImpactEffect.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Presets.resx">
       <Generator>ResXFileCodeGenerator</Generator>
