@@ -46,13 +46,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         {
         }
 
-        private void ButtonNext_Click(object sender = null, EventArgs e = null)
-        {
-            if (Program.Confirm(this))
-            {
-                Program.ExecuteScriptsGUI(listViewScripts.CheckedItems.Cast<Script>(), this);
-            }
-        }
+        private void ButtonNext_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<Script>(), this);
 
         private void ButtonQuit_Click(object sender = null, EventArgs e = null) => Program.Exit();
 
@@ -88,22 +82,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         {
         }
 
-        private void ContextMenuScriptsExecute_Click(object sender = null, EventArgs e = null)
-        {
-            if (listViewScripts.SelectedItems.Count == 1)//Dont show all the gui for only 1 script.
-            {
-                try
-                {
-                    ((Script)listViewScripts.SelectedItems[0]).Execute();
-                }
-                catch (System.IO.FileNotFoundException)
-                {
-                    ErrorDialog.ScriptNotFound(((Script)listViewScripts.SelectedItems[0]).Path).ShowIgnoreRetryDelete(null, () => ContextMenuScriptsExecute_Click(), null/*chaud : delete script from settings*/, this);
-                }
-            }
-            else
-                Program.ExecuteScriptsGUI(listViewScripts.SelectedItems.Cast<Script>(), this);
-        }
+        private void ContextMenuScriptsExecute_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.SelectedItems.Cast<Script>(), this);
 
         private void ContextMenuScriptsRename_Click(object sender, EventArgs e)
         {

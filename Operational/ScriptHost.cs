@@ -52,8 +52,8 @@ namespace RaphaëlBardini.WinClean.Operational
         /// <exception cref="FileNotFoundException"><see cref="ScriptPath"/> doesn't exist or is inacessible.</exception>
         public void Execute()
         {
-            if (!File.Exists(ScriptPath))
-                throw new FileNotFoundException("Fichier de script introuvable", ScriptPath.Filename);
+            /*if (!File.Exists(ScriptPath))
+                throw new FileNotFoundException("Fichier de script introuvable", ScriptPath.Filename);*/
             using Process host = Process.Start(new ProcessStartInfo(Executable, Arguments)
             {
                 WindowStyle = ProcessWindowStyle.Hidden,
@@ -61,7 +61,7 @@ namespace RaphaëlBardini.WinClean.Operational
                 RedirectStandardOutput = true,
             });
 
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(3000);
             WaitForExit(host);
 
             host.StandardError.ReadToEnd().Log($"Standard error stream of script execution");

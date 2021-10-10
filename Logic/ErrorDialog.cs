@@ -22,16 +22,17 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Private Fields
 
         #region Custom Buttons
+
         private static readonly Button s_deleteScript = new("Supprimer le script");
         private static readonly Button s_kilLScript = new("Forcer l'arrêt du script");
         private static readonly Button s_restartScript = new("Redémarrer le script");
+
         #endregion Custom Buttons
 
         private static readonly Buttons s_closeRetry = new() { Button.Close, Button.Retry };
         private static readonly Buttons s_ignoreKillRestart = new() { Button.Ignore, s_kilLScript, s_restartScript };
         private static readonly Buttons s_ignoreRetry = new() { Button.Ignore, Button.Retry };
         private static readonly Buttons s_ignoreRetryDelete = new() { Button.Ignore, Button.Retry, s_deleteScript };
-
 
         #endregion Private Fields
 
@@ -45,6 +46,8 @@ namespace RaphaëlBardini.WinClean.Logic
             else
                 onClose?.Invoke();
         }
+
+        public Button ShowDialog(IWin32Window owner = null) => owner is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(owner, this);
 
         public void ShowIgnoreKillRestart(Action onIgnore = null, Action onKill = null, Action onRestart = null, IWin32Window owner = null)
         {
@@ -78,8 +81,6 @@ namespace RaphaëlBardini.WinClean.Logic
             else
                 onIgnore?.Invoke();
         }
-
-        public Button ShowDialog(IWin32Window owner = null) => owner is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(owner, this);
 
         #endregion Public Methods
 
