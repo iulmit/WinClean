@@ -876,8 +876,7 @@ namespace RaphaëlBardini.WinClean.Logic
         /// The WM_INPUTLANGCHANGEREQUEST message is posted to the window with the focus when the user chooses a new input
         /// language, either with the hotkey (specified in the Keyboard control panel
         /// application) or from the indicator on the system taskbar. An application can accept the change by passing the
-        ///              message to the DefWindowProc function or reject the change (and prevent it from taking place) by
-        /// returning immediately.
+        /// message to the DefWindowProc function or reject the change (and prevent it from taking place) by returning immediately.
         /// </summary>
         INPUTLANGCHANGEREQUEST = 0x0050,
 

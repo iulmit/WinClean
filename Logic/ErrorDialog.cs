@@ -62,7 +62,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Hung script error.</summary>
         /// <param name="script">The hung script's path.</param>
-        public static void HungScript(Path script, IWin32Window owner = null, Action restart = null, Action kill = null, Action ignore = null) => new ErrorDialog(owner)
+        public static void HungScript(FilePath script, IWin32Window owner = null, Action restart = null, Action kill = null, Action ignore = null) => new ErrorDialog(owner)
         {
             Icon = TaskDialogIcon.Warning,
             Heading = "Un script est bloqué",
@@ -71,7 +71,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Script not found error.</summary>
         /// <param name="script">The hung script's path.</param>
-        public static void ScriptNotFound(Path script, IWin32Window owner = null, Action retry = null, Action delete = null, Action ignore = null) => new ErrorDialog(owner)
+        public static void ScriptNotFound(FilePath script, IWin32Window owner = null, Action retry = null, Action delete = null, Action ignore = null) => new ErrorDialog(owner)
         {
             Icon = TaskDialogIcon.Error,
             Heading = "Script introuvable",

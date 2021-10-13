@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.IO;
 
 using RaphaëlBardini.WinClean.Operational;
 
@@ -24,7 +25,7 @@ namespace RaphaëlBardini.WinClean.Logic
         string Name { get; set; }
 
         /// <summary>The path of the script file.</summary>
-        Path Path { get; }
+        FilePath Path { get; }
 
         #endregion Public Properties
 
@@ -33,6 +34,15 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <summary>Executes the script in a new process.</summary>
         /// <param name="owner"></param>
         void Execute(IWin32Window owner = null);
+
+        /// <summary>Renames a script and the associated file.</summary>
+        /// <inheritdoc cref="File.Move(string, string)" path="/exception"/>
+        void Rename()
+        {
+            FilePath newPath = new(newName.ToFilename(), Path.Directory);
+            File.Move(Path, newPath);
+            Path = newPath;
+        }
 
         #endregion Public Methods
     }

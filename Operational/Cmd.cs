@@ -7,10 +7,13 @@ namespace RaphaëlBardini.WinClean.Operational
 {
     public sealed class Cmd : IScriptHost
     {
+        #region Public Properties
 
-        IReadOnlyCollection<Extension> IScriptHost.SupportedExtensions => new Extension[] { new(".cmd"), new(".bat") };
         IScriptHost.IncompleteArguments IScriptHost.Arguments => new("/d /c \"\"{0}\"\"");
-        Path IScriptHost.Executable => new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine));
         Encoding IScriptHost.Encoding => Encoding.GetEncoding(850);
+        FilePath IScriptHost.Executable => new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine));
+        IReadOnlyCollection<Extension> IScriptHost.SupportedExtensions => new Extension[] { new(".cmd"), new(".bat") };
+
+        #endregion Public Properties
     }
 }

@@ -21,13 +21,13 @@ namespace RaphaëlBardini.WinClean
 
         // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
         /// <summary>Application install directory.</summary>
-        public static readonly Path InstallDir = new(Application.StartupPath);
+        public static readonly DirectoryPath InstallDir = new(Application.StartupPath);
 
         /// <summary>Application logging directory.</summary>
-        public static readonly Path LogsDir = new(Combine(InstallDir, "Logs"));
+        public static readonly DirectoryPath LogsDir = new(Combine(InstallDir, "Logs"));
 
         /// <summary>Scripts storage directory.</summary>
-        public static readonly Path ScriptsDir = new(Combine(InstallDir, "Scripts"));
+        public static readonly DirectoryPath ScriptsDir = new(Combine(InstallDir, "Scripts"));
 
         #endregion Public Fields
     }

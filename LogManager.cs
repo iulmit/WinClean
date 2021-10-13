@@ -37,7 +37,7 @@ namespace RaphaëlBardini.WinClean
         private const string LogDelimiter = ";";
 
         /// <summary>Unique log file that will be used for this session.</summary>
-        private static readonly Path s_currentLogFile = new(System.IO.Path.Combine(Constants.LogsDir, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
+        private static readonly FilePath s_currentLogFile = new(System.IO.Path.Combine(Constants.LogsDir, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
 
         #endregion Constants
 
@@ -60,7 +60,7 @@ namespace RaphaëlBardini.WinClean
 
         public static void ClearLogsFolder()
         {
-            IEnumerable<Path> deletableLogFiles = Directory.EnumerateFiles(Constants.LogsDir, "*.csv").Select((fileString) => new Path(fileString)).Where((file) => CanLogFileBeDeleted(file));
+            IEnumerable<FilePath> deletableLogFiles = Directory.EnumerateFiles(Constants.LogsDir, "*.csv").Select((fileString) => new FilePath(fileString)).Where((file) => CanLogFileBeDeleted(file));
             $"Deleting {deletableLogFiles.Count()} files".Log("Clearing logs folder");
             deletableLogFiles.ForEach((file) => DeleteLogFile(file));
         }
@@ -124,7 +124,7 @@ namespace RaphaëlBardini.WinClean
         /// <see langword="true"/> if <paramref name="fileNameOrPath"/> is a valid path, it's filename is a valid log filename,
         /// and it's not the current session's log file. If one or more of these conditions are not met, <see langword="false"/>.
         /// </returns>
-        private static bool CanLogFileBeDeleted(Path path)
+        private static bool CanLogFileBeDeleted(FilePath path)
         {
             try
             {
@@ -160,7 +160,7 @@ namespace RaphaëlBardini.WinClean
         /// <exception cref="PathTooLongException">
         /// The specified path, file name, or both exceed the system-defined maximum length.
         /// </exception>
-        private static void DeleteLogFile(Path path)
+        private static void DeleteLogFile(FilePath path)
         {
             try
             {

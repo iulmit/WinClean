@@ -12,11 +12,10 @@ namespace RaphaëlBardini.WinClean.Logic
     {
         #region Private Fields
 
+        private readonly TaskDialogPage _progressPage;
         private readonly Script[] _scripts;
 
         private readonly BackgroundWorker _scriptsRunner = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
-
-        private readonly TaskDialogPage _progressPage;
 
         #endregion Private Fields
 
@@ -74,6 +73,8 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Public Methods
 
+        public void Dispose() => _scriptsRunner.Dispose();
+
         /// <summary>
         /// Executes all the scripts in an <see cref="IEnumerable{Operational.Script}"/> and displays a dialog tracking the progress.
         /// </summary>
@@ -81,7 +82,6 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <exception cref="ArgumentNullException"><paramref name="owner"/> is <see langword="null"/>.</exception>
         public void ExecuteAll(IWin32Window owner) => _ = TaskDialog.ShowDialog(owner, _progressPage);
 
-        public void Dispose() => _scriptsRunner.Dispose();
         #endregion Public Methods
 
         #region Private Methods

@@ -9,7 +9,7 @@ namespace RaphaëlBardini.WinClean.Operational
     {
         #region Public Methods
 
-        public static string GetFileDescription(Path path)
+        public static string GetFileDescription(FilePath path)
         {
             const string descriptionPropertyGuid = "0CEF7D53-FA64-11D1-A203-0000F81FEDEE";
             const int descriptionPropertyIndex = 3;

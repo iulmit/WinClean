@@ -9,9 +9,13 @@ namespace RaphaëlBardini.WinClean.Operational
 {
     public sealed class PowerShell : IScriptHost
     {
-        IReadOnlyCollection<Extension> IScriptHost.SupportedExtensions => new Extension[] { new(".ps1") };
-        Encoding IScriptHost.Encoding => Encoding.GetEncoding(1252);
+        #region Public Properties
+
         IScriptHost.IncompleteArguments IScriptHost.Arguments => new("-WindowStyle hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\"");
-        Path IScriptHost.Executable => new(Combine(Environment.GetEnvironmentVariable("SystemRoot"), "System32", "WindowsPowerShell", "v1.0", "powershell.exe"));
+        Encoding IScriptHost.Encoding => Encoding.GetEncoding(1252);
+        FilePath IScriptHost.Executable => new(Combine(Environment.GetEnvironmentVariable("SystemRoot"), "System32", "WindowsPowerShell", "v1.0", "powershell.exe"));
+        IReadOnlyCollection<Extension> IScriptHost.SupportedExtensions => new Extension[] { new(".ps1") };
+
+        #endregion Public Properties
     }
 }

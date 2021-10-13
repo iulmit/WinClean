@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
 
-
 namespace RaphaëlBardini.WinClean.Presentation
 {
     public partial class MainForm : Form
@@ -27,21 +26,21 @@ namespace RaphaëlBardini.WinClean.Presentation
             listViewScripts.Groups.OfType<ListViewGroup>().ForEach((g) => g.CollapsedState = ListViewGroupCollapsedState.Expanded);
             listViewScripts.Items.AddRange(new[]
             {
-                new Script(new Cmd(), new Path("foo.cmd", Constants.ScriptsDir))
+                new Script(new Cmd(), new FilePath("foo.cmd", Constants.ScriptsDir))
                 {
                     Name = "CmdFoo",
                     Description = "Foo description 0",
                     Impacts = new[] { new Impact(ImpactEffect.Visuals, ImpactLevel.Positive) },
                     Group = listViewScripts.Groups[0]
                 },
-                new Script(new Regedit(), new Path("dummy.reg", Constants.ScriptsDir))
+                new Script(new Regedit(), new FilePath("dummy.reg", Constants.ScriptsDir))
                 {
                     Name = "RegDummy",
                     Description = "Dummy description 1",
                     Impacts = new[] { new Impact(ImpactEffect.ShutdownTime, ImpactLevel.Negative) },
                     Group = listViewScripts.Groups[1]
                 },
-                new Script(new PowerShell(), new Path("ps1script.ps1", Constants.ScriptsDir))
+                new Script(new PowerShell(), new FilePath("ps1script.ps1", Constants.ScriptsDir))
                 {
                     Name = "PowerShellSensass",
                     Description = "PowShe desc 3",
@@ -74,6 +73,8 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region mainMenuStrip
 
+        private void MainMenuQuit_Click(object sender = null, EventArgs e = null) => Program.Exit();
+
         private void MainMenuSelectAll_Click(object sender = null, EventArgs e = null) => listViewScripts.Items.SetAllChecked(true);
 
         private void MainMenuSelectDebloat_Click(object sender = null, EventArgs e = null) => listViewScripts.Items.SetAllChecked(true);// placeholder
@@ -85,8 +86,6 @@ namespace RaphaëlBardini.WinClean.Presentation
         private void MainMenuStripAbout_Click(object sender = null, EventArgs e = null) => Program.ShowAboutBox(this);
 
         private void MainMenuStripClearLogs_Click(object sender = null, EventArgs e = null) => LogManager.ClearLogsFolder();
-
-        private void MainMenuQuit_Click(object sender = null, EventArgs e = null) => Program.Exit();
 
         private void MainMenuStripSettings_Click(object sender = null, EventArgs e = null)
         {
@@ -100,26 +99,6 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region contextMenuStripScripts
 
-        private void ContextMenuScriptsDelete_Click(object sender, EventArgs e)
-        {
-            foreach (ListViewItem selectedItem in listViewScripts.SelectedItems)
-                selectedItem.Remove();
-        }
-
-        private void ContextMenuScriptsExecute_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.SelectedItems.Cast<Script>(), this);
-
-        private void ContextMenuScriptsRename_Click(object sender, EventArgs e)
-        {
-            listViewScripts.LabelEdit = true;
-            listViewScripts.AfterLabelEdit += (sender, e) =>
-            {
-                //e.Label : new name
-                //listViewScripts.Items[e.Item].Text : old name
-                e.CancelEdit = string.IsNullOrWhiteSpace(e.Label);
-            };
-            listViewScripts.SelectedItems[0].BeginEdit();
-        }
-
         private void ContextMenuScripts_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             contextMenuStripScripts.Items.ToEnumerable().ForEach((item) => item.Enabled = true);
@@ -129,15 +108,41 @@ namespace RaphaëlBardini.WinClean.Presentation
             ContextMenuScriptsRename.Enabled = listViewScripts.SelectedItems.Count == 1;
         }
 
+        private void ContextMenuScriptsDelete_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem selectedItem in listViewScripts.SelectedItems)
+                selectedItem.Remove();
+        }
+
+        private void ContextMenuScriptsExecute_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.SelectedItems.Cast<Script>(), this);
+
         private void ContextMenuScriptsNew_Click(object sender, EventArgs e)
         {
+        }
+
+        private void ContextMenuScriptsRename_Click(object sender, EventArgs e)
+        {
+            listViewScripts.LabelEdit = true;
+            listViewScripts.SelectedItems[0].BeginEdit();
+            listViewScripts.AfterLabelEdit += (sender, e) =>
+            {
+                //e.Label : new name
+                //listViewScripts.Items[e.Item].Text : old name
+                if (!(e.CancelEdit = string.IsNullOrWhiteSpace(e.Label)))
+                {
+                    ((Script)listViewScripts.Items[e.Item]).Name = e.Label;
+                }
+            };
         }
 
         #endregion contextMenuStripScripts
 
         #region listViewScripts
 
-        /// <summary>Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see cref="listViewScripts"/>'s new size.</summary>
+        /// <summary>
+        /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
+        /// cref="listViewScripts"/>'s new size.
+        /// </summary>
         private void ListViewScripts_Resize(object sender = null, EventArgs e = null) => scriptHeaderName.Width = listViewScripts.Size.Width;
 
         private void ListViewScripts_SelectedIndexChanged(object sender = null, EventArgs e = null)
@@ -161,6 +166,5 @@ namespace RaphaëlBardini.WinClean.Presentation
         #endregion Event Handlers
 
         #endregion Private Methods
-
     }
 }

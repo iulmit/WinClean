@@ -9,9 +9,13 @@ namespace RaphaëlBardini.WinClean.Operational
 {
     public sealed class Regedit : IScriptHost
     {
-        IReadOnlyCollection<Extension> IScriptHost.SupportedExtensions => new Extension[] { new(".reg") };
-        Encoding IScriptHost.Encoding => Encoding.Unicode;
+        #region Public Properties
+
         IScriptHost.IncompleteArguments IScriptHost.Arguments => new("/s {0}");
-        Path IScriptHost.Executable => new(Combine(Environment.GetEnvironmentVariable("SystemRoot"), "regedit.exe"));
+        Encoding IScriptHost.Encoding => Encoding.Unicode;
+        FilePath IScriptHost.Executable => new(Combine(Environment.GetEnvironmentVariable("SystemRoot"), "regedit.exe"));
+        IReadOnlyCollection<Extension> IScriptHost.SupportedExtensions => new Extension[] { new(".reg") };
+
+        #endregion Public Properties
     }
 }

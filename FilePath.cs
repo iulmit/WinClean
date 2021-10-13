@@ -4,14 +4,8 @@ using static System.IO.Path;
 
 namespace RaphaëlBardini.WinClean
 {
-    /*public interface IPath : IEquatable<IPath>
-    {
-        public string Directory { get; }
-        public string Root { get; }
-    }*/
-
-    /// <summary>Represents a standard file or folder path.</summary>
-    public struct Path : IEquatable<Path>
+    /// <summary>Represents a standard NTFS file path.</summary>
+    public struct FilePath : IEquatable<FilePath>
     {
         #region Private Fields
 
@@ -22,7 +16,7 @@ namespace RaphaëlBardini.WinClean
         #region Public Properties
 
         /// <inheritdoc cref="GetDirectoryName(string?)" path="/summary"/>
-        public string Directory => GetDirectoryName(_value);
+        public DirectoryPath Directory => new(GetDirectoryName(_value));
 
         /// <inheritdoc cref="GetExtension(string?)" path="/summary"/>
         public Extension Extension => new(GetExtension(_value));
@@ -34,35 +28,37 @@ namespace RaphaëlBardini.WinClean
         public string FilenameWithoutExtension => GetFileNameWithoutExtension(_value);
 
         /// <inheritdoc cref="GetPathRoot(string?)" path="/summary"/>
-        public string Root => GetPathRoot(_value);
+        public DirectoryPath Root => new(GetPathRoot(_value));
 
         #endregion Public Properties
 
         #region Public Constructors
 
-        /// <summary>Instanciates a new <see cref="Path"/> object.</summary>
-        /// <param name="path">The file or folder path</param>
+        /// <summary>Instanciates a new <see cref="FilePath"/> object.</summary>
+        /// <param name="relativePath">The file path.</param>
         /// <inheritdoc cref="GetFullPath(string)" path="/exception"/>
-        public Path(string path) => _value = GetFullPath(path ?? throw new ArgumentNullException(nameof(path)));
+        public FilePath(string relativePath)
+            => _value = GetFullPath(relativePath ?? throw new ArgumentNullException(nameof(relativePath)));
 
-        /// <summary>Instanciates a new <see cref="Path"/> object relative to another.</summary>
-        /// <param name="path">The file or folder path</param>
+        /// <summary>Instanciates a new <see cref="FilePath"/> object relative a directory.</summary>
+        /// <param name="relativePath">The file path.</param>
         /// <inheritdoc cref="GetFullPath(string, string)" path="/exception"/>
-        public Path(string path, string basePath) => _value = GetFullPath(path, basePath);
+        public FilePath(string relativePath, DirectoryPath baseDir)
+            => _value = GetFullPath(relativePath ?? throw new ArgumentNullException(nameof(relativePath)), baseDir);
 
         #endregion Public Constructors
 
         #region Public Methods
 
-        public static implicit operator string(Path p) => p._value;
+        public static implicit operator string(FilePath p) => p._value;
 
-        public static bool operator !=(Path left, Path right) => !left.Equals(right);
+        public static bool operator !=(FilePath left, FilePath right) => !left.Equals(right);
 
-        public static bool operator ==(Path left, Path right) => left.Equals(right);
+        public static bool operator ==(FilePath left, FilePath right) => left.Equals(right);
 
-        public override bool Equals(object obj) => obj is Path path && Equals(path);
+        public override bool Equals(object obj) => obj is FilePath path && Equals(path);
 
-        public bool Equals(Path other) => _value.Equals(other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(FilePath other) => _value.Equals(other._value, StringComparison.OrdinalIgnoreCase);
 
         public override int GetHashCode() => HashCode.Combine(_value);
 

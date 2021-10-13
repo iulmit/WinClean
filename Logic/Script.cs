@@ -1,6 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 using RaphaëlBardini.WinClean.Operational;
@@ -13,12 +14,10 @@ namespace RaphaëlBardini.WinClean.Logic
     {
         #region Public Constructors
 
-        /// <summary>
-        /// Instanciates a new <see cref="Script"/> object.
-        /// </summary>
+        /// <summary>Instanciates a new <see cref="Script"/> object.</summary>
         /// <param name="host">The associated script host program.</param>
         /// <param name="path">The path of the script file.</param>
-        public Script(IScriptHost host, Path path)
+        public Script(IScriptHost host, FilePath path)
         {
             Path = path;
             Host = host;
@@ -29,10 +28,10 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Properties
 
         public string Description { get => ToolTipText; set => ToolTipText = value; }
+        public IScriptHost Host { get; }
         public IEnumerable<Impact> Impacts { get; init; }
         public new string Name { get => Text; set => Text = value; }
-        public Path Path { get; set; }
-        public IScriptHost Host { get; }
+        public FilePath Path { get; set; }
 
         #endregion Public Properties
 
@@ -45,7 +44,7 @@ namespace RaphaëlBardini.WinClean.Logic
             {
                 Host.Execute(Path);
             }
-            catch (System.IO.FileNotFoundException)
+            catch (FileNotFoundException)
             {
                 ErrorDialog.ScriptNotFound(Path, owner, () => Execute(owner), null/*chaud : delete script from settings*/);
             }

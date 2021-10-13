@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Logic
@@ -43,6 +44,17 @@ namespace RaphaëlBardini.WinClean.Logic
 #endif
 
         #endregion Debug
+
+        /// <summary>Converts a</summary>
+        /// <param name="fallback">Character to replace invalid path chars with.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="str"/> is <see langword="null"/>.</exception>
+        public static string ToFilename(this string str, string fallback = "_")
+        {
+            if (str is null)
+                throw new ArgumentNullException(nameof(str));
+            return Regex.Replace(str, $"[{Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()))}]", fallback, RegexOptions.Compiled);
+        }
 
         /// <summary>Exécute l'action spécifiée sur chaque élément de <see cref="IEnumerable{}"/>.</summary>
         /// <typeparam name="T">Le type des éléments de la <see cref="IEnumerable{}"/> et du premier paramètre de l'action.</typeparam>

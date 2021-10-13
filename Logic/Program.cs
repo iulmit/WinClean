@@ -1,11 +1,11 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 using RaphaëlBardini.WinClean.Presentation;
-using System.Text;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
@@ -103,21 +103,23 @@ namespace RaphaëlBardini.WinClean.Logic
             Application.Run(s_mainForm);
             Exit();
         }
+
         private struct LogEntry
         {
             #region Public Properties
 
+            public string Caller { get; set; }
+            public string CallFileFullPath { get; set; }
+            public int CallLine { get; set; }
+            public DateTime Date { get; set; }
+            public string Happening { get; set; }
             public int Index { get; set; }
             public LogLevel Level { get; set; }
-            public int CallLine { get; set; }
-            public string Caller { get; set; }
-            public string Happening { get; set; }
             public string Message { get; set; }
-            public DateTime Date { get; set; }
-            public string CallFileFullPath { get; set; }
 
             #endregion Public Properties
         }
+
         #endregion Private Methods
     }
 }

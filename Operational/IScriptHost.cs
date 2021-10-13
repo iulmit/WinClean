@@ -17,6 +17,7 @@ namespace RaphaëlBardini.WinClean.Operational
     {
         #region Protected Classes
 
+        /// <summary>Formattable executable arguments with a single file path argument.</summary>
         protected sealed class IncompleteArguments
         {
             #region Private Fields
@@ -41,7 +42,7 @@ namespace RaphaëlBardini.WinClean.Operational
 
             #region Public Methods
 
-            public string Complete(Path script) => string.Format(CultureInfo.InvariantCulture, _args, script);
+            public string Complete(FilePath script) => string.Format(CultureInfo.InvariantCulture, _args, script);
 
             public override string ToString() => _args;
 
@@ -60,14 +61,14 @@ namespace RaphaëlBardini.WinClean.Operational
 
         protected IncompleteArguments Arguments { get; }
         protected Encoding Encoding { get; }
-        protected Path Executable { get; }
+        protected FilePath Executable { get; }
         protected IReadOnlyCollection<Extension> SupportedExtensions { get; }
 
         #endregion Protected Properties
 
         #region Public Methods
 
-        public void Execute(Path script)
+        public void Execute(FilePath script)
         {
             if (!SupportedExtensions.Any((ext) => ext == script.Extension))
                 throw new BadFileExtensionException(script.Extension);
@@ -97,7 +98,7 @@ namespace RaphaëlBardini.WinClean.Operational
 
         #region Private Methods
 
-        private static void WaitForScriptEnd(Process p, Path script)
+        private static void WaitForScriptEnd(Process p, FilePath script)
         {
             if (!(p ?? throw new ArgumentNullException(nameof(p))).WaitForExit(Constants.ScriptTimeoutMilliseconds))
             {
