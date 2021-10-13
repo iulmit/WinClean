@@ -7,113 +7,50 @@ using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
-    public class CmdScript : Script
-    {
-        #region Public Constructors
-
-        public CmdScript(Path path, string name, string description, IEnumerable<Impact> impacts, ListViewGroup group) : base(name, description, impacts, group)
-            => Host = new(path);
-
-        #endregion Public Constructors
-
-        #region Protected Properties
-
-        protected override Cmd Host { get; }
-
-        #endregion Protected Properties
-    }
-
-    public class Ps1Script : Script
-    {
-        #region Public Constructors
-
-        public Ps1Script(Path path, string name, string description, IEnumerable<Impact> impacts, ListViewGroup group) : base(name, description, impacts, group)
-            => Host = new(path);
-
-        #endregion Public Constructors
-
-        #region Protected Properties
-
-        protected override PowerShell Host { get; }
-
-        #endregion Protected Properties
-    }
-
-    public class RegScript : Script
-    {
-        #region Public Constructors
-
-        public RegScript(Path path, string name, string description, IEnumerable<Impact> impacts, ListViewGroup group) : base(name, description, impacts, group)
-            => Host = new(path);
-
-        #endregion Public Constructors
-
-        #region Protected Properties
-
-        protected override Regedit Host { get; }
-
-        #endregion Protected Properties
-    }
-
     /// <summary>A script that can be executed from a script host program.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237", Justification = $"{nameof(Script)} does not support serialization.")]
-    public abstract class Script : ListViewItem
+    public class Script : ListViewItem, IScript
     {
-        #region Private Fields
-
-        protected abstract ScriptHost Host { get; }
-
-        #endregion Private Fields
-
         #region Public Constructors
 
-        protected Script(string name, string description, IEnumerable<Impact> impacts, ListViewGroup group)
+        /// <summary>
+        /// Instanciates a new <see cref="Script"/> object.
+        /// </summary>
+        /// <param name="host">The associated script host program.</param>
+        /// <param name="path">The path of the script file.</param>
+        public Script(IScriptHost host, Path path)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Description = description ?? throw new ArgumentNullException(nameof(description));
-            Impacts = impacts ?? throw new ArgumentNullException(nameof(impacts));
-            Group = group ?? throw new ArgumentNullException(nameof(group));
+            Path = path;
+            Host = host;
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
-        public string Description { get => base.ToolTipText; set => base.ToolTipText = value; }
-        public IEnumerable<Impact> Impacts { get; }
-        public new string Name { get => base.Text; set => base.Text = value; }
-        public Path Path => Host.ScriptPath;
+        public string Description { get => ToolTipText; set => ToolTipText = value; }
+        public IEnumerable<Impact> Impacts { get; init; }
+        public new string Name { get => Text; set => Text = value; }
+        public Path Path { get; set; }
+        public IScriptHost Host { get; }
 
         #endregion Public Properties
 
-        #region Private Properties
-
-        private new string Text { get; set; }
-        private new string ToolTipText { get; set; }
-
-        #endregion Private Properties
-
         #region Public Methods
 
-        /// <inheritdoc cref="ScriptHost.Execute()"/>
-        public void Execute() => Host.Execute();
+        /// <inheritdoc cref="ScriptHost.Execute()" path="/summary"/>
+        public void Execute(IWin32Window owner = null)
+        {
+            try
+            {
+                Host.Execute(Path);
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                ErrorDialog.ScriptNotFound(Path, owner, () => Execute(owner), null/*chaud : delete script from settings*/);
+            }
+        }
 
         #endregion Public Methods
-    }
-
-    public class WshScript : Script
-    {
-        #region Public Constructors
-
-        public WshScript(Path path, string name, string description, IEnumerable<Impact> impacts, ListViewGroup group) : base(name, description, impacts, group)
-            => Host = new(path);
-
-        #endregion Public Constructors
-
-        #region Protected Properties
-
-        protected override WindowsScriptHost Host { get; }
-
-        #endregion Protected Properties
     }
 }

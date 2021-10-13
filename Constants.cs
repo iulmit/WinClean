@@ -1,65 +1,33 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 global using System;
-using System.Globalization;
 using System.Windows.Forms;
 
 using static System.IO.Path;
 
 namespace RaphaëlBardini.WinClean
 {
-    /// <summary>Constant and readonly fields that manages config settings for the whole program.</summary>
+    /// <summary>Constant and readonly fields used to configure the application.</summary>
+    // TODO : faire des paramètres configurables.
     public static class Constants
     {
-        #region Public Constructors
-
-#if DEBUG
-
-        static Constants()
-        {
-            // If no invalid filename chars are found
-            System.Diagnostics.Debug.Assert(DateTimeFilenameFormat.IndexOfAny(GetInvalidFileNameChars()) == -1);
-        }
-
-#endif
-
-        #endregion Public Constructors
-
         #region Public Fields
 
-        #region Constants
+        /// <summary>Application minimum log level.</summary>
+        public const LogLevel AppLogLevel = LogLevel.Verbose;
 
-        /// <summary>Format string used by <see cref="DateTime.ToString(string?)"/> used for NTFS filenames.</summary>
-        public const string DateTimeFilenameFormat = "yyyy-MM-dd--HH-mm-ss";
-
-        /// <summary>CSV Log entry column delimiter.</summary>
-        public const char LogDelimiter = ';';
-
-        /// <summary>Global TraceSource log level.</summary>
-        public const System.Diagnostics.SourceLevels TraceLevel = System.Diagnostics.SourceLevels.All;
-
-        /// <summary>Number of milliseconds the program will wait for a script to finish executing.</summary>
+        /// <summary>Number of milliseconds the program should wait for a script to finish executing.</summary>
         public const int ScriptTimeoutMilliseconds = 20 * 60 * 1000;// 20 minutes
 
-        #endregion Constants
-
-        #region File and Folder Paths
-
         // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
-        /// <summary>Application install dir full path</summary>
+        /// <summary>Application install directory.</summary>
         public static readonly Path InstallDir = new(Application.StartupPath);
 
+        /// <summary>Application logging directory.</summary>
         public static readonly Path LogsDir = new(Combine(InstallDir, "Logs"));
 
-        /// <summary>Full path of the log file for this session of the application.</summary>
-        public static readonly Path LogFile = new(Combine(LogsDir, $"{System.Diagnostics.Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
-
-        /// <summary>Full path of the scripts dir.</summary>
+        /// <summary>Scripts storage directory.</summary>
         public static readonly Path ScriptsDir = new(Combine(InstallDir, "Scripts"));
-
-        #endregion File and Folder Paths
-
-        public static readonly string NL = Environment.NewLine;
 
         #endregion Public Fields
     }

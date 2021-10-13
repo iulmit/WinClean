@@ -221,7 +221,7 @@
     <value>0</value>
   </data>
   <data name="labelTitle.Text" xml:space="preserve">
-    <value>Veuillez confirmer :</value>
+    <value>Avant de commencer le nettoyage, veuillez confirmer :</value>
   </data>
   <data name="labelTitle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>

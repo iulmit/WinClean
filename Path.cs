@@ -60,18 +60,13 @@ namespace RaphaëlBardini.WinClean
 
         public static bool operator ==(Path left, Path right) => left.Equals(right);
 
-        /// <inheritdoc cref="object.Equals(object?)()"/>
-        /// <remarks>Overriden in <see cref="Path"/>.</remarks>
         public override bool Equals(object obj) => obj is Path path && Equals(path);
 
         public bool Equals(Path other) => _value.Equals(other._value, StringComparison.OrdinalIgnoreCase);
 
-        /// <inheritdoc cref="object.GetHashCode()"/>
-        /// <remarks>Overriden in <see cref="Path"/>.</remarks>
         public override int GetHashCode() => HashCode.Combine(_value);
 
         /// <inheritdoc cref="object.ToString()"/>
-        /// <remarks>Overriden in <see cref="Path"/>.</remarks>
         public override string ToString() => _value;
 
         #endregion Public Methods

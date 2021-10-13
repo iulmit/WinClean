@@ -8,6 +8,8 @@ using System.Linq;
 using System.Windows.Forms;
 
 using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.Operational;
+
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
@@ -23,15 +25,33 @@ namespace RaphaëlBardini.WinClean.Presentation
             _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
             _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
             listViewScripts.Groups.OfType<ListViewGroup>().ForEach((g) => g.CollapsedState = ListViewGroupCollapsedState.Expanded);
-            listViewScripts.Items.AddRange(new Script[]
+            listViewScripts.Items.AddRange(new[]
             {
-                new CmdScript(new Path("foo.cmd", Constants.ScriptsDir), "Foo", "foo description 0",               new Impact[] { new Impact(ImpactEffect.Visuals, ImpactLevel.Positive) },      listViewScripts.Groups[0]),
-                new WshScript(new Path("bar.vbs", Constants.ScriptsDir), "Bar","bar description 1",                new Impact[] { new Impact(ImpactEffect.Ergonomics, ImpactLevel.Mixed) },      listViewScripts.Groups[0]),
-                new RegScript(new Path("dummy.reg", Constants.ScriptsDir), "Dummy", "dummy description 2",         new Impact[] { new Impact(ImpactEffect.ShutdownTime, ImpactLevel.Negative) }, listViewScripts.Groups[1]),
-                new Ps1Script(new Path("ps1script.ps1", Constants.ScriptsDir), "Ps1", "hello world description 3", new Impact[] { new Impact(ImpactEffect.ResponseTime, ImpactLevel.Positive) }, listViewScripts.Groups[1])
+                new Script(new Cmd(), new Path("foo.cmd", Constants.ScriptsDir))
+                {
+                    Name = "CmdFoo",
+                    Description = "Foo description 0",
+                    Impacts = new[] { new Impact(ImpactEffect.Visuals, ImpactLevel.Positive) },
+                    Group = listViewScripts.Groups[0]
+                },
+                new Script(new Regedit(), new Path("dummy.reg", Constants.ScriptsDir))
+                {
+                    Name = "RegDummy",
+                    Description = "Dummy description 1",
+                    Impacts = new[] { new Impact(ImpactEffect.ShutdownTime, ImpactLevel.Negative) },
+                    Group = listViewScripts.Groups[1]
+                },
+                new Script(new PowerShell(), new Path("ps1script.ps1", Constants.ScriptsDir))
+                {
+                    Name = "PowerShellSensass",
+                    Description = "PowShe desc 3",
+                    Impacts = new[] { new Impact(ImpactEffect.ResponseTime, ImpactLevel.Positive) },
+                    Group = listViewScripts.Groups[1],
+                }
             });
 
-            ContextMenuScriptsExecute.Image = NativeMethods.GetShellIcon(StockIcon.Shield, ShellIcon.Small).ToBitmap();
+            // This local function will be useful if we ever want to add shell icons to controls.
+            //static System.Drawing.Bitmap BitmapShellIcon(StockIcon id) => NativeMethods.GetShellIcon(id, ShellIcon.Small).ToBitmap();
         }
 
         #endregion Public Constructors
@@ -66,6 +86,8 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         private void MainMenuStripClearLogs_Click(object sender = null, EventArgs e = null) => LogManager.ClearLogsFolder();
 
+        private void MainMenuQuit_Click(object sender = null, EventArgs e = null) => Program.Exit();
+
         private void MainMenuStripSettings_Click(object sender = null, EventArgs e = null)
         {
         }
@@ -80,37 +102,65 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         private void ContextMenuScriptsDelete_Click(object sender, EventArgs e)
         {
+            foreach (ListViewItem selectedItem in listViewScripts.SelectedItems)
+                selectedItem.Remove();
         }
 
         private void ContextMenuScriptsExecute_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.SelectedItems.Cast<Script>(), this);
 
         private void ContextMenuScriptsRename_Click(object sender, EventArgs e)
         {
-        }
-
-        private void ContextMenuStripScripts_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (listViewScripts.SelectedItems.Count == 0)
+            listViewScripts.LabelEdit = true;
+            listViewScripts.AfterLabelEdit += (sender, e) =>
             {
-                ContextMenuScriptsDelete.Enabled =
-                ContextMenuScriptsExecute.Enabled =
-                ContextMenuScriptsRename.Enabled = false;
-                ContextMenuScriptsNew.Enabled = true;
-            }
-            else
-                contextMenuStripScripts.Items.ToEnumerable().ForEach((item) => item.Enabled = true);
+                //e.Label : new name
+                //listViewScripts.Items[e.Item].Text : old name
+                e.CancelEdit = string.IsNullOrWhiteSpace(e.Label);
+            };
+            listViewScripts.SelectedItems[0].BeginEdit();
         }
 
-        private void NouveauxToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ContextMenuScripts_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            contextMenuStripScripts.Items.ToEnumerable().ForEach((item) => item.Enabled = true);
+
+            ContextMenuScriptsDelete.Enabled =
+            ContextMenuScriptsExecute.Enabled = listViewScripts.SelectedItems.Count > 0;
+            ContextMenuScriptsRename.Enabled = listViewScripts.SelectedItems.Count == 1;
+        }
+
+        private void ContextMenuScriptsNew_Click(object sender, EventArgs e)
         {
         }
 
         #endregion contextMenuStripScripts
 
+        #region listViewScripts
+
+        /// <summary>Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see cref="listViewScripts"/>'s new size.</summary>
+        private void ListViewScripts_Resize(object sender = null, EventArgs e = null) => scriptHeaderName.Width = listViewScripts.Size.Width;
+
+        private void ListViewScripts_SelectedIndexChanged(object sender = null, EventArgs e = null)
+        {
+            if (listViewScripts.SelectedItems.Count == 0)
+            {
+                labelName.Text =
+                labelDescription.Text =
+                labelInfo.Text = string.Empty;
+            }
+            else
+            {
+                labelName.Text = ((Script)listViewScripts.SelectedItems[0]).Name;
+                labelDescription.Text = ((Script)listViewScripts.SelectedItems[0]).Description;
+                labelInfo.Text = ((Script)listViewScripts.SelectedItems[0]).Impacts.ToMultilineString();
+            }
+        }
+
+        #endregion listViewScripts
+
         #endregion Event Handlers
 
         #endregion Private Methods
 
-        private void ListViewScripts_Resize(object sender = null, EventArgs e = null) => scriptHeaderName.Width = listViewScripts.Size.Width;
     }
 }

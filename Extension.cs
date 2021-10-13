@@ -35,18 +35,13 @@ namespace RaphaëlBardini.WinClean
 
         public static bool operator ==(Extension left, Extension right) => left.Equals(right);
 
-        /// <inheritdoc cref="object.Equals(object?)"/>
-        /// <remarks>Overriden in <see cref="Extension"/>.</remarks>
         public override bool Equals(object obj) => obj is Extension ext && Equals(ext);
 
         public bool Equals(Extension other) => _value.Equals(other._value, StringComparison.OrdinalIgnoreCase);
 
-        /// <inheritdoc cref="object.GetHashCode"/>
-        /// <remarks>Overriden in <see cref="Extension"/>.</remarks>
         public override int GetHashCode() => _value.GetHashCode(StringComparison.Ordinal);
 
         /// <inheritdoc cref="object.ToString()"/>
-        /// <remarks>Overriden in <see cref="Extension"/>.</remarks>
         public override string ToString() => _value;
 
         #endregion Public Methods

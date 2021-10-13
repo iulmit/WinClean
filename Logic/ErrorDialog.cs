@@ -3,157 +3,157 @@
 using System.Windows.Forms;
 
 using Button = System.Windows.Forms.TaskDialogButton;
-using Buttons = System.Windows.Forms.TaskDialogButtonCollection;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
     public class ErrorDialog : TaskDialogPage
     {
-        #region Public Properties
-
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public static new string Caption => Application.ProductName;
-
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public static new bool SizeToContent => true;
-
-        #endregion Public Properties
-
         #region Private Fields
 
-        #region Custom Buttons
-
-        private static readonly Button s_deleteScript = new("Supprimer le script");
-        private static readonly Button s_kilLScript = new("Forcer l'arrêt du script");
-        private static readonly Button s_restartScript = new("Redémarrer le script");
-
-        #endregion Custom Buttons
-
-        private static readonly Buttons s_closeRetry = new() { Button.Close, Button.Retry };
-        private static readonly Buttons s_ignoreKillRestart = new() { Button.Ignore, s_kilLScript, s_restartScript };
-        private static readonly Buttons s_ignoreRetry = new() { Button.Ignore, Button.Retry };
-        private static readonly Buttons s_ignoreRetryDelete = new() { Button.Ignore, Button.Retry, s_deleteScript };
+        private readonly IWin32Window _owner;
 
         #endregion Private Fields
 
-        #region Public Methods
+        #region Public Constructors
 
-        public void ShowCloseRetry(Action onClose = null, Action onRetry = null, IWin32Window owner = null)
-        {
-            Buttons = s_closeRetry;
-            if (ShowDialog(owner) == s_closeRetry[1])
-                onRetry?.Invoke();
-            else
-                onClose?.Invoke();
-        }
+        public ErrorDialog(IWin32Window owner = null) => _owner = owner;
 
-        public Button ShowDialog(IWin32Window owner = null) => owner is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(owner, this);
+        #endregion Public Constructors
 
-        public void ShowIgnoreKillRestart(Action onIgnore = null, Action onKill = null, Action onRestart = null, IWin32Window owner = null)
-        {
-            Buttons = s_ignoreKillRestart;
-            Button result = ShowDialog(owner);
-            if (result == s_ignoreKillRestart[2])
-                onRestart?.Invoke();
-            else if (result == s_ignoreKillRestart[1])
-                onKill?.Invoke();
-            else
-                onIgnore?.Invoke();
-        }
+        #region Public Properties
 
-        public void ShowIgnoreRetry(Action onIgnore = null, Action onRetry = null, IWin32Window owner = null)
-        {
-            Buttons = s_ignoreRetry;
-            if (ShowDialog(owner) == s_ignoreRetry[1])
-                onRetry?.Invoke();
-            else
-                onIgnore?.Invoke();
-        }
+        public static new string Caption => Application.ProductName;
 
-        public void ShowIgnoreRetryDelete(Action onIgnore = null, Action onRetry = null, Action onDelete = null, IWin32Window owner = null)
-        {
-            Buttons = s_ignoreRetryDelete;
-            Button result = ShowDialog(owner);
-            if (result == s_ignoreRetryDelete[2])
-                onDelete?.Invoke();
-            else if (result == s_ignoreRetryDelete[1])
-                onRetry?.Invoke();
-            else
-                onIgnore?.Invoke();
-        }
+        public static new bool SizeToContent => true;
 
-        #endregion Public Methods
+        #endregion Public Properties
 
         #region Public Methods
 
         /// <summary>Can't create log directory error.</summary>
         /// <param name="dir">The path of the directory that couldn't be created.</param>
         /// <param name="message">More details on the error.</param>
-        /// <remarks>Close and Retry buttons.</remarks>
-        /// <returns>The corresponding <see cref="ErrorDialog"/>.</returns>
-        public static ErrorDialog CantCreateLogDir(string message) => new()
+        public static void CantCreateLogDir(string message, IWin32Window owner = null, Action retry = null, Action close = null) => new ErrorDialog(owner)
         {
             Icon = TaskDialogIcon.Error,
-            Buttons = s_closeRetry,
-            Text = $"Impossible de créer le dossier des logs, {message.ParseForSentence()}."
-        };
+            Text = $"Impossible de créer le dossier des logs. {message}"
+        }.RetryClose(retry, close);
 
         /// <summary>Can't create log file error.</summary>
         /// <param name="dir">The path of the file that couldn't be deleted.</param>
         /// <param name="message">More details on the error.</param>
-        /// <remarks>Ignore and Retry buttons.</remarks>
-        /// <returns>The corresponding <see cref="ErrorDialog"/>.</returns>
-        public static ErrorDialog CantDeleteLogFile(string message) => new()
+        public static void CantDeleteLogFile(string message, IWin32Window owner = null, Action retry = null, Action ignore = null) => new ErrorDialog(owner)
         {
             Icon = TaskDialogIcon.Error,
-            Buttons = s_ignoreRetry,
-            Text = $"Impossible de supprimer le fichier de logs, {message.ParseForSentence()}"
-        };
+            Text = $"Impossible de supprimer le fichier de logs. {message}"
+        }.RetryIgnore(retry, ignore);
+
+        /// <summary>Asks the users for confirmation on exiting the application and potentially loosing data.</summary>
+        public static void ConfirmAbortOperation(IWin32Window owner = null, Action yes = null, Action no = null)
+        {
+            ErrorDialog dialog = new(owner)
+            {
+                Icon = TaskDialogIcon.Warning,
+                Heading = "Abandonner l'opération ?",
+                Text = "Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?",
+            };
+            dialog.YesNo(yes, no);
+        }
 
         /// <summary>Hung script error.</summary>
         /// <param name="script">The hung script's path.</param>
-        /// <remarks>Ignore, Kill Script and Restart Script buttons.</remarks>
-        /// <returns>The corresponding <see cref="ErrorDialog"/>.</returns>
-        public static ErrorDialog HungScript(Path script) => new()
+        public static void HungScript(Path script, IWin32Window owner = null, Action restart = null, Action kill = null, Action ignore = null) => new ErrorDialog(owner)
         {
             Icon = TaskDialogIcon.Warning,
-            Buttons = s_ignoreKillRestart,
             Heading = "Un script est bloqué",
             Text = $"Le script (\"{script.Filename}\") est en cours d'exécution depuis {TimeSpan.FromMilliseconds(Constants.ScriptTimeoutMilliseconds)} et ne s'arrêtera probablement jamais.",
-        };
+        }.RestartKillIgnore(restart, kill, ignore);
 
         /// <summary>Script not found error.</summary>
         /// <param name="script">The hung script's path.</param>
-        /// <remarks>Ignore, Retry and Delete Script buttons.</remarks>
-        /// <returns>The corresponding <see cref="ErrorDialog"/>.</returns>
-        public static ErrorDialog ScriptNotFound(Path script) => new()
+        public static void ScriptNotFound(Path script, IWin32Window owner = null, Action retry = null, Action delete = null, Action ignore = null) => new ErrorDialog(owner)
         {
             Icon = TaskDialogIcon.Error,
-            Buttons = s_ignoreRetryDelete,
             Heading = "Script introuvable",
             Text = $"Le fichier \"{script.Filename}\" est introuvable dans le répertoire \"{script.Directory}.\""
-        };
+        }.DeleteRetryIgnore(delete, retry, ignore);
 
         /// <summary>Single instance only error.</summary>
-        /// <remarks>Retry, Close buttons.</remarks>
-        /// <returns>The corresponding <see cref="ErrorDialog"/>.</returns>
-        public static ErrorDialog SingleInstanceOnly() => new()
+        public static void SingleInstanceOnly(IWin32Window owner = null, Action retry = null, Action close = null) => new ErrorDialog(owner)
         {
             Icon = TaskDialogIcon.Error,
-            Buttons = s_closeRetry,
             Text = "L'application est déjà en cours d'exécution."
-        };
+        }.RetryClose(retry, close);
 
         /// <summary>Wrong startup path error.</summary>
-        /// <remarks>Retry, Close buttons.</remarks>
-        /// <returns>The corresponding <see cref="ErrorDialog"/>.</returns>
-        public static ErrorDialog WrongStartupPath() => new()
+        public static void WrongStartupPath(IWin32Window owner = null, Action retry = null, Action close = null) => new ErrorDialog(owner)
         {
             Icon = TaskDialogIcon.Error,
-            Buttons = s_closeRetry,
             Text = $"L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans \"{Constants.InstallDir}\"."
-        };
+        }.RetryClose(retry, close);
 
         #endregion Public Methods
+
+        #region Private Methods
+
+        private void DeleteRetryIgnore(Action delete, Action retry, Action ignore)
+        {
+            Button deleteScript = new("Supprimer le script");
+            Buttons = new() { Button.Ignore, Button.Retry, deleteScript };
+            Button result = Show();
+            if (result == deleteScript)
+                delete?.Invoke();
+            else if (result == Button.Retry)
+                retry?.Invoke();
+            else
+                ignore?.Invoke();
+        }
+
+        private void RestartKillIgnore(Action restart, Action kill, Action ignore)
+        {
+            Button killScript = new("Forcer l'arrêt du script");
+            Button restartScript = new("Redémarrer le script");
+            Buttons = new() { Button.Ignore, killScript, restartScript };
+
+            Button result = Show();
+
+            if (result == restartScript)
+                restart?.Invoke();
+            else if (result == killScript)
+                kill?.Invoke();
+            else
+                ignore?.Invoke();
+        }
+
+        private void RetryClose(Action retry, Action close)
+        {
+            Buttons = new() { Button.Close, Button.Retry };
+            if (Show() == Button.Retry)
+                retry?.Invoke();
+            else
+                close?.Invoke();
+        }
+
+        private void RetryIgnore(Action retry, Action ignore)
+        {
+            Buttons = new() { Button.Ignore, Button.Retry };
+            if (Show() == Button.Retry)
+                retry?.Invoke();
+            else
+                ignore?.Invoke();
+        }
+
+        private Button Show() => _owner is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(_owner, this);
+
+        private void YesNo(Action yes, Action no)
+        {
+            Buttons = new() { Button.Yes, Button.No };
+            if (Show() == Button.Yes)
+                yes?.Invoke();
+            else
+                no?.Invoke();
+        }
+
+        #endregion Private Methods
     }
 }

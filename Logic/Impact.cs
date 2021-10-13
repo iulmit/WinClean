@@ -58,7 +58,9 @@ namespace RaphaëlBardini.WinClean.Logic
     {
         #region Public Constructors
 
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="lvl"/> is not a valid <see cref="ImpactLevel"/> value.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="lvl"/> is not a valid <see cref="ImpactLevel"/> value.
+        /// </exception>
         public Impact(ImpactEffect effect, ImpactLevel lvl)
         {
             Effect = Enum.IsDefined(typeof(ImpactEffect), effect) ? effect : throw new InvalidEnumArgumentException(nameof(lvl), (int)lvl, typeof(ImpactLevel));
