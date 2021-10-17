@@ -15,6 +15,12 @@ namespace RaphaëlBardini.WinClean.Operational
 {
     public interface IScriptHost
     {
+        #region Public Properties
+
+        public static TimeSpan Timeout { get; set; }
+
+        #endregion Public Properties
+
         #region Protected Classes
 
         /// <summary>Formattable executable arguments with a single file path argument.</summary>
@@ -50,6 +56,8 @@ namespace RaphaëlBardini.WinClean.Operational
         }
 
         #endregion Protected Classes
+
+
 
         #region Public Properties
 
@@ -100,9 +108,9 @@ namespace RaphaëlBardini.WinClean.Operational
 
         private static void WaitForScriptEnd(Process p, FilePath script)
         {
-            if (!(p ?? throw new ArgumentNullException(nameof(p))).WaitForExit(Constants.ScriptTimeoutMilliseconds))
+            if (!(p ?? throw new ArgumentNullException(nameof(p))).WaitForExit(Convert.ToInt32(Timeout.TotalMilliseconds)))
             {
-                ErrorDialog.HungScript(script, Program.MainForm,
+                ErrorDialog.HungScript(script,
                 restart: () =>
                 {
                     p.Kill(true);

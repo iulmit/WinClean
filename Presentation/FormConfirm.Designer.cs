@@ -153,6 +153,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.AcceptButton = this.buttonContinue;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.CausesValidation = false;

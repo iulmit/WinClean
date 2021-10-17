@@ -13,9 +13,6 @@ namespace RaphaëlBardini.WinClean
     {
         #region Public Fields
 
-        /// <summary>Application minimum log level.</summary>
-        public const LogLevel AppLogLevel = LogLevel.Verbose;
-
         /// <summary>Number of milliseconds the program should wait for a script to finish executing.</summary>
         public const int ScriptTimeoutMilliseconds = 20 * 60 * 1000;// 20 minutes
 

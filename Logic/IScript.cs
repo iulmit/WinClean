@@ -1,18 +1,27 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
-using System.IO;
 
 using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
+    public enum ScriptAdvised
+    {
+        Yes,
+        Limited,
+        No
+    }
+
     /// <summary>Represents an executable script associated to a script host program.</summary>
     public interface IScript
     {
         #region Public Properties
 
+        ScriptAdvised Advised { get; set; }
         string Description { get; set; }
         ListViewGroup Group { get; set; }
 
@@ -32,17 +41,22 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Methods
 
         /// <summary>Executes the script in a new process.</summary>
-        /// <param name="owner"></param>
-        void Execute(IWin32Window owner = null);
+        void Execute();
 
-        /// <summary>Renames a script and the associated file.</summary>
-        /// <inheritdoc cref="File.Move(string, string)" path="/exception"/>
-        void Rename()
+        #endregion Public Methods
+    }
+
+    public static class ScriptAdvisedExtensions
+    {
+        #region Public Methods
+
+        public static Color GetColor(this ScriptAdvised scriptAdvised) => scriptAdvised switch
         {
-            FilePath newPath = new(newName.ToFilename(), Path.Directory);
-            File.Move(Path, newPath);
-            Path = newPath;
-        }
+            ScriptAdvised.Yes => Color.Green,
+            ScriptAdvised.Limited => Color.Orange,
+            ScriptAdvised.No => Color.Red,
+            _ => throw new InvalidEnumArgumentException(nameof(scriptAdvised), (int)scriptAdvised, typeof(ScriptAdvised))
+        };
 
         #endregion Public Methods
     }

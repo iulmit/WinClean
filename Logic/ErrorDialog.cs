@@ -8,18 +8,6 @@ namespace RaphaëlBardini.WinClean.Logic
 {
     public class ErrorDialog : TaskDialogPage
     {
-        #region Private Fields
-
-        private readonly IWin32Window _owner;
-
-        #endregion Private Fields
-
-        #region Public Constructors
-
-        public ErrorDialog(IWin32Window owner = null) => _owner = owner;
-
-        #endregion Public Constructors
-
         #region Public Properties
 
         public static new string Caption => Application.ProductName;
@@ -33,7 +21,7 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <summary>Can't create log directory error.</summary>
         /// <param name="dir">The path of the directory that couldn't be created.</param>
         /// <param name="message">More details on the error.</param>
-        public static void CantCreateLogDir(string message, IWin32Window owner = null, Action retry = null, Action close = null) => new ErrorDialog(owner)
+        public static void CantCreateLogDir(string message, Action retry = null, Action close = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Error,
             Text = $"Impossible de créer le dossier des logs. {message}"
@@ -42,16 +30,16 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <summary>Can't create log file error.</summary>
         /// <param name="dir">The path of the file that couldn't be deleted.</param>
         /// <param name="message">More details on the error.</param>
-        public static void CantDeleteLogFile(string message, IWin32Window owner = null, Action retry = null, Action ignore = null) => new ErrorDialog(owner)
+        public static void CantDeleteLogFile(string message, Action retry = null, Action ignore = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Error,
             Text = $"Impossible de supprimer le fichier de logs. {message}"
         }.RetryIgnore(retry, ignore);
 
         /// <summary>Asks the users for confirmation on exiting the application and potentially loosing data.</summary>
-        public static void ConfirmAbortOperation(IWin32Window owner = null, Action yes = null, Action no = null)
+        public static void ConfirmAbortOperation(Action yes = null, Action no = null)
         {
-            ErrorDialog dialog = new(owner)
+            ErrorDialog dialog = new()
             {
                 Icon = TaskDialogIcon.Warning,
                 Heading = "Abandonner l'opération ?",
@@ -62,7 +50,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Hung script error.</summary>
         /// <param name="script">The hung script's path.</param>
-        public static void HungScript(FilePath script, IWin32Window owner = null, Action restart = null, Action kill = null, Action ignore = null) => new ErrorDialog(owner)
+        public static void HungScript(FilePath script, Action restart = null, Action kill = null, Action ignore = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Warning,
             Heading = "Un script est bloqué",
@@ -71,7 +59,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Script not found error.</summary>
         /// <param name="script">The hung script's path.</param>
-        public static void ScriptNotFound(FilePath script, IWin32Window owner = null, Action retry = null, Action delete = null, Action ignore = null) => new ErrorDialog(owner)
+        public static void ScriptNotFound(FilePath script, Action retry = null, Action delete = null, Action ignore = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Error,
             Heading = "Script introuvable",
@@ -79,14 +67,14 @@ namespace RaphaëlBardini.WinClean.Logic
         }.DeleteRetryIgnore(delete, retry, ignore);
 
         /// <summary>Single instance only error.</summary>
-        public static void SingleInstanceOnly(IWin32Window owner = null, Action retry = null, Action close = null) => new ErrorDialog(owner)
+        public static void SingleInstanceOnly(Action retry = null, Action close = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Error,
             Text = "L'application est déjà en cours d'exécution."
         }.RetryClose(retry, close);
 
         /// <summary>Wrong startup path error.</summary>
-        public static void WrongStartupPath(IWin32Window owner = null, Action retry = null, Action close = null) => new ErrorDialog(owner)
+        public static void WrongStartupPath(Action retry = null, Action close = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Error,
             Text = $"L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans \"{Constants.InstallDir}\"."
@@ -143,7 +131,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 ignore?.Invoke();
         }
 
-        private Button Show() => _owner is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(_owner, this);
+        private Button Show() => Form.ActiveForm is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(Form.ActiveForm, this);
 
         private void YesNo(Action yes, Action no)
         {

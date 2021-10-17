@@ -1,6 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -12,6 +13,15 @@ namespace RaphaëlBardini.WinClean.Logic
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237", Justification = $"{nameof(Script)} does not support serialization.")]
     public class Script : ListViewItem, IScript
     {
+        #region Private Fields
+
+        private const byte RecommendedColorAlpha = 63;
+        private readonly Color _initialBackColor;
+
+        private ScriptAdvised _scriptAdvised;
+
+        #endregion Private Fields
+
         #region Public Constructors
 
         /// <summary>Instanciates a new <see cref="Script"/> object.</summary>
@@ -21,24 +31,35 @@ namespace RaphaëlBardini.WinClean.Logic
         {
             Path = path;
             Host = host;
+            _initialBackColor = BackColor;
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
+        public ScriptAdvised Advised
+        {
+            get => _scriptAdvised;
+            set
+            {
+                _scriptAdvised = value;
+                BackColor = value.GetColor().EmulateAlpha(_initialBackColor, RecommendedColorAlpha);
+            }
+        }
+
         public string Description { get => ToolTipText; set => ToolTipText = value; }
         public IScriptHost Host { get; }
         public IEnumerable<Impact> Impacts { get; init; }
         public new string Name { get => Text; set => Text = value; }
-        public FilePath Path { get; set; }
+        public FilePath Path { get; protected set; }
 
         #endregion Public Properties
 
         #region Public Methods
 
         /// <inheritdoc cref="ScriptHost.Execute()" path="/summary"/>
-        public void Execute(IWin32Window owner = null)
+        public void Execute()
         {
             try
             {
@@ -46,7 +67,7 @@ namespace RaphaëlBardini.WinClean.Logic
             }
             catch (FileNotFoundException)
             {
-                ErrorDialog.ScriptNotFound(Path, owner, () => Execute(owner), null/*chaud : delete script from settings*/);
+                ErrorDialog.ScriptNotFound(Path, Execute, null/*chaud : delete script from settings*/);
             }
         }
 

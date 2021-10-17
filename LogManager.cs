@@ -18,16 +18,17 @@ namespace RaphaëlBardini.WinClean
 {
     public enum LogLevel
     {
-        Critical = 0,
-        Error = 1,
-        Warning = 2,
-        Info = 3,
-        Verbose = 4
+        Verbose,
+        Info,
+        Warning,
+        Error,
+        Critical
     }
 
     /// <summary>Provides CSV logging.</summary>
     public static class LogManager
     {
+        public static LogLevel MinLogLevel { get; set; }
         #region Constants
 
         /// <summary>Format string used by <see cref="DateTime.ToString(string?)"/> used for NTFS filenames.</summary>
@@ -88,7 +89,7 @@ namespace RaphaëlBardini.WinClean
                 s_csvWriter.Flush();
                 s_logIndex++;
             }
-            if (lvl <= Constants.AppLogLevel)
+            if (MinLogLevel <= lvl)
             {
                 s_csvWriter.WriteRecord(new LogEntry()
                 {
@@ -149,7 +150,7 @@ namespace RaphaëlBardini.WinClean
             }
             catch (IOException e)
             {
-                ErrorDialog.CantCreateLogDir(e.Message, null, CreateLogDir, Program.Exit);
+                ErrorDialog.CantCreateLogDir(e.Message, CreateLogDir, Program.Exit);
             }
         }
 
@@ -169,7 +170,7 @@ namespace RaphaëlBardini.WinClean
             // For IOException, we don't want to handle derived classes. The "is" operator covers derived classes too.
             catch (Exception e) when (e is DirectoryNotFoundException or UnauthorizedAccessException || e.GetType().Equals(typeof(IOException)))
             {
-                ErrorDialog.CantDeleteLogFile(e.Message, Program.MainForm, () => DeleteLogFile(path));
+                ErrorDialog.CantDeleteLogFile(e.Message, () => DeleteLogFile(path));
             }
         }
 

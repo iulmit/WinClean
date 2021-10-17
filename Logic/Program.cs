@@ -12,34 +12,21 @@ namespace RaphaëlBardini.WinClean.Logic
     /// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>
     public static class Program
     {
-        #region Private Fields
-
-        private static readonly MainForm s_mainForm = new();
-
-        #endregion Private Fields
-
-        #region Public Properties
-
-        public static IWin32Window MainForm => s_mainForm.Visible ? s_mainForm : null;
-
-        #endregion Public Properties
-
         #region Public Methods
 
         /// <summary>Asks for confirmation and runs the script.</summary>
         /// <remarks>If there is more than 1 script to run, show a GUI</remarks>
         /// <param name="scripts"></param>
-        /// <param name="owner"></param>
-        public static void ConfirmAndExecuteScripts(IEnumerable<Script> scripts, IWin32Window owner = null)
+        public static void ConfirmAndExecuteScripts(IEnumerable<Script> scripts)
         {
             if (scripts is null)
                 throw new ArgumentNullException(nameof(scripts));
             if (scripts.Count() > 1)
             {
-                if (Confirm(owner))
+                if (Confirm())
                 {
                     using ScriptExecutorGUI executor = new(scripts);
-                    executor.ExecuteAll(owner);
+                    executor.ExecuteAll();
                 }
             }
             else if (scripts.Count() == 1)
@@ -54,21 +41,26 @@ namespace RaphaëlBardini.WinClean.Logic
         }
 
         /// <summary>Shows the traditional about dialog box with the program's metadata.</summary>
-        /// <inheritdoc cref="Form.Show(IWin32Window)" path="/param"/>
-        public static void ShowAboutBox(IWin32Window owner)
+        public static void ShowAboutBox()
         {
             using AboutBox about = new();
-            _ = about.ShowDialog(owner); // Use showdialog so the windows dosen't disappear immediately
+            _ = about.ShowDialog(Form.ActiveForm); // Use showdialog so the windows dosen't disappear immediately
+        }
+
+        public static void ShowSettings()
+        {
+            using SettingsForm settings = new();
+            _ = settings.ShowDialog(Form.ActiveForm);
         }
 
         #endregion Public Methods
 
         #region Private Methods
 
-        private static bool Confirm(IWin32Window owner)
+        private static bool Confirm()
         {
             using FormConfirm fc = new();
-            return fc.ShowDialog(owner) == DialogResult.OK;
+            return fc.ShowDialog(Form.ActiveForm) == DialogResult.OK;
         }
 
         /// <summary>Ensures that this is the first instance of the program</summary>
@@ -80,7 +72,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 GC.KeepAlive(singleInstanceEnforcer);
             else
             {
-                ErrorDialog.SingleInstanceOnly(null, EnsureSingleInstance, Exit);
+                ErrorDialog.SingleInstanceOnly(EnsureSingleInstance, Exit);
                 singleInstanceEnforcer.Close();
             }
         }
@@ -89,7 +81,7 @@ namespace RaphaëlBardini.WinClean.Logic
         private static void EnsureStartupPath()
         {
             if (Application.StartupPath != Constants.InstallDir)
-                ErrorDialog.WrongStartupPath(null, EnsureStartupPath, Exit);
+                ErrorDialog.WrongStartupPath(EnsureStartupPath, Exit);
         }
 
         [STAThread]
@@ -100,24 +92,10 @@ namespace RaphaëlBardini.WinClean.Logic
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             EnsureSingleInstance();
             EnsureStartupPath();
-            Application.Run(s_mainForm);
+            Settings.LoadDefaults();
+            using MainForm mainForm = new();
+            Application.Run(mainForm);
             Exit();
-        }
-
-        private struct LogEntry
-        {
-            #region Public Properties
-
-            public string Caller { get; set; }
-            public string CallFileFullPath { get; set; }
-            public int CallLine { get; set; }
-            public DateTime Date { get; set; }
-            public string Happening { get; set; }
-            public int Index { get; set; }
-            public LogLevel Level { get; set; }
-            public string Message { get; set; }
-
-            #endregion Public Properties
         }
 
         #endregion Private Methods

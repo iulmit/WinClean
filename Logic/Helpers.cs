@@ -1,8 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Logic
@@ -45,15 +45,18 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #endregion Debug
 
-        /// <summary>Converts a</summary>
-        /// <param name="fallback">Character to replace invalid path chars with.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="str"/> is <see langword="null"/>.</exception>
-        public static string ToFilename(this string str, string fallback = "_")
+        /// <summary>Blends the specified colors together.</summary>
+        /// <param name="color">Color to blend onto the background color.</param>
+        /// <param name="backColor">Color to blend the other color onto.</param>
+        /// <param name="amount">How much of <paramref name="color"/> to keep, “on top of” <paramref name="backColor"/>.</param>
+        /// <returns>The blended colors.</returns>
+        public static Color EmulateAlpha(this Color color, Color fadeInto, byte alpha)
         {
-            if (str is null)
-                throw new ArgumentNullException(nameof(str));
-            return Regex.Replace(str, $"[{Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()))}]", fallback, RegexOptions.Compiled);
+            float amount = (float)alpha / byte.MaxValue;
+            byte r = (byte)(color.R * amount + fadeInto.R * (1 - amount));
+            byte g = (byte)(color.G * amount + fadeInto.G * (1 - amount));
+            byte b = (byte)(color.B * amount + fadeInto.B * (1 - amount));
+            return Color.FromArgb(r, g, b);
         }
 
         /// <summary>Exécute l'action spécifiée sur chaque élément de <see cref="IEnumerable{}"/>.</summary>

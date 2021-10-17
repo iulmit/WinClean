@@ -31,14 +31,16 @@ namespace RaphaëlBardini.WinClean.Presentation
                     Name = "CmdFoo",
                     Description = "Foo description 0",
                     Impacts = new[] { new Impact(ImpactEffect.Visuals, ImpactLevel.Positive) },
-                    Group = listViewScripts.Groups[0]
+                    Group = listViewScripts.Groups[0],
+                    Advised = ScriptAdvised.Yes,
                 },
                 new Script(new Regedit(), new FilePath("dummy.reg", Constants.ScriptsDir))
                 {
                     Name = "RegDummy",
                     Description = "Dummy description 1",
                     Impacts = new[] { new Impact(ImpactEffect.ShutdownTime, ImpactLevel.Negative) },
-                    Group = listViewScripts.Groups[1]
+                    Group = listViewScripts.Groups[1],
+                    Advised = ScriptAdvised.Limited,
                 },
                 new Script(new PowerShell(), new FilePath("ps1script.ps1", Constants.ScriptsDir))
                 {
@@ -46,6 +48,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                     Description = "PowShe desc 3",
                     Impacts = new[] { new Impact(ImpactEffect.ResponseTime, ImpactLevel.Positive) },
                     Group = listViewScripts.Groups[1],
+                    Advised = ScriptAdvised.No,
                 }
             });
 
@@ -65,7 +68,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         {
         }
 
-        private void ButtonNext_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<Script>(), this);
+        private void ButtonNext_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<Script>());
 
         private void ButtonQuit_Click(object sender = null, EventArgs e = null) => Program.Exit();
 
@@ -83,13 +86,11 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         private void MainMenuSelectNothing_Click(object sender = null, EventArgs e = null) => listViewScripts.Items.SetAllChecked(false);
 
-        private void MainMenuStripAbout_Click(object sender = null, EventArgs e = null) => Program.ShowAboutBox(this);
+        private void MainMenuStripAbout_Click(object sender = null, EventArgs e = null) => Program.ShowAboutBox();
 
         private void MainMenuStripClearLogs_Click(object sender = null, EventArgs e = null) => LogManager.ClearLogsFolder();
 
-        private void MainMenuStripSettings_Click(object sender = null, EventArgs e = null)
-        {
-        }
+        private void MainMenuStripSettings_Click(object sender = null, EventArgs e = null) => Program.ShowSettings();
 
         private void MainMenuStripShowHelp_Click(object sender = null, EventArgs e = null)
         {
@@ -99,28 +100,13 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region contextMenuStripScripts
 
-        private void ContextMenuScripts_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            contextMenuStripScripts.Items.ToEnumerable().ForEach((item) => item.Enabled = true);
-
-            ContextMenuScriptsDelete.Enabled =
-            ContextMenuScriptsExecute.Enabled = listViewScripts.SelectedItems.Count > 0;
-            ContextMenuScriptsRename.Enabled = listViewScripts.SelectedItems.Count == 1;
-        }
-
-        private void ContextMenuScriptsDelete_Click(object sender, EventArgs e)
+        private void ContextMenuDelete_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem selectedItem in listViewScripts.SelectedItems)
                 selectedItem.Remove();
         }
 
-        private void ContextMenuScriptsExecute_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.SelectedItems.Cast<Script>(), this);
-
-        private void ContextMenuScriptsNew_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ContextMenuScriptsRename_Click(object sender, EventArgs e)
+        private void ContextMenuEdit_Click(object sender, EventArgs e)
         {
             listViewScripts.LabelEdit = true;
             listViewScripts.SelectedItems[0].BeginEdit();
@@ -132,7 +118,20 @@ namespace RaphaëlBardini.WinClean.Presentation
                 {
                     ((Script)listViewScripts.Items[e.Item]).Name = e.Label;
                 }
+                RefreshPreview();
             };
+        }
+
+        private void ContextMenuExecute_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.SelectedItems.Cast<Script>());
+
+        private void ContextMenuNew_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void ContextMenuScripts_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ContextMenuDelete.Enabled = ContextMenuExecute.Enabled = listViewScripts.SelectedItems.Count > 0;
+            ContextMenuEdit.Enabled = listViewScripts.SelectedItems.Count == 1;
         }
 
         #endregion contextMenuStripScripts
@@ -145,19 +144,15 @@ namespace RaphaëlBardini.WinClean.Presentation
         /// </summary>
         private void ListViewScripts_Resize(object sender = null, EventArgs e = null) => scriptHeaderName.Width = listViewScripts.Size.Width;
 
-        private void ListViewScripts_SelectedIndexChanged(object sender = null, EventArgs e = null)
+        private void RefreshPreview(object sender = null, EventArgs e = null)
         {
-            if (listViewScripts.SelectedItems.Count == 0)
+            if (listViewScripts.SelectedItems.Count == 1)
             {
-                labelName.Text =
-                labelDescription.Text =
-                labelInfo.Text = string.Empty;
+                propertyGridScript.SelectedObject = (IScript)listViewScripts.SelectedItems[0];
             }
             else
             {
-                labelName.Text = ((Script)listViewScripts.SelectedItems[0]).Name;
-                labelDescription.Text = ((Script)listViewScripts.SelectedItems[0]).Description;
-                labelInfo.Text = ((Script)listViewScripts.SelectedItems[0]).Impacts.ToMultilineString();
+                propertyGridScript.SelectedObjects = listViewScripts.SelectedItems.Cast<IScript>().ToArray();
             }
         }
 

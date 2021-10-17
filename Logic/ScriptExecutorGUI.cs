@@ -79,8 +79,7 @@ namespace RaphaëlBardini.WinClean.Logic
         /// Executes all the scripts in an <see cref="IEnumerable{Operational.Script}"/> and displays a dialog tracking the progress.
         /// </summary>
         /// <param name="scripts">The scripts to execute.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="owner"/> is <see langword="null"/>.</exception>
-        public void ExecuteAll(IWin32Window owner) => _ = TaskDialog.ShowDialog(owner, _progressPage);
+        public void ExecuteAll() => _ = (Form.ActiveForm is null) ? TaskDialog.ShowDialog(_progressPage) : TaskDialog.ShowDialog(Form.ActiveForm, _progressPage);
 
         #endregion Public Methods
 
@@ -91,7 +90,7 @@ namespace RaphaëlBardini.WinClean.Logic
             bool canExit = !_scriptsRunner.IsBusy;
             if (!canExit)
             {
-                ErrorDialog.ConfirmAbortOperation(_progressPage.BoundDialog,
+                ErrorDialog.ConfirmAbortOperation(
                 yes: () =>
                 {
                     canExit = true;
@@ -137,7 +136,7 @@ namespace RaphaëlBardini.WinClean.Logic
                     catch (System.IO.FileNotFoundException)
                     {
                         _progressPage.ProgressBar.State = TaskDialogProgressBarState.Error;
-                        ErrorDialog.ScriptNotFound(_scripts[i].Path, _progressPage.BoundDialog, RunThrow, null/*chaud : supprimer le script des settings*/);
+                        ErrorDialog.ScriptNotFound(_scripts[i].Path, RunThrow, null/*chaud : supprimer le script des settings*/);
                         _progressPage.ProgressBar.State = TaskDialogProgressBarState.Normal;
                     }
                 }

@@ -16,11 +16,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         public static IEnumerable<ListViewItem> ToEnumerable(this ListView.ListViewItemCollection c) => c.OfType<ListViewItem>();
 
-        public static IEnumerable<ListViewItem> ToEnumerable(this ListView.SelectedListViewItemCollection c) => c.OfType<ListViewItem>();
-
         public static IEnumerable<ToolStripItem> ToEnumerable(this ToolStripItemCollection c) => c.OfType<ToolStripItem>();
-
-        public static IEnumerable<Form> ToEnumerable(this FormCollection c) => c.OfType<Form>();
 
         #endregion Public Methods
     }
