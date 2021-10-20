@@ -50,10 +50,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 Footnote = new("L'ordinateur redémarrera automatiquement à la fin de l'opération.") { Icon = TaskDialogIcon.Information },
             };
 
-            _progressPage.Created += (sender, e) =>
-            {
-                _scriptsRunner.RunWorkerAsync();
-            };
+            _progressPage.Created += (sender, e) => _scriptsRunner.RunWorkerAsync();
             _scriptsRunner.DoWork += ScriptRunnerDoWork;
             _scriptsRunner.ProgressChanged += ScriptsRunnerProgressChanged;
             _scriptsRunner.RunWorkerCompleted += ScriptRunnerCompleted;
@@ -91,10 +88,7 @@ namespace RaphaëlBardini.WinClean.Logic
             if (!canExit)
             {
                 ErrorDialog.ConfirmAbortOperation(
-                yes: () =>
-                {
-                    canExit = true;
-                });
+                yes: () => canExit = true);
             }
             return canExit;
         }

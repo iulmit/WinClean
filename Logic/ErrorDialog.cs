@@ -54,7 +54,7 @@ namespace RaphaëlBardini.WinClean.Logic
         {
             Icon = TaskDialogIcon.Warning,
             Heading = "Un script est bloqué",
-            Text = $"Le script (\"{script.Filename}\") est en cours d'exécution depuis {TimeSpan.FromMilliseconds(Constants.ScriptTimeoutMilliseconds)} et ne s'arrêtera probablement jamais.",
+            Text = $"Le script (\"{script.Filename}\") est en cours d'exécution depuis {Operational.IScriptHost.Timeout} et ne s'arrêtera probablement jamais.",
         }.RestartKillIgnore(restart, kill, ignore);
 
         /// <summary>Script not found error.</summary>
@@ -77,7 +77,7 @@ namespace RaphaëlBardini.WinClean.Logic
         public static void WrongStartupPath(Action retry = null, Action close = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Error,
-            Text = $"L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans \"{Constants.InstallDir}\"."
+            Text = $"L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans \"{Constants.AppInstallDir}\"."
         }.RetryClose(retry, close);
 
         #endregion Public Methods

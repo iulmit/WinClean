@@ -17,7 +17,7 @@ namespace RaphaëlBardini.WinClean.Operational
     {
         #region Public Properties
 
-        public static TimeSpan Timeout { get; set; }
+        public static TimeSpan Timeout { get; set; } = Properties.Settings.Default.ScriptTimeout;
 
         #endregion Public Properties
 
@@ -116,14 +116,8 @@ namespace RaphaëlBardini.WinClean.Operational
                     p.Kill(true);
                     _ = p.Start();
                 },
-                kill: () =>
-                {
-                    p.Kill(true);
-                },
-                ignore: () =>
-                {
-                    WaitForScriptEnd(p, script);
-                });
+                kill: () => p.Kill(true),
+                ignore: () => WaitForScriptEnd(p, script));
             }
         }
 

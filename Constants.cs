@@ -13,18 +13,12 @@ namespace RaphaëlBardini.WinClean
     {
         #region Public Fields
 
-        /// <summary>Number of milliseconds the program should wait for a script to finish executing.</summary>
-        public const int ScriptTimeoutMilliseconds = 20 * 60 * 1000;// 20 minutes
-
         // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
         /// <summary>Application install directory.</summary>
-        public static readonly DirectoryPath InstallDir = new(Application.StartupPath);
-
-        /// <summary>Application logging directory.</summary>
-        public static readonly DirectoryPath LogsDir = new(Combine(InstallDir, "Logs"));
+        public static readonly DirectoryPath AppInstallDir = new(Application.StartupPath);
 
         /// <summary>Scripts storage directory.</summary>
-        public static readonly DirectoryPath ScriptsDir = new(Combine(InstallDir, "Scripts"));
+        public static readonly DirectoryPath ScriptsDir = new(Combine(AppInstallDir, "Scripts"));
 
         #endregion Public Fields
     }

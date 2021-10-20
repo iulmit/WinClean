@@ -1051,7 +1051,7 @@ dotnet_diagnostic.CA1302.severity = warning
 
 dotnet_diagnostic.CA1303.severity = warning
 
-dotnet_diagnostic.CA1304.severity = none
+dotnet_diagnostic.CA1304.severity =suggestion
 
 dotnet_diagnostic.CA1305.severity = warning
 
@@ -1527,3 +1527,51 @@ dotnet_diagnostic.CA5403.severity = warning
 
 # IDE0079: Retirer la suppression inutile
 dotnet_diagnostic.IDE0079.severity = none
+dotnet_style_prefer_conditional_expression_over_return=true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment=true:suggestion
+dotnet_diagnostic.CA1310.severity=suggestion
+dotnet_diagnostic.CA1805.severity=suggestion
+dotnet_diagnostic.CA3075.severity=suggestion
+dotnet_diagnostic.CA3061.severity=suggestion
+dotnet_diagnostic.CA3147.severity=suggestion
+dotnet_diagnostic.CA5350.severity=suggestion
+dotnet_diagnostic.CA5351.severity=suggestion
+dotnet_diagnostic.CA5359.severity=suggestion
+dotnet_diagnostic.CA5360.severity=suggestion
+dotnet_diagnostic.CA5363.severity=suggestion
+dotnet_diagnostic.CA5364.severity=suggestion
+dotnet_diagnostic.CA5365.severity=suggestion
+dotnet_diagnostic.CA5366.severity=suggestion
+dotnet_diagnostic.CA5368.severity=suggestion
+dotnet_diagnostic.CA5369.severity=suggestion
+dotnet_diagnostic.CA5370.severity=suggestion
+dotnet_diagnostic.CA5371.severity=suggestion
+dotnet_diagnostic.CA5372.severity=suggestion
+dotnet_diagnostic.CA5373.severity=suggestion
+dotnet_diagnostic.CA5374.severity=suggestion
+dotnet_diagnostic.CA5379.severity=suggestion
+dotnet_diagnostic.CA5384.severity=suggestion
+dotnet_diagnostic.CA5385.severity=suggestion
+dotnet_diagnostic.CA5397.severity=suggestion
+dotnet_diagnostic.CA1838.severity=suggestion
+
+[*.cs]
+csharp_style_expression_bodied_methods=true:suggestion
+csharp_style_expression_bodied_constructors=true:suggestion
+csharp_style_expression_bodied_operators=true:suggestion
+csharp_style_expression_bodied_properties=true:suggestion
+csharp_style_expression_bodied_indexers=true:suggestion
+csharp_style_expression_bodied_accessors=true:suggestion
+csharp_style_expression_bodied_lambdas=true:suggestion
+csharp_style_expression_bodied_local_functions=true:suggestion
+csharp_prefer_simple_using_statement=false:suggestion
+csharp_style_pattern_local_over_anonymous_function=false:suggestion
+csharp_style_prefer_index_operator=false:suggestion
+csharp_style_prefer_range_operator=false:suggestion
+csharp_style_var_when_type_is_apparent=false:suggestion
+dotnet_diagnostic.CA1200.severity=suggestion
+dotnet_diagnostic.CA3077.severity=suggestion
+dotnet_diagnostic.CA3076.severity=suggestion
+
+# IDE0002: Simplifier l'accès au membre
+dotnet_diagnostic.IDE0002.severity = suggestion

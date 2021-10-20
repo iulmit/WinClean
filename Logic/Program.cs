@@ -80,7 +80,7 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <summary>Ensures that the path of the executable of the current instance of the program is in the correct location.</summary>
         private static void EnsureStartupPath()
         {
-            if (Application.StartupPath != Constants.InstallDir)
+            if (Application.StartupPath != Constants.AppInstallDir)
                 ErrorDialog.WrongStartupPath(EnsureStartupPath, Exit);
         }
 
@@ -92,7 +92,6 @@ namespace RaphaëlBardini.WinClean.Logic
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             EnsureSingleInstance();
             EnsureStartupPath();
-            Settings.LoadDefaults();
             using MainForm mainForm = new();
             Application.Run(mainForm);
             Exit();

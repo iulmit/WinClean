@@ -7,11 +7,30 @@
     <StartupObject>RaphaëlBardini.WinClean.Logic.Program</StartupObject>
 	<LangVersion>preview</LangVersion>
 	<RootNamespace>RaphaëlBardini.WinClean</RootNamespace>
+	<ApplicationIcon></ApplicationIcon>
+	<Platforms>AnyCPU;x64</Platforms>
+	<Authors>Raphaël Bardini</Authors>
+	<Description>Utilitaire d'optimisation et amélioration des performances Windows.
+</Description>
+	<Copyright>Copyright Placeholder</Copyright>
+	<PackageProjectUrl>https://raphaelbardini.github.io/WinClean/</PackageProjectUrl>
+	<PackageIcon>main.png</PackageIcon>
+	<PackageIconUrl />
+	<RepositoryUrl>https://github.com/RaphaelBardini/WinClean</RepositoryUrl>
+	<NeutralLanguage>fr-FR</NeutralLanguage>
+	<Win32Resource />
 	<ApplicationManifest>app.manifest</ApplicationManifest>
-	<ApplicationIcon>Resources\mainIcon.ico</ApplicationIcon>
+	
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <NoWarn>NU1701;1701;1702;CS0169</NoWarn>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <NoWarn>NU1701;1701;1702;CS0169</NoWarn>
     <WarningLevel>4</WarningLevel>
@@ -22,10 +41,18 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Logic\obj\**" />
     <EmbeddedResource Remove="Logic\obj\**" />
     <None Remove="Logic\obj\**" />
+    <None Include="Resources\main.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +61,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PropertyBag\PropertyBag.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ErrorStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -76,6 +112,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Presets.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
