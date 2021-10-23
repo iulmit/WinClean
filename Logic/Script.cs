@@ -1,8 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 using RaphaëlBardini.WinClean.Operational;
@@ -26,11 +26,17 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Instanciates a new <see cref="Script"/> object.</summary>
         /// <param name="host">The associated script host program.</param>
-        /// <param name="path">The path of the script file.</param>
-        public Script(IScriptHost host, FilePath path)
+        /// <param name="existingScriptFileName">The filename of the script.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="host"/> or <paramref name="existingScriptFileName"/> are <see langword="null"/>.
+        /// </exception>
+        /// <inheritdoc cref="Path.Combine(string, string)" path="/exception"/>
+        /// <inheritdoc cref="Helpers.ThrowIfUnacessible(FileInfo, FileAccess)"/>
+        public Script(IScriptHost host, string existingScriptFileName)
         {
-            Path = path;
-            Host = host;
+            File = new FileInfo(Path.Combine(IScript.ScriptsDir.FullName, existingScriptFileName));
+            File.ThrowIfUnacessible(FileAccess.Read);
+            Host = host ?? throw new ArgumentNullException(nameof(host));
             _initialBackColor = BackColor;
         }
 
@@ -38,39 +44,74 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Public Properties
 
+        /// <inheritdoc/>
         public ScriptAdvised Advised
         {
             get => _scriptAdvised;
             set
             {
                 _scriptAdvised = value;
-                BackColor = value.GetColor().EmulateAlpha(_initialBackColor, RecommendedColorAlpha);
+                BackColor = EmulateAlpha(GetColor(value), _initialBackColor, RecommendedColorAlpha);
             }
         }
 
+        /// <inheritdoc/>
         public string Description { get => ToolTipText; set => ToolTipText = value; }
+
+        /// <inheritdoc/>
+        public FileInfo File { get; protected set; }
+
+        /// <inheritdoc/>
         public IScriptHost Host { get; }
+
+        /// <inheritdoc/>
         public IEnumerable<Impact> Impacts { get; init; }
+
+        /// <inheritdoc/>
         public new string Name { get => Text; set => Text = value; }
-        public FilePath Path { get; protected set; }
 
         #endregion Public Properties
 
         #region Public Methods
 
-        /// <inheritdoc cref="ScriptHost.Execute()" path="/summary"/>
+        /// <inheritdoc cref="IScriptHost.Execute(FileInfo)" path="/summary"/>
         public void Execute()
         {
             try
             {
-                Host.Execute(Path);
+                Host.Execute(File);
             }
             catch (FileNotFoundException)
             {
-                ErrorDialog.ScriptNotFound(Path, Execute, null/*chaud : delete script from settings*/);
+                ErrorDialog.ScriptNotFound(File, Execute, null/*chaud : delete script from settings*/);
+            }
+            catch (Exception e) when (e is System.Security.SecurityException or UnauthorizedAccessException or IOException)
+            {
+                ErrorDialog.ScriptInacessible(File, e, Execute, null/*chaud : delete script from settings*/);
             }
         }
 
         #endregion Public Methods
+
+        #region Private Methods
+
+        private static Color EmulateAlpha(Color color, Color fadeInto, byte alpha)
+        {
+            float amount = (float)alpha / byte.MaxValue;
+            byte r = (byte)(color.R * amount + fadeInto.R * (1 - amount));
+            byte g = (byte)(color.G * amount + fadeInto.G * (1 - amount));
+            byte b = (byte)(color.B * amount + fadeInto.B * (1 - amount));
+            return Color.FromArgb(r, g, b);
+        }
+
+        private static Color GetColor(ScriptAdvised scriptAdvised) => scriptAdvised switch
+        {
+            ScriptAdvised.Yes => Color.Green,
+            ScriptAdvised.Limited => Color.Orange,
+            ScriptAdvised.No => Color.Red,
+            _ => throw new InvalidEnumArgumentException(nameof(scriptAdvised), (int)scriptAdvised, typeof(ScriptAdvised))
+        };
+
+        #endregion Private Methods
     }
 }

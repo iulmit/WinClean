@@ -16,10 +16,11 @@
 	<PackageProjectUrl>https://raphaelbardini.github.io/WinClean/</PackageProjectUrl>
 	<PackageIcon>main.png</PackageIcon>
 	<PackageIconUrl />
-	<RepositoryUrl>https://github.com/RaphaelBardini/WinClean</RepositoryUrl>
+	<RepositoryUrl>https://raphaelbardini.github.io/WinClean/</RepositoryUrl>
 	<NeutralLanguage>fr-FR</NeutralLanguage>
 	<Win32Resource />
 	<ApplicationManifest>app.manifest</ApplicationManifest>
+	<RepositoryType>GitHub</RepositoryType>
 	
   </PropertyGroup>
 
@@ -35,6 +36,7 @@
     <NoWarn>NU1701;1701;1702;CS0169</NoWarn>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet />
+    <DocumentationFile>D:\Scover\Bureau\Programmation\Visual Studio\C#\WinClean\WinClean.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

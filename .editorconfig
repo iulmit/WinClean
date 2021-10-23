@@ -1575,3 +1575,6 @@ dotnet_diagnostic.CA3076.severity=suggestion
 
 # IDE0002: Simplifier l'accès au membre
 dotnet_diagnostic.IDE0002.severity = suggestion
+
+# IDE0073: L'en-tête du fichier ne correspond pas au texte nécessaire
+dotnet_diagnostic.IDE0073.severity = none

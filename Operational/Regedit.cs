@@ -7,14 +7,15 @@ using static System.IO.Path;
 
 namespace RaphaëlBardini.WinClean.Operational
 {
+    /// <summary>Represents the Windows Registry Editor script host.</summary>
     public sealed class Regedit : IScriptHost
     {
         #region Public Properties
 
         IScriptHost.IncompleteArguments IScriptHost.Arguments => new("/s {0}");
         Encoding IScriptHost.Encoding => Encoding.Unicode;
-        FilePath IScriptHost.Executable => new(Combine(Environment.GetEnvironmentVariable("SystemRoot"), "regedit.exe"));
-        IReadOnlyCollection<Extension> IScriptHost.SupportedExtensions => new Extension[] { new(".reg") };
+        FileInfo IScriptHost.Executable => new(Combine(Environment.GetEnvironmentVariable("SystemRoot"), "regedit.exe"));
+        IReadOnlyCollection<string> IScriptHost.SupportedExtensions => new string[] { ".reg" };
 
         #endregion Public Properties
     }

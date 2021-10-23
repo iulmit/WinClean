@@ -9,10 +9,10 @@ namespace RaphaëlBardini.WinClean.Logic
 #pragma warning disable CA1028
 #pragma warning disable CA1720
 
+    /// <summary>Flags for <see cref="NativeMethods.SHGetStockIconInfo(ShellIcon, SHGSI, ref NativeMethods.SHSTOCKICONINFO)"/></summary>
+    /// <remarks>Don't use, use <see cref="ShelIconModifier"/> instead.</remarks>
     [Flags]
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-    /// <summary>Flags for <see cref="NativeMethods.SHGetStockIconInfo(StockIcon, SHGSI, ref SHSTOCKICONINFO)"/></summary>
-    /// <remarks>Don't use, use <see cref="ShellIcon"/> instead.</remarks>
     public enum SHGSI
     {
         /// <summary>

@@ -28,7 +28,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Retrieves a common shell icon.</summary>
         /// <returns>The icon corresponding to the <paramref name="id"/> with the specified <paramref name="flags"/>.</returns>
-        public static Icon GetShellIcon(StockIcon id, ShellIcon flags = ShellIcon.None)
+        public static Icon GetShellIcon(ShellIcon id, ShelIconModifier flags = ShelIconModifier.None)
         {
             SHSTOCKICONINFO sii = new()
             {
@@ -61,7 +61,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         [DllImport("Shell32.dll", SetLastError = false)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
-        private static extern int SHGetStockIconInfo(StockIcon siid, SHGSI uFlags, ref SHSTOCKICONINFO psii);
+        private static extern int SHGetStockIconInfo(ShellIcon siid, SHGSI uFlags, ref SHSTOCKICONINFO psii);
 
         #endregion P/Invokes
 

@@ -1,9 +1,9 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 global using System;
-using System.Windows.Forms;
+global using System.IO;
 
-using static System.IO.Path;
+using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean
 {
@@ -15,10 +15,7 @@ namespace RaphaëlBardini.WinClean
 
         // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
         /// <summary>Application install directory.</summary>
-        public static readonly DirectoryPath AppInstallDir = new(Application.StartupPath);
-
-        /// <summary>Scripts storage directory.</summary>
-        public static readonly DirectoryPath ScriptsDir = new(Combine(AppInstallDir, "Scripts"));
+        public static readonly DirectoryInfo AppInstallDir = new(Application.StartupPath);
 
         #endregion Public Fields
     }

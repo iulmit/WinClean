@@ -13,7 +13,7 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Private Fields
 
         private readonly TaskDialogPage _progressPage;
-        private readonly Script[] _scripts;
+        private readonly IReadOnlyList<IScript> _scripts;
 
         private readonly BackgroundWorker _scriptsRunner = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
 
@@ -21,17 +21,19 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Public Constructors
 
-        /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
-        public ScriptExecutorGUI(IEnumerable<Script> scripts)
+        /// <summary>Initializes a new instance of the <see cref="ScriptExecutorGUI"/> class.</summary>
+        public ScriptExecutorGUI(IEnumerable<IScript> scripts)
         {
-            _scripts = (scripts ?? throw new ArgumentNullException(nameof(scripts))).ToArray();
+            _scripts = scripts.ToList();
 
             TaskDialogButton Cancel = TaskDialogButton.Cancel;
             Cancel.Enabled = false;
             Cancel.Click += (s, e) =>
             {
                 if (Cancel.AllowCloseDialog = CanExitDialog())
+                {
                     _scriptsRunner.CancelAsync();
+                }
             };
             _progressPage = new()
             {
@@ -44,8 +46,8 @@ namespace RaphaëlBardini.WinClean.Logic
                     Expanded = true/*chaud : set for settings*/,
                     Tag = new ProgressReport(0, 0)
                 },
-                Icon = new TaskDialogIcon(NativeMethods.GetShellIcon(StockIcon.Software)),
-                ProgressBar = new() { Maximum = _scripts.Length },
+                Icon = new TaskDialogIcon(NativeMethods.GetShellIcon(ShellIcon.Software)),
+                ProgressBar = new() { Maximum = _scripts.Count },
                 Text = "Nettoyage en cours. Cette opération peut prendre jusqu'à une heure, selon les performances de votre ordinateur.",
                 Footnote = new("L'ordinateur redémarrera automatiquement à la fin de l'opération.") { Icon = TaskDialogIcon.Information },
             };
@@ -70,12 +72,10 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Public Methods
 
+        /// <inheritdoc/>
         public void Dispose() => _scriptsRunner.Dispose();
 
-        /// <summary>
-        /// Executes all the scripts in an <see cref="IEnumerable{Operational.Script}"/> and displays a dialog tracking the progress.
-        /// </summary>
-        /// <param name="scripts">The scripts to execute.</param>
+        /// <summary>Executes all the scripts and displays a dialog tracking the progress.</summary>
         public void ExecuteAll() => _ = (Form.ActiveForm is null) ? TaskDialog.ShowDialog(_progressPage) : TaskDialog.ShowDialog(Form.ActiveForm, _progressPage);
 
         #endregion Public Methods
@@ -96,8 +96,8 @@ namespace RaphaëlBardini.WinClean.Logic
         private void ReportProgress(ProgressReport progress)
         {
             _progressPage.Expander.Tag = progress;
-            _progressPage.Expander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].Path.Filename}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds):g}";
-            _progressPage.Caption = $"{progress.ScriptIndex / _scripts.Length:p} terminé";
+            _progressPage.Expander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].File.Name}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds):g}";
+            _progressPage.Caption = $"{progress.ScriptIndex / _scripts.Count:p} terminé";
             _progressPage.ProgressBar.Value = progress.ScriptIndex;
         }
 
@@ -116,7 +116,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 secondsElapsed++;
                 _scriptsRunner.ReportProgress(secondsElapsed, ReportProgressType.ElapsedSeconds);
             };
-            for (int i = 0; i < _scripts.Length; i++)
+            for (int i = 0; i < _scripts.Count; i++)
             {
                 _scriptsRunner.ReportProgress(i, ReportProgressType.ScriptIndex);
                 RunThrow();
@@ -127,10 +127,10 @@ namespace RaphaëlBardini.WinClean.Logic
                     {
                         _scripts[i].Execute();
                     }
-                    catch (System.IO.FileNotFoundException)
+                    catch (FileNotFoundException)
                     {
                         _progressPage.ProgressBar.State = TaskDialogProgressBarState.Error;
-                        ErrorDialog.ScriptNotFound(_scripts[i].Path, RunThrow, null/*chaud : supprimer le script des settings*/);
+                        ErrorDialog.ScriptNotFound(_scripts[i].File, RunThrow, null/*chaud : supprimer le script des settings*/);
                         _progressPage.ProgressBar.State = TaskDialogProgressBarState.Normal;
                     }
                 }
@@ -140,7 +140,9 @@ namespace RaphaëlBardini.WinClean.Logic
         private void ScriptsRunnerProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             if (e.UserState is not ReportProgressType)
+            {
                 throw new ArgumentException($"{nameof(e.UserState)} must be a {nameof(ReportProgressType)}", nameof(e));
+            }
 
             ProgressReport @new = (ReportProgressType)e.UserState switch
             {

@@ -7,14 +7,15 @@ using static System.IO.Path;
 
 namespace RaphaëlBardini.WinClean.Operational
 {
+    /// <summary>Represetns the Windows PowerShell script host.</summary>
     public sealed class PowerShell : IScriptHost
     {
         #region Public Properties
 
         IScriptHost.IncompleteArguments IScriptHost.Arguments => new("-WindowStyle hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\"");
         Encoding IScriptHost.Encoding => Encoding.GetEncoding(1252);
-        FilePath IScriptHost.Executable => new(Combine(Environment.GetEnvironmentVariable("SystemRoot"), "System32", "WindowsPowerShell", "v1.0", "powershell.exe"));
-        IReadOnlyCollection<Extension> IScriptHost.SupportedExtensions => new Extension[] { new(".ps1") };
+        FileInfo IScriptHost.Executable => new(Combine(Environment.GetEnvironmentVariable("SystemRoot"), "System32", "WindowsPowerShell", "v1.0", "powershell.exe"));
+        IReadOnlyCollection<string> IScriptHost.SupportedExtensions => new string[] { ".ps1" };
 
         #endregion Public Properties
     }

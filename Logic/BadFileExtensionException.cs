@@ -2,19 +2,22 @@
 
 namespace RaphaëlBardini.WinClean.Logic
 {
+    /// <summary>The exception is thrown when a file has the wrong extension.</summary>
     public class BadFileExtensionException : Exception
     {
         #region Public Constructors
 
-        public BadFileExtensionException()
+        /// <summary>Initializes a new instance of the <see cref="BadFileExtensionException"/> class.</summary>
+        public BadFileExtensionException() : base("An unsupported file extension was specified.")
         {
         }
 
-        public BadFileExtensionException(string extension) : base($"Unsupported file extension for the operation : {extension}")
-        {
-            Extension = extension;
-        }
+        /// <inheritdoc cref="BadFileExtensionException()"/>
+        /// <param name="extension">The wrong extension.</param>
+        public BadFileExtensionException(string extension) : base($"Unsupported file extension for the operation : {extension}") => Extension = extension;
 
+        /// <inheritdoc cref="BadFileExtensionException(string)"/>
+        /// <inheritdoc path="/param"/>
         public BadFileExtensionException(string message, Exception innerException) : base(message, innerException)
         {
         }
@@ -23,6 +26,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Public Properties
 
+        /// <summary>The wrong file extension.</summary>
         public string Extension { get; }
 
         #endregion Public Properties

@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -17,12 +16,18 @@ using RaphaëlBardini.WinClean.Logic;
 
 namespace RaphaëlBardini.WinClean
 {
+    /// <summary>Specifies a minimum log level.</summary>
     public enum LogLevel
     {
+        /// <summary>All entries are logged.</summary>
         Verbose,
+        /// <summary>Informational entries minimum.</summary>
         Info,
+        /// <summary>Warning-level entries minimum.</summary>
         Warning,
+        /// <summary>Error-level entries minimum.</summary>
         Error,
+        /// <summary>Unrecoverable errors. The application can't continue.</summary>
         Critical
     }
 
@@ -31,11 +36,13 @@ namespace RaphaëlBardini.WinClean
     {
         #region Public Constructors
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1810", Justification = "Ensure the log dir is created before creating the Stream Writer, to avoid a DirectoryNotFoundException.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1810", Justification = "Properties rely on each other for their initialization - They must be assigned in a specific orger?")]
         static LogManager()
         {
+            s_logDir = new(Path.Combine(Constants.AppInstallDir.FullName, "Logs"));
+            s_currentLogFile = new(Path.Combine(s_logDir.FullName, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
             CreateLogDir();
-            s_csvWriter = new(new StreamWriter(s_currentLogFile, true, System.Text.Encoding.Unicode), new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = LogDelimiter });
+            s_csvWriter = new(new StreamWriter(s_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = LogDelimiter });
             s_csvWriter.WriteHeader<LogEntry>();
             s_csvWriter.NextRecord();
             s_csvWriter.Flush();
@@ -45,6 +52,9 @@ namespace RaphaëlBardini.WinClean
 
         #region Public Properties
 
+        /// <summary>
+        /// Minimal log level for an entry.
+        /// </summary>
         public static LogLevel MinLogLevel { get; set; } = (LogLevel)Properties.Settings.Default.LogLevel;
 
         #endregion Public Properties
@@ -58,9 +68,9 @@ namespace RaphaëlBardini.WinClean
         private const string LogDelimiter = ";";
 
         /// <summary>Unique log file that will be used for this session.</summary>
-        private static readonly FilePath s_currentLogFile = new(Path.Combine(s_logDir, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
+        private static readonly FileInfo s_currentLogFile;
 
-        private static readonly DirectoryPath s_logDir = new(Path.Combine(Constants.AppInstallDir, "Logs"));
+        private static readonly DirectoryInfo s_logDir;
 
         #endregion Constants
 
@@ -75,9 +85,12 @@ namespace RaphaëlBardini.WinClean
 
         #region Public Methods
 
+        /// <summary>
+        /// Empties the log folder, except for the current log file.
+        /// </summary>
         public static void ClearLogsFolder()
         {
-            IEnumerable<FilePath> deletableLogFiles = Directory.EnumerateFiles(s_logDir, "*.csv").Select((fileString) => new FilePath(fileString)).Where((file) => CanLogFileBeDeleted(file));
+            IEnumerable<FileInfo> deletableLogFiles = s_logDir.EnumerateFiles("*.csv").Where((csvFile) => CanLogFileBeDeleted(csvFile));
             $"Deleting {deletableLogFiles.Count()} files".Log("Clearing logs folder");
             deletableLogFiles.ForEach((file) => DeleteLogFile(file));
         }
@@ -88,8 +101,11 @@ namespace RaphaëlBardini.WinClean
 
         /// <summary>Logs a string.</summary>
         /// <param name="str">The string to log.</param>
-        /// <param name="happening">What we're doing right now.</param>
+        /// <param name="happening">What's happening right now.</param>
         /// <param name="lvl">The level of the log entry.</param>
+        /// <param name="caller"><see cref="CallerMemberNameAttribute"/> - Don't specify</param>
+        /// <param name="callLine"><see cref="CallerLineNumberAttribute"/> - Don't specify</param>
+        /// <param name="callFile"><see cref="CallerFilePathAttribute"/> - Don't specify</param>
         public static void Log(this string str, string happening, LogLevel lvl = LogLevel.Verbose,
                                [CallerMemberName] string caller = "Not Found",
                                [CallerLineNumber] int callLine = 0,
@@ -115,6 +131,14 @@ namespace RaphaëlBardini.WinClean
             }
         }
 
+        /// <summary>
+        /// Logs an exception and it's details.
+        /// </summary>
+        /// <param name="e">The exception to log.</param>
+        /// <param name="lvl">The level of the entry.</param>
+        /// <param name="caller"><see cref="CallerMemberNameAttribute"/> - Don't specify</param>
+        /// <param name="callLine"><see cref="CallerLineNumberAttribute"/> - Don't specify</param>
+        /// <param name="callFile"><see cref="CallerFilePathAttribute"/> - Don't specify</param>
         public static void Log(this Exception e, LogLevel lvl,
                                [CallerMemberName] string caller = "Not Found",
                                [CallerLineNumber] int callLine = 0,
@@ -126,20 +150,20 @@ namespace RaphaëlBardini.WinClean
         #region Private Methods
 
         /// <summary>Checks that a log file is valid for deletion. Doesn't throw.</summary>
-        /// <param name="fileNameOrPath">The filename or path of the log file.</param>
+        /// <param name="logFile">The filename or path of the log file.</param>
         /// <returns>
-        /// <see langword="true"/> if <paramref name="fileNameOrPath"/> is a valid path, it's filename is a valid log filename,
+        /// <see langword="true"/> if <paramref name="logFile"/> is a valid path, it's filename is a valid log filename,
         /// and it's not the current session's log file. If one or more of these conditions are not met, <see langword="false"/>.
         /// </returns>
-        private static bool CanLogFileBeDeleted(FilePath path)
+        private static bool CanLogFileBeDeleted(FileInfo logFile)
         {
             try
             {
-                return DateTime.TryParseExact(path.FilenameWithoutExtension,
+                return DateTime.TryParseExact(Path.GetFileNameWithoutExtension(logFile.Name),
                                               DateTimeFilenameFormat,
                                               DateTimeFormatInfo.InvariantInfo,
                                               DateTimeStyles.None, out _)
-                       && path != s_currentLogFile;
+                       && logFile != s_currentLogFile;
             }
             catch (ArgumentException)
             {
@@ -152,31 +176,31 @@ namespace RaphaëlBardini.WinClean
         {
             try
             {
-                _ = Directory.CreateDirectory(s_logDir);
+                s_logDir.Create();
             }
             catch (IOException e)
             {
-                ErrorDialog.CantCreateLogDir(e.Message, CreateLogDir, Program.Exit);
+                ErrorDialog.CantCreateLogDir(e, CreateLogDir, Program.Exit);
             }
         }
 
         /// <summary>Deletes a log file.</summary>
-        /// <param name="fullPath">The full path of the log file to delete.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="fullPath"/> is <see langword="null"/>.</exception>
-        /// <exception cref="NotSupportedException"><paramref name="fullPath"/> is in an invalid format.</exception>
+        /// <param name="path">The full path of the log file to delete.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="path"/> is in an invalid format.</exception>
         /// <exception cref="PathTooLongException">
         /// The specified path, file name, or both exceed the system-defined maximum length.
         /// </exception>
-        private static void DeleteLogFile(FilePath path)
+        private static void DeleteLogFile(FileInfo path)
         {
             try
             {
-                File.Delete(path);
+                path.Delete();
             }
             // For IOException, we don't want to handle derived classes. The "is" operator covers derived classes too.
-            catch (Exception e) when (e is DirectoryNotFoundException or UnauthorizedAccessException || e.GetType().Equals(typeof(IOException)))
+            catch (Exception e) when (e is DirectoryNotFoundException or UnauthorizedAccessException or IOException)
             {
-                ErrorDialog.CantDeleteLogFile(e.Message, () => DeleteLogFile(path));
+                ErrorDialog.CantDeleteLogFile(e, () => DeleteLogFile(path));
             }
         }
 

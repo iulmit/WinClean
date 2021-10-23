@@ -12,10 +12,21 @@ using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
+    /// <summary>
+    /// This is the application's main form. It regroups several features, including the main commit buttons, script selection,
+    /// and provides UI acess to other forms.
+    /// </summary>
     public partial class MainForm : Form
     {
+        #region Private Methods
+
+        private static void SetAllChecked(ListView.ListViewItemCollection items, bool @checked) => items.ToEnumerable().ForEach((i) => i.Checked = @checked);
+
+        #endregion Private Methods
+
         #region Public Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="MainForm"/> class.</summary>
         public MainForm()
         {
             InitializeComponent();
@@ -26,7 +37,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             listViewScripts.Groups.OfType<ListViewGroup>().ForEach((g) => g.CollapsedState = ListViewGroupCollapsedState.Expanded);
             listViewScripts.Items.AddRange(new[]
             {
-                new Script(new Cmd(), new FilePath("foo.cmd", Constants.ScriptsDir))
+                new Script(new Cmd(), "foo.cmd")
                 {
                     Name = "CmdFoo",
                     Description = "Foo description 0",
@@ -34,7 +45,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                     Group = listViewScripts.Groups[0],
                     Advised = ScriptAdvised.Yes,
                 },
-                new Script(new Regedit(), new FilePath("dummy.reg", Constants.ScriptsDir))
+                new Script(new Regedit(), "dummy.reg")
                 {
                     Name = "RegDummy",
                     Description = "Dummy description 1",
@@ -42,7 +53,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                     Group = listViewScripts.Groups[1],
                     Advised = ScriptAdvised.Limited,
                 },
-                new Script(new PowerShell(), new FilePath("ps1script.ps1", Constants.ScriptsDir))
+                new Script(new PowerShell(), "ps1script.ps1")
                 {
                     Name = "PowerShellSensass",
                     Description = "PowShe desc 3",
@@ -78,13 +89,13 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         private void MainMenuQuit_Click(object sender = null, EventArgs e = null) => Program.Exit();
 
-        private void MainMenuSelectAll_Click(object sender = null, EventArgs e = null) => listViewScripts.Items.SetAllChecked(true);
+        private void MainMenuSelectAll_Click(object sender = null, EventArgs e = null) => SetAllChecked(listViewScripts.Items, true);
 
-        private void MainMenuSelectDebloat_Click(object sender = null, EventArgs e = null) => listViewScripts.Items.SetAllChecked(true);// placeholder
+        private void MainMenuSelectDebloat_Click(object sender = null, EventArgs e = null) => SetAllChecked(listViewScripts.Items, true);// placeholder
 
-        private void MainMenuSelectMaintenance_Click(object sender = null, EventArgs e = null) => listViewScripts.Items.SetAllChecked(true);// placeholder
+        private void MainMenuSelectMaintenance_Click(object sender = null, EventArgs e = null) => SetAllChecked(listViewScripts.Items, true);// placeholder
 
-        private void MainMenuSelectNothing_Click(object sender = null, EventArgs e = null) => listViewScripts.Items.SetAllChecked(false);
+        private void MainMenuSelectNothing_Click(object sender = null, EventArgs e = null) => SetAllChecked(listViewScripts.Items, false);
 
         private void MainMenuStripAbout_Click(object sender = null, EventArgs e = null) => Program.ShowAboutBox();
 
@@ -103,7 +114,9 @@ namespace RaphaëlBardini.WinClean.Presentation
         private void ContextMenuDelete_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem selectedItem in listViewScripts.SelectedItems)
+            {
                 selectedItem.Remove();
+            }
         }
 
         private void ContextMenuEdit_Click(object sender, EventArgs e)

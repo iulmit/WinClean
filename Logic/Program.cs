@@ -14,13 +14,17 @@ namespace RaphaëlBardini.WinClean.Logic
     {
         #region Public Methods
 
-        /// <summary>Asks for confirmation and runs the script.</summary>
-        /// <remarks>If there is more than 1 script to run, show a GUI</remarks>
+        /// <summary>Runs the specified scripts.</summary>
+        /// <remarks>If there is more than 1 script to run, shows a GUI.</remarks>
         /// <param name="scripts"></param>
-        public static void ConfirmAndExecuteScripts(IEnumerable<Script> scripts)
+        /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
+        public static void ConfirmAndExecuteScripts(IEnumerable<IScript> scripts)
         {
             if (scripts is null)
+            {
                 throw new ArgumentNullException(nameof(scripts));
+            }
+
             if (scripts.Count() > 1)
             {
                 if (Confirm())
@@ -30,7 +34,9 @@ namespace RaphaëlBardini.WinClean.Logic
                 }
             }
             else if (scripts.Count() == 1)
+            {
                 scripts.ElementAt(0).Execute();
+            }
         }
 
         /// <summary>Disposes of ressources and exits the program.</summary>
@@ -40,16 +46,17 @@ namespace RaphaëlBardini.WinClean.Logic
             Application.Exit();
         }
 
-        /// <summary>Shows the traditional about dialog box with the program's metadata.</summary>
+        /// <summary>Displays the <see cref="AboutBox"/> form.</summary>
         public static void ShowAboutBox()
         {
             using AboutBox about = new();
             _ = about.ShowDialog(Form.ActiveForm); // Use showdialog so the windows dosen't disappear immediately
         }
 
+        /// <summary>Displays the <see cref="Presentation.Settings"/> form.</summary>
         public static void ShowSettings()
         {
-            using SettingsForm settings = new();
+            using Presentation.Settings settings = new();
             _ = settings.ShowDialog(Form.ActiveForm);
         }
 
@@ -63,13 +70,14 @@ namespace RaphaëlBardini.WinClean.Logic
             return fc.ShowDialog(Form.ActiveForm) == DialogResult.OK;
         }
 
-        /// <summary>Ensures that this is the first instance of the program</summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000", Justification = "If the mutex is disposed, it won't work.")]
         private static void EnsureSingleInstance()
         {
             System.Threading.Mutex singleInstanceEnforcer = new(true, $"Global\\{Application.ProductName}", out bool firstInstance);
             if (firstInstance)
+            {
                 GC.KeepAlive(singleInstanceEnforcer);
+            }
             else
             {
                 ErrorDialog.SingleInstanceOnly(EnsureSingleInstance, Exit);
@@ -77,23 +85,28 @@ namespace RaphaëlBardini.WinClean.Logic
             }
         }
 
-        /// <summary>Ensures that the path of the executable of the current instance of the program is in the correct location.</summary>
         private static void EnsureStartupPath()
         {
-            if (Application.StartupPath != Constants.AppInstallDir)
+            if (!Application.StartupPath.Equals(Constants.AppInstallDir.FullName, StringComparison.OrdinalIgnoreCase))
+            {
                 ErrorDialog.WrongStartupPath(EnsureStartupPath, Exit);
+            }
         }
 
         [STAThread]
         private static void Main()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             EnsureSingleInstance();
             EnsureStartupPath();
+
             using MainForm mainForm = new();
             Application.Run(mainForm);
+
             Exit();
         }
 

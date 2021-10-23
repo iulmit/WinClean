@@ -1,0 +1,2740 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WinClean</name>
+    </assembly>
+    <members>
+        <member name="T:RaphaëlBardini.WinClean.Constants">
+            <summary>Constant and readonly fields used to configure the application.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Constants.AppInstallDir">
+            <summary>Application install directory.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.DebugHelpers.m(System.Object)">
+            <summary>Shortcut to <see cref="M:System.Windows.Forms.MessageBox.Show(System.String)" /></summary>
+            <remarks>Debug only</remarks>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.DebugHelpers.mEach``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>Displays a collection in a message box.</summary>
+            <typeparam name="T">The collection item type.</typeparam>
+            <param name="enumerable">The collection to display.</param>
+            <remarks>Debug only.</remarks>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.DebugHelpers.mReturn``1(``0)">
+            <summary>Displays data in a message box, waits for it's dismiss, and returns that data.</summary>
+            <typeparam name="T">The type of the data passed.</typeparam>
+            <param name="o">The data passed.</param>
+            <returns><paramref name="o" />.</returns>
+            <remarks>Debug only.</remarks>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException">
+            <summary>The exception is thrown when a file has the wrong extension.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException" /> class.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor(System.String)">
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor" />
+            <param name="extension">The wrong extension.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor(System.String,System.Exception)">
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor(System.String)" />
+            <inheritdoc path="/param" />
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.Extension">
+            <summary>The wrong file extension.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.ErrorDialog">
+            <summary>A standardised error message, implementing Microsoft's error messages design reccomendations.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.ErrorDialog.Caption">
+            <summary>Text displayed in the dialog's title bar.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.ErrorDialog.SizeToContent">
+            <inheritdoc cref="P:System.Windows.Forms.TaskDialogPage.SizeToContent" path="/summary" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.CantCreateLogDir(System.Exception,System.Action,System.Action)">
+            <summary>Can't create log directory error.</summary>
+            <param name="e">The exception that caused the error.</param>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.CantCreateScriptsDir(System.Exception,System.Action,System.Action)">
+            <summary>Can't create scripts directory error.</summary>
+            <param name="e">The exception that caused the error.</param>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.ScriptFileInacessible(System.Exception,System.Action,System.Action)">
+            <summary>Can't create scripts directory error.</summary>
+            <param name="e">The exception that caused the error.</param>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.CantDeleteLogFile(System.Exception,System.Action,System.Action)">
+            <summary>Can't create log file error.</summary>
+            <param name="e">The exception that caused the error.</param>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryIgnore(System.Action,System.Action)" path="/param" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.ConfirmAbortOperation(System.Action,System.Action)">
+            <summary>Asks the users for confirmation on exiting the application and potentially loosing data.</summary>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.YesNo(System.Action,System.Action)" path="/param" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.HungScript(System.IO.FileInfo,System.Action,System.Action,System.Action)">
+            <summary>Hung script error.</summary>
+            <param name="script">The hung script's path.</param>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RestartKillIgnore(System.Action,System.Action,System.Action)" path="/param" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.ScriptNotFound(System.IO.FileInfo,System.Action,System.Action,System.Action)">
+            <summary>Script not found error.</summary>
+            <param name="script">The hung script's path.</param>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.DeleteRetryIgnore(System.Action,System.Action,System.Action)" path="/param" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.ScriptInacessible(System.IO.FileInfo,System.Exception,System.Action,System.Action,System.Action)">
+            <summary>Script not found error.</summary>
+            <param name="script">The hung script's path.</param>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.DeleteRetryIgnore(System.Action,System.Action,System.Action)" path="/param" />
+            <param name="e">The exception that caused the error.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.SingleInstanceOnly(System.Action,System.Action)">
+            <summary>Single instance only error.</summary>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.WrongStartupPath(System.Action,System.Action)">
+            <summary>Wrong startup path error.</summary>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.DeleteRetryIgnore(System.Action,System.Action,System.Action)">
+            <param name="retry">Invoked when the Retry button is clicked.</param>
+            <param name="ignore">Invoked when the Ignore button is clicked.</param>
+            <param name="delete">Invoked when the Delete Script button is clicked.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RestartKillIgnore(System.Action,System.Action,System.Action)">
+            <param name="restart">Invoked when the Restart Script button is clicked.</param>
+            <param name="kill">Invoked when the Kill Script button is clicked.</param>
+            <param name="ignore">Invoked when the Ignore button is clicked.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)">
+            <param name="retry">Invoked when the Retry button is clicked.</param>
+            <param name="close">Invoked when the Close button is clicked.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryIgnore(System.Action,System.Action)">
+            <param name="retry">Invoked when the Retry button is clicked.</param>
+            <param name="ignore">Invoked when the Ignore button is clicked.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.YesNo(System.Action,System.Action)">
+            <param name="yes">Invoked when the Yes button is clicked.</param>
+            <param name="no">Invoked when the No button is clicked.</param>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.Helpers">
+            <summary>Provides a set of extension methods that fulfill a relatively generic role.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Helpers.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>Invokes the specified action on each element of an <see cref="T:System.Collections.Generic.IEnumerable`1" />.</summary>
+            <typeparam name="T"><see cref="T:System.Collections.Generic.IEnumerable`1" /> and <paramref name="action" />'s types.</typeparam>
+            <param name="action">The action to invoke on each element of <paramref name="list" />.</param>
+            <param name="list">The list containing the elements that will be passed to <paramref name="action" />.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Helpers.ThrowIfUnacessible(System.IO.FileInfo,System.IO.FileAccess)">
+            <summary>Throws the appropriate exception if the filesystem element is not accessible.</summary>
+            <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
+            <exception cref="T:System.IO.FileNotFoundException"><paramref name="info" /> was not found.</exception>
+            <exception cref="T:System.UnauthorizedAccessException"><paramref name="info" /> is readonly or a directory.</exception>
+            <exception cref="T:System.IO.DirectoryNotFoundException"><paramref name="info" /> is invalid, such as being on an unmapped drive.</exception>
+            <exception cref="T:System.IO.IOException"><paramref name="info" /> is already open.</exception>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Helpers.ThrowIfUnacessible(System.IO.DirectoryInfo)">
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.Helpers.ThrowIfUnacessible(System.IO.FileInfo,System.IO.FileAccess)" path="/summary" />
+            <inheritdoc cref="M:System.IO.DirectoryInfo.EnumerateDirectories" path="/exception" />
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.ImpactEffect">
+            <summary>Effect of running a script.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.Ergonomics">
+            <summary>System praticality.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.MemoryUsage">
+            <summary>System non user-related memory usage.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.NetworkUsage">
+            <summary>System non user-related network usage.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.ResponseTime">
+            <summary>System rapidity of running commands.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.ShutdownTime">
+            <summary>System shutdown time.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.DataCollection">
+            <summary>System privacy invasion and spying.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.StartupTime">
+            <summary>System startup time.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.StorageCapacity">
+            <summary>Free storage space.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.StorageSpeed">
+            <summary>Storage read-write speed.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactEffect.Visuals">
+            <summary>System visuals.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.ImpactLevel">
+            <summary>Represents the level of an <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactEffect" />.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactLevel.Positive">
+            <summary>Improvement.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactLevel.Negative">
+            <summary>Worsening.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ImpactLevel.Mixed">
+            <summary>Variable, uncertain.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.Impact">
+            <summary>A system-wide effect of running a script.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Impact.#ctor(RaphaëlBardini.WinClean.Logic.ImpactEffect,RaphaëlBardini.WinClean.Logic.ImpactLevel)">
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="lvl" /> is not a valid <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactLevel" /> value.
+            </exception>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.Impact.Effect">
+            <summary>The actual effect of running a script.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.Impact.Level">
+            <summary>The level of the effect.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Impact.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Impact.Equals(RaphaëlBardini.WinClean.Logic.Impact)">
+            <inheritdoc />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Impact.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Impact.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Impact.ToString(RaphaëlBardini.WinClean.Logic.ImpactLevel)">
+            <summary>Returns the corresponding symbol, or an empty string if the value is not a valid <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactLevel" />.</summary>
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">
+            <paramref name="lvl" /> is not a defined <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactLevel" /> constant.
+            </exception>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Impact.ToString(RaphaëlBardini.WinClean.Logic.ImpactEffect)">
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">
+            <paramref name="effect" /> is not a defined <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactEffect" /> constant.
+            </exception>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.ScriptAdvised">
+            <summary>If a script is advised for general purpose</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ScriptAdvised.Yes">
+            <summary>
+            The script is advised for any user. It has almost no side effects and won't hinder features the said user might want
+            to use. It can be selected automatically.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ScriptAdvised.Limited">
+            <summary>
+            The script only advised for users who want advanced optimisation. It may hinder useful system features. It should be
+            selected individually by the user.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ScriptAdvised.No">
+            <summary>
+            The script must be selected only by users who know what they are doing. It will almost certainly hinder useful
+            system features. It should be selected by the user, only if specifically needed.
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.IScript">
+            <summary>Represents an executable script associated to a script host program.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.IScript.ScriptsDir">
+            <summary>Scripts storage directory.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Advised">
+            <summary>If running this script is advised in general purpose.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Description">
+            <summary>Details on how this scripts work and what the effects of executing it would be.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.IScript.File">
+            <summary>The path of the script file.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Group">
+            <summary>The associated group when displayed in a <see cref="T:System.Windows.Forms.ListView" /> control.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Host">
+            <summary>Script host program associated to the instance.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Impacts">
+            <summary>System impacts of running this script.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Name">
+            <summary>A brief infinitive sentence that describes the functionnality of this script.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.IScript.Execute">
+            <summary>Executes the script in a new process.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.NativeMethods.GetShellIcon(RaphaëlBardini.WinClean.Logic.ShellIcon,RaphaëlBardini.WinClean.Logic.ShelIconModifier)">
+            <summary>Retrieves a common shell icon.</summary>
+            <returns>The icon corresponding to the <paramref name="id" /> with the specified <paramref name="flags" />.</returns>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.NativeMethods.RemoveTitleBarIcon(System.IntPtr)">
+            <summary>Removes the system menu icon from a window.</summary>
+            <param name="window">The Win32 window to remove the icon from.</param>
+            <returns>The old window icon</returns>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.NativeMethods.RemoveTitleBarIcon(System.Windows.Forms.IWin32Window)">
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.NativeMethods.RemoveTitleBarIcon(System.IntPtr)" />
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.SHGSI">
+            <summary>Flags for <see cref="M:RaphaëlBardini.WinClean.Logic.NativeMethods.SHGetStockIconInfo(RaphaëlBardini.WinClean.Logic.ShellIcon,RaphaëlBardini.WinClean.Logic.SHGSI,RaphaëlBardini.WinClean.Logic.NativeMethods.SHSTOCKICONINFO@)" /></summary>
+            <remarks>Don't use, use <see cref="T:RaphaëlBardini.WinClean.Logic.ShelIconModifier" /> instead.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_ICONLOCATION">
+            <summary>
+            The szPath and iIcon members of the SHSTOCKICONINFO structure receive the path and icon index of the requested icon,
+            in a format suitable for passing to the ExtractIcon function. The numerical value of this flag is zero, so you
+            always get the icon location regardless of other flags.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_ICON">
+            <summary>The hIcon member of the SHSTOCKICONINFO structure receives a handle to the specified icon.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_SYSICONINDEX">
+            <summary>
+            The iSysImageImage member of the SHSTOCKICONINFO structure receives the index of the specified icon in the system imagelist.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_LINKOVERLAY">
+            <summary>Modifies the SHGSI_ICON value by causing the function to add the link overlay to the file's icon.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_SELECTED">
+            <summary>Modifies the SHGSI_ICON value by causing the function to blend the icon with the system highlight color.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_LARGEICON">
+            <summary>
+            Modifies the SHGSI_ICON value by causing the function to retrieve the large version of the icon, as specified by the
+            SM_CXICON and SM_CYICON system metrics.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_SMALLICON">
+            <summary>
+            Modifies the SHGSI_ICON value by causing the function to retrieve the small version of the icon, as specified by the
+            SM_CXSMICON and SM_CYSMICON system metrics.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_SHELLICONSIZE">
+            <summary>
+            Modifies the SHGSI_LARGEICON or SHGSI_SMALLICON values by causing the function to retrieve the Shell-sized icons
+            rather than the sizes specified by the system metrics.
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.WM">
+            <summary>Windows Messages Defined in winuser.h from Windows SDK v6.1 Documentation pulled from MSDN.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NULL">
+            <summary>
+            The WM_NULL message performs no operation. An application sends the WM_NULL message if it wants to post a message
+            that the recipient window will ignore.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CREATE">
+            <summary>
+            The WM_CREATE message is sent when an application requests that a window be created by calling the CreateWindowEx or
+            CreateWindow function. (The message is sent before the function returns.) The window procedure of the new window
+            receives this message after the window is created, but before the window becomes visible.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DESTROY">
+            <summary>
+            The WM_DESTROY message is sent when a window is being destroyed. It is sent to the window procedure of the window
+            being destroyed after the window is removed from the screen. This message is sent first to the window being
+            destroyed and then to the child windows (if any) as they are destroyed. During the processing of the message, it can
+            be assumed that all child windows still exist. ///
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOVE">
+            <summary>The WM_MOVE message is sent after a window has been moved.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SIZE">
+            <summary>The WM_SIZE message is sent to a window after its size has changed.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ACTIVATE">
+            <summary>
+            The WM_ACTIVATE message is sent to both the window being activated and the window being deactivated. If the windows
+            use the same input queue, the message is sent synchronously, first to the window procedure of the top-level window
+            being deactivated, then to the window procedure of the top-level window being activated. If the windows use
+            different input queues, the message is sent asynchronously, so the window is activated immediately.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SETFOCUS">
+            <summary>The WM_SETFOCUS message is sent to a window after it has gained the keyboard focus.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.KILLFOCUS">
+            <summary>The WM_KILLFOCUS message is sent to a window immediately before it loses the keyboard focus.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ENABLE">
+            <summary>
+            The WM_ENABLE message is sent when an application changes the enabled state of a window. It is sent to the window
+            whose enabled state is changing. This message is sent before the EnableWindow function returns, but after the
+            enabled state (WS_DISABLED style bit) of the window has changed.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SETREDRAW">
+            <summary>
+            An application sends the WM_SETREDRAW message to a window to allow changes in that window to be redrawn or to
+            prevent changes in that window from being redrawn.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SETTEXT">
+            <summary>An application sends a WM_SETTEXT message to set the text of a window.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.GETTEXT">
+            <summary>
+            An application sends a WM_GETTEXT message to copy the text that corresponds to a window into a buffer provided by
+            the caller.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.GETTEXTLENGTH">
+            <summary>
+            An application sends a WM_GETTEXTLENGTH message to determine the length, in characters, of the text associated with
+            a window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.PAINT">
+            <summary>
+            The WM_PAINT message is sent when the system or another application makes a request to paint a portion of an
+            application's window. The message is sent when the UpdateWindow or RedrawWindow function is called, or by the
+            DispatchMessage function when the application obtains a WM_PAINT message by using the GetMessage or PeekMessage function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CLOSE">
+            <summary>The WM_CLOSE message is sent as a signal that a window or an application should terminate.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.QUERYENDSESSION">
+            <summary>
+            The WM_QUERYENDSESSION message is sent when the user chooses to end the session or when an application calls one of
+            the system shutdown functions. If any application returns zero, the session is not ended. The system stops sending
+            WM_QUERYENDSESSION messages as soon as one application returns zero. After processing this message, the system sends
+            the WM_ENDSESSION message with the wParam parameter set to the results of the WM_QUERYENDSESSION message.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.QUERYOPEN">
+            <summary>
+            The WM_QUERYOPEN message is sent to an icon when the user requests that the window be restored to its previous size
+            and position.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ENDSESSION">
+            <summary>
+            The WM_ENDSESSION message is sent to an application after the system processes the results of the WM_QUERYENDSESSION
+            message. The WM_ENDSESSION message informs the application whether the session is ending.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.QUIT">
+            <summary>
+            The WM_QUIT message indicates a request to terminate an application and is generated when the application calls the
+            PostQuitMessage function. It causes the GetMessage function to return zero.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ERASEBKGND">
+            <summary>
+            The WM_ERASEBKGND message is sent when the window background must be erased (for example, when a window is resized).
+            The message is sent to prepare an invalidated portion of a window for painting.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SYSCOLORCHANGE">
+            <summary>This message is sent to all top-level windows when a change is made to a system color setting.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SHOWWINDOW">
+            <summary>The WM_SHOWWINDOW message is sent to a window when the window is about to be hidden or shown.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.WININICHANGE">
+            <summary>
+            An application sends the WM_WININICHANGE message to all top-level windows after making a change to the WIN.INI file.
+            The SystemParametersInfo function sends this message after an application uses the function to change a setting in
+            WIN.INI. Note The WM_WININICHANGE message is provided only for compatibility with earlier versions of the system.
+            Applications should use the WM_SETTINGCHANGE message.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SETTINGCHANGE">
+            <summary>
+            An application sends the WM_WININICHANGE message to all top-level windows after making a change to the WIN.INI file.
+            The SystemParametersInfo function sends this message after an application uses the function to change a setting in
+            WIN.INI. Note The WM_WININICHANGE message is provided only for compatibility with earlier versions of the system.
+            Applications should use the WM_SETTINGCHANGE message.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DEVMODECHANGE">
+            <summary>
+            The WM_DEVMODECHANGE message is sent to all top-level windows whenever the user changes device-mode settings.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ACTIVATEAPP">
+            <summary>
+            The WM_ACTIVATEAPP message is sent when a window belonging to a different application than the active window is
+            about to be activated. The message is sent to the application whose window is being activated and to the application
+            whose window is being deactivated.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.FONTCHANGE">
+            <summary>
+            An application sends the WM_FONTCHANGE message to all top-level windows in the system after changing the pool of
+            font resources.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.TIMECHANGE">
+            <summary>A message that is sent whenever there is a change in the system time.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CANCELMODE">
+            <summary>
+            The WM_CANCELMODE message is sent to cancel certain modes, such as mouse capture. For example, the system sends this
+            message to the active window when a dialog box or message box is displayed. Certain functions also send this message
+            explicitly to the specified window regardless of whether it is the active window. For example, the EnableWindow
+            function sends this message when disabling the specified window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SETCURSOR">
+            <summary>
+            The WM_SETCURSOR message is sent to a window if the mouse causes the cursor to move within a window and mouse input
+            is not captured.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOUSEACTIVATE">
+            <summary>
+            The WM_MOUSEACTIVATE message is sent when the cursor is in an inactive window and the user presses a mouse button.
+            The parent window receives this message only if the child window passes it to the DefWindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CHILDACTIVATE">
+            <summary>
+            The WM_CHILDACTIVATE message is sent to a child window when the user clicks the window's title bar or when the
+            window is activated, moved, or sized.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.QUEUESYNC">
+            <summary>
+            The WM_QUEUESYNC message is sent by a computer-based training (CBT) application to separate user-input messages from
+            other messages sent through the WH_JOURNALPLAYBACK Hook procedure.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.GETMINMAXINFO">
+            <summary>
+            The WM_GETMINMAXINFO message is sent to a window when the size or position of the window is about to change. An
+            application can use this message to override the window's default maximized size and position, or its default
+            minimum or maximum tracking size.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.PAINTICON">
+            <summary>
+            Windows NT 3.51 and earlier: The WM_PAINTICON message is sent to a minimized window when the icon is to be painted.
+            This message is not sent by newer versions of Microsoft Windows, except in unusual circumstances explained in the Remarks.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ICONERASEBKGND">
+            <summary>
+            Windows NT 3.51 and earlier: The WM_ICONERASEBKGND message is sent to a minimized window when the background of the
+            icon must be filled before painting the icon. A window receives this message only if a class icon is defined for the
+            window; otherwise, WM_ERASEBKGND is sent. This message is not sent by newer versions of Windows.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NEXTDLGCTL">
+            <summary>
+            The WM_NEXTDLGCTL message is sent to a dialog box procedure to set the keyboard focus to a different control in the
+            dialog box.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SPOOLERSTATUS">
+            <summary>
+            The WM_SPOOLERSTATUS message is sent from Print Manager whenever a job is added to or removed from the Print Manager queue.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DRAWITEM">
+            <summary>
+            The WM_DRAWITEM message is sent to the parent window of an owner-drawn button, combo box, list box, or menu when a
+            visual aspect of the button, combo box, list box, or menu has changed.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MEASUREITEM">
+            <summary>
+            The WM_MEASUREITEM message is sent to the owner window of a combo box, list box, list view control, or menu item
+            when the control or menu is created.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DELETEITEM">
+            <summary>
+            Sent to the owner of a list box or combo box when the list box or combo box is destroyed or when items are removed
+            by the LB_DELETESTRING, LB_RESETCONTENT, CB_DELETESTRING, or CB_RESETCONTENT message. The system sends a
+            WM_DELETEITEM message for each deleted item. The system sends the WM_DELETEITEM message for any deleted list box or
+            combo box item with nonzero item data.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.VKEYTOITEM">
+            <summary>Sent by a list box with the LBS_WANTKEYBOARDINPUT style to its owner in response to a WM_KEYDOWN message.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CHARTOITEM">
+            <summary>Sent by a list box with the LBS_WANTKEYBOARDINPUT style to its owner in response to a WM_CHAR message.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SETFONT">
+            <summary>
+            An application sends a WM_SETFONT message to specify the font that a control is to use when drawing text.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.GETFONT">
+            <summary>
+            An application sends a WM_GETFONT message to a control to retrieve the font with which the control is currently
+            drawing its text.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SETHOTKEY">
+            <summary>
+            An application sends a WM_SETHOTKEY message to a window to associate a hot key with the window. When the user
+            presses the hot key, the system activates the window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.GETHOTKEY">
+            <summary>An application sends a WM_GETHOTKEY message to determine the hot key associated with a window.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.QUERYDRAGICON">
+            <summary>
+            The WM_QUERYDRAGICON message is sent to a minimized (iconic) window. The window is about to be dragged by the user
+            but does not have an icon defined for its class. An application can return a handle to an icon or cursor. The system
+            displays this cursor or icon while the user drags the icon.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.COMPAREITEM">
+            <summary>
+            The system sends the WM_COMPAREITEM message to determine the relative position of a new item in the sorted list of
+            an owner-drawn combo box or list box. Whenever the application adds a new item, the system sends this message to the
+            owner of a combo box or list box created with the CBS_SORT or LBS_SORT style.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.GETOBJECT">
+            <summary>
+            Active Accessibility sends the WM_GETOBJECT message to obtain information about an accessible object contained in a
+            server application. Applications never send this message directly. It is sent only by Active Accessibility in
+            response to calls to AccessibleObjectFromPoint, AccessibleObjectFromEvent, or AccessibleObjectFromWindow. However,
+            server applications handle this message.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.COMPACTING">
+            <summary>
+            The WM_COMPACTING message is sent to all top-level windows when the system detects more than 12.5 percent of system
+            time over a 30- to 60-second interval is being spent compacting memory. This indicates that system memory is low.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.COMMNOTIFY">
+            <summary>WM_COMMNOTIFY is Obsolete for Win32-Based Applications</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.WINDOWPOSCHANGING">
+            <summary>
+            The WM_WINDOWPOSCHANGING message is sent to a window whose size, position, or place in the Z order is about to
+            change as a result of a call to the SetWindowPos function or another window-management function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.WINDOWPOSCHANGED">
+            <summary>
+            The WM_WINDOWPOSCHANGED message is sent to a window whose size, position, or place in the Z order has changed as a
+            result of a call to the SetWindowPos function or another window-management function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.POWER">
+            <summary>
+            Notifies applications that the system, typically a battery-powered personal computer, is about to enter a suspended mode.
+            Use: POWERBROADCAST
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.COPYDATA">
+            <summary>An application sends the WM_COPYDATA message to pass data to another application.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CANCELJOURNAL">
+            <summary>
+            The WM_CANCELJOURNAL message is posted to an application when a user cancels the application's journaling
+            activities. The message is posted with a NULL window handle.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NOTIFY">
+            <summary>
+            Sent by a common control to its parent window when an event has occurred or the control requires some information.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.INPUTLANGCHANGEREQUEST">
+            <summary>
+            The WM_INPUTLANGCHANGEREQUEST message is posted to the window with the focus when the user chooses a new input
+            language, either with the hotkey (specified in the Keyboard control panel
+            application) or from the indicator on the system taskbar. An application can accept the change by passing the
+            message to the DefWindowProc function or reject the change (and prevent it from taking place) by returning immediately.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.INPUTLANGCHANGE">
+            <summary>
+            The WM_INPUTLANGCHANGE message is sent to the topmost affected window after an application's input language has been
+            changed. You should make any application-specific settings and pass the message to the DefWindowProc function, which
+            passes the message to all first-level child windows. These child windows can pass the message to DefWindowProc to
+            have it pass the message to their child windows, and so on.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.TCARD">
+            <summary>
+            Sent to an application that has initiated a training card with Microsoft Windows Help. The message informs the
+            application when the user clicks an authorable button. An application initiates a training card by specifying the
+            HELP_TCARD command in a call to the WinHelp function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HELP">
+            <summary>
+            Indicates that the user pressed the F1 key. If a menu is active when F1 is pressed, WM_HELP is sent to the window
+            associated with the menu; otherwise, WM_HELP is sent to the window that has the keyboard focus. If no window has the
+            keyboard focus, WM_HELP is sent to the currently active window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.USERCHANGED">
+            <summary>
+            The WM_USERCHANGED message is sent to all windows after the user has logged on or off. When the user logs on or off,
+            the system updates the user-specific settings. The system sends this message immediately after updating the settings.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NOTIFYFORMAT">
+            <summary>
+            Determines if a window accepts ANSI or Unicode structures in the WM_NOTIFY notification message. WM_NOTIFYFORMAT
+            messages are sent from a common control to its parent window and from the parent window to the common control.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CONTEXTMENU">
+            <summary>
+            The WM_CONTEXTMENU message notifies a window that the user clicked the right mouse button (right-clicked) in the window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.STYLECHANGING">
+            <summary>
+            The WM_STYLECHANGING message is sent to a window when the SetWindowLong function is about to change one or more of
+            the window's styles.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.STYLECHANGED">
+            <summary>
+            The WM_STYLECHANGED message is sent to a window after the SetWindowLong function has changed one or more of the
+            window's styles
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DISPLAYCHANGE">
+            <summary>The WM_DISPLAYCHANGE message is sent to all windows when the display resolution has changed.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.GETICON">
+            <summary>
+            The WM_GETICON message is sent to a window to retrieve a handle to the large or small icon associated with a window.
+            The system displays the large icon in the ALT+TAB dialog, and the small icon in the window caption.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SETICON">
+            <summary>
+            An application sends the WM_SETICON message to associate a new large or small icon with a window. The system
+            displays the large icon in the ALT+TAB dialog box, and the small icon in the window caption.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCCREATE">
+            <summary>The WM_NCCREATE message is sent prior to the WM_CREATE message when a window is first created.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCDESTROY">
+            <summary>
+            The WM_NCDESTROY message informs a window that its nonclient area is being destroyed. The DestroyWindow function
+            sends the WM_NCDESTROY message to the window following the WM_DESTROY message. WM_DESTROY is used to free the
+            allocated memory object associated with the window. The WM_NCDESTROY message is sent after the child windows have
+            been destroyed. In contrast, WM_DESTROY is sent before the child windows are destroyed.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCCALCSIZE">
+            <summary>
+            The WM_NCCALCSIZE message is sent when the size and position of a window's client area must be calculated. By
+            processing this message, an application can control the content of the window's client area when the size or
+            position of the window changes.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCHITTEST">
+            <summary>
+            The WM_NCHITTEST message is sent to a window when the cursor moves, or when a mouse button is pressed or released.
+            If the mouse is not captured, the message is sent to the window beneath the cursor. Otherwise, the message is sent
+            to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCPAINT">
+            <summary>The WM_NCPAINT message is sent to a window when its frame must be painted.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCACTIVATE">
+            <summary>
+            The WM_NCACTIVATE message is sent to a window when its nonclient area needs to be changed to indicate an active or
+            inactive state.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.GETDLGCODE">
+            <summary>
+            The WM_GETDLGCODE message is sent to the window procedure associated with a control. By default, the system handles
+            all keyboard input to the control; the system interprets certain types of keyboard input as dialog box navigation
+            keys. To override this default behavior, the control can respond to the WM_GETDLGCODE message to indicate the types
+            of input it wants to process itself.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SYNCPAINT">
+            <summary>The WM_SYNCPAINT message is used to synchronize painting while avoiding linking independent GUI threads.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCMOUSEMOVE">
+            <summary>
+            The WM_NCMOUSEMOVE message is posted to a window when the cursor is moved within the nonclient area of the window.
+            This message is posted to the window that contains the cursor. If a window has captured the mouse, this message is
+            not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCLBUTTONDOWN">
+            <summary>
+            The WM_NCLBUTTONDOWN message is posted when the user presses the left mouse button while the cursor is within the
+            nonclient area of a window. This message is posted to the window that contains the cursor. If a window has captured
+            the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCLBUTTONUP">
+            <summary>
+            The WM_NCLBUTTONUP message is posted when the user releases the left mouse button while the cursor is within the
+            nonclient area of a window. This message is posted to the window that contains the cursor. If a window has captured
+            the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCLBUTTONDBLCLK">
+            <summary>
+            The WM_NCLBUTTONDBLCLK message is posted when the user double-clicks the left mouse button while the cursor is
+            within the nonclient area of a window. This message is posted to the window that contains the cursor. If a window
+            has captured the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCRBUTTONDOWN">
+            <summary>
+            The WM_NCRBUTTONDOWN message is posted when the user presses the right mouse button while the cursor is within the
+            nonclient area of a window. This message is posted to the window that contains the cursor. If a window has captured
+            the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCRBUTTONUP">
+            <summary>
+            The WM_NCRBUTTONUP message is posted when the user releases the right mouse button while the cursor is within the
+            nonclient area of a window. This message is posted to the window that contains the cursor. If a window has captured
+            the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCRBUTTONDBLCLK">
+            <summary>
+            The WM_NCRBUTTONDBLCLK message is posted when the user double-clicks the right mouse button while the cursor is
+            within the nonclient area of a window. This message is posted to the window that contains the cursor. If a window
+            has captured the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCMBUTTONDOWN">
+            <summary>
+            The WM_NCMBUTTONDOWN message is posted when the user presses the middle mouse button while the cursor is within the
+            nonclient area of a window. This message is posted to the window that contains the cursor. If a window has captured
+            the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCMBUTTONUP">
+            <summary>
+            The WM_NCMBUTTONUP message is posted when the user releases the middle mouse button while the cursor is within the
+            nonclient area of a window. This message is posted to the window that contains the cursor. If a window has captured
+            the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCMBUTTONDBLCLK">
+            <summary>
+            The WM_NCMBUTTONDBLCLK message is posted when the user double-clicks the middle mouse button while the cursor is
+            within the nonclient area of a window. This message is posted to the window that contains the cursor. If a window
+            has captured the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCXBUTTONDOWN">
+            <summary>
+            The WM_NCXBUTTONDOWN message is posted when the user presses the first or second X button while the cursor is in the
+            nonclient area of a window. This message is posted to the window that contains the cursor. If a window has captured
+            the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCXBUTTONUP">
+            <summary>
+            The WM_NCXBUTTONUP message is posted when the user releases the first or second X button while the cursor is in the
+            nonclient area of a window. This message is posted to the window that contains the cursor. If a window has captured
+            the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCXBUTTONDBLCLK">
+            <summary>
+            The WM_NCXBUTTONDBLCLK message is posted when the user double-clicks the first or second X button while the cursor
+            is in the nonclient area of a window. This message is posted to the window that contains the cursor. If a window has
+            captured the mouse, this message is not posted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.INPUT_DEVICE_CHANGE">
+            <summary>
+            The WM_INPUT_DEVICE_CHANGE message is sent to the window that registered to receive raw input. A window receives
+            this message through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.INPUT">
+            <summary>The WM_INPUT message is sent to the window that is getting raw input.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.KEYFIRST">
+            <summary>This message filters for keyboard messages.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.KEYDOWN">
+            <summary>
+            The WM_KEYDOWN message is posted to the window with the keyboard focus when a nonsystem key is pressed. A nonsystem
+            key is a key that is pressed when the ALT key is not pressed.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.KEYUP">
+            <summary>
+            The WM_KEYUP message is posted to the window with the keyboard focus when a nonsystem key is released. A nonsystem
+            key is a key that is pressed when the ALT key is not pressed, or a keyboard key that is pressed when a window has
+            the keyboard focus.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CHAR">
+            <summary>
+            The WM_CHAR message is posted to the window with the keyboard focus when a WM_KEYDOWN message is translated by the
+            TranslateMessage function. The WM_CHAR message contains the character code of the key that was pressed.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DEADCHAR">
+            <summary>
+            The WM_DEADCHAR message is posted to the window with the keyboard focus when a WM_KEYUP message is translated by the
+            TranslateMessage function. WM_DEADCHAR specifies a character code generated by a dead key. A dead key is a key that
+            generates a character, such as the umlaut (double-dot), that is combined with another character to form a composite
+            character. For example, the umlaut-O character (Ö) is generated by typing the dead key for the umlaut character, and
+            then typing the O key.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SYSKEYDOWN">
+            <summary>
+            The WM_SYSKEYDOWN message is posted to the window with the keyboard focus when the user presses the F10 key (which
+            activates the menu bar) or holds down the ALT key and then presses another key. It also occurs when no window
+            currently has the keyboard focus; in this case, the WM_SYSKEYDOWN message is sent to the active window. The window
+            that receives the message can distinguish between these two contexts by checking the context code in the lParam parameter.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SYSKEYUP">
+            <summary>
+            The WM_SYSKEYUP message is posted to the window with the keyboard focus when the user releases a key that was
+            pressed while the ALT key was held down. It also occurs when no window currently has the keyboard focus; in this
+            case, the WM_SYSKEYUP message is sent to the active window. The window that receives the message can distinguish
+            between these two contexts by checking the context code in the lParam parameter.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SYSCHAR">
+            <summary>
+            The WM_SYSCHAR message is posted to the window with the keyboard focus when a WM_SYSKEYDOWN message is translated by
+            the TranslateMessage function. It specifies the character code of a system character key — that is, a character key
+            that is pressed while the ALT key is down.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SYSDEADCHAR">
+            <summary>
+            The WM_SYSDEADCHAR message is sent to the window with the keyboard focus when a WM_SYSKEYDOWN message is translated
+            by the TranslateMessage function. WM_SYSDEADCHAR specifies the character code of a system dead key — that is, a dead
+            key that is pressed while holding down the ALT key.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.UNICHAR">
+            <summary>
+            The WM_UNICHAR message is posted to the window with the keyboard focus when a WM_KEYDOWN message is translated by
+            the TranslateMessage function. The WM_UNICHAR message contains the character code of the key that was pressed. The
+            WM_UNICHAR message is equivalent to WM_CHAR, but it uses Unicode Transformation Format (UTF)-32, whereas WM_CHAR
+            uses UTF-16. It is designed to send or post Unicode characters to ANSI windows and it can can handle Unicode
+            Supplementary Plane characters.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.KEYLAST">
+            <summary>This message filters for keyboard messages.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_STARTCOMPOSITION">
+            <summary>
+            Sent immediately before the IME generates the composition string as a result of a keystroke. A window receives this
+            message through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_ENDCOMPOSITION">
+            <summary>
+            Sent to an application when the IME ends composition. A window receives this message through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_COMPOSITION">
+            <summary>
+            Sent to an application when the IME changes composition status as a result of a keystroke. A window receives this
+            message through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.INITDIALOG">
+            <summary>
+            The WM_INITDIALOG message is sent to the dialog box procedure immediately before a dialog box is displayed. Dialog
+            box procedures typically use this message to initialize controls and carry out any other initialization tasks that
+            affect the appearance of the dialog box.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.COMMAND">
+            <summary>
+            The WM_COMMAND message is sent when the user selects a command item from a menu, when a control sends a notification
+            message to its parent window, or when an accelerator keystroke is translated.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SYSCOMMAND">
+            <summary>
+            A window receives this message when the user chooses a command from the Window menu, clicks the maximize button,
+            minimize button, restore button, close button, or moves the form. You can stop the form from moving by filtering
+            this out.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.TIMER">
+            <summary>
+            The WM_TIMER message is posted to the installing thread's message queue when a timer expires. The message is posted
+            by the GetMessage or PeekMessage function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSCROLL">
+            <summary>
+            The WM_HSCROLL message is sent to a window when a scroll event occurs in the window's standard horizontal scroll
+            bar. This message is also sent to the owner of a horizontal scroll bar control when a scroll event occurs in the control.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.VSCROLL">
+            <summary>
+            The WM_VSCROLL message is sent to a window when a scroll event occurs in the window's standard vertical scroll bar.
+            This message is also sent to the owner of a vertical scroll bar control when a scroll event occurs in the control.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.INITMENU">
+            <summary>
+            The WM_INITMENU message is sent when a menu is about to become active. It occurs when the user clicks an item on the
+            menu bar or presses a menu key. This allows the application to modify the menu before it is displayed.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.INITMENUPOPUP">
+            <summary>
+            The WM_INITMENUPOPUP message is sent when a drop-down menu or submenu is about to become active. This allows an
+            application to modify the menu before it is displayed, without changing the entire menu.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MENUSELECT">
+            <summary>The WM_MENUSELECT message is sent to a menu's owner window when the user selects a menu item.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MENUCHAR">
+            <summary>
+            The WM_MENUCHAR message is sent when a menu is active and the user presses a key that does not correspond to any
+            mnemonic or accelerator key. This message is sent to the window that owns the menu.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ENTERIDLE">
+            <summary>
+            The WM_ENTERIDLE message is sent to the owner window of a modal dialog box or menu that is entering an idle state. A
+            modal dialog box or menu enters an idle state when no messages are waiting in its queue after it has processed one
+            or more previous messages.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MENURBUTTONUP">
+            <summary>
+            The WM_MENURBUTTONUP message is sent when the user releases the right mouse button while the cursor is on a menu item.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MENUDRAG">
+            <summary>The WM_MENUDRAG message is sent to the owner of a drag-and-drop menu when the user drags a menu item.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MENUGETOBJECT">
+            <summary>
+            The WM_MENUGETOBJECT message is sent to the owner of a drag-and-drop menu when the mouse cursor enters a menu item
+            or moves from the center of the item to the top or bottom of the item.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.UNINITMENUPOPUP">
+            <summary>The WM_UNINITMENUPOPUP message is sent when a drop-down menu or submenu has been destroyed.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MENUCOMMAND">
+            <summary>The WM_MENUCOMMAND message is sent when the user makes a selection from a menu.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CHANGEUISTATE">
+            <summary>
+            An application sends the WM_CHANGEUISTATE message to indicate that the user interface (UI) state should be changed.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.UPDATEUISTATE">
+            <summary>
+            An application sends the WM_UPDATEUISTATE message to change the user interface (UI) state for the specified window
+            and all its child windows.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.QUERYUISTATE">
+            <summary>An application sends the WM_QUERYUISTATE message to retrieve the user interface (UI) state for a window.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CTLCOLORMSGBOX">
+            <summary>
+            The WM_CTLCOLORMSGBOX message is sent to the owner window of a message box before Windows draws the message box. By
+            responding to this message, the owner window can set the text and background colors of the message box by using the
+            given display device context handle.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CTLCOLOREDIT">
+            <summary>
+            An edit control that is not read-only or disabled sends the WM_CTLCOLOREDIT message to its parent window when the
+            control is about to be drawn. By responding to this message, the parent window can use the specified device context
+            handle to set the text and background colors of the edit control.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CTLCOLORLISTBOX">
+            <summary>
+            Sent to the parent window of a list box before the system draws the list box. By responding to this message, the
+            parent window can set the text and background colors of the list box by using the specified display device context handle.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CTLCOLORBTN">
+            <summary>
+            The WM_CTLCOLORBTN message is sent to the parent window of a button before drawing the button. The parent window can
+            change the button's text and background colors. However, only owner-drawn buttons respond to the parent window
+            processing this message.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CTLCOLORDLG">
+            <summary>
+            The WM_CTLCOLORDLG message is sent to a dialog box before the system draws the dialog box. By responding to this
+            message, the dialog box can set its text and background colors using the specified display device context handle.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CTLCOLORSCROLLBAR">
+            <summary>
+            The WM_CTLCOLORSCROLLBAR message is sent to the parent window of a scroll bar control when the control is about to
+            be drawn. By responding to this message, the parent window can use the display context handle to set the background
+            color of the scroll bar control.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CTLCOLORSTATIC">
+            <summary>
+            A static control, or an edit control that is read-only or disabled, sends the WM_CTLCOLORSTATIC message to its
+            parent window when the control is about to be drawn. By responding to this message, the parent window can use the
+            specified device context handle to set the text and background colors of the static control.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOUSEFIRST">
+            <summary>Use WM_MOUSEFIRST to specify the first mouse message. Use the PeekMessage() Function.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOUSEMOVE">
+            <summary>
+            The WM_MOUSEMOVE message is posted to a window when the cursor moves. If the mouse is not captured, the message is
+            posted to the window that contains the cursor. Otherwise, the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.LBUTTONDOWN">
+            <summary>
+            The WM_LBUTTONDOWN message is posted when the user presses the left mouse button while the cursor is in the client
+            area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
+            the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.LBUTTONUP">
+            <summary>
+            The WM_LBUTTONUP message is posted when the user releases the left mouse button while the cursor is in the client
+            area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
+            the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.LBUTTONDBLCLK">
+            <summary>
+            The WM_LBUTTONDBLCLK message is posted when the user double-clicks the left mouse button while the cursor is in the
+            client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
+            Otherwise, the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.RBUTTONDOWN">
+            <summary>
+            The WM_RBUTTONDOWN message is posted when the user presses the right mouse button while the cursor is in the client
+            area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
+            the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.RBUTTONUP">
+            <summary>
+            The WM_RBUTTONUP message is posted when the user releases the right mouse button while the cursor is in the client
+            area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
+            the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.RBUTTONDBLCLK">
+            <summary>
+            The WM_RBUTTONDBLCLK message is posted when the user double-clicks the right mouse button while the cursor is in the
+            client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
+            Otherwise, the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MBUTTONDOWN">
+            <summary>
+            The WM_MBUTTONDOWN message is posted when the user presses the middle mouse button while the cursor is in the client
+            area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
+            the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MBUTTONUP">
+            <summary>
+            The WM_MBUTTONUP message is posted when the user releases the middle mouse button while the cursor is in the client
+            area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
+            the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MBUTTONDBLCLK">
+            <summary>
+            The WM_MBUTTONDBLCLK message is posted when the user double-clicks the middle mouse button while the cursor is in
+            the client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
+            Otherwise, the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOUSEWHEEL">
+            <summary>
+            The WM_MOUSEWHEEL message is sent to the focus window when the mouse wheel is rotated. The DefWindowProc function
+            propagates the message to the window's parent. There should be no internal forwarding of the message, since
+            DefWindowProc propagates it up the parent chain until it finds a window that processes it.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.XBUTTONDOWN">
+            <summary>
+            The WM_XBUTTONDOWN message is posted when the user presses the first or second X button while the cursor is in the
+            client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
+            Otherwise, the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.XBUTTONUP">
+            <summary>
+            The WM_XBUTTONUP message is posted when the user releases the first or second X button while the cursor is in the
+            client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
+            Otherwise, the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.XBUTTONDBLCLK">
+            <summary>
+            The WM_XBUTTONDBLCLK message is posted when the user double-clicks the first or second X button while the cursor is
+            in the client area of a window. If the mouse is not captured, the message is posted to the window beneath the
+            cursor. Otherwise, the message is posted to the window that has captured the mouse.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOUSEHWHEEL">
+            <summary>
+            The WM_MOUSEHWHEEL message is sent to the focus window when the mouse's horizontal scroll wheel is tilted or
+            rotated. The DefWindowProc function propagates the message to the window's parent. There should be no internal
+            forwarding of the message, since DefWindowProc propagates it up the parent chain until it finds a window that
+            processes it.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOUSELAST">
+            <summary>Use WM_MOUSELAST to specify the last mouse message. Used with PeekMessage() Function.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.PARENTNOTIFY">
+            <summary>
+            The WM_PARENTNOTIFY message is sent to the parent of a child window when the child window is created or destroyed,
+            or when the user clicks a mouse button while the cursor is over the child window. When the child window is being
+            created, the system sends WM_PARENTNOTIFY just before the CreateWindow or CreateWindowEx function that creates the
+            window returns. When the child window is being destroyed, the system sends the message before any processing to
+            destroy the window takes place.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ENTERMENULOOP">
+            <summary>
+            The WM_ENTERMENULOOP message informs an application's main window procedure that a menu modal loop has been entered.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.EXITMENULOOP">
+            <summary>
+            The WM_EXITMENULOOP message informs an application's main window procedure that a menu modal loop has been exited.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NEXTMENU">
+            <summary>
+            The WM_NEXTMENU message is sent to an application when the right or left arrow key is used to switch between the
+            menu bar and the system menu.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SIZING">
+            <summary>
+            The WM_SIZING message is sent to a window that the user is resizing. By processing this message, an application can
+            monitor the size and position of the drag rectangle and, if needed, change its size or position.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CAPTURECHANGED">
+            <summary>The WM_CAPTURECHANGED message is sent to the window that is losing the mouse capture.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOVING">
+            <summary>
+            The WM_MOVING message is sent to a window that the user is moving. By processing this message, an application can
+            monitor the position of the drag rectangle and, if needed, change its position.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.POWERBROADCAST">
+            <summary>Notifies applications that a power-management event has occurred.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DEVICECHANGE">
+            <summary>Notifies an application of a change to the hardware configuration of a device or the computer.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDICREATE">
+            <summary>
+            An application sends the WM_MDICREATE message to a multiple-document interface (MDI) client window to create an MDI
+            child window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDIDESTROY">
+            <summary>
+            An application sends the WM_MDIDESTROY message to a multiple-document interface (MDI) client window to close an MDI
+            child window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDIACTIVATE">
+            <summary>
+            An application sends the WM_MDIACTIVATE message to a multiple-document interface (MDI) client window to instruct the
+            client window to activate a different MDI child window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDIRESTORE">
+            <summary>
+            An application sends the WM_MDIRESTORE message to a multiple-document interface (MDI) client window to restore an
+            MDI child window from maximized or minimized size.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDINEXT">
+            <summary>
+            An application sends the WM_MDINEXT message to a multiple-document interface (MDI) client window to activate the
+            next or previous child window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDIMAXIMIZE">
+            <summary>
+            An application sends the WM_MDIMAXIMIZE message to a multiple-document interface (MDI) client window to maximize an
+            MDI child window. The system resizes the child window to make its client area fill the client window. The system
+            places the child window's window menu icon in the rightmost position of the frame window's menu bar, and places the
+            child window's restore icon in the leftmost position. The system also appends the title bar text of the child window
+            to that of the frame window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDITILE">
+            <summary>
+            An application sends the WM_MDITILE message to a multiple-document interface (MDI) client window to arrange all of
+            its MDI child windows in a tile format.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDICASCADE">
+            <summary>
+            An application sends the WM_MDICASCADE message to a multiple-document interface (MDI) client window to arrange all
+            its child windows in a cascade format.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDIICONARRANGE">
+            <summary>
+            An application sends the WM_MDIICONARRANGE message to a multiple-document interface (MDI) client window to arrange
+            all minimized MDI child windows. It does not affect child windows that are not minimized.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDIGETACTIVE">
+            <summary>
+            An application sends the WM_MDIGETACTIVE message to a multiple-document interface (MDI) client window to retrieve
+            the handle to the active MDI child window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDISETMENU">
+            <summary>
+            An application sends the WM_MDISETMENU message to a multiple-document interface (MDI) client window to replace the
+            entire menu of an MDI frame window, to replace the window menu of the frame window, or both.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ENTERSIZEMOVE">
+            <summary>
+            The WM_ENTERSIZEMOVE message is sent one time to a window after it enters the moving or sizing modal loop. The
+            window enters the moving or sizing modal loop when the user clicks the window's title bar or sizing border, or when
+            the window passes the WM_SYSCOMMAND message to the DefWindowProc function and the wParam parameter of the message
+            specifies the SC_MOVE or SC_SIZE value. The operation is complete when DefWindowProc returns. The system sends the
+            WM_ENTERSIZEMOVE message regardless of whether the dragging of full windows is enabled.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.EXITSIZEMOVE">
+            <summary>
+            The WM_EXITSIZEMOVE message is sent one time to a window, after it has exited the moving or sizing modal loop. The
+            window enters the moving or sizing modal loop when the user clicks the window's title bar or sizing border, or when
+            the window passes the WM_SYSCOMMAND message to the DefWindowProc function and the wParam parameter of the message
+            specifies the SC_MOVE or SC_SIZE value. The operation is complete when DefWindowProc returns.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DROPFILES">
+            <summary>
+            Sent when the user drops a file on the window of an application that has registered itself as a recipient of dropped files.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MDIREFRESHMENU">
+            <summary>
+            An application sends the WM_MDIREFRESHMENU message to a multiple-document interface (MDI) client window to refresh
+            the window menu of the MDI frame window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_SETCONTEXT">
+            <summary>
+            Sent to an application when a window is activated. A window receives this message through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_NOTIFY">
+            <summary>
+            Sent to an application to notify it of changes to the IME window. A window receives this message through its
+            WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_CONTROL">
+            <summary>
+            Sent by an application to direct the IME window to carry out the requested command. The application uses this
+            message to control the IME window that it has created. To send this message, the application calls the SendMessage
+            function with the following parameters.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_COMPOSITIONFULL">
+            <summary>
+            Sent to an application when the IME window finds no space to extend the area for the composition window. A window
+            receives this message through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_SELECT">
+            <summary>
+            Sent to an application when the operating system is about to change the current IME. A window receives this message
+            through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_CHAR">
+            <summary>
+            Sent to an application when the IME gets a character of the conversion result. A window receives this message
+            through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_REQUEST">
+            <summary>
+            Sent to an application to provide commands and request information. A window receives this message through its
+            WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_KEYDOWN">
+            <summary>
+            Sent to an application by the IME to notify the application of a key press and to keep message order. A window
+            receives this message through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.IME_KEYUP">
+            <summary>
+            Sent to an application by the IME to notify the application of a key release and to keep message order. A window
+            receives this message through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOUSEHOVER">
+            <summary>
+            The WM_MOUSEHOVER message is posted to a window when the cursor hovers over the client area of the window for the
+            period of time specified in a prior call to TrackMouseEvent.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.MOUSELEAVE">
+            <summary>
+            The WM_MOUSELEAVE message is posted to a window when the cursor leaves the client area of the window specified in a
+            prior call to TrackMouseEvent.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCMOUSEHOVER">
+            <summary>
+            The WM_NCMOUSEHOVER message is posted to a window when the cursor hovers over the nonclient area of the window for
+            the period of time specified in a prior call to TrackMouseEvent.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.NCMOUSELEAVE">
+            <summary>
+            The WM_NCMOUSELEAVE message is posted to a window when the cursor leaves the nonclient area of the window specified
+            in a prior call to TrackMouseEvent.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.WTSSESSION_CHANGE">
+            <summary>The WM_WTSSESSION_CHANGE message notifies applications of changes in session state.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CUT">
+            <summary>
+            An application sends a WM_CUT message to an edit control or combo box to delete (cut) the current selection, if any,
+            in the edit control and copy the deleted text to the clipboard in CF_TEXT format.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.COPY">
+            <summary>
+            An application sends the WM_COPY message to an edit control or combo box to copy the current selection to the
+            clipboard in CF_TEXT format.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.PASTE">
+            <summary>
+            An application sends a WM_PASTE message to an edit control or combo box to copy the current content of the clipboard
+            to the edit control at the current caret position. Data is inserted only if the clipboard contains data in CF_TEXT format.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CLEAR">
+            <summary>
+            An application sends a WM_CLEAR message to an edit control or combo box to delete (clear) the current selection, if
+            any, from the edit control.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.UNDO">
+            <summary>
+            An application sends a WM_UNDO message to an edit control to undo the last operation. When this message is sent to
+            an edit control, the previously deleted text is restored or the previously added text is deleted.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.RENDERFORMAT">
+            <summary>
+            The WM_RENDERFORMAT message is sent to the clipboard owner if it has delayed rendering a specific clipboard format
+            and if an application has requested data in that format. The clipboard owner must render data in the specified
+            format and place it on the clipboard by calling the SetClipboardData function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.RENDERALLFORMATS">
+            <summary>
+            The WM_RENDERALLFORMATS message is sent to the clipboard owner before it is destroyed, if the clipboard owner has
+            delayed rendering one or more clipboard formats. For the content of the clipboard to remain available to other
+            applications, the clipboard owner must render data in all the formats it is capable of generating, and place the
+            data on the clipboard by calling the SetClipboardData function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DESTROYCLIPBOARD">
+            <summary>
+            The WM_DESTROYCLIPBOARD message is sent to the clipboard owner when a call to the EmptyClipboard function empties
+            the clipboard.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DRAWCLIPBOARD">
+            <summary>
+            The WM_DRAWCLIPBOARD message is sent to the first window in the clipboard viewer chain when the content of the
+            clipboard changes. This enables a clipboard viewer window to display the new content of the clipboard.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.PAINTCLIPBOARD">
+            <summary>
+            The WM_PAINTCLIPBOARD message is sent to the clipboard owner by a clipboard viewer window when the clipboard
+            contains data in the CF_OWNERDISPLAY format and the clipboard viewer's client area needs repainting.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.VSCROLLCLIPBOARD">
+            <summary>
+            The WM_VSCROLLCLIPBOARD message is sent to the clipboard owner by a clipboard viewer window when the clipboard
+            contains data in the CF_OWNERDISPLAY format and an event occurs in the clipboard viewer's vertical scroll bar. The
+            owner should scroll the clipboard image and update the scroll bar values.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SIZECLIPBOARD">
+            <summary>
+            The WM_SIZECLIPBOARD message is sent to the clipboard owner by a clipboard viewer window when the clipboard contains
+            data in the CF_OWNERDISPLAY format and the clipboard viewer's client area has changed size.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.ASKCBFORMATNAME">
+            <summary>
+            The WM_ASKCBFORMATNAME message is sent to the clipboard owner by a clipboard viewer window to request the name of a
+            CF_OWNERDISPLAY clipboard format.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CHANGECBCHAIN">
+            <summary>
+            The WM_CHANGECBCHAIN message is sent to the first window in the clipboard viewer chain when a window is being
+            removed from the chain.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSCROLLCLIPBOARD">
+            <summary>
+            The WM_HSCROLLCLIPBOARD message is sent to the clipboard owner by a clipboard viewer window. This occurs when the
+            clipboard contains data in the CF_OWNERDISPLAY format and an event occurs in the clipboard viewer's horizontal
+            scroll bar. The owner should scroll the clipboard image and update the scroll bar values.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.QUERYNEWPALETTE">
+            <summary>
+            This message informs a window that it is about to receive the keyboard focus, giving the window the opportunity to
+            realize its logical palette when it receives the focus.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.PALETTEISCHANGING">
+            <summary>
+            The WM_PALETTEISCHANGING message informs applications that an application is going to realize its logical palette.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.PALETTECHANGED">
+            <summary>
+            This message is sent by the OS to all top-level and overlapped windows after the window with the keyboard focus
+            realizes its logical palette. This message enables windows that do not have the keyboard focus to realize their
+            logical palettes and update their client areas.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HOTKEY">
+            <summary>
+            The WM_HOTKEY message is posted when the user presses a hot key registered by the RegisterHotKey function. The
+            message is placed at the top of the message queue associated with the thread that registered the hot key.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.PRINT">
+            <summary>
+            The WM_PRINT message is sent to a window to request that it draw itself in the specified device context, most
+            commonly in a printer device context.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.PRINTCLIENT">
+            <summary>
+            The WM_PRINTCLIENT message is sent to a window to request that it draw its client area in the specified device
+            context, most commonly in a printer device context.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.APPCOMMAND">
+            <summary>
+            The WM_APPCOMMAND message notifies a window that the user generated an application command event, for example, by
+            clicking an application command button using the mouse or typing an application command key on the keyboard.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.THEMECHANGED">
+            <summary>
+            The WM_THEMECHANGED message is broadcast to every window following a theme change event. Examples of theme change
+            events are the activation of a theme, the deactivation of a theme, or a transition from one theme to another.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CLIPBOARDUPDATE">
+            <summary>Sent when the contents of the clipboard have changed.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DWMCOMPOSITIONCHANGED">
+            <summary>
+            The system will send a window the WM_DWMCOMPOSITIONCHANGED message to indicate that the availability of desktop
+            composition has changed.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DWMNCRENDERINGCHANGED">
+            <summary>
+            WM_DWMNCRENDERINGCHANGED is called when the non-client area rendering status of a window has changed. Only windows
+            that have set the flag DWM_BLURBEHIND.fTransitionOnMaximized to true will get this message.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DWMCOLORIZATIONCOLORCHANGED">
+            <summary>Sent to all top-level windows when the colorization color has changed.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.DWMWINDOWMAXIMIZEDCHANGE">
+            <summary>
+            WM_DWMWINDOWMAXIMIZEDCHANGE will let you know when a DWM composed window is maximized. You also have to register for
+            this message as well. You'd have other windowd go opaque when this message is sent.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.GETTITLEBARINFOEX">
+            <summary>
+            Sent to request extended title bar information. A window receives this message through its WindowProc function.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.APP">
+            <summary>
+            The WM_APP constant is used by applications to help define private messages, usually of the form WM_APP+X, where X
+            is an integer value.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.USER">
+            <summary>
+            The WM_USER constant is used by applications to help define private messages for use by private window classes,
+            usually of the form WM_USER+X, where X is an integer value.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CPL_LAUNCH">
+            <summary>
+            An application sends the WM_CPL_LAUNCH message to Windows Control Panel to request that a Control Panel application
+            be started.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.CPL_LAUNCHED">
+            <summary>
+            The WM_CPL_LAUNCHED message is sent when a Control Panel application, started by the WM_CPL_LAUNCH message, has
+            closed. The WM_CPL_LAUNCHED message is sent to the window identified by the wParam parameter of the WM_CPL_LAUNCH
+            message that started the application.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.SYSTIMER">
+            <summary>
+            WM_SYSTIMER is a well-known yet still undocumented message. Windows uses WM_SYSTIMER for internal actions like scrolling.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_ACCESSIBILITYSTATE">
+            <summary>The accessibility state has changed.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_ACTIVATESHELLWINDOW">
+            <summary>The shell should activate its main window.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_APPCOMMAND">
+            <summary>
+            The user completed an input event (for example, pressed an application command button on the mouse or an application
+            command key on the keyboard), and the application did not handle the WM_APPCOMMAND message generated by that input.
+            If the Shell procedure handles the WM_COMMAND message, it should not call CallNextHookEx. See the Return Value
+            section for more information.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_GETMINRECT">
+            <summary>
+            A window is being minimized or maximized. The system needs the coordinates of the minimized rectangle for the window.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_LANGUAGE">
+            <summary>Keyboard language was changed or a new keyboard layout was loaded.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_REDRAW">
+            <summary>The title of a window in the task bar has been redrawn.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_TASKMAN">
+            <summary>
+            The user has selected the task list. A shell application that provides a task list should return TRUE to prevent
+            Windows from starting its task list.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_WINDOWCREATED">
+            <summary>A top-level, unowned window has been created. The window exists when the system calls this hook.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_WINDOWDESTROYED">
+            <summary>
+            A top-level, unowned window is about to be destroyed. The window still exists when the system calls this hook.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_WINDOWACTIVATED">
+            <summary>The activation has changed to a different top-level, unowned window.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.WM.HSHELL_WINDOWREPLACED">
+            <summary>A top-level window is being replaced. The window exists when the system calls this hook.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.Program">
+            <summary>Holds the <see cref="M:RaphaëlBardini.WinClean.Logic.Program.Main" /> method and application-wide data.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Program.ConfirmAndExecuteScripts(System.Collections.Generic.IEnumerable{RaphaëlBardini.WinClean.Logic.IScript})">
+            <summary>Runs the specified scripts.</summary>
+            <remarks>If there is more than 1 script to run, shows a GUI.</remarks>
+            <param name="scripts"></param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="scripts" /> is <see langword="null" />.</exception>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Program.Exit">
+            <summary>Disposes of ressources and exits the program.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Program.ShowAboutBox">
+            <summary>Displays the <see cref="T:RaphaëlBardini.WinClean.Presentation.AboutBox" /> form.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Program.ShowSettings">
+            <summary>
+            Displays the <see cref="T:RaphaëlBardini.WinClean.Presentation.Settings" /> form.
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.Script">
+            <summary>A script that can be executed from a script host program.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Script.#ctor(RaphaëlBardini.WinClean.Operational.IScriptHost,System.String)">
+            <summary>Instanciates a new <see cref="T:RaphaëlBardini.WinClean.Logic.Script" /> object.</summary>
+            <param name="host">The associated script host program.</param>
+            <param name="existingScriptFileName">The filename of the script.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="host" /> or <paramref name="existingScriptFileName" /> are <see langword="null" />.</exception>
+            <inheritdoc cref="M:System.IO.Path.Combine(System.String,System.String)" path="/exception" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.Helpers.ThrowIfUnacessible(System.IO.FileInfo,System.IO.FileAccess)" />
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.Script.Advised">
+            <inheritdoc />
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.Script.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.Script.File">
+            <inheritdoc />
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.Script.Host">
+            <inheritdoc />
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.Script.Impacts">
+            <inheritdoc />
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.Script.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Script.Execute">
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Operational.IScriptHost.Execute(System.IO.FileInfo)" path="/summary" />
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI">
+            <summary>Represents a <see cref="T:RaphaëlBardini.WinClean.Logic.Script" /> collection that can be executed.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI.#ctor(System.Collections.Generic.IEnumerable{RaphaëlBardini.WinClean.Logic.IScript})">
+            <summary>
+            Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI" /> class.
+            </summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI.ExecuteAll">
+            <summary>Executes all the scripts and displays a dialog tracking the progress.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.ShelIconModifier">
+            <summary>Flags for <see cref="M:RaphaëlBardini.WinClean.Logic.NativeMethods.GetShellIcon(RaphaëlBardini.WinClean.Logic.ShellIcon,RaphaëlBardini.WinClean.Logic.ShelIconModifier)" /></summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShelIconModifier.None">
+            <inheritdoc cref="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_LARGEICON" />
+            <remarks>Default behavior</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShelIconModifier.LinkOverlay">
+            <inheritdoc cref="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_LINKOVERLAY" />
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShelIconModifier.Selected">
+            <inheritdoc cref="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_SELECTED" />
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShelIconModifier.Small">
+            <inheritdoc cref="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_SMALLICON" />
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShelIconModifier.ShellSize">
+            <inheritdoc cref="F:RaphaëlBardini.WinClean.Logic.SHGSI.SHGSI_SHELLICONSIZE" />
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.ShellIcon">
+            <summary>Identifies a known system shell icon.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DocNoAssoc">
+            <summary>Document of a type with no associated application.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DocAssoc">
+            <summary>Document of a type with an associated application.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Application">
+            <summary>Generic application with no custom icon.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Folder">
+            <summary>Folder (generic, unspecified state).</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.FolderOpen">
+            <summary>Folder (open).</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Drive525">
+            <summary>5.25-inch disk drive.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Drive35">
+            <summary>3.5-inch disk drive.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveRemovable">
+            <summary>Removable drive.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveFixed">
+            <summary>Fixed drive (hard disk).</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveNetwork">
+            <summary>Network drive (connected).</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveNeworkDisconnected">
+            <summary>Network drive (disconnected).</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveCD">
+            <summary>CD drive.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveRAM">
+            <summary>RAM disk drive.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.World">
+            <summary>Planet Earth.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.WorldMouse">
+            <summary>Planet Earth with a mouse plugged into it.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Server">
+            <summary>A computer on the network.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Printer">
+            <summary>A local printer or print destination.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MyNetwork">
+            <summary>The Network virtual folder (FOLDERID_NetworkFolder/CSIDL_NETWORK).</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Network">
+            <summary>3 linked computers.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.FolderSmallIcons">
+            <summary>A folder with 9 small icons.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DocNoAssocClock">
+            <summary>Document of a type with no associated application with a clock overlay.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ControlPanel">
+            <summary>Control Panel icon</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Find">
+            <summary>The Search feature.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Help">
+            <summary>The Help and Support feature.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Run">
+            <summary>The Run.. program icon</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ComputerMoon">
+            <summary>A monitor with a moon displayed.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.UsbArrow">
+            <summary>An USB key with an arrow pointing to the right.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ShutdownXp">
+            <summary>The Windows XP shutdown icon.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Share">
+            <summary>Overlay for a shared item.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Link">
+            <summary>Overlay for a shortcut.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.SlowFIleOverlay">
+            <summary>Overlay for items that are expected to be slow to access.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.RecycleBin">
+            <summary>The Recycle Bin (empty).</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.RecycleBinFull">
+            <summary>The Recycle Bin (not empty).</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Server9x">
+            <summary>The server icon for Windows 9x.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Desktop">
+            <summary>The user's desktop.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.PrinterFolder">
+            <summary>A printer with a folder behind it.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.FontsFolder">
+            <summary>The fonts folder icon.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.CheckBoxes">
+            <summary>3 checkboxes and a toolbar at the bottom.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaCDAudio">
+            <summary>Audio CD media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Tree9x">
+            <summary>A Windows 9x tree.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ComputerFolder9x">
+            <summary>A Windows 9x computer in front of a folder.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Favourite">
+            <summary>A star.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.SleepXP">
+            <summary>The Windows XP sleep icon.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.UploadFolder">
+            <summary>A folder with a green arrow pointing upwards.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ScreenArrows">
+            <summary>A screen with 2 arrows in a circle.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Lock">
+            <summary>Security lock.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ComputerProgram9x">
+            <summary>A Windows 9x computer with a program window behind.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.AutoList">
+            <summary>A virtual folder that contains the results of a search.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.PrinterNetwork">
+            <summary>A network printer.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ServerShare">
+            <summary>A server shared on a network.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.PrinterFax">
+            <summary>A local fax printer.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.PrinterNetworkFax">
+            <summary>A network fax printer.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.PrinterFile">
+            <summary>A file that receives the output of a Print to file operation.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Stack">
+            <summary>A category that results from a Stack by command to organize the contents of a folder.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaSVCD">
+            <summary>Super Video CD (SVCD) media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.StuffedFolder">
+            <summary>A folder that contains only subfolders as child items.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveUnknwown">
+            <summary>Unknown drive type.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveDvd">
+            <summary>DVD drive.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaDvd">
+            <summary>DVD media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaDvdRam">
+            <summary>DVD-RAM media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaDvdRw">
+            <summary>DVD-RW media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaDvdR">
+            <summary>DVD-R media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaDvdRom">
+            <summary>DVD-ROM media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaCdAudioPlus">
+            <summary>CD+ (enhanced audio CD) media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaCdRw">
+            <summary>CD-RW media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaCdR">
+            <summary>CD-R media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaCdBurn">
+            <summary>A writable CD in the process of being burned.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaBlankCd">
+            <summary>Blank writable CD media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaCdRom">
+            <summary>CD-ROM media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.AudioFile">
+            <summary>An audio file.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ImageFile">
+            <summary>An image file.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.VideoFile">
+            <summary>A video file.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MixedFile">
+            <summary>A mixed file.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.FolderBack">
+            <summary>Folder back.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.FolderFront">
+            <summary>Folder front.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Shield">
+            <summary>Security shield. Use for UAC prompts only.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Warning">
+            <summary>Warning.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Info">
+            <summary>Informational.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Error">
+            <summary>Error.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Key">
+            <summary>Key.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Software">
+            <summary>Software.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Rename">
+            <summary>A UI item, such as a button, that issues a rename command.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Delete">
+            <summary>A UI item, such as a button, that issues a delete command.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaAudioDvd">
+            <summary>Audio DVD media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaMovieDvd">
+            <summary>Movie DVD media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaEnhancedCD">
+            <summary>Enhanced CD media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaEnhancedDVD">
+            <summary>Enhanced DVD media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaHdDvd">
+            <summary>High definition DVD media in the HD DVD format.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaBluRay">
+            <summary>High definition DVD media in the Blu-ray Disc™ format.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaVcd">
+            <summary>Video CD (VCD) media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaDvdPlusR">
+            <summary>DVD+R media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaDvdPlusRw">
+            <summary>DVD+RW media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DesktopPc">
+            <summary>A desktop computer.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MobilePc">
+            <summary>A mobile computer (laptop).</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Users">
+            <summary>The User Accounts Control Panel item.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaSmart">
+            <summary>Smart media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaCompactFlash">
+            <summary>CompactFlash media.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DeviceCellPhone">
+            <summary>A cell phone.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DeviceCamera">
+            <summary>A digital camera.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DeviceVideoCamera">
+            <summary>A digital video camera.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DeviceAudioPlayer">
+            <summary>An audio player.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.NetworkConnect">
+            <summary>Connect to network.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Internet">
+            <summary>The Network and Internet Control Panel item.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ZipFile">
+            <summary>A compressed file with a .zip file name extension.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Settings">
+            <summary>The Additional Options Control Panel item.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.SystemDrive">
+            <summary>The current system drive (for instance, C:) with the Windows icon.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MusicLibrary">
+            <summary>The music user library</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.SavedPicturesFolder">
+            <summary>The saved pictures folder</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.FolderFind">
+            <summary>A folder with a magnifying glass</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.AddPrinter">
+            <summary>A printer with a green +</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.TreeView9x">
+            <summary>A Windows 9x tree view</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Canvas">
+            <summary>A white canvas for painting.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.OkPrinter">
+            <summary>A printer with a green validation mark.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.OkPrinterFloppyDisk">
+            <summary>A printer with a green validation mark and a floppy disk.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.OkNetworkPrinter">
+            <summary>A network printer with a green validation mark.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.OkScanner">
+            <summary>A scanner with a green validation mark.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.OkPhotocopier">
+            <summary>A photocopier with a green validation mark.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.TextDocumentMargin">
+            <summary>A text document with a red margin.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Letter">
+            <summary>A mail enveloppe with a timbre.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ImageInWindow">
+            <summary>The paysage picture icon in a window.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MusicSheet">
+            <summary>A music sheet.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.VideosLibrary">
+            <summary>The user videos library.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Contacts">
+            <summary>2 people.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ShieldHelp">
+            <summary>Help in a shield.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ShieldError">
+            <summary>Error in a shield.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ShieldChekmark">
+            <summary>Checkmark in a shield.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.SheildWarning">
+            <summary>Warning in a shield.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveHdDvd">
+            <summary>High definition DVD drive (any type - HD DVD-ROM, HD DVD-R, HD-DVD-RAM) that uses the HD DVD format.</summary>
+            <remarks>Windows Vista with SP1 and later.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.DriveBd">
+            <summary>High definition DVD drive (any type - BD-ROM, BD-R, BD-RE) that uses the Blu-ray Disc format.</summary>
+            <remarks>Windows Vista with SP1 and later.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaHdDvdRom">
+            <summary>High definition DVD-ROM media in the HD DVD-ROM format.</summary>
+            <remarks>Windows Vista with SP1 and later.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaHdDvdR">
+            <summary>High definition DVD-R media in the HD DVD-R format.</summary>
+            <remarks>Windows Vista with SP1 and later.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaHdDvdRam">
+            <summary>High definition DVD-RAM media in the HD DVD-RAM format.</summary>
+            <remarks>Windows Vista with SP1 and later.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaBdRom">
+            <summary>High definition DVD-ROM media in the Blu-ray Disc BD-ROM format.</summary>
+            <remarks>Windows Vista with SP1 and later.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaBdR">
+            <summary>High definition write-once media in the Blu-ray Disc BD-R format.</summary>
+            <remarks>Windows Vista with SP1 and later.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MediaBdRe">
+            <summary>High definition read/write media in the Blu-ray Disc BD-RE format.</summary>
+            <remarks>Windows Vista with SP1 and later.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.ClusteredDrive">
+            <summary>A cluster disk array.</summary>
+            <remarks>Windows Vista with SP1 and later.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Max">
+            <summary>The highest valid value in the enumeration.</summary>
+            <remarks>Values over 160 are Windows 7-only icons.</remarks>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.MusicBox">
+            <summary>The music library icon in a box.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.UnlockedDrive">
+            <summary>An unlocked drive that can be locked.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.LockedDrive">
+            <summary>A locked drive that can be unlocked.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.UnlockedDriveWarning">
+            <summary>An unlocked drive that can be locked, with a warning icon.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.UnlockedSystemDrive">
+            <summary>The system drive with the Windows icon, unlocked.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.UnlockedSystemDriveWarning">
+            <summary>The system drive with the Windows icon, unlocked with a warning.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.LockedDriveKey">
+            <summary>A locked drive with a key inside the lock.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.UnspecifiedLibrary">
+            <summary>A library with no file type association.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.CheckmarkOverlay">
+            <summary>A green validation mark.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Play">
+            <summary>A white on black play button.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.FlatLock">
+            <summary>A lock seen from the front.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Compressed">
+            <summary>A compressed object.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Logic.ShellIcon.Briefcase">
+            <summary>A briefcase seen from the front.</summary>
+            <remarks>Maximum value.</remarks>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Logic.ToEnumerabling">
+            <summary>Provides extension methods for converting collections to <see cref="T:System.Collections.Generic.IEnumerable`1" /> without casting.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ListView.CheckedListViewItemCollection)">
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ToolStripItemCollection)" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ListView.ListViewItemCollection)">
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ToolStripItemCollection)" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ToolStripItemCollection)">
+            <summary>Converts a collection object to an <see cref="T:System.Collections.Generic.IEnumerable`1" />.</summary>
+            <param name="c">The collection to convert.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1" /> containing the elements of <paramref name="c" />.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="c" /> is <see langword="null" />.</exception>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.LogLevel">
+            <summary>Specifies a minimum log level.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.LogLevel.Verbose">
+            <summary>All entries are logged.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.LogLevel.Info">
+            <summary>Informational entries minimum.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.LogLevel.Warning">
+            <summary>Warning-level entries minimum.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.LogLevel.Error">
+            <summary>Error-level entries minimum.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.LogLevel.Critical">
+            <summary>Unrecoverable errors. The application can't continue.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.LogManager">
+            <summary>Provides CSV logging.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.LogManager.MinLogLevel">
+            <summary>
+            Minimal log level for an entry.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.LogManager.DateTimeFilenameFormat">
+            <summary>Format string used by <see cref="M:System.DateTime.ToString(System.String)" /> used for NTFS filenames.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.LogManager.LogDelimiter">
+            <summary>CSV Log entry column delimiter.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.LogManager.s_currentLogFile">
+            <summary>Unique log file that will be used for this session.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.LogManager.s_logIndex">
+            <summary>Count of log entries wrote.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.LogManager.ClearLogsFolder">
+            <summary>
+            Empties the log folder, except for the current log file.
+            </summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.LogManager.Dispose">
+            <inheritdoc cref="M:System.IDisposable.Dispose" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.LogManager.Log(System.String,System.String,RaphaëlBardini.WinClean.LogLevel,System.String,System.Int32,System.String)">
+            <summary>Logs a string.</summary>
+            <param name="str">The string to log.</param>
+            <param name="happening">What's happening right now.</param>
+            <param name="lvl">The level of the log entry.</param>
+            <param name="caller"><see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" /> - Don't specify</param>
+            <param name="callLine"><see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute" /> - Don't specify</param>
+            <param name="callFile"><see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute" /> - Don't specify</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.LogManager.Log(System.Exception,RaphaëlBardini.WinClean.LogLevel,System.String,System.Int32,System.String)">
+            <summary>
+            Logs an exception and it's details.
+            </summary>
+            <param name="e">The exception to log.</param>
+            <param name="lvl">The level of the entry.</param>
+            <param name="caller"><see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" /> - Don't specify</param>
+            <param name="callLine"><see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute" /> - Don't specify</param>
+            <param name="callFile"><see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute" /> - Don't specify</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.LogManager.CanLogFileBeDeleted(System.IO.FileInfo)">
+            <summary>Checks that a log file is valid for deletion. Doesn't throw.</summary>
+            <param name="logFile">The filename or path of the log file.</param>
+            <returns>
+            <see langword="true" /> if <paramref name="logFile" /> is a valid path, it's filename is a valid log filename,
+            and it's not the current session's log file. If one or more of these conditions are not met, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.LogManager.CreateLogDir">
+            <summary>Creates the appropriate log folder if missing.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.LogManager.DeleteLogFile(System.IO.FileInfo)">
+            <summary>Deletes a log file.</summary>
+            <param name="path">The full path of the log file to delete.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
+            <exception cref="T:System.NotSupportedException"><paramref name="path" /> is in an invalid format.</exception>
+            <exception cref="T:System.IO.PathTooLongException">
+            The specified path, file name, or both exceed the system-defined maximum length.
+            </exception>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.LogManager.LogEntry">
+            <remarks>The fields are in the order we want the CSV header to be in. Topmost = leftmost</remarks>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Operational.Cmd">
+            <summary>Represents the Windows Command Line Interpreter (cmd.exe) script host.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Operational.IScriptHost">
+            <summary>
+            Represents a program that accepts a file in it's command-line arguments. The afro-mentionned file has to contain code be
+            able to have side-effects.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Operational.IScriptHost.Timeout">
+            <summary>Maximum time a script can execute without displaying a warning to the user.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Operational.IScriptHost.IncompleteArguments">
+            <summary>Formattable executable arguments with a single file path argument.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Operational.IScriptHost.IncompleteArguments.#ctor(System.String)">
+            <param name="args">Formattable string with 1 argument, the path of the script file.</param>
+            <exception cref="T:System.ArgumentException"><paramref name="args" /> does not contain exactly one argument.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="args" /> is <see langword="null" />.</exception>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Operational.IScriptHost.IncompleteArguments.Complete(System.IO.FileInfo)">
+            <summary>Completes the arguments with the specified script file.</summary>
+            <param name="script">The file to complete the arguments with.</param>
+            <returns>The completed arguments</returns>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Operational.IScriptHost.IncompleteArguments.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Operational.IScriptHost.DisplayName">
+            <summary>The host user-friendly display name.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Operational.IScriptHost.Arguments">
+            <summary>The command-line arguments.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Operational.IScriptHost.Encoding">
+            <summary>The default output encoding.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Operational.IScriptHost.Executable">
+            <summary>The executable file.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Operational.IScriptHost.SupportedExtensions">
+            <summary>The supported script file extensions.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Operational.IScriptHost.Execute(System.IO.FileInfo)">
+            <summary>Executes the script host with the specified script file.</summary>
+            <param name="script">The path of the script file to run.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="script" />'s <see langword="null" />.</exception>
+            <exception cref="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException"><paramref name="script" />'s extension is not supported.</exception>
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.Helpers.ThrowIfUnacessible(System.IO.FileInfo,System.IO.FileAccess)" path="/exception" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Operational.IScriptHost.ToString">
+            <inheritdoc cref="M:System.Object.ToString" />
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Operational.IScriptHost.ToUnicode(System.IO.StreamReader)">
+            <summary>Reads everything in a stream and returns the converted Uunicode text.</summary>
+            <param name="stream">A text stream in a non-unicode encoding.</param>
+            <returns>The text of <paramref name="stream" /> in Unicode.</returns>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Operational.PowerShell">
+            <summary>Represetns the Windows PowerShell script host.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Operational.Regedit">
+            <summary>Represents the Windows Registry Editor script host.</summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Operational.ShellProperty">
+            <summary>Provides static methods for manipulation file and folder shell properties.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Operational.ShellProperty.GetFileDescription(System.IO.FileInfo)">
+            <summary>Gets the shell attribute labeled "File Description" of a file.</summary>
+            <param name="path">The file to get the file description from.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
+            <returns>The file description, or <see cref="F:System.String.Empty" /> if there is none.</returns>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Presentation.AboutBox">
+            <summary>Displays the traditional about box with application-related metadata</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.AboutBox.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.AboutBox" /> classe.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Presentation.AboutBox.components">
+            <summary>
+            Variable nécessaire au concepteur.
+            </summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.AboutBox.Dispose(System.Boolean)">
+            <summary>
+            Nettoyage des ressources utilisées.
+            </summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.AboutBox.InitializeComponent">
+            <summary>
+            Méthode requise pour la prise en charge du concepteur - ne modifiez pas
+            le contenu de cette méthode avec l'éditeur de code.
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Presentation.FormConfirm">
+            <summary>A confirmation modal dialog box ensuring that the user knows what he's doing when about to execute scripts.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.FormConfirm.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.FormConfirm" /> class.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Presentation.FormConfirm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.FormConfirm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.FormConfirm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Presentation.MainForm">
+            <summary>
+            This is the application's main form. It regroups several features, including the main commit buttons, script selection, and provides UI acess to other forms.
+            </summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.MainForm.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.MainForm" /> class.
+            </summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.MainForm.ListViewScripts_Resize(System.Object,System.EventArgs)">
+            <summary>
+            Resizes <see cref="F:RaphaëlBardini.WinClean.Presentation.MainForm.listViewScripts" />'s main and only column, <see cref="F:RaphaëlBardini.WinClean.Presentation.MainForm.scriptHeaderName" />, to match <see
+            cref="F:RaphaëlBardini.WinClean.Presentation.MainForm.listViewScripts" />'s new size.
+            </summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Presentation.MainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.MainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.MainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Presentation.Settings">
+            <summary>Form to acess and modify application settings.</summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.Settings.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.Settings" /> class.</summary>
+        </member>
+        <member name="F:RaphaëlBardini.WinClean.Presentation.Settings.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.Settings.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Presentation.Settings.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Resources.ErrorStrings">
+            <summary>
+              Une classe de ressource fortement typée destinée, entre autres, à la consultation des chaînes localisées.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ErrorStrings.ResourceManager">
+            <summary>
+              Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ErrorStrings.Culture">
+            <summary>
+              Remplace la propriété CurrentUICulture du thread actuel pour toutes
+              les recherches de ressources à l'aide de cette classe de ressource fortement typée.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ErrorStrings.Error">
+            <summary>
+              Recherche une chaîne localisée semblable à Erreur.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ErrorStrings.Info">
+            <summary>
+              Recherche une chaîne localisée semblable à Information.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ErrorStrings.Warning">
+            <summary>
+              Recherche une chaîne localisée semblable à Avertissement.
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Resources.FormattableStrings">
+            <summary>Une classe de ressource fortement typée destinée, entre autres, à la consultation des chaînes localisées.</summary>
+            <remarks>Replacing the code generated by the ResX engine, to support string formatting in resource properties.</remarks>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Resources.FormattableStrings.About(System.String)">
+            <summary>Gets a formattable localized string.</summary>
+            <returns>The localized string corresponding to "About programName".</returns>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Resources.FormattableStrings.Version(System.String)">
+            <summary>Gets a formattable localized string.</summary>
+            <returns>The localized string corresponding to "Version versionNumber".</returns>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Resources.Icons">
+            <summary>
+              Une classe de ressource fortement typée destinée, entre autres, à la consultation des chaînes localisées.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Icons.ResourceManager">
+            <summary>
+              Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Icons.Culture">
+            <summary>
+              Remplace la propriété CurrentUICulture du thread actuel pour toutes
+              les recherches de ressources à l'aide de cette classe de ressource fortement typée.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Icons.Error">
+            <summary>
+              Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Icons.Main">
+            <summary>
+              Recherche une ressource localisée de type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Icons.MainIcon">
+            <summary>
+              Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Icons.Windows10">
+            <summary>
+              Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Icons.Windows11">
+            <summary>
+              Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Icons.Windows8">
+            <summary>
+              Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Resources.ImpactEffect">
+            <summary>
+              Une classe de ressource fortement typée destinée, entre autres, à la consultation des chaînes localisées.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.ResourceManager">
+            <summary>
+              Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.Culture">
+            <summary>
+              Remplace la propriété CurrentUICulture du thread actuel pour toutes
+              les recherches de ressources à l'aide de cette classe de ressource fortement typée.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.DataCollection">
+            <summary>
+              Recherche une chaîne localisée semblable à Données de diagnostic.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.Ergonomics">
+            <summary>
+              Recherche une chaîne localisée semblable à Ergonomie.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.MemoryUsage">
+            <summary>
+              Recherche une chaîne localisée semblable à Utilisation mémoire.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.NetworkUsage">
+            <summary>
+              Recherche une chaîne localisée semblable à Utilisation réseau.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.ResponseTime">
+            <summary>
+              Recherche une chaîne localisée semblable à Temps de réponse système.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.ShutdownTime">
+            <summary>
+              Recherche une chaîne localisée semblable à Temps d&apos;arrêt système.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.StartupTime">
+            <summary>
+              Recherche une chaîne localisée semblable à Temps de démarrage système.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.StorageCapacity">
+            <summary>
+              Recherche une chaîne localisée semblable à Capacité disque.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.StorageSpeed">
+            <summary>
+              Recherche une chaîne localisée semblable à Vitesse disque.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.ImpactEffect.Visuals">
+            <summary>
+              Recherche une chaîne localisée semblable à Apparence.
+            </summary>
+        </member>
+        <member name="T:RaphaëlBardini.WinClean.Resources.Presets">
+            <summary>
+              Une classe de ressource fortement typée destinée, entre autres, à la consultation des chaînes localisées.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.ResourceManager">
+            <summary>
+              Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.Culture">
+            <summary>
+              Remplace la propriété CurrentUICulture du thread actuel pour toutes
+              les recherches de ressources à l'aide de cette classe de ressource fortement typée.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.AllDesc">
+            <summary>
+              Recherche une chaîne localisée semblable à Tous les scripts.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.AllName">
+            <summary>
+              Recherche une chaîne localisée semblable à Tout.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.DebloatDesc">
+            <summary>
+              Recherche une chaîne localisée semblable à Scripts correspondant à une opération initiale d&apos;amélioration des performances..
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.DebloatName">
+            <summary>
+              Recherche une chaîne localisée semblable à Debloat.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.MaintenanceDesc">
+            <summary>
+              Recherche une chaîne localisée semblable à Scripts correspondant à une opération de maintenance pouvant être effectuée régulièrement..
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.MaintenanceName">
+            <summary>
+              Recherche une chaîne localisée semblable à Maintenance.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.NoneDesc">
+            <summary>
+              Recherche une chaîne localisée semblable à Aucun script.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Resources.Presets.NoneName">
+            <summary>
+              Recherche une chaîne localisée semblable à Rien.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -5,66 +5,44 @@ using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
+    /// <summary>Displays the traditional about box with application-related metadata</summary>
     public partial class AboutBox : Form
     {
         #region Public Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="AboutBox"/> classe.</summary>
         public AboutBox()
         {
             InitializeComponent();
+
             Text = Resources.FormattableStrings.About(Application.ProductName);
+
             labelProductName.Text = Application.ProductName;
             labelVersion.Text = Resources.FormattableStrings.Version(Application.ProductVersion);
-            labelCopyright.Text = AssemblyCopyright;
-            labelCompanyName.Text = AssemblyCompany;
-            labelDescription.Text = AssemblyDescription;
+            AddAssemblyAttributes();
         }
 
         #endregion Public Constructors
 
-        #region Assembly attributes accessors
+        #region Private Methods
 
-        public static string AssemblyCompany
+        private void AddAssemblyAttributes()
         {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-                return ((AssemblyCompanyAttribute)attributes[0]).Company;
-            }
+            Assembly a = Assembly.GetExecutingAssembly();
+
+            labelDescription.Text = a.GetCustomAttribute<AssemblyDescriptionAttribute>().Description;
+            labelCompanyName.Text = a.GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+
+            _ = linkLabelRepoURL.Links.Add(0, linkLabelRepoURL.Text.Length, a.GetCustomAttribute<AssemblyMetadataAttribute>().Value);
+            labelCopyright.Text = a.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright;
         }
 
-        public static string AssemblyCopyright
+        private void labelRepoURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
-            }
+            linkLabelRepoURL.LinkVisited = true;
+            using System.Diagnostics.Process _ = System.Diagnostics.Process.Start("explorer", (string)e.Link.LinkData);
         }
 
-        public static string AssemblyDescription
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
-            }
-        }
-
-        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-        #endregion Assembly attributes accessors
+        #endregion Private Methods
     }
 }

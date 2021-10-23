@@ -6,18 +6,22 @@ using RaphaëlBardini.WinClean.Logic;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
+    /// <summary>A confirmation modal dialog box ensuring that the user knows what he's doing when about to execute scripts.</summary>
     public partial class FormConfirm : Form
     {
         #region Public Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="FormConfirm"/> class.</summary>
         public FormConfirm()
         {
             InitializeComponent();
             buttonContinue.Width += SystemInformation.SmallIconSize.Width;
             buttonContinue.Location = new(buttonContinue.Location.X - SystemInformation.SmallIconSize.Width, buttonContinue.Location.Y);
-            pictureBox.Image = NativeMethods.GetShellIcon(StockIcon.Warning).ToBitmap();
+            pictureBox.Image = NativeMethods.GetShellIcon(ShellIcon.Warning).ToBitmap();
             if (SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online)
+            {
                 checkBoxPlug.Checked = true;
+            }
         }
 
         #endregion Public Constructors
