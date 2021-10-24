@@ -116,7 +116,7 @@ namespace RaphaëlBardini.WinClean.Logic
         public static void WrongStartupPath(Action retry = null, Action close = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Error,
-            Text = $"L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans \"{Constants.AppInstallDir}\"."
+            Text = $"L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans \"{Program.InstallDir}\"."
         }.RetryClose(retry, close);
 
 #pragma warning restore CS1573

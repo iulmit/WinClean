@@ -12,6 +12,10 @@ namespace RaphaëlBardini.WinClean.Logic
     /// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>
     public static class Program
     {
+        // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
+        /// <summary>Application install directory.</summary>
+        public static readonly DirectoryInfo InstallDir = new(Application.StartupPath);
+
         #region Public Methods
 
         /// <summary>Runs the specified scripts.</summary>
@@ -87,7 +91,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         private static void EnsureStartupPath()
         {
-            if (!Application.StartupPath.Equals(Constants.AppInstallDir.FullName, StringComparison.OrdinalIgnoreCase))
+            if (!Application.StartupPath.Equals(InstallDir.FullName, StringComparison.OrdinalIgnoreCase))
             {
                 ErrorDialog.WrongStartupPath(EnsureStartupPath, Exit);
             }

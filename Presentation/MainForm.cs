@@ -79,7 +79,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         {
         }
 
-        private void ButtonNext_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<Script>());
+        private void ButtonExecuteScripts_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<Script>());
 
         private void ButtonQuit_Click(object sender = null, EventArgs e = null) => Program.Exit();
 
@@ -119,21 +119,15 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        private void ContextMenuEdit_Click(object sender, EventArgs e)
-        {
-            listViewScripts.LabelEdit = true;
-            listViewScripts.SelectedItems[0].BeginEdit();
-            listViewScripts.AfterLabelEdit += (sender, e) =>
-            {
-                //e.Label : new name
-                //listViewScripts.Items[e.Item].Text : old name
-                if (!(e.CancelEdit = string.IsNullOrWhiteSpace(e.Label)))
+        private void ContextMenuRename_Click(object sender, EventArgs e)
+            => InitLabelEdit(listViewScripts.SelectedItems[0], null, (sender, e) =>
                 {
-                    ((Script)listViewScripts.Items[e.Item]).Name = e.Label;
-                }
-                RefreshPreview();
-            };
-        }
+                    if (!(e.CancelEdit = string.IsNullOrWhiteSpace(e.Label)))
+                    {
+                        ((IScript)listViewScripts.Items[e.Item]).Name = e.Label;
+                    }
+                    RefreshScriptPreview();
+                });
 
         private void ContextMenuExecute_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.SelectedItems.Cast<Script>());
 
@@ -144,7 +138,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         private void ContextMenuScripts_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ContextMenuDelete.Enabled = ContextMenuExecute.Enabled = listViewScripts.SelectedItems.Count > 0;
-            ContextMenuEdit.Enabled = listViewScripts.SelectedItems.Count == 1;
+            ContextMenuRename.Enabled = listViewScripts.SelectedItems.Count == 1;
         }
 
         #endregion contextMenuStripScripts
@@ -157,7 +151,13 @@ namespace RaphaëlBardini.WinClean.Presentation
         /// </summary>
         private void ListViewScripts_Resize(object sender = null, EventArgs e = null) => scriptHeaderName.Width = listViewScripts.Size.Width;
 
-        private void RefreshPreview(object sender = null, EventArgs e = null)
+        private void ListViewScripts_SelectedIndexChanged(object sender = null, EventArgs e = null) => RefreshScriptPreview();
+        private void listViewScripts_ItemChecked(object sender, ItemCheckedEventArgs e) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
+
+        #endregion listViewScripts
+
+        #endregion Event Handlers
+        private void RefreshScriptPreview()
         {
             if (listViewScripts.SelectedItems.Count == 1)
             {
@@ -169,10 +169,29 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        #endregion listViewScripts
+        private void InitLabelEdit(ListViewItem toEdit, LabelEditEventHandler beforeLabelEdit = null, LabelEditEventHandler afterLabelEdit = null)
+        {
+            ListView lv = toEdit.ListView;
+            // beware the mandatory temporal couplings
+            //toEdit.ListView.AfterLabelEdit += Cleanup;
 
-        #endregion Event Handlers
+            bool oldLabelEdit = lv.LabelEdit;
 
+            lv.LabelEdit = true;
+            toEdit.BeginEdit();
+
+            lv.BeforeLabelEdit += beforeLabelEdit;
+            lv.AfterLabelEdit += afterLabelEdit;
+            lv.AfterLabelEdit += Cleanup;
+
+            void Cleanup(object sender = null, LabelEditEventArgs e = null)
+            {
+                lv.BeforeLabelEdit -= beforeLabelEdit;
+                lv.AfterLabelEdit -= afterLabelEdit;
+                lv.AfterLabelEdit -= Cleanup;
+                lv.LabelEdit = oldLabelEdit;
+            }
+        }
         #endregion Private Methods
     }
 }

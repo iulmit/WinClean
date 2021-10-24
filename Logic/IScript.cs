@@ -39,7 +39,7 @@ namespace RaphaëlBardini.WinClean.Logic
             DirectoryInfo tmpScriptsDir = null;
             try
             {
-                tmpScriptsDir = Directory.CreateDirectory(Path.Combine(Constants.AppInstallDir.FullName, "Scripts"));
+                tmpScriptsDir = Directory.CreateDirectory(Path.Combine(Program.InstallDir.FullName, "Scripts"));
             }
             catch (UnauthorizedAccessException e)
             {

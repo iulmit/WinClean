@@ -39,7 +39,7 @@ namespace RaphaëlBardini.WinClean
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1810", Justification = "Properties rely on each other for their initialization - They must be assigned in a specific orger?")]
         static LogManager()
         {
-            s_logDir = new(Path.Combine(Constants.AppInstallDir.FullName, "Logs"));
+            s_logDir = new(Path.Combine(Program.InstallDir.FullName, "Logs"));
             s_currentLogFile = new(Path.Combine(s_logDir.FullName, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
             CreateLogDir();
             s_csvWriter = new(new StreamWriter(s_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = LogDelimiter });
@@ -156,21 +156,8 @@ namespace RaphaëlBardini.WinClean
         /// and it's not the current session's log file. If one or more of these conditions are not met, <see langword="false"/>.
         /// </returns>
         private static bool CanLogFileBeDeleted(FileInfo logFile)
-        {
-            try
-            {
-                return DateTime.TryParseExact(Path.GetFileNameWithoutExtension(logFile.Name),
-                                              DateTimeFilenameFormat,
-                                              DateTimeFormatInfo.InvariantInfo,
-                                              DateTimeStyles.None, out _)
-                       && logFile != s_currentLogFile;
-            }
-            catch (ArgumentException)
-            {
-                return false;
-            }
-        }
-
+            => DateTime.TryParseExact(Path.GetFileNameWithoutExtension(logFile.Name), DateTimeFilenameFormat,
+                                      DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out _) && logFile.Name != s_currentLogFile.Name;
         /// <summary>Creates the appropriate log folder if missing.</summary>
         private static void CreateLogDir()
         {

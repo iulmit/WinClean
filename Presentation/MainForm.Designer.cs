@@ -45,7 +45,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             System.Windows.Forms.ToolStripMenuItem MainMenuSettings;
             System.Windows.Forms.ToolStripMenuItem MainMenuHelp;
             System.Windows.Forms.ToolStripMenuItem MainMenuShowHelp;
-            this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonExecuteScripts = new System.Windows.Forms.Button();
             this.buttonQuit = new System.Windows.Forms.Button();
             this.buttonAddScripts = new System.Windows.Forms.Button();
             this.MainMenuSelectAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,7 +57,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.scriptHeaderName = new System.Windows.Forms.ColumnHeader();
             this.contextMenuStripScripts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuRename = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuExecute = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuNew = new System.Windows.Forms.ToolStripMenuItem();
             this.propertyGridScript = new System.Windows.Forms.PropertyGrid();
@@ -129,20 +129,20 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             resources.ApplyResources(tableLayoutPanelButtons, "tableLayoutPanelButtons");
             tableLayoutPanelButtons.CausesValidation = false;
-            tableLayoutPanelButtons.Controls.Add(this.buttonNext, 3, 0);
+            tableLayoutPanelButtons.Controls.Add(this.buttonExecuteScripts, 3, 0);
             tableLayoutPanelButtons.Controls.Add(this.buttonQuit, 4, 0);
             tableLayoutPanelButtons.Controls.Add(this.buttonAddScripts, 1, 0);
             tableLayoutPanelButtons.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
             // 
-            // buttonNext
+            // buttonExecuteScripts
             // 
-            resources.ApplyResources(this.buttonNext, "buttonNext");
-            this.buttonNext.CausesValidation = false;
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.UseMnemonic = false;
-            this.buttonNext.UseVisualStyleBackColor = true;
-            this.buttonNext.Click += new System.EventHandler(this.ButtonNext_Click);
+            resources.ApplyResources(this.buttonExecuteScripts, "buttonExecuteScripts");
+            this.buttonExecuteScripts.CausesValidation = false;
+            this.buttonExecuteScripts.Name = "buttonExecuteScripts";
+            this.buttonExecuteScripts.UseMnemonic = false;
+            this.buttonExecuteScripts.UseVisualStyleBackColor = true;
+            this.buttonExecuteScripts.Click += new System.EventHandler(this.ButtonExecuteScripts_Click);
             // 
             // buttonQuit
             // 
@@ -271,7 +271,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.listViewScripts.Name = "listViewScripts";
             this.listViewScripts.UseCompatibleStateImageBehavior = false;
             this.listViewScripts.View = System.Windows.Forms.View.Details;
-            this.listViewScripts.SelectedIndexChanged += new System.EventHandler(this.RefreshPreview);
+            this.listViewScripts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewScripts_ItemChecked);
+            this.listViewScripts.SelectedIndexChanged += new System.EventHandler(this.ListViewScripts_SelectedIndexChanged);
             this.listViewScripts.Resize += new System.EventHandler(this.ListViewScripts_Resize);
             // 
             // scriptHeaderName
@@ -282,7 +283,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             this.contextMenuStripScripts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ContextMenuDelete,
-            this.ContextMenuEdit,
+            this.ContextMenuRename,
             this.ContextMenuExecute,
             this.ContextMenuNew});
             this.contextMenuStripScripts.Name = "contextMenuStripScripts";
@@ -296,11 +297,11 @@ namespace RaphaëlBardini.WinClean.Presentation
             resources.ApplyResources(this.ContextMenuDelete, "ContextMenuDelete");
             this.ContextMenuDelete.Click += new System.EventHandler(this.ContextMenuDelete_Click);
             // 
-            // ContextMenuEdit
+            // ContextMenuRename
             // 
-            this.ContextMenuEdit.Name = "ContextMenuEdit";
-            resources.ApplyResources(this.ContextMenuEdit, "ContextMenuEdit");
-            this.ContextMenuEdit.Click += new System.EventHandler(this.ContextMenuEdit_Click);
+            this.ContextMenuRename.Name = "ContextMenuRename";
+            resources.ApplyResources(this.ContextMenuRename, "ContextMenuRename");
+            this.ContextMenuRename.Click += new System.EventHandler(this.ContextMenuRename_Click);
             // 
             // ContextMenuExecute
             // 
@@ -339,6 +340,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             toolStripContainerAll.ResumeLayout(false);
             toolStripContainerAll.PerformLayout();
             tableLayoutPanelButtons.ResumeLayout(false);
+            tableLayoutPanelButtons.PerformLayout();
             mainMenuStrip.ResumeLayout(false);
             mainMenuStrip.PerformLayout();
             this.contextMenuStripScripts.ResumeLayout(false);
@@ -347,7 +349,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Button buttonExecuteScripts;
         private System.Windows.Forms.Button buttonQuit;
         private System.Windows.Forms.ListView listViewScripts;
         private System.Windows.Forms.ToolStripMenuItem MainMenuFile;
@@ -365,7 +367,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectDebloat;
         private System.Windows.Forms.ColumnHeader scriptHeaderName;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuDelete;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuEdit;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuRename;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuExecute;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripScripts;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuNew;

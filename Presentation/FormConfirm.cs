@@ -2,7 +2,8 @@
 
 using System.Windows.Forms;
 
-using RaphaëlBardini.WinClean.Logic;
+using Microsoft.WindowsAPICodePack.Shell;
+using Microsoft.WindowsAPICodePack.Win32Native.Shell;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
@@ -15,9 +16,13 @@ namespace RaphaëlBardini.WinClean.Presentation
         public FormConfirm()
         {
             InitializeComponent();
+
             buttonContinue.Width += SystemInformation.SmallIconSize.Width;
             buttonContinue.Location = new(buttonContinue.Location.X - SystemInformation.SmallIconSize.Width, buttonContinue.Location.Y);
-            pictureBox.Image = NativeMethods.GetShellIcon(ShellIcon.Warning).ToBitmap();
+
+            using StockIcon warning = new(StockIconIdentifier.Warning);
+            pictureBox.Image = warning.Bitmap;
+
             if (SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online)
             {
                 checkBoxPlug.Checked = true;

@@ -43,7 +43,7 @@ namespace RaphaëlBardini.WinClean.Operational
             /// <exception cref="ArgumentNullException"><paramref name="args"/> is <see langword="null"/>.</exception>
             public IncompleteArguments(string args)
             {
-                Debug.Assert(FormattableStringFactory.Create(args, "dummy").ArgumentCount != 1, $"Not exactly 1 argument to {nameof(args)}");
+                Debug.Assert(FormattableStringFactory.Create(args, "dummy").ArgumentCount == 1, $"Not exactly 1 argument to {nameof(args)}");
                 _args = args;
             }
 

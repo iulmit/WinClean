@@ -46,5 +46,29 @@ namespace RaphaëlBardini.WinClean.Properties {
                 this["ScriptTimeout"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ProgressPageDetails {
+            get {
+                return ((bool)(this["ProgressPageDetails"]));
+            }
+            set {
+                this["ProgressPageDetails"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CompletedPageDetails {
+            get {
+                return ((bool)(this["CompletedPageDetails"]));
+            }
+            set {
+                this["CompletedPageDetails"] = value;
+            }
+        }
     }
 }

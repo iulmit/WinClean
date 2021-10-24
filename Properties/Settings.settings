@@ -8,5 +8,11 @@
     <Setting Name="ScriptTimeout" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:30:00</Value>
     </Setting>
+    <Setting Name="ProgressPageDetails" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CompletedPageDetails" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
