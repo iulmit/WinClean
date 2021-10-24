@@ -74,7 +74,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 {
                     Expanded = Properties.Settings.Default.ProgressPageDetails,
                 },
-                Icon = new TaskDialogIcon(software.Icon),
+                Icon = new TaskDialogIcon(software.Icon.ToBitmap()),// software.Icon alone causes ComException at ShowDialog
                 ProgressBar = new() { Maximum = _scripts.Count },
                 Text = "Nettoyage en cours. Cette opération peut prendre jusqu'à une heure, selon les performances de votre ordinateur.",
                 Footnote = new("L'ordinateur redémarrera automatiquement à la fin de l'opération.") { Icon = TaskDialogIcon.Information },
@@ -87,7 +87,7 @@ namespace RaphaëlBardini.WinClean.Logic
         private static TaskDialogPage CreateCompletedPage()
         {
             TaskDialogButton restart = new("Redémarrer");
-            restart.Click += (s, e) => Operational.NativeMethods.RebootWindows();
+            restart.Click += (s, e) => Operational.NativeMethods.RebootForApplicationMaintenance();
 
             TaskDialogPage p = new()
             {
@@ -100,7 +100,8 @@ namespace RaphaëlBardini.WinClean.Logic
                 {
                     Expanded = Properties.Settings.Default.CompletedPageDetails,
                 },
-                Heading = "Pour terminer l'opération, il est recommandé de redémarrer le système.",
+                Heading = "Nettoyage terminé",
+                Text = "Pour valider les changements, il est recommandé de redémarrer le système.",
             };
             p.Expander.ExpandedChanged += (sender, e) => Properties.Settings.Default.CompletedPageDetails = p.Expander.Expanded;
             return p;

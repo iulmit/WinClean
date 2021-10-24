@@ -35,7 +35,6 @@ namespace RaphaëlBardini.WinClean.Logic
         public Script(IScriptHost host, string existingScriptFileName)
         {
             File = new FileInfo(Path.Combine(IScript.ScriptsDir.FullName, existingScriptFileName));
-            File.ThrowIfUnacessible(FileAccess.Read);
             Host = host ?? throw new ArgumentNullException(nameof(host));
             _initialBackColor = BackColor;
         }

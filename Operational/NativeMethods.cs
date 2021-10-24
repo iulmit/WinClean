@@ -21,25 +21,10 @@ namespace RaphaëlBardini.WinClean.Operational
         public static void RemoveTitleBarIcon(this IWin32Window window)
             => RemoveTitleBarIcon(window.Handle);
 
-        public static void RebootWindows()
-        {
-            if (!ExitWindowsEx(ExitWindows.Reboot, ShutdownReason.MajorApplication | ShutdownReason.MinorMaintenance | ShutdownReason.FlagPlanned))
-            {
-                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
-            }
-        }
+        public static void RebootForApplicationMaintenance() => System.Diagnostics.Process.Start("shutdown", $"/g /t 0 /d p:4:1");
         #endregion Public Methods
 
         #region Private Methods
-
-        #region P/Invokes
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool ExitWindowsEx(ExitWindows uFlags, ShutdownReason dwReason);
-
-        #endregion P/Invokes
 
         #endregion Private Methods
     }

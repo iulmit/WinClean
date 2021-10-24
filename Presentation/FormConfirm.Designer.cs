@@ -176,14 +176,11 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #endregion
         private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.Label labelSave;
         private System.Windows.Forms.CheckBox checkBoxSave;
-        private System.Windows.Forms.Label labelPrograms;
         private System.Windows.Forms.CheckBox checkBoxPrograms;
         private System.Windows.Forms.CheckBox checkBoxPlug;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonContinue;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelAll;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

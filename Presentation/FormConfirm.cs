@@ -21,7 +21,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             buttonContinue.Location = new(buttonContinue.Location.X - SystemInformation.SmallIconSize.Width, buttonContinue.Location.Y);
 
             using StockIcon warning = new(StockIconIdentifier.Warning);
-            pictureBox.Image = warning.Bitmap;
+            //StockIcon.Bitmap has it's transparency messed up.
+            pictureBox.Image = warning.Icon.ToBitmap();
 
             if (SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online)
             {

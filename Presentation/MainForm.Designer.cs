@@ -352,15 +352,8 @@ namespace RaphaëlBardini.WinClean.Presentation
         private System.Windows.Forms.Button buttonExecuteScripts;
         private System.Windows.Forms.Button buttonQuit;
         private System.Windows.Forms.ListView listViewScripts;
-        private System.Windows.Forms.ToolStripMenuItem MainMenuFile;
-        private System.Windows.Forms.ToolStripMenuItem MainMenuClearLogs;
-        private System.Windows.Forms.ToolStripMenuItem MainMenuSettings;
-        private System.Windows.Forms.ToolStripMenuItem MainMenuHelp;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemShowHelp;
         private System.Windows.Forms.ToolStripMenuItem MainMenuAbout;
-        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.Button buttonAddScripts;
-        private System.Windows.Forms.ToolStripMenuItem MainMenuSelect;
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectAll;
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectNothing;
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectMaintenance;

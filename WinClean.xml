@@ -502,14 +502,6 @@
             <param name="stream">A text stream in a non-unicode encoding.</param>
             <returns>The text of <paramref name="stream"/> in Unicode.</returns>
         </member>
-        <member name="T:RaphaëlBardini.WinClean.Operational.NativeMethods.ExitWindows">
-            <summary>
-            Only one of <see cref="F:RaphaëlBardini.WinClean.Operational.NativeMethods.ExitWindows.LogOff"/>, <see cref="F:RaphaëlBardini.WinClean.Operational.NativeMethods.ExitWindows.ShutDown"/>, <see cref="F:RaphaëlBardini.WinClean.Operational.NativeMethods.ExitWindows.Reboot"/>, <see cref="F:RaphaëlBardini.WinClean.Operational.NativeMethods.ExitWindows.PowerOff"/>, <see cref="F:RaphaëlBardini.WinClean.Operational.NativeMethods.ExitWindows.RestartApps"/> must be specified.
-            </summary>
-            <remarks>
-            Only one of <see cref="F:RaphaëlBardini.WinClean.Operational.NativeMethods.ExitWindows.Force"/>, <see cref="F:RaphaëlBardini.WinClean.Operational.NativeMethods.ExitWindows.ForceIfHung"/> can be specified.
-            </remarks>
-        </member>
         <member name="M:RaphaëlBardini.WinClean.Operational.NativeMethods.RemoveTitleBarIcon(System.IntPtr)">
             <summary>Removes the system menu icon from a window.</summary>
             <param name="window">The Win32 window to remove the icon from.</param>
