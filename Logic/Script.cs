@@ -20,6 +20,7 @@ namespace RaphaëlBardini.WinClean.Logic
         private const byte RecommendedColorAlpha = 63;
         private readonly Color _initialBackColor;
         private FileInfo _source;
+        private ICollection<Impact> _impacts;
         private ScriptAdvised _scriptAdvised;
 
         #endregion Private Fields
@@ -80,8 +81,10 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <inheritdoc/>
         public IScriptHost Host { get; private set; }
 
+
         /// <inheritdoc/>
-        public ICollection<Impact> Impacts { get; private set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2227", Justification = "Bug")]
+        public ICollection<Impact> Impacts { get => _impacts; init => _impacts = value; }
 
         /// <inheritdoc/>
         public new string Name { get => Text; set => Text = value; }
@@ -154,7 +157,7 @@ namespace RaphaëlBardini.WinClean.Logic
             info.AddValue(nameof(_source), _source);
             info.AddValue(nameof(Advised), Advised);
             info.AddValue(nameof(Host), Host);
-            info.AddValue(nameof(Impacts), Impacts);
+            info.AddValue(nameof(_impacts), _impacts);
         }
         /// <summary>Deserializes the object.</summary>
         /// <exception cref="ArgumentNullException"><paramref name="info"/> is <see langword="null"/>.</exception>
@@ -170,7 +173,7 @@ namespace RaphaëlBardini.WinClean.Logic
             _source = (FileInfo)info.GetValue(nameof(_source), typeof(FileInfo));
             Advised = (ScriptAdvised)info.GetValue(nameof(Advised), typeof(ScriptAdvised));
             Host = (IScriptHost)info.GetValue(nameof(Host), typeof(IScriptHost));
-            Impacts = (ICollection<Impact>)info.GetValue(nameof(Impacts), typeof(ICollection<Impact>));
+            _impacts = (ICollection<Impact>)info.GetValue(nameof(_impacts), typeof(ICollection<Impact>));
         }
         /// <inheritdoc/>
         /// <remarks>Equivalent to <see cref="Serialize(SerializationInfo, StreamingContext)"/>.</remarks>

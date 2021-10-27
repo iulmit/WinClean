@@ -7,9 +7,6 @@ using System.Linq;
 
 using Microsoft.Win32;
 
-using static System.Diagnostics.Debug;
-using static Microsoft.Win32.Registry;
-
 namespace RaphaëlBardini.WinClean.Logic
 {
     /// <summary>A group of extensions</summary>
@@ -76,7 +73,7 @@ namespace RaphaëlBardini.WinClean.Logic
             Assert(extension is not null);
             try
             {
-                using RegistryKey registryKey = ClassesRoot.OpenSubKey((ClassesRoot.OpenSubKey(extension).GetValue(null) as string) ?? string.Empty);
+                using RegistryKey registryKey = Registry.ClassesRoot.OpenSubKey((Registry.ClassesRoot.OpenSubKey(extension).GetValue(null) as string) ?? string.Empty);
                 if (registryKey == null)
                 {
                     return string.Empty;

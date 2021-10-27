@@ -326,11 +326,6 @@
         <member name="T:RaphaëlBardini.WinClean.Logic.Script">
             <summary>A script that can be executed from a script host program.</summary>
         </member>
-        <member name="M:RaphaëlBardini.WinClean.Logic.Script.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.Script"/> class.
-            </summary>
-        </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Script.#ctor(System.IO.FileInfo)">
             <summary>
             Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.Script"/> class by copying <paramref name="source"/> to the scripts directory.
@@ -338,6 +333,11 @@
             <param name="source">The source script file.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>
             <inheritdoc cref="M:RaphaëlBardini.WinClean.Operational.ScriptHost.FromFileExtension(System.String)" path="/exception"/>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Script.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Intializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.Script"/> class with the specified serialization information and streaming context.</summary>
+            <exception cref="T:System.ArgumentNullException"><paramref name="info"/> is <see langword="null"/>.</exception>
+            <inheritdoc/>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.Script.Advised">
             <inheritdoc/>
@@ -360,6 +360,21 @@
         <member name="M:RaphaëlBardini.WinClean.Logic.Script.Execute">
             <inheritdoc/>
             <inheritdoc cref="M:RaphaëlBardini.WinClean.Operational.IScriptHost.Execute(System.IO.FileInfo)" path="/exception"/>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Script.Save">
+            <inheritdoc/>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Script.Serialize(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Serializes the object.</summary>
+            <exception cref="T:System.ArgumentNullException"><paramref name="info"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Script.Deserialize(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Deserializes the object.</summary>
+            <exception cref="T:System.ArgumentNullException"><paramref name="info"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Script.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+            <remarks>Equivalent to <see cref="M:RaphaëlBardini.WinClean.Logic.Script.Serialize(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)"/>.</remarks>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI">
             <summary>Represents a <see cref="T:RaphaëlBardini.WinClean.Logic.Script"/> collection that can be executed.</summary>
