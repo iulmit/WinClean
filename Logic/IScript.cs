@@ -1,7 +1,7 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 using RaphaëlBardini.WinClean.Operational;
 
@@ -32,31 +32,6 @@ namespace RaphaëlBardini.WinClean.Logic
     /// <summary>Represents an executable script associated to a script host program.</summary>
     public interface IScript
     {
-        #region Private Methods
-
-        private static DirectoryInfo CreateScriptsDir()
-        {
-            DirectoryInfo tmpScriptsDir = null;
-            try
-            {
-                tmpScriptsDir = Directory.CreateDirectory(Path.Combine(Program.InstallDir.FullName, "Scripts"));
-            }
-            catch (UnauthorizedAccessException e)
-            {
-                ErrorDialog.CantCreateScriptsDir(e, () => tmpScriptsDir = CreateScriptsDir(), Program.Exit);
-            }
-            return tmpScriptsDir;
-        }
-
-        #endregion Private Methods
-
-        #region Protected Fields
-
-        /// <summary>Scripts storage directory.</summary>
-        protected static readonly DirectoryInfo ScriptsDir = CreateScriptsDir();
-
-        #endregion Protected Fields
-
         #region Public Properties
 
         /// <summary>If running this script is advised in general purpose.</summary>
@@ -65,17 +40,14 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <summary>Details on how this scripts work and what the effects of executing it would be.</summary>
         string Description { get; set; }
 
-        /// <summary>The path of the script file.</summary>
-        FileInfo File { get; }
-
-        /// <summary>The associated group when displayed in a <see cref="ListView"/> control.</summary>
-        ListViewGroup Group { get; set; }
+        /// <summary>The filename of the script file.</summary>
+        string Filename { get; }
 
         /// <summary>Script host program associated to the instance.</summary>
         IScriptHost Host { get; }
 
         /// <summary>System impacts of running this script.</summary>
-        IEnumerable<Impact> Impacts { get; init; }
+        ICollection<Impact> Impacts { get; }
 
         /// <summary>A brief infinitive sentence that describes the functionnality of this script.</summary>
         string Name { get; set; }
@@ -86,6 +58,9 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Executes the script in a new process.</summary>
         void Execute();
+
+        /// <summary>Saves this script the scripts dir.</summary>
+        void Save();
 
         #endregion Public Methods
     }

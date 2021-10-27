@@ -61,6 +61,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.ContextMenuExecute = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuNew = new System.Windows.Forms.ToolStripMenuItem();
             this.propertyGridScript = new System.Windows.Forms.PropertyGrid();
+            this.openFileDialogScripts = new System.Windows.Forms.OpenFileDialog();
             tableLayoutPanelAll = new System.Windows.Forms.TableLayoutPanel();
             toolStripContainerAll = new System.Windows.Forms.ToolStripContainer();
             tableLayoutPanelButtons = new System.Windows.Forms.TableLayoutPanel();
@@ -160,7 +161,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.buttonAddScripts.Name = "buttonAddScripts";
             this.buttonAddScripts.UseMnemonic = false;
             this.buttonAddScripts.UseVisualStyleBackColor = true;
-            this.buttonAddScripts.Click += new System.EventHandler(this.ButtonNewScript_Click);
+            this.buttonAddScripts.Click += new System.EventHandler(this.ButtonAddScripts_Click);
             // 
             // mainMenuStrip
             // 
@@ -321,6 +322,11 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.propertyGridScript.CausesValidation = false;
             this.propertyGridScript.Name = "propertyGridScript";
             // 
+            // openFileDialogScripts
+            // 
+            this.openFileDialogScripts.Multiselect = true;
+            resources.ApplyResources(this.openFileDialogScripts, "openFileDialogScripts");
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -365,5 +371,6 @@ namespace RaphaëlBardini.WinClean.Presentation
         private System.Windows.Forms.ContextMenuStrip contextMenuStripScripts;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuNew;
         private System.Windows.Forms.PropertyGrid propertyGridScript;
+        private System.Windows.Forms.OpenFileDialog openFileDialogScripts;
     }
 }

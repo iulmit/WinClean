@@ -1,11 +1,14 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Win32Native.Shell;
+
 namespace RaphaëlBardini.WinClean.Logic
 {
     /// <summary>Represents a <see cref="Script"/> collection that can be executed.</summary>
@@ -51,6 +54,29 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Creators
 
+        private static TaskDialogPage CreateCompletedPage()
+        {
+            TaskDialogButton restart = new("Redémarrer");
+            restart.Click += (s, e) => Operational.NativeMethods.RebootForApplicationMaintenance();
+
+            TaskDialogPage p = new()
+            {
+                AllowCancel = true,
+                AllowMinimize = true,
+                Buttons = { TaskDialogButton.Cancel, restart },
+                Caption = "Redémarrage requis",
+                Icon = TaskDialogIcon.ShieldSuccessGreenBar,
+                Expander = new("Pour un nettoyage plus avancé :\n\nWinaero Tweaker - Personnalisation de l'apparence\nO&O ShutUp10 - Confidentialité et protection de la vie privée\nTCPOptimizer - Optimisations réseau")
+                {
+                    Expanded = Properties.Settings.Default.CompletedPageDetails,
+                },
+                Heading = "Nettoyage terminé",
+                Text = "Pour valider les changements, il est recommandé de redémarrer le système.",
+            };
+            p.Expander.ExpandedChanged += (sender, e) => Properties.Settings.Default.CompletedPageDetails = p.Expander.Expanded;
+            return p;
+        }
+
         private TaskDialogPage CreateProgressPage()
         {
             TaskDialogButton cancel = TaskDialogButton.Cancel;
@@ -84,28 +110,6 @@ namespace RaphaëlBardini.WinClean.Logic
             return p;
         }
 
-        private static TaskDialogPage CreateCompletedPage()
-        {
-            TaskDialogButton restart = new("Redémarrer");
-            restart.Click += (s, e) => Operational.NativeMethods.RebootForApplicationMaintenance();
-
-            TaskDialogPage p = new()
-            {
-                AllowCancel = true,
-                AllowMinimize = true,
-                Buttons = { TaskDialogButton.Cancel, restart },
-                Caption = "Redémarrage requis",
-                Icon = TaskDialogIcon.ShieldSuccessGreenBar,
-                Expander = new("Pour un nettoyage plus avancé :\n\nWinaero Tweaker - Personnalisation de l'apparence\nO&O ShutUp10 - Confidentialité et protection de la vie privée\nTCPOptimizer - Optimisations réseau")
-                {
-                    Expanded = Properties.Settings.Default.CompletedPageDetails,
-                },
-                Heading = "Nettoyage terminé",
-                Text = "Pour valider les changements, il est recommandé de redémarrer le système.",
-            };
-            p.Expander.ExpandedChanged += (sender, e) => Properties.Settings.Default.CompletedPageDetails = p.Expander.Expanded;
-            return p;
-        }
         #endregion Creators
 
         private bool CanExitDialog()
@@ -146,10 +150,10 @@ namespace RaphaëlBardini.WinClean.Logic
                 {
                     _scripts[scriptIndex].Execute();
                 }
-                catch (FileNotFoundException)
+                catch (Exception e) when (e is System.Security.SecurityException or UnauthorizedAccessException or IOException)
                 {
                     _progressPage.ProgressBar.State = TaskDialogProgressBarState.Error;
-                    ErrorDialog.ScriptNotFound(_scripts[scriptIndex].File, RunScriptThrow, null/*chaud : supprimer le script des settings*/);
+                    ErrorDialog.ScriptInacessible(_scripts[scriptIndex].Filename, e, RunScriptThrow, null/*chaud : supprimer le script des settings*/);
                     _progressPage.ProgressBar.State = TaskDialogProgressBarState.Normal;
                 }
             }
@@ -158,11 +162,11 @@ namespace RaphaëlBardini.WinClean.Logic
         // This runs in the thread _progressPage was created in
         private void ScriptsRunnerProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            System.Diagnostics.Debug.Assert(e.UserState is ProgressReport);
+            Assert(e.UserState is ProgressReport);
 
             ProgressReport progress = (ProgressReport)e.UserState;
 
-            _progressPage.Expander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].File.Name}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds):g}";
+            _progressPage.Expander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].Filename}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds):g}";
             _progressPage.Caption = $"{progress.ScriptIndex / _scripts.Count:p} terminé";
             _progressPage.ProgressBar.Value = progress.ScriptIndex;
         }

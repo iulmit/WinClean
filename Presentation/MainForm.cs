@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 /*Todo :
 Tester documentelement.value
@@ -12,32 +13,26 @@ using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
+
     /// <summary>
     /// This is the application's main form. It regroups several features, including the main commit buttons, script selection,
     /// and provides UI acess to other forms.
     /// </summary>
     public partial class MainForm : Form
     {
-        #region Private Methods
-
-        private static void SetAllChecked(ListView.ListViewItemCollection items, bool @checked) => items.ToEnumerable().ForEach((i) => i.Checked = @checked);
-
-        #endregion Private Methods
-
         #region Public Constructors
 
         /// <summary>Initializes a new instance of the <see cref="MainForm"/> class.</summary>
         public MainForm()
         {
+
             InitializeComponent();
-            Text = $"{Application.ProductName} {Application.ProductVersion}";
-            MainMenuAbout.Text = Resources.FormattableStrings.About(Application.ProductName);
             _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
             _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
-            listViewScripts.Groups.OfType<ListViewGroup>().ForEach((g) => g.CollapsedState = ListViewGroupCollapsedState.Expanded);
-            listViewScripts.Items.AddRange(new[]
+
+            Script[] _placeholderScripts = new[]
             {
-                new Script(new Cmd(), "foo.cmd")
+                new Script(new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\foo.cmd"))
                 {
                     Name = "CmdFoo",
                     Description = "Foo description 0",
@@ -45,7 +40,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                     Group = listViewScripts.Groups[0],
                     Advised = ScriptAdvised.Yes,
                 },
-                new Script(new Regedit(), "dummy.reg")
+                new Script(new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\dummy.reg"))
                 {
                     Name = "RegDummy",
                     Description = "Dummy description 1",
@@ -53,7 +48,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                     Group = listViewScripts.Groups[1],
                     Advised = ScriptAdvised.Limited,
                 },
-                new Script(new PowerShell(), "ps1script.ps1")
+                new Script(new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\ps1script.ps1"))
                 {
                     Name = "PowerShellSensass",
                     Description = "PowShe desc 3",
@@ -61,10 +56,20 @@ namespace RaphaëlBardini.WinClean.Presentation
                     Group = listViewScripts.Groups[1],
                     Advised = ScriptAdvised.No,
                 }
-            });
+            };
 
-            // This local function will be useful if we ever want to add shell icons to controls.
-            //static System.Drawing.Bitmap BitmapShellIcon(StockIcon id) => NativeMethods.GetShellIcon(id, ShellIcon.Small).ToBitmap();
+            ((IScript)_placeholderScripts[0]).Save();
+
+            openFileDialogScripts.Filter = (new string[] { ScriptHost.Cmd.Filter, ScriptHost.PowerShell.Filter, ScriptHost.Regedit.Filter }).Separate('|');
+
+            Text = $"{Application.ProductName} {Application.ProductVersion}";
+
+            MainMenuAbout.Text = Resources.FormattableStrings.About(Application.ProductName);
+
+            foreach (ListViewGroup group in listViewScripts.Groups)
+            {
+                group.CollapsedState = ListViewGroupCollapsedState.Expanded;
+            }
         }
 
         #endregion Public Constructors
@@ -75,11 +80,18 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region Buttons
 
-        private void ButtonNewScript_Click(object sender = null, EventArgs e = null)
+        private void ButtonAddScripts_Click(object sender = null, EventArgs e = null)
         {
+            if (openFileDialogScripts.ShowDialog(this) == DialogResult.OK)
+            {
+                foreach (string newScriptFilename in openFileDialogScripts.FileNames)
+                {
+                    _ = listViewScripts.Items.Add(new Script(new FileInfo(newScriptFilename)));
+                }
+            }
         }
 
-        private void ButtonExecuteScripts_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<Script>());
+        private void ButtonExecuteScripts_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<IScript>());
 
         private void ButtonQuit_Click(object sender = null, EventArgs e = null) => Program.Exit();
 
@@ -119,8 +131,14 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
+        private void ContextMenuExecute_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.SelectedItems.Cast<Script>());
+
+        private void ContextMenuNew_Click(object sender, EventArgs e)
+        {
+        }
+
         private void ContextMenuRename_Click(object sender, EventArgs e)
-            => InitLabelEdit(listViewScripts.SelectedItems[0], null, (sender, e) =>
+                            => InitLabelEdit(listViewScripts.SelectedItems[0], null, (sender, e) =>
                 {
                     if (!(e.CancelEdit = string.IsNullOrWhiteSpace(e.Label)))
                     {
@@ -128,12 +146,6 @@ namespace RaphaëlBardini.WinClean.Presentation
                     }
                     RefreshScriptPreview();
                 });
-
-        private void ContextMenuExecute_Click(object sender = null, EventArgs e = null) => Program.ConfirmAndExecuteScripts(listViewScripts.SelectedItems.Cast<Script>());
-
-        private void ContextMenuNew_Click(object sender, EventArgs e)
-        {
-        }
 
         private void ContextMenuScripts_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -145,6 +157,8 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region listViewScripts
 
+        private void listViewScripts_ItemChecked(object sender, ItemCheckedEventArgs e) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
+
         /// <summary>
         /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
         /// cref="listViewScripts"/>'s new size.
@@ -152,28 +166,24 @@ namespace RaphaëlBardini.WinClean.Presentation
         private void ListViewScripts_Resize(object sender = null, EventArgs e = null) => scriptHeaderName.Width = listViewScripts.Size.Width;
 
         private void ListViewScripts_SelectedIndexChanged(object sender = null, EventArgs e = null) => RefreshScriptPreview();
-        private void listViewScripts_ItemChecked(object sender, ItemCheckedEventArgs e) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
 
         #endregion listViewScripts
 
         #endregion Event Handlers
-        private void RefreshScriptPreview()
+
+        private static void SetAllChecked(ListView.ListViewItemCollection items, bool @checked)
         {
-            if (listViewScripts.SelectedItems.Count == 1)
+            foreach (ListViewItem lvi in items)
             {
-                propertyGridScript.SelectedObject = (IScript)listViewScripts.SelectedItems[0];
-            }
-            else
-            {
-                propertyGridScript.SelectedObjects = listViewScripts.SelectedItems.Cast<IScript>().ToArray();
+                lvi.Checked = @checked;
             }
         }
 
         private void InitLabelEdit(ListViewItem toEdit, LabelEditEventHandler beforeLabelEdit = null, LabelEditEventHandler afterLabelEdit = null)
         {
             ListView lv = toEdit.ListView;
+
             // beware the mandatory temporal couplings
-            //toEdit.ListView.AfterLabelEdit += Cleanup;
 
             bool oldLabelEdit = lv.LabelEdit;
 
@@ -192,6 +202,21 @@ namespace RaphaëlBardini.WinClean.Presentation
                 lv.LabelEdit = oldLabelEdit;
             }
         }
+
+        private void RefreshScriptPreview()
+        {
+            propertyGridScript.SelectedObject = propertyGridScript.SelectedObjects = null;
+
+            if (listViewScripts.SelectedItems.Count == 1)
+            {
+                propertyGridScript.SelectedObject = (IScript)listViewScripts.SelectedItems[0];
+            }
+            else
+            {
+                propertyGridScript.SelectedObjects = listViewScripts.SelectedItems.Cast<IScript>().ToArray();
+            }
+        }
+
         #endregion Private Methods
     }
 }

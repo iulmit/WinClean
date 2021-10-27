@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,13 @@ namespace RaphaëlBardini.WinClean.Logic
     /// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>
     public static class Program
     {
+        #region Public Fields
+
         // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
         /// <summary>Application install directory.</summary>
         public static readonly DirectoryInfo InstallDir = new(Application.StartupPath);
+
+        #endregion Public Fields
 
         #region Public Methods
 
@@ -39,11 +44,12 @@ namespace RaphaëlBardini.WinClean.Logic
             }
             else if (scripts.Count() == 1)
             {
-                scripts.ElementAt(0).Execute();
+                scripts.First().Execute();
             }
         }
 
         /// <summary>Disposes of ressources and exits the program.</summary>
+        [System.Diagnostics.CodeAnalysis.DoesNotReturn]
         public static void Exit()
         {
             "Exiting the application".Log("Exit");
@@ -57,10 +63,10 @@ namespace RaphaëlBardini.WinClean.Logic
             _ = about.ShowDialog(Form.ActiveForm); // Use showdialog so the windows dosen't disappear immediately
         }
 
-        /// <summary>Displays the <see cref="Presentation.Settings"/> form.</summary>
+        /// <summary>Displays the <see cref="Settings"/> form.</summary>
         public static void ShowSettings()
         {
-            using Presentation.Settings settings = new();
+            using Settings settings = new();
             _ = settings.ShowDialog(Form.ActiveForm);
         }
 

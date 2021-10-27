@@ -533,25 +533,25 @@
     <value>Ctrl+A</value>
   </data>
   <data name="MainMenuSelectAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="MainMenuSelectAll.Text" xml:space="preserve">
     <value>&amp;Tout</value>
   </data>
   <data name="MainMenuSelectNothing.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="MainMenuSelectNothing.Text" xml:space="preserve">
     <value>&amp;Rien</value>
   </data>
   <data name="MainMenuSelectMaintenance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="MainMenuSelectMaintenance.Text" xml:space="preserve">
     <value>&amp;Maintenance</value>
   </data>
   <data name="MainMenuSelectDebloat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="MainMenuSelectDebloat.Text" xml:space="preserve">
     <value>&amp;Debloat</value>
@@ -654,6 +654,12 @@
   </data>
   <data name="&gt;&gt;toolStripContainerAll.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <metadata name="openFileDialogScripts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>337, 17</value>
+  </metadata>
+  <data name="openFileDialogScripts.Title" xml:space="preserve">
+    <value>Ajouter script(s)</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -5536,6 +5542,12 @@
   </data>
   <data name="&gt;&gt;ContextMenuNew.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogScripts.Name" xml:space="preserve">
+    <value>openFileDialogScripts</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogScripts.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

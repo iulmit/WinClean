@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Windows.Forms;
 
@@ -9,19 +10,28 @@ namespace RaphaëlBardini.WinClean.Logic
     /// <summary>A standardised error message, implementing Microsoft's error messages design reccomendations.</summary>
     internal class ErrorDialog : TaskDialogPage
     {
-        #region Public Properties
+        #region Public Constructors
 
-        /// <summary>Text displayed in the dialog's title bar.</summary>
-        public static new string Caption => Application.ProductName;
+        public ErrorDialog()
+        {
+            Caption = Application.ProductName;
+            SizeToContent = true;
+        }
 
-        /// <inheritdoc cref="TaskDialogPage.SizeToContent" path="/summary"/>
-        public static new bool SizeToContent => true;
-
-        #endregion Public Properties
+        #endregion Public Constructors
 
         #region Public Methods
 
 #pragma warning disable CS1573
+
+        /// <summary>Can't copy script to the scripts dir error.</summary>
+        /// <param name="e">The exception that caused the error.</param>
+        /// <inheritdoc cref="RetryClose(Action, Action)" path="/param"/>
+        public static void CantCopyScriptToScriptsDir(Exception e, Action retry = null, Action close = null) => new ErrorDialog()
+        {
+            Icon = TaskDialogIcon.Error,
+            Text = $"Impossible de copier le fichier de script. {e.Message}"
+        }.RetryClose(retry, close);
 
         /// <summary>Can't create log directory error.</summary>
         /// <param name="e">The exception that caused the error.</param>
@@ -41,15 +51,6 @@ namespace RaphaëlBardini.WinClean.Logic
             Text = $"Impossible de créer le dossier des scripts. {e.Message}"
         }.RetryClose(retry, close);
 
-        /// <summary>Can't create scripts directory error.</summary>
-        /// <param name="e">The exception that caused the error.</param>
-        /// <inheritdoc cref="RetryClose(Action, Action)" path="/param"/>
-        public static void ScriptFileInacessible(Exception e, Action retry = null, Action close = null) => new ErrorDialog()
-        {
-            Icon = TaskDialogIcon.Error,
-            Text = $"Impossible de créer le fichier de script. {e.Message}"
-        }.RetryClose(retry, close);
-
         /// <summary>Can't create log file error.</summary>
         /// <param name="e">The exception that caused the error.</param>
         /// <inheritdoc cref="RetryIgnore(Action, Action)" path="/param"/>
@@ -61,46 +62,42 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Asks the users for confirmation on exiting the application and potentially loosing data.</summary>
         /// <inheritdoc cref="YesNo(Action, Action)" path="/param"/>
-        public static void ConfirmAbortOperation(Action yes = null, Action no = null)
+        public static void ConfirmAbortOperation(Action yes = null, Action no = null) => new ErrorDialog()
         {
-            ErrorDialog dialog = new()
-            {
-                Icon = TaskDialogIcon.Warning,
-                Heading = "Abandonner l'opération ?",
-                Text = "Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?",
-            };
-            dialog.YesNo(yes, no);
-        }
+            Icon = TaskDialogIcon.Warning,
+            Heading = "Abandonner l'opération ?",
+            Text = "Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?",
+        }.YesNo(yes, no);
+
+        /// <summary>Prompts the user for confirmation on overwriting a script that already exists in the scripts directory.</summary>
+        /// <param name="overwriter">The path the external script file that may overwrite a script file in the scripts directory..</param>
+        /// <inheritdoc cref="YesNo(Action, Action)" path="/param"/>
+        public static void ConfirmScriptOverwrite(FileInfo overwriter, Action yes = null, Action no = null) => new ErrorDialog()
+        {
+            Icon = TaskDialogIcon.Warning,
+            Heading = "Remplacer le script ?",
+            Text = $"Êtes-vous sûr de vouloir remplacer le script \"{overwriter.Name}\" par \"{overwriter.FullName}\" ?"
+        }.YesNo(yes, no);
 
         /// <summary>Hung script error.</summary>
-        /// <param name="script">The hung script's path.</param>
+        /// <param name="filename">The hung script's filename.</param>
         /// <inheritdoc cref="RestartKillIgnore(Action, Action, Action)" path="/param"/>
-        public static void HungScript(FileInfo script, Action restart = null, Action kill = null, Action ignore = null) => new ErrorDialog()
+        public static void HungScript(string filename, Action restart = null, Action kill = null, Action ignore = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Warning,
             Heading = "Un script est bloqué",
-            Text = $"Le script (\"{script.Name}\") est en cours d'exécution depuis {Operational.IScriptHost.Timeout} et ne s'arrêtera probablement jamais.",
+            Text = $"Le script (\"{filename}\") est en cours d'exécution depuis {Operational.IScriptHost.Timeout} et ne s'arrêtera probablement jamais.",
         }.RestartKillIgnore(restart, kill, ignore);
 
         /// <summary>Script not found error.</summary>
-        /// <param name="script">The hung script's path.</param>
-        /// <inheritdoc cref="DeleteRetryIgnore(Action, Action, Action)" path="/param"/>
-        public static void ScriptNotFound(FileInfo script, Action retry = null, Action delete = null, Action ignore = null) => new ErrorDialog()
-        {
-            Icon = TaskDialogIcon.Error,
-            Heading = "Script introuvable",
-            Text = $"Le fichier \"{script.Name}\" est introuvable dans le répertoire \"{script.Directory}.\""
-        }.DeleteRetryIgnore(delete, retry, ignore);
-
-        /// <summary>Script not found error.</summary>
-        /// <param name="script">The hung script's path.</param>
+        /// <param name="filename">The inacessible script's filename.</param>
         /// <inheritdoc cref="DeleteRetryIgnore(Action, Action, Action)" path="/param"/>
         /// <param name="e">The exception that caused the error.</param>
-        public static void ScriptInacessible(FileInfo script, Exception e, Action retry = null, Action delete = null, Action ignore = null) => new ErrorDialog()
+        public static void ScriptInacessible(string filename, Exception e, Action retry = null, Action delete = null, Action ignore = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Error,
             Heading = "Script inacessible",
-            Text = $"Le fichier \"{script.FullName}\" est inacessible, {e.Message}\""
+            Text = $"Le script \"{filename}\" est inacessible, {e.Message}\""
         }.DeleteRetryIgnore(delete, retry, ignore);
 
         /// <summary>Single instance only error.</summary>
@@ -125,9 +122,9 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Private Methods
 
-        /// <param name="retry">Invoked when the Retry button is clicked.</param>
-        /// <param name="ignore">Invoked when the Ignore button is clicked.</param>
-        /// <param name="delete">Invoked when the Delete Script button is clicked.</param>
+        /// <param name="retry">Invoked when the Retry button of the dialog is clicked.</param>
+        /// <param name="ignore">Invoked when the Ignore button of the dialog is clicked.</param>
+        /// <param name="delete">Invoked when the Delete Script button of the dialog is clicked.</param>
         private void DeleteRetryIgnore(Action delete, Action retry, Action ignore)
         {
             Button deleteScript = new("Supprimer le script");
@@ -147,9 +144,9 @@ namespace RaphaëlBardini.WinClean.Logic
             }
         }
 
-        /// <param name="restart">Invoked when the Restart Script button is clicked.</param>
-        /// <param name="kill">Invoked when the Kill Script button is clicked.</param>
-        /// <param name="ignore">Invoked when the Ignore button is clicked.</param>
+        /// <param name="restart">Invoked when the Restart Script of the dialog button is clicked.</param>
+        /// <param name="kill">Invoked when the Kill Script button of the dialog is clicked.</param>
+        /// <param name="ignore">Invoked when the Ignore button of the dialog is clicked.</param>
         private void RestartKillIgnore(Action restart, Action kill, Action ignore)
         {
             Button killScript = new("Forcer l'arrêt du script");
@@ -172,8 +169,8 @@ namespace RaphaëlBardini.WinClean.Logic
             }
         }
 
-        /// <param name="retry">Invoked when the Retry button is clicked.</param>
-        /// <param name="close">Invoked when the Close button is clicked.</param>
+        /// <param name="retry">Invoked when the Retry button of the dialog is clicked.</param>
+        /// <param name="close">Invoked when the Close button of the dialog is clicked.</param>
         private void RetryClose(Action retry, Action close)
         {
             Buttons = new() { Button.Close, Button.Retry };
@@ -187,8 +184,8 @@ namespace RaphaëlBardini.WinClean.Logic
             }
         }
 
-        /// <param name="retry">Invoked when the Retry button is clicked.</param>
-        /// <param name="ignore">Invoked when the Ignore button is clicked.</param>
+        /// <param name="retry">Invoked when the Retry button of the dialog is clicked.</param>
+        /// <param name="ignore">Invoked when the Ignore button of the dialog is clicked.</param>
         private void RetryIgnore(Action retry, Action ignore)
         {
             Buttons = new() { Button.Ignore, Button.Retry };
@@ -204,8 +201,8 @@ namespace RaphaëlBardini.WinClean.Logic
 
         private Button Show() => Form.ActiveForm is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(Form.ActiveForm, this);
 
-        /// <param name="yes">Invoked when the Yes button is clicked.</param>
-        /// <param name="no">Invoked when the No button is clicked.</param>
+        /// <param name="yes">Invoked when the Yes button of the dialog is clicked.</param>
+        /// <param name="no">Invoked when the No button of the dialog is clicked.</param>
         private void YesNo(Action yes, Action no)
         {
             Buttons = new() { Button.Yes, Button.No };

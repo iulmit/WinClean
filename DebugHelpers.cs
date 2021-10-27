@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
 #if DEBUG
 
@@ -40,7 +41,7 @@ namespace RaphaëlBardini.WinClean
         /// <param name="o">The data passed.</param>
         /// <returns><paramref name="o"/>.</returns>
         /// <remarks>Debug only.</remarks>
-        public static T mReturn<T>(this T o)
+        public static T mR<T>(this T o)
         {
             o.m();
             return o;
