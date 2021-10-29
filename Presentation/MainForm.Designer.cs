@@ -60,7 +60,6 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.ContextMenuRename = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuExecute = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.propertyGridScript = new System.Windows.Forms.PropertyGrid();
             this.openFileDialogScripts = new System.Windows.Forms.OpenFileDialog();
             tableLayoutPanelAll = new System.Windows.Forms.TableLayoutPanel();
             toolStripContainerAll = new System.Windows.Forms.ToolStripContainer();
@@ -87,8 +86,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             resources.ApplyResources(tableLayoutPanelAll, "tableLayoutPanelAll");
             tableLayoutPanelAll.CausesValidation = false;
             tableLayoutPanelAll.Controls.Add(this.listViewScripts, 0, 0);
-            tableLayoutPanelAll.Controls.Add(this.propertyGridScript, 1, 1);
-            tableLayoutPanelAll.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
+            tableLayoutPanelAll.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             tableLayoutPanelAll.Name = "tableLayoutPanelAll";
             // 
             // toolStripContainerAll
@@ -316,12 +314,6 @@ namespace RaphaëlBardini.WinClean.Presentation
             resources.ApplyResources(this.ContextMenuNew, "ContextMenuNew");
             this.ContextMenuNew.Click += new System.EventHandler(this.ContextMenuNew_Click);
             // 
-            // propertyGridScript
-            // 
-            resources.ApplyResources(this.propertyGridScript, "propertyGridScript");
-            this.propertyGridScript.CausesValidation = false;
-            this.propertyGridScript.Name = "propertyGridScript";
-            // 
             // openFileDialogScripts
             // 
             this.openFileDialogScripts.Multiselect = true;
@@ -370,7 +362,6 @@ namespace RaphaëlBardini.WinClean.Presentation
         private System.Windows.Forms.ToolStripMenuItem ContextMenuExecute;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripScripts;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuNew;
-        private System.Windows.Forms.PropertyGrid propertyGridScript;
         private System.Windows.Forms.OpenFileDialog openFileDialogScripts;
     }
 }

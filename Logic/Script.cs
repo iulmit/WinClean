@@ -17,9 +17,9 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Private Fields
 
         private const byte RecommendedColorAlpha = 63;
-        private readonly string _code;
         private readonly string _extension;
         private readonly IScriptHost _host;
+        private readonly FileInfo _scriptsDirFile;
         private ScriptAdvised _advised;
 
         #endregion Private Fields
@@ -36,12 +36,10 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="scriptFilename"/> cannot be accessed.</exception>
         public Script(string scriptFilename, ListView displayInto)
         {
-            Assert(1 == 1, "The universe broke !");
-
             _ = scriptFilename ?? throw new ArgumentNullException(nameof(scriptFilename));
             _ = displayInto ?? throw new ArgumentNullException(nameof(displayInto));
 
-            if (!scriptFilename.IsFilename())
+            if (!scriptFilename.IsValidFilename())
             {
                 throw new ArgumentException("Not a valid filename", nameof(scriptFilename));
             }
@@ -49,6 +47,8 @@ namespace RaphaëlBardini.WinClean.Logic
             XmlDocument doc = CreateDoc();
 
             Name = doc.GetElementsByTagName(nameof(Name))[0].InnerText;
+            _scriptsDirFile = new($"{Name.ToFilename()}.xml".InScriptsDir());
+
             Description = doc.GetElementsByTagName(nameof(Description))[0].InnerText;
             Advised = Enum.Parse<ScriptAdvised>(doc.GetElementsByTagName(nameof(Advised))[0].InnerText);
 
@@ -56,6 +56,7 @@ namespace RaphaëlBardini.WinClean.Logic
             Group = displayInto.Groups[groupKey];
 
             _extension = doc.GetElementsByTagName("Extension")[0].InnerText;
+
             _host = ScriptHost.FromFileExtension(_extension);
 
             foreach (XmlElement impactElement in doc.GetElementsByTagName(nameof(Impact)))
@@ -64,7 +65,7 @@ namespace RaphaëlBardini.WinClean.Logic
                                 Enum.Parse<ImpactEffect>(impactElement.GetAttribute(nameof(Impact.Effect)))));
             }
 
-            _code = doc.GetElementsByTagName("Code")[0].InnerXml;
+            Code = doc.GetElementsByTagName("Code")[0].InnerXml;
 
             XmlDocument CreateDoc()
             {
@@ -75,7 +76,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    ErrorDialog.ScriptInacessible(scriptFilename, e, () => d = CreateDoc(), null/*chaud : delete script*/, () => throw e);
+                    ErrorDialog.ScriptInacessible(scriptFilename, e, () => d = CreateDoc(), Delete, () => throw e);
                 }
                 return d;
             }
@@ -97,12 +98,13 @@ namespace RaphaëlBardini.WinClean.Logic
 
             _host = ScriptHost.FromFileExtension(source.Extension);
             Name = name ?? throw new ArgumentNullException(nameof(name));
+            _scriptsDirFile = new($"{Name.ToFilename()}.xml".InScriptsDir());
             Description = description ?? throw new ArgumentNullException(nameof(description));
             Advised = advised;
             Impacts = impacts ?? throw new ArgumentNullException(nameof(impacts));
             Group = group;
             _extension = source.Extension;
-            _code = GetCode();
+            Code = GetCode();
 
             string GetCode()
             {
@@ -113,7 +115,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    ErrorDialog.ScriptInacessible(source.Name, e, () => code = GetCode(), null/*chaud: delete script*/, () => throw e);
+                    ErrorDialog.ScriptInacessible(source.Name, e, () => code = GetCode(), Delete, () => throw e);
                 }
                 return code;
             }
@@ -136,6 +138,9 @@ namespace RaphaëlBardini.WinClean.Logic
         }
 
         /// <inheritdoc/>
+        public string Code { get; }
+
+        /// <inheritdoc/>
         public string Description { get => ToolTipText; set => ToolTipText = value; }
 
         /// <inheritdoc/>
@@ -150,7 +155,21 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Methods
 
         /// <inheritdoc/>
-        public void Execute() => _host.Execute(_code);
+        public void Delete()
+        {
+            base.Remove();
+            try
+            {
+                _scriptsDirFile.Delete();
+            }
+            catch (Exception e) when (e.FileSystem())
+            {
+                ErrorDialog.CantDeleteScript(e, Delete);
+            }
+        }
+
+        /// <inheritdoc/>
+        public void Execute() => _host.Execute(this);
 
         /// <inheritdoc/>
         public void Save()
@@ -212,7 +231,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
                 // Code
                 n = d.CreateElement("Code");
-                n.InnerText = _code;
+                n.InnerText = Code;
                 _ = root.AppendChild(n);
 
                 _ = d.AppendChild(root);
@@ -222,8 +241,7 @@ namespace RaphaëlBardini.WinClean.Logic
             {
                 try
                 {
-                    using FileStream scriptFile = File.Create(Path.Join(ScriptsDir.Info.FullName, $"{Name.ToFilename()}.xml"));
-                    d.Save(scriptFile);
+                    d.Save(_scriptsDirFile.FullName);
                 }
                 catch (Exception e) when (e.FileSystem())
                 {

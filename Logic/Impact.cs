@@ -1,59 +1,12 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.ComponentModel;
+using System.Globalization;
 
 using static RaphaëlBardini.WinClean.Resources.ImpactEffect;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
-    /// <summary>Effect of running a script.</summary>
-    // chaud faire en sorte de plus avoir besoin de classe statique d'extension
-    public enum ImpactEffect
-    {
-        /// <summary>System praticality.</summary>
-        Ergonomics,
-
-        /// <summary>Idle system memory usage.</summary>
-        MemoryUsage,
-
-        /// <summary>Idle system network usage.</summary>
-        NetworkUsage,
-
-        /// <summary>System rapidity of executing commands.</summary>
-        ResponseTime,
-
-        /// <summary>System shutdown time.</summary>
-        ShutdownTime,
-
-        /// <summary>System privacy invasion and spying.</summary>
-        DataCollection,
-
-        /// <summary>System startup time.</summary>
-        StartupTime,
-
-        /// <summary>Free storage space.</summary>
-        StorageCapacity,
-
-        /// <summary>Storage read-write speed.</summary>
-        StorageSpeed,
-
-        /// <summary>System visuals.</summary>
-        Visuals
-    }
-
-    /// <summary>Represents the level of an <see cref="ImpactEffect"/>.</summary>
-    public enum ImpactLevel
-    {
-        /// <summary>Improvement.</summary>
-        Positive,
-
-        /// <summary>Worsening.</summary>
-        Negative,
-
-        /// <summary>Variable, uncertain.</summary>
-        Mixed,
-    }
-
     /// <summary>A system-wide effect of running a script.</summary>
     public readonly struct Impact : IEquatable<Impact>
     {
@@ -118,20 +71,9 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <exception cref="InvalidEnumArgumentException">
         /// <paramref name="effect"/> is not a defined <see cref="ImpactEffect"/> constant.
         /// </exception>
-        public static string GetLocalizedString(this ImpactEffect effect) => effect switch
-        {
-            ImpactEffect.Ergonomics => Ergonomics,
-            ImpactEffect.MemoryUsage => MemoryUsage,
-            ImpactEffect.NetworkUsage => NetworkUsage,
-            ImpactEffect.ResponseTime => ResponseTime,
-            ImpactEffect.ShutdownTime => ShutdownTime,
-            ImpactEffect.DataCollection => DataCollection,
-            ImpactEffect.StartupTime => StartupTime,
-            ImpactEffect.StorageCapacity => StorageCapacity,
-            ImpactEffect.StorageSpeed => StorageSpeed,
-            ImpactEffect.Visuals => Visuals,
-            _ => throw new InvalidEnumArgumentException(nameof(effect), (int)effect, typeof(ImpactEffect)),
-        };
+        public static string GetLocalizedString(this ImpactEffect effect, CultureInfo cultureInfo = null)
+            => ResourceManager.GetString(effect.ToString(), cultureInfo ?? CultureInfo.CurrentUICulture)
+                ?? throw new InvalidEnumArgumentException(nameof(effect), (int)effect, typeof(ImpactEffect));
 
         #endregion Public Methods
     }

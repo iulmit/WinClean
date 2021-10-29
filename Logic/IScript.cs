@@ -12,6 +12,9 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <summary>If running this script is advised in general purpose.</summary>
         ScriptAdvised Advised { get; set; }
 
+        /// <summary>The actual code making the script.</summary>
+        string Code { get; }
+
         /// <summary>Details on how this scripts work and what the effects of executing it would be.</summary>
         string Description { get; set; }
 
@@ -25,8 +28,11 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Public Methods
 
+        /// <summary>Deletes a script from the scripts dir.</summary>
+        void Delete();
+
         /// <summary>Executes the script in a new process.</summary>
-        /// <inheritdoc cref="Operational.IScriptHost.Execute(FileInfo)" path="/exception"/>
+        /// <inheritdoc cref="Operational.IScriptHost.Execute(IScript)" path="/exception"/>
         void Execute();
 
         /// <summary>Saves this script to the scripts dir.</summary>

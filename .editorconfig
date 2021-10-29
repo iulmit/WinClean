@@ -1652,3 +1652,6 @@ dotnet_diagnostic.IDE2001.severity=suggestion
 dotnet_diagnostic.IDE2002.severity=suggestion
 dotnet_diagnostic.IDE2003.severity=suggestion
 dotnet_diagnostic.IDE2004.severity=suggestion
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = none

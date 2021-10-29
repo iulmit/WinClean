@@ -40,6 +40,11 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Public Methods
 
+        /// <summary>Returns the path of the specified filename as if it was in the scripts dir.</summary>
+        /// <param name="filename">The filename to join with the scripts dir.</param>
+        /// <returns><paramref name="filename"/> relative to the scripts dir.</returns>
+        public static string InScriptsDir(this string filename) => Path.Join(Info.FullName, filename);
+
         /// <summary>Loads all the scripts present in the scripts directory.</summary>
         /// <param name="loadInto">The listView to load the scripts into.</param>
         /// <returns>The scripts previously saved into the scripts dir.</returns>

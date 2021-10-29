@@ -19,15 +19,10 @@ namespace RaphaëlBardini.WinClean.Operational
 
         #region Public Methods
 
-        /// <summary>Executes the script host with the specified script file.</summary>
-        /// <param name="script">The path of the script file to run.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="script"/>'s <see langword="null"/>.</exception>
-        /// <exception cref="BadFileExtensionException"><paramref name="script"/>'s extension is not supported.</exception>
-        void Execute(FileInfo script);
-
-        /// <summary>Executes the specified code that must me in the appropriate scripting langage.</summary>
-        /// <param name="code">The code to execute.</param>
-        void Execute(string code);
+        /// <summary>Executes the specified script.</summary>
+        /// <param name="script">The script to execute.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
+        void Execute(IScript script);
 
         #endregion Public Methods
     }

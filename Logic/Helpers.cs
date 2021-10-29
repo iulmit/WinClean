@@ -23,7 +23,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Public Methods
 
-        /// <summary>Checks if an exception is of a type that .NET Core's filesystem methods can throw.</summary>
+        /// <summary>Checks if an exception is of a type that .NET Core's filesystem methods may throw.</summary>
         /// <returns>
         /// <para><see langword="true"/> if <paramref name="e"/> is of any of the following types :</para>
         /// <br><see cref="IOException"/> (including all derived exceptions)</br><br><see
@@ -39,7 +39,7 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <see langword="true"/> if <paramref name="filenameCandidate"/> can be a filename, otherwise; <see
         /// langword="false"/>. This method returns <see langword="false"/> if <paramref name="filenameCandidate"/> is <see langword="null"/>.
         /// </returns>
-        public static bool IsFilename(this string filenameCandidate)
+        public static bool IsValidFilename(this string filenameCandidate)
             => !string.IsNullOrWhiteSpace(filenameCandidate)
                && filenameCandidate.Length <= MaxFilename
                && filenameCandidate.IndexOfAny(Path.GetInvalidFileNameChars()) == -1;
@@ -59,6 +59,9 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <inheritdoc cref="MakeFilter(OpenFileDialog, IEnumerable{ExtensionGroup})"/>
         public static void MakeFilter(this OpenFileDialog ofd, params ExtensionGroup[] exts) => MakeFilter(ofd, (IEnumerable<ExtensionGroup>)exts);
+
+        /// <summary>Restarts the system.</summary>
+        public static void RebootForApplicationMaintenance() => System.Diagnostics.Process.Start("shutdown", $"/g /t 0 /d p:4:1");
 
         /// <summary>Throws the appropriate exception if the filesystem element is not accessible.</summary>
         /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>

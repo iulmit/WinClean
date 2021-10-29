@@ -97,21 +97,11 @@ namespace RaphaëlBardini.WinClean.Operational
 
         #endregion Public Properties
 
+        #region Private Methods
 
-
-        #region Public Methods
-
-        /// <inheritdoc/>
-        public void Execute(FileInfo script)
+        private void Execute(FileInfo script, Action delete)
         {
-            if (script is null)
-            {
-                throw new ArgumentNullException(nameof(script));
-            }
-            if (!SupportedExtensions.Contains(script.Extension))
-            {
-                throw new BadFileExtensionException(script.Extension);
-            }
+            Assert(script is not null && delete is not null);
 
             try
             {
@@ -119,7 +109,7 @@ namespace RaphaëlBardini.WinClean.Operational
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.ScriptInacessible(script.Name, e, () => Execute(script), null/*chaud : delete script*/);
+                ErrorDialog.ScriptInacessible(script.Name, e, () => Execute(script, delete), delete);
             }
 
             ToString().Log("Script execution");
@@ -140,12 +130,18 @@ namespace RaphaëlBardini.WinClean.Operational
             ToUnicode(host.StandardOutput).Log($"Output stream");
         }
 
+        #endregion Private Methods
+
+        #region Public Methods
+
         /// <inheritdoc/>
-        public void Execute(string code)
+        public void Execute(IScript script)
         {
+            _ = script ?? throw new ArgumentNullException(nameof(script));
+
             FileInfo tmpScriptFile = new(Path.GetTempFileName());
-            tmpScriptFile.CreateText().Write(code);
-            Execute(tmpScriptFile);
+            tmpScriptFile.CreateText().Write(script.Code);
+            Execute(tmpScriptFile, script.Delete);
         }
 
         /// <inheritdoc/>

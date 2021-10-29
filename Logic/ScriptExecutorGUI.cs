@@ -56,7 +56,7 @@ namespace RaphaëlBardini.WinClean.Logic
         private static TaskDialogPage CreateCompletedPage()
         {
             TaskDialogButton restart = new("Redémarrer");
-            restart.Click += (s, e) => Operational.NativeMethods.RebootForApplicationMaintenance();
+            restart.Click += (s, e) => Helpers.RebootForApplicationMaintenance();
 
             TaskDialogPage p = new()
             {
@@ -152,7 +152,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 catch (Exception e) when (e.FileSystem())
                 {
                     _progressPage.ProgressBar.State = TaskDialogProgressBarState.Error;
-                    ErrorDialog.ScriptInacessible(_scripts[scriptIndex].Name, e, RunScriptThrow, null/*chaud : supprimer le script des settings*/);
+                    ErrorDialog.ScriptInacessible(_scripts[scriptIndex].Name, e, RunScriptThrow, _scripts[scriptIndex].Delete);
                     _progressPage.ProgressBar.State = TaskDialogProgressBarState.Normal;
                 }
             }

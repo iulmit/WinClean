@@ -1,8 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
-
-/*Todo :
-Tester documentelement.value
- */
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.   
 
 using System.Collections.Generic;
 using System.Linq;
@@ -28,43 +24,9 @@ namespace RaphaëlBardini.WinClean.Presentation
 
             openFileDialogScripts.MakeFilter(ScriptHost.Cmd.SupportedExtensions, ScriptHost.PowerShell.SupportedExtensions, ScriptHost.Regedit.SupportedExtensions);
 
+            //Todo : sauvegarder les groupes
             _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
             _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
-
-            Script[] _placeholderScripts = new[]
-            {
-                new Script
-                (
-                    name: "CmdFoo",
-                    description: "Foo description 0",
-                    impacts: new[] { new Impact(ImpactLevel.Positive, ImpactEffect.Visuals) },
-                    group: listViewScripts.Groups[0],
-                    advised: ScriptAdvised.Yes,
-                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\foo.cmd")
-                ),
-                new Script
-                (
-                    name: "RegDummy",
-                    description: "Dummy description 1",
-                    impacts: new[] { new Impact(ImpactLevel.Negative, ImpactEffect.ShutdownTime) },
-                    group: listViewScripts.Groups[1],
-                    advised: ScriptAdvised.Limited,
-                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\dummy.reg")
-                ),
-                new Script
-                (
-                    name: "PowerShellSensass",
-                    description: "PowShe desc 3",
-                    impacts: new[] { new Impact(ImpactLevel.Positive, ImpactEffect.ResponseTime) },
-                    group: listViewScripts.Groups[1],
-                    advised: ScriptAdvised.No,
-                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\ps1script.ps1")
-                )
-            };
-            foreach (Script s in _placeholderScripts)
-            {
-                s.Save();
-            }
 
             ScriptsDir.LoadAllScripts(listViewScripts);
 
@@ -92,7 +54,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             {
                 foreach (string newScriptPath in openFileDialogScripts.FileNames)
                 {
-                    _ = listViewScripts.Items.Add(new Script("Nouveau script", "Détails de fonctionnement", ScriptAdvised.Unspecified, new List<Impact>(), null, new(newScriptPath)));
+                    _ = listViewScripts.Items.Add(new Script("Nouveau script", "Entrez les détails de fonctionnement du script...", ScriptAdvised.Unspecified, new List<Impact>(), null, new(newScriptPath)));
                 }
             }
         }
@@ -209,9 +171,9 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        private void RefreshScriptPreview()
+        private static void RefreshScriptPreview()
         {
-            propertyGridScript.SelectedObject = propertyGridScript.SelectedObjects = null;
+            /*propertyGridScript.SelectedObject = propertyGridScript.SelectedObjects = null;
 
             if (listViewScripts.SelectedItems.Count == 1)
             {
@@ -220,7 +182,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             else
             {
                 propertyGridScript.SelectedObjects = listViewScripts.SelectedItems.Cast<IScript>().ToArray();
-            }
+            }*/
         }
 
         #endregion Private Methods

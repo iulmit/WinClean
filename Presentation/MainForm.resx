@@ -84,6 +84,30 @@
     <value>152, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ContextMenuDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 22</value>
+  </data>
+  <data name="ContextMenuDelete.Text" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="ContextMenuRename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 22</value>
+  </data>
+  <data name="ContextMenuRename.Text" xml:space="preserve">
+    <value>Renommer</value>
+  </data>
+  <data name="ContextMenuExecute.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 22</value>
+  </data>
+  <data name="ContextMenuExecute.Text" xml:space="preserve">
+    <value>Exécuter</value>
+  </data>
+  <data name="ContextMenuNew.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 22</value>
+  </data>
+  <data name="ContextMenuNew.Text" xml:space="preserve">
+    <value>Nouveau(x)</value>
+  </data>
   <data name="contextMenuStripScripts.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 92</value>
   </data>
@@ -118,33 +142,6 @@
   <data name="&gt;&gt;listViewScripts.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="propertyGridScript.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="propertyGridScript.Location" type="System.Drawing.Point, System.Drawing">
-    <value>416, 2</value>
-  </data>
-  <data name="propertyGridScript.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="propertyGridScript.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 380</value>
-  </data>
-  <data name="propertyGridScript.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;propertyGridScript.Name" xml:space="preserve">
-    <value>propertyGridScript</value>
-  </data>
-  <data name="&gt;&gt;propertyGridScript.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PropertyGrid, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;propertyGridScript.Parent" xml:space="preserve">
-    <value>tableLayoutPanelAll</value>
-  </data>
-  <data name="&gt;&gt;propertyGridScript.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="tableLayoutPanelAll.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -176,7 +173,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelAll.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listViewScripts" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="propertyGridScript" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,54,54546,Percent,45,45454" /&gt;&lt;Rows Styles="Percent,100,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listViewScripts" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,54,54546,Percent,45,45454" /&gt;&lt;Rows Styles="Percent,100,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="toolStripContainerAll.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
@@ -448,23 +445,140 @@
   <metadata name="mainMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="MainMenuFile.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="MainMenuSelect.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="MainMenuSettings.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="MainMenuHelp.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
   <data name="mainMenuStrip.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
   <data name="mainMenuStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
+  </data>
+  <metadata name="MainMenuFile.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="MainMenuFile.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <metadata name="MainMenuClearLogs.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="MainMenuClearLogs.AccessibleDescription" xml:space="preserve">
+    <value>Effacer tous les fichiers journaux de l'application.</value>
+  </data>
+  <data name="MainMenuClearLogs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="MainMenuClearLogs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="MainMenuClearLogs.Text" xml:space="preserve">
+    <value>&amp;Effacer les logs</value>
+  </data>
+  <metadata name="MainMenuQuit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="MainMenuQuit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F4</value>
+  </data>
+  <data name="MainMenuQuit.ShowShortcutKeys" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="MainMenuQuit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="MainMenuQuit.Text" xml:space="preserve">
+    <value>&amp;Quitter</value>
+  </data>
+  <data name="MainMenuFile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F</value>
+  </data>
+  <data name="MainMenuFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 20</value>
+  </data>
+  <data name="MainMenuFile.Text" xml:space="preserve">
+    <value>&amp;Fichier</value>
+  </data>
+  <metadata name="MainMenuSelect.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="MainMenuSelect.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="MainMenuSelectAll.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+A</value>
+  </data>
+  <data name="MainMenuSelectAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="MainMenuSelectAll.Text" xml:space="preserve">
+    <value>&amp;Tout</value>
+  </data>
+  <data name="MainMenuSelectNothing.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="MainMenuSelectNothing.Text" xml:space="preserve">
+    <value>&amp;Rien</value>
+  </data>
+  <data name="MainMenuSelectMaintenance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="MainMenuSelectMaintenance.Text" xml:space="preserve">
+    <value>&amp;Maintenance</value>
+  </data>
+  <data name="MainMenuSelectDebloat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="MainMenuSelectDebloat.Text" xml:space="preserve">
+    <value>&amp;Debloat</value>
+  </data>
+  <data name="MainMenuSelect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 20</value>
+  </data>
+  <data name="MainMenuSelect.Text" xml:space="preserve">
+    <value>&amp;Sélectionner</value>
+  </data>
+  <metadata name="MainMenuSettings.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="MainMenuSettings.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="MainMenuSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 20</value>
+  </data>
+  <data name="MainMenuSettings.Text" xml:space="preserve">
+    <value>&amp;Paramètres</value>
+  </data>
+  <metadata name="MainMenuHelp.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="MainMenuHelp.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <metadata name="MainMenuShowHelp.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="MainMenuShowHelp.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="MainMenuShowHelp.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F1</value>
+  </data>
+  <data name="MainMenuShowHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 22</value>
+  </data>
+  <data name="MainMenuShowHelp.Text" xml:space="preserve">
+    <value>Afficher l'aide</value>
+  </data>
+  <data name="MainMenuAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 22</value>
+  </data>
+  <data name="MainMenuHelp.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+A</value>
+  </data>
+  <data name="MainMenuHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 20</value>
+  </data>
+  <data name="MainMenuHelp.Text" xml:space="preserve">
+    <value>&amp;Aide</value>
   </data>
   <data name="mainMenuStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -513,168 +627,6 @@
   </data>
   <data name="&gt;&gt;toolStripContainerAll.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <metadata name="MainMenuFile.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="MainMenuClearLogs.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="MainMenuQuit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="MainMenuFile.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuFile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F</value>
-  </data>
-  <data name="MainMenuFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 20</value>
-  </data>
-  <data name="MainMenuFile.Text" xml:space="preserve">
-    <value>&amp;Fichier</value>
-  </data>
-  <metadata name="MainMenuClearLogs.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="MainMenuClearLogs.AccessibleDescription" xml:space="preserve">
-    <value>Effacer tous les fichiers journaux de l'application.</value>
-  </data>
-  <data name="MainMenuClearLogs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuClearLogs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
-  </data>
-  <data name="MainMenuClearLogs.Text" xml:space="preserve">
-    <value>&amp;Effacer les logs</value>
-  </data>
-  <metadata name="MainMenuQuit.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="MainMenuQuit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F4</value>
-  </data>
-  <data name="MainMenuQuit.ShowShortcutKeys" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="MainMenuQuit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
-  </data>
-  <data name="MainMenuQuit.Text" xml:space="preserve">
-    <value>&amp;Quitter</value>
-  </data>
-  <metadata name="MainMenuSelect.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="MainMenuSelect.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="MainMenuSelect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 20</value>
-  </data>
-  <data name="MainMenuSelect.Text" xml:space="preserve">
-    <value>&amp;Sélectionner</value>
-  </data>
-  <data name="MainMenuSelectAll.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+A</value>
-  </data>
-  <data name="MainMenuSelectAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="MainMenuSelectAll.Text" xml:space="preserve">
-    <value>&amp;Tout</value>
-  </data>
-  <data name="MainMenuSelectNothing.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="MainMenuSelectNothing.Text" xml:space="preserve">
-    <value>&amp;Rien</value>
-  </data>
-  <data name="MainMenuSelectMaintenance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="MainMenuSelectMaintenance.Text" xml:space="preserve">
-    <value>&amp;Maintenance</value>
-  </data>
-  <data name="MainMenuSelectDebloat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="MainMenuSelectDebloat.Text" xml:space="preserve">
-    <value>&amp;Debloat</value>
-  </data>
-  <metadata name="MainMenuSettings.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="MainMenuSettings.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 20</value>
-  </data>
-  <data name="MainMenuSettings.Text" xml:space="preserve">
-    <value>&amp;Paramètres</value>
-  </data>
-  <metadata name="MainMenuHelp.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="MainMenuShowHelp.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="MainMenuHelp.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuHelp.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+A</value>
-  </data>
-  <data name="MainMenuHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 20</value>
-  </data>
-  <data name="MainMenuHelp.Text" xml:space="preserve">
-    <value>&amp;Aide</value>
-  </data>
-  <metadata name="MainMenuShowHelp.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="MainMenuShowHelp.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuShowHelp.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F1</value>
-  </data>
-  <data name="MainMenuShowHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 22</value>
-  </data>
-  <data name="MainMenuShowHelp.Text" xml:space="preserve">
-    <value>Afficher l'aide</value>
-  </data>
-  <data name="MainMenuAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 22</value>
-  </data>
-  <data name="ContextMenuDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 22</value>
-  </data>
-  <data name="ContextMenuDelete.Text" xml:space="preserve">
-    <value>Supprimer</value>
-  </data>
-  <data name="ContextMenuRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 22</value>
-  </data>
-  <data name="ContextMenuRename.Text" xml:space="preserve">
-    <value>Renommer</value>
-  </data>
-  <data name="ContextMenuExecute.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 22</value>
-  </data>
-  <data name="ContextMenuExecute.Text" xml:space="preserve">
-    <value>Exécuter</value>
-  </data>
-  <data name="ContextMenuNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 22</value>
-  </data>
-  <data name="ContextMenuNew.Text" xml:space="preserve">
-    <value>Nouveau(x)</value>
   </data>
   <metadata name="openFileDialogScripts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>337, 17</value>

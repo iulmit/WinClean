@@ -6,6 +6,9 @@ using Button = System.Windows.Forms.TaskDialogButton;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
+    // chaud : implémenter les dialogs spécifiques dans les classes dans lesquels ils sont utilisés, au lieu d'avoir tout ici.
+    // ou, faire autre chose pour rendre ça plus propre
+
     /// <summary>A standardised error message, implementing Microsoft's error messages design reccomendations.</summary>
     internal class ErrorDialog : TaskDialogPage
     {
@@ -49,6 +52,15 @@ namespace RaphaëlBardini.WinClean.Logic
             Icon = TaskDialogIcon.Error,
             Text = $"Impossible de créer le dossier des scripts. {e.Message}"
         }.RetryClose(retry, close);
+
+        /// <summary>Can't create log file error.</summary>
+        /// <param name="e">The exception that caused the error.</param>
+        /// <inheritdoc cref="RetryIgnore(Action, Action)" path="/param"/>
+        public static void CantDeleteScript(Exception e, Action retry = null, Action ignore = null) => new ErrorDialog()
+        {
+            Icon = TaskDialogIcon.Error,
+            Text = $"Impossible de supprimer le script. {e.Message}"
+        }.RetryIgnore(retry, ignore);
 
         /// <summary>Can't create log file error.</summary>
         /// <param name="e">The exception that caused the error.</param>
