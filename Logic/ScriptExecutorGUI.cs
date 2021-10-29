@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -150,10 +149,10 @@ namespace RaphaëlBardini.WinClean.Logic
                 {
                     _scripts[scriptIndex].Execute();
                 }
-                catch (Exception e) when (e is System.Security.SecurityException or UnauthorizedAccessException or IOException)
+                catch (Exception e) when (e.FileSystem())
                 {
                     _progressPage.ProgressBar.State = TaskDialogProgressBarState.Error;
-                    ErrorDialog.ScriptInacessible(_scripts[scriptIndex].Filename, e, RunScriptThrow, null/*chaud : supprimer le script des settings*/);
+                    ErrorDialog.ScriptInacessible(_scripts[scriptIndex].Name, e, RunScriptThrow, null/*chaud : supprimer le script des settings*/);
                     _progressPage.ProgressBar.State = TaskDialogProgressBarState.Normal;
                 }
             }
@@ -166,7 +165,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
             ProgressReport progress = (ProgressReport)e.UserState;
 
-            _progressPage.Expander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].Filename}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds):g}";
+            _progressPage.Expander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].Name}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds):g}";
             _progressPage.Caption = $"{progress.ScriptIndex / _scripts.Count:p} terminé";
             _progressPage.ProgressBar.Value = progress.ScriptIndex;
         }

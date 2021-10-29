@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,12 +18,16 @@ namespace RaphaëlBardini.WinClean
     {
         /// <summary>All entries are logged.</summary>
         Verbose,
+
         /// <summary>Informational entries minimum.</summary>
         Info,
+
         /// <summary>Warning-level entries minimum.</summary>
         Warning,
+
         /// <summary>Error-level entries minimum.</summary>
         Error,
+
         /// <summary>Unrecoverable errors. The application can't continue.</summary>
         Critical
     }
@@ -37,8 +40,8 @@ namespace RaphaëlBardini.WinClean
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1810", Justification = "Properties rely on each other for their initialization - They must be assigned in a specific orger?")]
         static LogManager()
         {
-            s_logDir = new(Path.Combine(Program.InstallDir.FullName, "Logs"));
-            s_currentLogFile = new(Path.Combine(s_logDir.FullName, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
+            s_logDir = new(Path.Join(Program.InstallDir.FullName, "Logs"));
+            s_currentLogFile = new(Path.Join(s_logDir.FullName, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
             CreateLogDir();
             s_csvWriter = new(new StreamWriter(s_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = LogDelimiter });
             s_csvWriter.WriteHeader<LogEntry>();
@@ -50,9 +53,7 @@ namespace RaphaëlBardini.WinClean
 
         #region Public Properties
 
-        /// <summary>
-        /// Minimal log level for an entry.
-        /// </summary>
+        /// <summary>Minimal log level for an entry.</summary>
         public static LogLevel MinLogLevel { get; set; } = (LogLevel)Properties.Settings.Default.LogLevel;
 
         #endregion Public Properties
@@ -83,9 +84,7 @@ namespace RaphaëlBardini.WinClean
 
         #region Public Methods
 
-        /// <summary>
-        /// Empties the log folder, except for the current log file.
-        /// </summary>
+        /// <summary>Empties the log folder, except for the current log file.</summary>
         public static void ClearLogsFolder()
         {
             IEnumerable<FileInfo> deletableLogFiles = s_logDir.EnumerateFiles("*.csv").Where(csvFile => CanLogFileBeDeleted(csvFile));
@@ -134,9 +133,7 @@ namespace RaphaëlBardini.WinClean
             }
         }
 
-        /// <summary>
-        /// Logs an exception and it's details.
-        /// </summary>
+        /// <summary>Logs an exception and it's details.</summary>
         /// <param name="e">The exception to log.</param>
         /// <param name="lvl">The level of the entry.</param>
         /// <param name="caller"><see cref="CallerMemberNameAttribute"/> - Don't specify</param>
@@ -155,12 +152,13 @@ namespace RaphaëlBardini.WinClean
         /// <summary>Checks that a log file is valid for deletion. Doesn't throw.</summary>
         /// <param name="logFile">The filename or path of the log file.</param>
         /// <returns>
-        /// <see langword="true"/> if <paramref name="logFile"/> is a valid path, it's filename is a valid log filename,
-        /// and it's not the current session's log file. If one or more of these conditions are not met, <see langword="false"/>.
+        /// <see langword="true"/> if <paramref name="logFile"/> is a valid path, it's filename is a valid log filename, and
+        /// it's not the current session's log file. If one or more of these conditions are not met, <see langword="false"/>.
         /// </returns>
         private static bool CanLogFileBeDeleted(FileInfo logFile)
             => DateTime.TryParseExact(Path.GetFileNameWithoutExtension(logFile.Name), DateTimeFilenameFormat,
                                       DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out _) && logFile.Name != s_currentLogFile.Name;
+
         /// <summary>Creates the appropriate log folder if missing.</summary>
         private static void CreateLogDir()
         {
@@ -189,7 +187,7 @@ namespace RaphaëlBardini.WinClean
                 path.Delete();
             }
             // For IOException, we don't want to handle derived classes. The "is" operator covers derived classes too.
-            catch (Exception e) when (e is DirectoryNotFoundException or UnauthorizedAccessException or IOException)
+            catch (Exception e) when (e.FileSystem())
             {
                 ErrorDialog.CantDeleteLogFile(e, () => DeleteLogFile(path));
             }
@@ -200,18 +198,18 @@ namespace RaphaëlBardini.WinClean
         #region Private Structs
 
         ///<remarks>The fields are in the order we want the CSV header to be in. Topmost = leftmost</remarks>
-        private struct LogEntry
+        private readonly struct LogEntry
         {
             #region Public Properties
 
-            public int Index { get; set; }
-            public LogLevel Level { get; set; }
-            public int CallLine { get; set; }
-            public string Caller { get; set; }
-            public string Happening { get; set; }
-            public string Message { get; set; }
-            public DateTime Date { get; set; }
-            public string CallFileFullPath { get; set; }
+            public string Caller { get; init; }
+            public string CallFileFullPath { get; init; }
+            public int CallLine { get; init; }
+            public DateTime Date { get; init; }
+            public string Happening { get; init; }
+            public int Index { get; init; }
+            public LogLevel Level { get; init; }
+            public string Message { get; init; }
 
             #endregion Public Properties
         }

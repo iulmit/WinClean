@@ -1580,7 +1580,7 @@ dotnet_diagnostic.CA3076.severity=suggestion
 dotnet_diagnostic.IDE0002.severity = suggestion
 
 # IDE0073: L'en-tête du fichier ne correspond pas au texte nécessaire
-dotnet_diagnostic.IDE0073.severity =suggestion
+dotnet_diagnostic.IDE0073.severity =none
 dotnet_diagnostic.RemoveUnnecessaryImportsFixable.severity=suggestion
 dotnet_diagnostic.IDE0004.severity=suggestion
 dotnet_diagnostic.IDE0005.severity=suggestion

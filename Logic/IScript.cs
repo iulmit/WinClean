@@ -1,34 +1,9 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
 
-using RaphaëlBardini.WinClean.Operational;
-
 namespace RaphaëlBardini.WinClean.Logic
 {
-    /// <summary>If a script is advised for general purpose</summary>
-    public enum ScriptAdvised
-    {
-        /// <summary>
-        /// The script is advised for any user. It has almost no side effects and won't hinder features the said user might want
-        /// to use. It can be selected automatically.
-        /// </summary>
-        Yes,
-
-        /// <summary>
-        /// The script only advised for users who want advanced optimisation. It may hinder useful system features. It should be
-        /// selected individually by the user.
-        /// </summary>
-        Limited,
-
-        /// <summary>
-        /// The script must be selected only by users who know what they are doing. It will almost certainly hinder useful
-        /// system features. It should be selected by the user, only if specifically needed.
-        /// </summary>
-        No
-    }
-
     /// <summary>Represents an executable script associated to a script host program.</summary>
     public interface IScript
     {
@@ -39,12 +14,6 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Details on how this scripts work and what the effects of executing it would be.</summary>
         string Description { get; set; }
-
-        /// <summary>The filename of the script file.</summary>
-        string Filename { get; }
-
-        /// <summary>Script host program associated to the instance.</summary>
-        IScriptHost Host { get; }
 
         /// <summary>System impacts of running this script.</summary>
         ICollection<Impact> Impacts { get; }
@@ -57,9 +26,10 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Methods
 
         /// <summary>Executes the script in a new process.</summary>
+        /// <inheritdoc cref="Operational.IScriptHost.Execute(FileInfo)" path="/exception"/>
         void Execute();
 
-        /// <summary>Saves this script the scripts dir.</summary>
+        /// <summary>Saves this script to the scripts dir.</summary>
         void Save();
 
         #endregion Public Methods

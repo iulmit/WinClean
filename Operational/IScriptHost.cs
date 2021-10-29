@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using RaphaëlBardini.WinClean.Logic;
 
@@ -10,20 +9,11 @@ namespace RaphaëlBardini.WinClean.Operational
     {
         #region Public Properties
 
-        /// <summary>Maximum time a script can execute without displaying a warning to the user.</summary>
-        static TimeSpan Timeout { get; set; } = Properties.Settings.Default.ScriptTimeout;
-
-        #endregion Public Properties
-
-
-
-        #region Public Properties
-
-        /// <summary>The host user-friendly display name.</summary>
+        /// <summary>User friendly name for the script host.</summary>
         string DisplayName { get; }
 
-        /// <summary>The file extension filter string for an <see cref="System.Windows.Forms.OpenFileDialog"/> control.</summary>
-        string Filter { get; }
+        /// <summary>Extensions of the scripts the script host program can run.</summary>
+        ExtensionGroup SupportedExtensions { get; }
 
         #endregion Public Properties
 
@@ -33,8 +23,11 @@ namespace RaphaëlBardini.WinClean.Operational
         /// <param name="script">The path of the script file to run.</param>
         /// <exception cref="ArgumentNullException"><paramref name="script"/>'s <see langword="null"/>.</exception>
         /// <exception cref="BadFileExtensionException"><paramref name="script"/>'s extension is not supported.</exception>
-        /// <inheritdoc cref="Helpers.ThrowIfUnacessible(FileInfo, FileAccess)" path="/exception"/>
         void Execute(FileInfo script);
+
+        /// <summary>Executes the specified code that must me in the appropriate scripting langage.</summary>
+        /// <param name="code">The code to execute.</param>
+        void Execute(string code);
 
         #endregion Public Methods
     }

@@ -47,7 +47,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             System.Windows.Forms.ToolStripMenuItem MainMenuShowHelp;
             this.buttonExecuteScripts = new System.Windows.Forms.Button();
             this.buttonQuit = new System.Windows.Forms.Button();
-            this.buttonAddScripts = new System.Windows.Forms.Button();
+            this.buttonAddScript = new System.Windows.Forms.Button();
             this.MainMenuSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectNothing = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectMaintenance = new System.Windows.Forms.ToolStripMenuItem();
@@ -132,7 +132,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             tableLayoutPanelButtons.CausesValidation = false;
             tableLayoutPanelButtons.Controls.Add(this.buttonExecuteScripts, 3, 0);
             tableLayoutPanelButtons.Controls.Add(this.buttonQuit, 4, 0);
-            tableLayoutPanelButtons.Controls.Add(this.buttonAddScripts, 1, 0);
+            tableLayoutPanelButtons.Controls.Add(this.buttonAddScript, 1, 0);
             tableLayoutPanelButtons.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
             // 
@@ -154,14 +154,14 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.buttonQuit.UseVisualStyleBackColor = true;
             this.buttonQuit.Click += new System.EventHandler(this.ButtonQuit_Click);
             // 
-            // buttonAddScripts
+            // buttonAddScript
             // 
-            resources.ApplyResources(this.buttonAddScripts, "buttonAddScripts");
-            this.buttonAddScripts.CausesValidation = false;
-            this.buttonAddScripts.Name = "buttonAddScripts";
-            this.buttonAddScripts.UseMnemonic = false;
-            this.buttonAddScripts.UseVisualStyleBackColor = true;
-            this.buttonAddScripts.Click += new System.EventHandler(this.ButtonAddScripts_Click);
+            resources.ApplyResources(this.buttonAddScript, "buttonAddScript");
+            this.buttonAddScript.CausesValidation = false;
+            this.buttonAddScript.Name = "buttonAddScript";
+            this.buttonAddScript.UseMnemonic = false;
+            this.buttonAddScript.UseVisualStyleBackColor = true;
+            this.buttonAddScript.Click += new System.EventHandler(this.ButtonAddScript_Click);
             // 
             // mainMenuStrip
             // 
@@ -359,7 +359,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         private System.Windows.Forms.Button buttonQuit;
         private System.Windows.Forms.ListView listViewScripts;
         private System.Windows.Forms.ToolStripMenuItem MainMenuAbout;
-        private System.Windows.Forms.Button buttonAddScripts;
+        private System.Windows.Forms.Button buttonAddScript;
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectAll;
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectNothing;
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectMaintenance;

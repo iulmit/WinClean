@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 #if DEBUG
 
@@ -15,7 +14,7 @@ namespace RaphaëlBardini.WinClean
 
         /// <summary>Shortcut to <see cref="MessageBox.Show(string)"/></summary>
         /// <remarks>Debug only</remarks>
-        public static void m(this object o) => MessageBox.Show($"{o?.GetType()}{Environment.NewLine}{o}", "Debug");
+        public static void m<T>(this T t) => MessageBox.Show($"{typeof(T)}\n{t}", "Debug");
 
         /// <summary>Displays a collection in a message box.</summary>
         /// <typeparam name="T">The collection item type.</typeparam>
@@ -41,7 +40,7 @@ namespace RaphaëlBardini.WinClean
         /// <param name="o">The data passed.</param>
         /// <returns><paramref name="o"/>.</returns>
         /// <remarks>Debug only.</remarks>
-        public static T mR<T>(this T o)
+        public static T mr<T>(this T o)
         {
             o.m();
             return o;

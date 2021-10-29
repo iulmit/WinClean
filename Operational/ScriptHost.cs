@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Diagnostics;
 using System.Globalization;
@@ -13,8 +12,40 @@ using RaphaëlBardini.WinClean.Logic;
 namespace RaphaëlBardini.WinClean.Operational
 {
     /// <inheritdoc cref="IScriptHost"/>
-    public sealed class ScriptHost : IScriptHost
+    public class ScriptHost : IScriptHost
     {
+        #region Private Fields
+
+        private readonly IncompleteArguments _arguments;
+
+        private readonly Encoding _encoding;
+
+        private readonly FileInfo _executable;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
+        /// <summary>Initializes a new instance of the <see cref="ScriptHost"/> class.</summary>
+        /// <param name="executable">The filename of the script host program's executable.</param>
+        /// <param name="arguments">
+        /// A formattable string representing the appropriate arguments to run the script host, hidden, with a single script. It
+        /// must have exactly 1 argument, the path of the script file to execute.
+        /// </param>
+        /// <param name="encoding">The default encoding of the script host.</param>
+        /// <param name="supportedExtensions">The extensions the script host supports.</param>
+        /// <exception cref="ArgumentNullException">One ore more parameters are <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="arguments"/> does not contain exactly 1 formattable argument..</exception>
+        public ScriptHost(FileInfo executable, string arguments, Encoding encoding, ExtensionGroup supportedExtensions)
+        {
+            _executable = executable;
+            _arguments = new(arguments);
+            _encoding = encoding;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        #endregion Public Constructors
+
         #region Public Methods
 
         /// <summary>Creates a new <see cref="ScriptHost"/> object from a script file extension.</summary>
@@ -38,62 +69,39 @@ namespace RaphaëlBardini.WinClean.Operational
         #region Public Properties
 
         /// <summary>The Windows Command Line interpreter (cmd.exe) script host.</summary>
-        public static ScriptHost Cmd => new()
-        {
-            Arguments = new("/d /c \"\"{0}\"\""),
-            Encoding = Encoding.GetEncoding(850),
-            Executable = new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)),
-            SupportedExtensions = new(".cmd", ".bat")
-        };
+        public static ScriptHost Cmd
+            => new(executable: new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)),
+                   arguments: "/d /c \"\"{0}\"\"",
+                   encoding: Encoding.GetEncoding(850),
+                   supportedExtensions: new(".cmd", ".bat"));
 
         /// <summary>The Windows PowerShell script host.</summary>
-        public static ScriptHost PowerShell => new()
-        {
-            Arguments = new("-WindowStyle hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\""),
-            Encoding = Encoding.GetEncoding(1252),
-            Executable = new(Path.Combine(Environment.GetEnvironmentVariable("SystemRoot"), "System32", "WindowsPowerShell", "v1.0", "powershell.exe")),
-            SupportedExtensions = new(".ps1")
-        };
+        public static ScriptHost PowerShell
+           => new(executable: new(Path.Join(Environment.GetEnvironmentVariable("SystemRoot"), "System32", "WindowsPowerShell", "v1.0", "powershell.exe")),
+                  arguments: new("-WindowStyle hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\""),
+                  encoding: Encoding.GetEncoding(1252),
+                  supportedExtensions: new(".ps1"));
 
         /// <summary>The Windows Registry Editor script host.</summary>
-        public static ScriptHost Regedit => new()
-        {
-            Arguments = new("/s {0}"),
-            Encoding = Encoding.Unicode,
-            Executable = new(Path.Combine(Environment.GetEnvironmentVariable("SystemRoot"), "regedit.exe")),
-            SupportedExtensions = new(".reg")
-        };
-
-        /// <summary>User friendly name for the script host.</summary>
-        public string DisplayName => ShellProperty.GetFileDescription(Executable);
+        public static ScriptHost Regedit
+            => new(executable: new(Path.Join(Environment.GetEnvironmentVariable("SystemRoot"), "regedit.exe")),
+                   arguments: new("/s {0}"),
+                   encoding: Encoding.Unicode,
+                   supportedExtensions: new(".reg"));
 
         /// <inheritdoc/>
-        public string Filter => Helpers.MakeOpenFileDialogFilter(SupportedExtensions);
+        public string DisplayName => ShellProperty.GetFileDescription(_executable);
+
+        /// <inheritdoc/>
+        public ExtensionGroup SupportedExtensions { get; init; }
 
         #endregion Public Properties
-
-        #region Private Properties
-
-        private IncompleteArguments Arguments { get; init; }
-
-        private Encoding Encoding { get; init; }
-
-        private FileInfo Executable { get; init; }
-
-        /// <summary>Extensions of the scripts the script host program can run.</summary>
-        private ExtensionGroup SupportedExtensions { get; init; }
-
-        #endregion Private Properties
 
 
 
         #region Public Methods
 
-        /// <summary>Executes the script host with the specified script file.</summary>
-        /// <param name="script">The path of the script file to run.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="script"/>'s <see langword="null"/>.</exception>
-        /// <exception cref="BadFileExtensionException"><paramref name="script"/>'s extension is not supported.</exception>
-        /// <inheritdoc cref="Helpers.ThrowIfUnacessible(FileInfo, FileAccess)" path="/exception"/>
+        /// <inheritdoc/>
         public void Execute(FileInfo script)
         {
             if (script is null)
@@ -104,16 +112,24 @@ namespace RaphaëlBardini.WinClean.Operational
             {
                 throw new BadFileExtensionException(script.Extension);
             }
-            script.ThrowIfUnacessible(FileAccess.Read);
+
+            try
+            {
+                script.ThrowIfUnacessible(FileAccess.Read);
+            }
+            catch (Exception e) when (e.FileSystem())
+            {
+                ErrorDialog.ScriptInacessible(script.Name, e, () => Execute(script), null/*chaud : delete script*/);
+            }
 
             ToString().Log("Script execution");
-            using Process host = Process.Start(new ProcessStartInfo(Executable.FullName, Arguments.Complete(script))
+            using Process host = Process.Start(new ProcessStartInfo(_executable.FullName, _arguments.Complete(script))
             {
                 WindowStyle = ProcessWindowStyle.Hidden,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
-                StandardErrorEncoding = Encoding,
-                StandardOutputEncoding = Encoding,
+                StandardErrorEncoding = _encoding,
+                StandardOutputEncoding = _encoding,
             });
 
             // placeholder -- simulate the time a script would take to complete.
@@ -125,7 +141,15 @@ namespace RaphaëlBardini.WinClean.Operational
         }
 
         /// <inheritdoc/>
-        public override string ToString() => $"{Executable.Name} {Arguments}";
+        public void Execute(string code)
+        {
+            FileInfo tmpScriptFile = new(Path.GetTempFileName());
+            tmpScriptFile.CreateText().Write(code);
+            Execute(tmpScriptFile);
+        }
+
+        /// <inheritdoc/>
+        public override string ToString() => $"{_executable.Name} {_arguments}";
 
         #endregion Public Methods
 
@@ -135,7 +159,7 @@ namespace RaphaëlBardini.WinClean.Operational
         {
             Assert(p is not null);
 
-            if (!p.WaitForExit(Convert.ToInt32(IScriptHost.Timeout.TotalMilliseconds)))
+            if (!p.WaitForExit(Convert.ToInt32(Properties.Settings.Default.ScriptTimeout.TotalMilliseconds)))
             {
                 ErrorDialog.HungScript(script.Name,
                 restart: () =>
@@ -155,7 +179,7 @@ namespace RaphaëlBardini.WinClean.Operational
         {
             Assert(stream is not null);
 
-            using StreamReader convertedStream = new(Encoding.CreateTranscodingStream(stream.BaseStream, Encoding, Encoding.Unicode, true));
+            using StreamReader convertedStream = new(Encoding.CreateTranscodingStream(stream.BaseStream, _encoding, Encoding.Unicode, true));
             return convertedStream.ReadToEnd();
         }
 
@@ -164,7 +188,7 @@ namespace RaphaëlBardini.WinClean.Operational
         #region Private Classes
 
         /// <summary>Formattable executable arguments with a single file path argument.</summary>
-        private sealed class IncompleteArguments
+        private readonly struct IncompleteArguments
         {
             #region Private Fields
 

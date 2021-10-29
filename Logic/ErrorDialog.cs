@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Windows.Forms;
 
@@ -24,13 +23,13 @@ namespace RaphaëlBardini.WinClean.Logic
 
 #pragma warning disable CS1573
 
-        /// <summary>Can't copy script to the scripts dir error.</summary>
+        /// <summary>Can't create script file error.</summary>
         /// <param name="e">The exception that caused the error.</param>
         /// <inheritdoc cref="RetryClose(Action, Action)" path="/param"/>
-        public static void CantCopyScriptToScriptsDir(Exception e, Action retry = null, Action close = null) => new ErrorDialog()
+        public static void CantCreateScriptFileInScriptsDir(Exception e, Action retry = null, Action close = null) => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Error,
-            Text = $"Impossible de copier le fichier de script. {e.Message}"
+            Text = $"Impossible de créer le fichier de script dans le répertoire des scripts. {e.Message}"
         }.RetryClose(retry, close);
 
         /// <summary>Can't create log directory error.</summary>
@@ -86,7 +85,7 @@ namespace RaphaëlBardini.WinClean.Logic
         {
             Icon = TaskDialogIcon.Warning,
             Heading = "Un script est bloqué",
-            Text = $"Le script (\"{filename}\") est en cours d'exécution depuis {Operational.IScriptHost.Timeout} et ne s'arrêtera probablement jamais.",
+            Text = $"Le script (\"{filename}\") est en cours d'exécution depuis {Properties.Settings.Default.ScriptTimeout} et ne s'arrêtera probablement jamais.",
         }.RestartKillIgnore(restart, kill, ignore);
 
         /// <summary>Script not found error.</summary>
@@ -97,7 +96,7 @@ namespace RaphaëlBardini.WinClean.Logic
         {
             Icon = TaskDialogIcon.Error,
             Heading = "Script inacessible",
-            Text = $"Le script \"{filename}\" est inacessible, {e.Message}\""
+            Text = $"Le script \"{filename}\" est inacessible. {e.Message}"
         }.DeleteRetryIgnore(delete, retry, ignore);
 
         /// <summary>Single instance only error.</summary>

@@ -1,10 +1,10 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 /*Todo :
 Tester documentelement.value
  */
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,7 +13,6 @@ using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
-
     /// <summary>
     /// This is the application's main form. It regroups several features, including the main commit buttons, script selection,
     /// and provides UI acess to other forms.
@@ -25,42 +24,49 @@ namespace RaphaëlBardini.WinClean.Presentation
         /// <summary>Initializes a new instance of the <see cref="MainForm"/> class.</summary>
         public MainForm()
         {
-
             InitializeComponent();
+
+            openFileDialogScripts.MakeFilter(ScriptHost.Cmd.SupportedExtensions, ScriptHost.PowerShell.SupportedExtensions, ScriptHost.Regedit.SupportedExtensions);
+
             _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
             _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
 
             Script[] _placeholderScripts = new[]
             {
-                new Script(new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\foo.cmd"))
-                {
-                    Name = "CmdFoo",
-                    Description = "Foo description 0",
-                    Impacts = new[] { new Impact(ImpactEffect.Visuals, ImpactLevel.Positive) },
-                    Group = listViewScripts.Groups[0],
-                    Advised = ScriptAdvised.Yes,
-                },
-                new Script(new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\dummy.reg"))
-                {
-                    Name = "RegDummy",
-                    Description = "Dummy description 1",
-                    Impacts = new[] { new Impact(ImpactEffect.ShutdownTime, ImpactLevel.Negative) },
-                    Group = listViewScripts.Groups[1],
-                    Advised = ScriptAdvised.Limited,
-                },
-                new Script(new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\ps1script.ps1"))
-                {
-                    Name = "PowerShellSensass",
-                    Description = "PowShe desc 3",
-                    Impacts = new[] { new Impact(ImpactEffect.ResponseTime, ImpactLevel.Positive) },
-                    Group = listViewScripts.Groups[1],
-                    Advised = ScriptAdvised.No,
-                }
+                new Script
+                (
+                    name: "CmdFoo",
+                    description: "Foo description 0",
+                    impacts: new[] { new Impact(ImpactLevel.Positive, ImpactEffect.Visuals) },
+                    group: listViewScripts.Groups[0],
+                    advised: ScriptAdvised.Yes,
+                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\foo.cmd")
+                ),
+                new Script
+                (
+                    name: "RegDummy",
+                    description: "Dummy description 1",
+                    impacts: new[] { new Impact(ImpactLevel.Negative, ImpactEffect.ShutdownTime) },
+                    group: listViewScripts.Groups[1],
+                    advised: ScriptAdvised.Limited,
+                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\dummy.reg")
+                ),
+                new Script
+                (
+                    name: "PowerShellSensass",
+                    description: "PowShe desc 3",
+                    impacts: new[] { new Impact(ImpactLevel.Positive, ImpactEffect.ResponseTime) },
+                    group: listViewScripts.Groups[1],
+                    advised: ScriptAdvised.No,
+                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\ps1script.ps1")
+                )
             };
+            foreach (Script s in _placeholderScripts)
+            {
+                s.Save();
+            }
 
-            ((IScript)_placeholderScripts[0]).Save();
-
-            openFileDialogScripts.Filter = (new string[] { ScriptHost.Cmd.Filter, ScriptHost.PowerShell.Filter, ScriptHost.Regedit.Filter }).Separate('|');
+            ScriptsDir.LoadAllScripts(listViewScripts);
 
             Text = $"{Application.ProductName} {Application.ProductVersion}";
 
@@ -80,13 +86,13 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region Buttons
 
-        private void ButtonAddScripts_Click(object sender = null, EventArgs e = null)
+        private void ButtonAddScript_Click(object sender = null, EventArgs e = null)
         {
             if (openFileDialogScripts.ShowDialog(this) == DialogResult.OK)
             {
-                foreach (string newScriptFilename in openFileDialogScripts.FileNames)
+                foreach (string newScriptPath in openFileDialogScripts.FileNames)
                 {
-                    _ = listViewScripts.Items.Add(new Script(new FileInfo(newScriptFilename)));
+                    _ = listViewScripts.Items.Add(new Script("Nouveau script", "Détails de fonctionnement", ScriptAdvised.Unspecified, new List<Impact>(), null, new(newScriptPath)));
                 }
             }
         }
