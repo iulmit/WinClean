@@ -1,8 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
-using System.Globalization;
-using System.Windows.Forms;
-
+using System.ComponentModel;
+using System.Drawing.Design;
+using System.Reflection;
 namespace RaphaëlBardini.WinClean.Logic
 {
     /// <summary>Represents a property.</summary>
@@ -13,19 +13,30 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <summary>Intializes a new instance of the <see cref="PropertyInfo"/> class.</summary>
         /// <param name="name">The name of the property.</param>
         /// <param name="description">An user-friendly description for the property.</param>
-        /// <param name="get">The <see langword="get"/> acessor of the property.</param>
-        /// <param name="set">The facultative <see langword="set"/> acessor of the property.</param>
+        /// <param name="value">The current value of the property.</param>
         /// <param name="default">The value it defaults and can reset to.</param>
+        /// <param name="readOnly">Wether the user should be able to edit the property.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="name"/>, <paramref name="description"/> or <paramref name="get"/> are <see langword="null"/>.
+        /// One or more of the arguments are <see langword="null"/>.
         /// </exception>
-        public PropertyInfo(string name, string description, Func<IConvertible> get, Action<IConvertible> set = null, IConvertible @default = default)
+        /// <exception cref="ArgumentException"><paramref name="value"/> and <paramref name="default"/> are not of the same type.</exception>
+        public PropertyInfo(string name, string description, object value, object @default, bool readOnly = false)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Description = description ?? throw new ArgumentNullException(nameof(description));
-            Get = get ?? throw new ArgumentNullException(nameof(get));
-            Set = set;
+            ReadOnly = readOnly;
+
+            _ = value ?? throw new ArgumentNullException(nameof(value));
+            _ = @default ?? throw new ArgumentNullException(nameof(@default));
+            if (!value.GetType().Equals(@default.GetType()))
+            {
+                throw new ArgumentException($"{nameof(value)} ({value.GetType()}) and {nameof(@default)} ({@default.GetType()}) are not of the same type.");
+            }
+            Value = value;
             Default = @default;
+
+            EditorAttribute editorAttribute = value.GetType().GetCustomAttribute<EditorAttribute>(false);
+            Editor = (editorAttribute is null) ? new UITypeEditor() : (UITypeEditor)Activator.CreateInstance(Type.GetType(editorAttribute.EditorTypeName));
         }
 
         #endregion Public Constructors
@@ -33,119 +44,26 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Properties
 
         /// <summary>The value it defaults and can reset to.</summary>
-        public IConvertible Default { get; }
+        public object Default { get; }
+        /// <summary>
+        /// The current value of the property.
+        /// </summary>
+        public object Value { get; }
+
+        /// <summary>
+        /// <see langword="true"/> if the property doesn't have a <see langword="set"/> acessor; otherwise <see langword="false"/>.
+        /// </summary>
+        public bool ReadOnly { get; }
 
         /// <summary>An user-friendly description for the property.</summary>
         public string Description { get; }
 
-        /// <summary>The control used to show and edit the value from the user.</summary>
-        /// <exception cref="NotSupportedException"></exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0072", Justification = "Not supporting every typecode.")]
-        public Control Editor => Default.GetTypeCode() switch
-        {
-            TypeCode.Boolean => MakeBoolEditor(),
-            TypeCode.Char => MakeCharEditor(),
-            TypeCode.SByte => MakeNumericEditor(sbyte.MinValue, sbyte.MaxValue),
-            TypeCode.Byte => MakeNumericEditor(byte.MinValue, byte.MaxValue),
-            TypeCode.Int16 => MakeNumericEditor(short.MinValue, short.MaxValue),
-            TypeCode.UInt16 => MakeNumericEditor(ushort.MinValue, ushort.MaxValue),
-            TypeCode.Int32 => MakeNumericEditor(int.MinValue, int.MaxValue),
-            TypeCode.UInt32 => MakeNumericEditor(uint.MinValue, uint.MaxValue),
-            TypeCode.Int64 => MakeNumericEditor(long.MinValue, long.MaxValue),
-            TypeCode.UInt64 => MakeNumericEditor(ulong.MinValue, ulong.MaxValue),
-            TypeCode.Single => MakeNumericEditor(float.MinValue, float.MaxValue),
-            TypeCode.Double => MakeNumericEditor(double.MinValue, double.MaxValue),
-            TypeCode.Decimal => MakeNumericEditor(decimal.MinValue, decimal.MaxValue),
-            TypeCode.DateTime => MakeDateTimeEditor(),
-            TypeCode.String => MakeStringEditor(),
-            _ => throw new NotSupportedException($"{Default.GetTypeCode()} is not supported.")
-        };
-
-        /// <summary>The <see langword="get"/> acessor of the property.</summary>
-        public Func<IConvertible> Get { get; }
+        /// <summary>The type editor of the object.</summary>
+        public UITypeEditor Editor { get; }
 
         /// <summary>The name of the property.</summary>
         public string Name { get; }
 
-        /// <summary>The facultative <see langword="set"/> acessor of the property.</summary>
-        public Action<IConvertible> Set { get; }
-
         #endregion Public Properties
-
-        #region Private Methods
-
-        private void InitEditor(Control c)
-        {
-            using ToolTip t = new();
-            t.SetToolTip(c, Description);
-
-            c.CausesValidation = false;
-            c.AutoSize = true;
-            c.Enabled = Set != null;
-        }
-
-        private CheckBox MakeBoolEditor()
-        {
-            CheckBox boolEditor = new();
-            boolEditor.CheckedChanged += (s, e) => Set?.Invoke(boolEditor.Checked);
-            boolEditor.Checked = Get().ToBoolean(CultureInfo.CurrentCulture);
-
-            InitEditor(boolEditor);
-
-            return boolEditor;
-        }
-
-        private TextBox MakeCharEditor()
-        {
-            TextBox charEditor = new()
-            {
-                MaxLength = 1
-            };
-            charEditor.TextChanged += (s, e) => Set?.Invoke(charEditor.Text);
-            charEditor.Text = Get().ToChar(CultureInfo.CurrentCulture).ToString();
-
-            InitEditor(charEditor);
-
-            return charEditor;
-        }
-
-        private DateTimePicker MakeDateTimeEditor()
-        {
-            DateTimePicker dateTimeEditor = new();
-            dateTimeEditor.ValueChanged += (s, e) => Set?.Invoke(dateTimeEditor.Value);
-            dateTimeEditor.Value = Get().ToDateTime(CultureInfo.CurrentCulture);
-
-            InitEditor(dateTimeEditor);
-
-            return dateTimeEditor;
-        }
-
-        private NumericUpDown MakeNumericEditor(IConvertible min, IConvertible max)
-        {
-            NumericUpDown numericEditor = new()
-            {
-                Minimum = min.ToDecimal(CultureInfo.InvariantCulture),
-                Maximum = max.ToDecimal(CultureInfo.InvariantCulture)
-            };
-            numericEditor.ValueChanged += (s, e) => Set?.Invoke(numericEditor.Value);
-            numericEditor.Value = Get().ToDecimal(CultureInfo.CurrentCulture);
-
-            InitEditor(numericEditor);
-
-            return numericEditor;
-        }
-
-        private TextBox MakeStringEditor()
-        {
-            TextBox stringEditor = new();
-            stringEditor.TextChanged += (s, e) => Set?.Invoke(stringEditor.Text);
-            stringEditor.Text = Get().ToString(CultureInfo.CurrentCulture);
-
-            InitEditor(stringEditor);
-
-            return stringEditor;
-        }
-
-        #endregion Private Methods
     }
 }

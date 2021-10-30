@@ -5,7 +5,7 @@
     </assembly>
     <members>
         <member name="M:RaphaëlBardini.WinClean.DebugHelpers.m``1(``0)">
-            <summary>Shortcut to <see cref="M:System.Windows.Forms.MessageBox.Show(System.String)" /></summary>
+            <summary>Shortcut to <see cref="M:System.Windows.Forms.MessageBox.Show(System.String)"/></summary>
             <remarks>Debug only</remarks>
         </member>
         <member name="M:RaphaëlBardini.WinClean.DebugHelpers.mEach``1(System.Collections.Generic.IEnumerable{``0})">
@@ -18,22 +18,22 @@
             <summary>Displays data in a message box, waits for it's dismiss, and returns that data.</summary>
             <typeparam name="T">The type of the data passed.</typeparam>
             <param name="o">The data passed.</param>
-            <returns><paramref name="o" />.</returns>
+            <returns><paramref name="o"/>.</returns>
             <remarks>Debug only.</remarks>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException">
             <summary>The exception is thrown when a file has the wrong extension.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor">
-            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException" /> class.</summary>
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException"/> class.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor(System.String)">
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor"/>
             <param name="extension">The wrong extension.</param>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor(System.String,System.Exception)">
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor(System.String)" />
-            <inheritdoc path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.#ctor(System.String)"/>
+            <inheritdoc path="/param"/>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.BadFileExtensionException.Extension">
             <summary>The wrong file extension.</summary>
@@ -44,55 +44,55 @@
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.CantCreateScriptFileInScriptsDir(System.Exception,System.Action,System.Action)">
             <summary>Can't create script file error.</summary>
             <param name="e">The exception that caused the error.</param>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.CantCreateLogDir(System.Exception,System.Action,System.Action)">
             <summary>Can't create log directory error.</summary>
             <param name="e">The exception that caused the error.</param>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.CantCreateScriptsDir(System.Exception,System.Action,System.Action)">
             <summary>Can't create scripts directory error.</summary>
             <param name="e">The exception that caused the error.</param>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.CantDeleteScript(System.Exception,System.Action,System.Action)">
             <summary>Can't create log file error.</summary>
             <param name="e">The exception that caused the error.</param>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryIgnore(System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryIgnore(System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.CantDeleteLogFile(System.Exception,System.Action,System.Action)">
             <summary>Can't create log file error.</summary>
             <param name="e">The exception that caused the error.</param>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryIgnore(System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryIgnore(System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.ConfirmAbortOperation(System.Action,System.Action)">
             <summary>Asks the users for confirmation on exiting the application and potentially loosing data.</summary>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.YesNo(System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.YesNo(System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.ConfirmScriptOverwrite(System.IO.FileInfo,System.Action,System.Action)">
             <summary>Prompts the user for confirmation on overwriting a script that already exists in the scripts directory.</summary>
             <param name="overwriter">The path the external script file that may overwrite a script file in the scripts directory..</param>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.YesNo(System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.YesNo(System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.HungScript(System.String,System.Action,System.Action,System.Action)">
             <summary>Hung script error.</summary>
             <param name="filename">The hung script's filename.</param>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RestartKillIgnore(System.Action,System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RestartKillIgnore(System.Action,System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.ScriptInacessible(System.String,System.Exception,System.Action,System.Action,System.Action)">
             <summary>Script not found error.</summary>
             <param name="filename">The inacessible script's filename.</param>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.DeleteRetryIgnore(System.Action,System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.DeleteRetryIgnore(System.Action,System.Action,System.Action)" path="/param"/>
             <param name="e">The exception that caused the error.</param>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.SingleInstanceOnly(System.Action,System.Action)">
             <summary>Single instance only error.</summary>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.WrongStartupPath(System.Action,System.Action)">
             <summary>Wrong startup path error.</summary>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.RetryClose(System.Action,System.Action)" path="/param"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ErrorDialog.DeleteRetryIgnore(System.Action,System.Action,System.Action)">
             <param name="retry">Invoked when the Retry button of the dialog is clicked.</param>
@@ -120,23 +120,23 @@
             <summary>A group of related extensions</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ExtensionGroup.#ctor(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.ExtensionGroup" /> structure.</summary>
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.ExtensionGroup"/> structure.</summary>
             <param name="extensions">The extensions in the group.</param>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ExtensionGroup.#ctor(System.String[])">
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ExtensionGroup.#ctor(System.Collections.Generic.IEnumerable{System.String})" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ExtensionGroup.#ctor(System.Collections.Generic.IEnumerable{System.String})"/>
         </member>
         <member name="F:RaphaëlBardini.WinClean.Logic.ExtensionGroup._extensions">
             <summary>File extensions included in the group.</summary>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.ExtensionGroup.Count">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.ExtensionGroup.Name">
             <summary>Name of the group.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ExtensionGroup.GetEnumerator">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.Helpers">
             <summary>Provides a set of extension methods that fulfill a relatively generic role.</summary>
@@ -150,10 +150,10 @@
         <member name="M:RaphaëlBardini.WinClean.Logic.Helpers.FileSystem(System.Exception)">
             <summary>Checks if an exception is of a type that .NET Core's filesystem methods may throw.</summary>
             <returns>
-            <para><see langword="true" /> if <paramref name="e" /> is of any of the following types :</para>
-            <br><see cref="T:System.IO.IOException" /> (including all derived exceptions)</br><br><see
-            cref="T:System.UnauthorizedAccessException" /></br><br><see cref="T:System.NotSupportedException" /></br><br><see cref="T:System.Security.SecurityException" /></br>
-            <para>Otherwise; <see langword="false" />.</para>
+            <para><see langword="true"/> if <paramref name="e"/> is of any of the following types :</para>
+            <br><see cref="T:System.IO.IOException"/> (including all derived exceptions)</br><br><see
+            cref="T:System.UnauthorizedAccessException"/></br><br><see cref="T:System.NotSupportedException"/></br><br><see cref="T:System.Security.SecurityException"/></br>
+            <para>Otherwise; <see langword="false"/>.</para>
             </returns>
             <remarks>Note that unrelated methods may throw any of these exceptions.</remarks>
         </member>
@@ -161,31 +161,34 @@
             <summary>Checks if a string is a valid Windows filename.</summary>
             <param name="filenameCandidate">The filename candidate.</param>
             <returns>
-            <see langword="true" /> if <paramref name="filenameCandidate" /> can be a filename, otherwise; <see
-            langword="false" />. This method returns <see langword="false" /> if <paramref name="filenameCandidate" /> is <see langword="null" />.
+            <see langword="true"/> if <paramref name="filenameCandidate"/> can be a filename, otherwise; <see
+            langword="false"/>. This method returns <see langword="false"/> if <paramref name="filenameCandidate"/> is <see langword="null"/>.
             </returns>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Helpers.MakeFilter(System.Windows.Forms.OpenFileDialog,System.Collections.Generic.IEnumerable{RaphaëlBardini.WinClean.Logic.ExtensionGroup})">
-            <summary>Creates a file extension filter for an <see cref="T:System.Windows.Forms.OpenFileDialog" /> control.</summary>
-            <param name="ofd">The <see cref="T:System.Windows.Forms.OpenFileDialog" /> control to make a filter for.</param>
+            <summary>Creates a file extension filter for an <see cref="T:System.Windows.Forms.OpenFileDialog"/> control.</summary>
+            <param name="ofd">The <see cref="T:System.Windows.Forms.OpenFileDialog"/> control to make a filter for.</param>
             <param name="exts">The extension to put into the filter.</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="ofd" /> is <see langword="null" />.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="ofd"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Helpers.MakeFilter(System.Windows.Forms.OpenFileDialog,RaphaëlBardini.WinClean.Logic.ExtensionGroup[])">
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.Helpers.MakeFilter(System.Windows.Forms.OpenFileDialog,System.Collections.Generic.IEnumerable{RaphaëlBardini.WinClean.Logic.ExtensionGroup})" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.Helpers.MakeFilter(System.Windows.Forms.OpenFileDialog,System.Collections.Generic.IEnumerable{RaphaëlBardini.WinClean.Logic.ExtensionGroup})"/>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.Helpers.RebootForApplicationMaintenance">
+            <summary>Restarts the system.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Helpers.ThrowIfUnacessible(System.IO.FileInfo,System.IO.FileAccess)">
             <summary>Throws the appropriate exception if the filesystem element is not accessible.</summary>
             <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
-            <exception cref="T:System.IO.FileNotFoundException"><paramref name="info" /> was not found.</exception>
-            <exception cref="T:System.UnauthorizedAccessException"><paramref name="info" /> is readonly or a directory.</exception>
+            <exception cref="T:System.IO.FileNotFoundException"><paramref name="info"/> was not found.</exception>
+            <exception cref="T:System.UnauthorizedAccessException"><paramref name="info"/> is readonly or a directory.</exception>
             <exception cref="T:System.IO.DirectoryNotFoundException">
-            <paramref name="info" /> is invalid, such as being on an unmapped drive.
+            <paramref name="info"/> is invalid, such as being on an unmapped drive.
             </exception>
-            <exception cref="T:System.IO.IOException"><paramref name="info" /> is already open.</exception>
+            <exception cref="T:System.IO.IOException"><paramref name="info"/> is already open.</exception>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Helpers.ThrowIfUnacessible(System.IO.DirectoryInfo)">
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.Helpers.ThrowIfUnacessible(System.IO.FileInfo,System.IO.FileAccess)" path="/summary" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.Helpers.ThrowIfUnacessible(System.IO.FileInfo,System.IO.FileAccess)" path="/summary"/>
             <exception cref="T:System.IO.DirectoryNotFoundException">
             The path encapsulated in the System.IO.DirectoryInfo object is invalid (for example, it is on an unmapped drive).
             </exception>
@@ -195,12 +198,12 @@
             <summary>Creates a valid Windows filename from a string.</summary>
             <param name="filenameCandidate">The filename candidate.</param>
             <param name="replaceInvalidCharsWith">
-            What to replace invalid filename chars in <paramref name="filenameCandidate" /> with.
+            What to replace invalid filename chars in <paramref name="filenameCandidate"/> with.
             </param>
-            <returns><paramref name="filenameCandidate" />, modified to be a valid Windows filename if it wasn't already.</returns>
+            <returns><paramref name="filenameCandidate"/>, modified to be a valid Windows filename if it wasn't already.</returns>
             <exception cref="T:System.ArgumentException">
-            <paramref name="filenameCandidate" /> or <paramref name="replaceInvalidCharsWith" /> are <see langword="null" />, or
-            <paramref name="replaceInvalidCharsWith" /> contains invalid filename chars.
+            <paramref name="filenameCandidate"/> or <paramref name="replaceInvalidCharsWith"/> are <see langword="null"/>, or
+            <paramref name="replaceInvalidCharsWith"/> contains invalid filename chars.
             </exception>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.Impact">
@@ -208,7 +211,7 @@
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Impact.#ctor(RaphaëlBardini.WinClean.Logic.ImpactLevel,RaphaëlBardini.WinClean.Logic.ImpactEffect)">
             <exception cref="T:System.ArgumentOutOfRangeException">
-            <paramref name="lvl" /> is not a valid <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactLevel" /> value.
+            <paramref name="lvl"/> is not a valid <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactLevel"/> value.
             </exception>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.Impact.Effect">
@@ -218,36 +221,36 @@
             <summary>The level of the effect.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Impact.Equals(System.Object)">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Impact.Equals(RaphaëlBardini.WinClean.Logic.Impact)">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Impact.GetHashCode">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Impact.ToString">
-            <inheritdoc cref="M:System.Object.ToString" />
+            <inheritdoc cref="M:System.Object.ToString"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Impact.op_Inequality(RaphaëlBardini.WinClean.Logic.Impact,RaphaëlBardini.WinClean.Logic.Impact)">
             <summary>Indicates wether the object is different from another object of the same type.</summary>
             <returns>
-            <see langword="true" /> if <paramref name="left" /> is different from <paramref name="right" />; otherwise, <see langword="false" />.
+            <see langword="true"/> if <paramref name="left"/> is different from <paramref name="right"/>; otherwise, <see langword="false"/>.
             </returns>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Impact.op_Equality(RaphaëlBardini.WinClean.Logic.Impact,RaphaëlBardini.WinClean.Logic.Impact)">
-            <summary>Indicates <paramref name="left" /> is equal to right <paramref name="right" />.</summary>
+            <summary>Indicates <paramref name="left"/> is equal to right <paramref name="right"/>.</summary>
             <returns>
-            <see langword="true" /> if <paramref name="left" /> is equal to <paramref name="right" />; otherwise, <see langword="false" />.
+            <see langword="true"/> if <paramref name="left"/> is equal to <paramref name="right"/>; otherwise, <see langword="false"/>.
             </returns>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.ImpactEffectExtensions">
-            <summary>Provides extension methods for the <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactEffect" /> enum;</summary>
+            <summary>Provides extension methods for the <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactEffect"/> enum;</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ImpactEffectExtensions.GetLocalizedString(RaphaëlBardini.WinClean.Logic.ImpactEffect,System.Globalization.CultureInfo)">
-            <summary>Gets the localized string corresponding the <paramref name="effect" />'s value.</summary>
+            <summary>Gets the localized string corresponding the <paramref name="effect"/>'s value.</summary>
             <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">
-            <paramref name="effect" /> is not a defined <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactEffect" /> constant.
+            <paramref name="effect"/> is not a defined <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactEffect"/> constant.
             </exception>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.ImpactEffect">
@@ -284,7 +287,7 @@
             <summary>System visuals.</summary>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.ImpactLevel">
-            <summary>Represents the level of an <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactEffect" />.</summary>
+            <summary>Represents the level of an <see cref="T:RaphaëlBardini.WinClean.Logic.ImpactEffect"/>.</summary>
         </member>
         <member name="F:RaphaëlBardini.WinClean.Logic.ImpactLevel.Positive">
             <summary>Improvement.</summary>
@@ -301,6 +304,9 @@
         <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Advised">
             <summary>If running this script is advised in general purpose.</summary>
         </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Code">
+            <summary>The actual code making the script.</summary>
+        </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Description">
             <summary>Details on how this scripts work and what the effects of executing it would be.</summary>
         </member>
@@ -310,21 +316,18 @@
         <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Name">
             <summary>A brief infinitive sentence that describes the functionnality of this script.</summary>
         </member>
-        <member name="P:RaphaëlBardini.WinClean.Logic.IScript.Code">
-            <summary>The actual code making the script.</summary>
+        <member name="M:RaphaëlBardini.WinClean.Logic.IScript.Delete">
+            <summary>Deletes a script from the scripts dir.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.IScript.Execute">
             <summary>Executes the script in a new process.</summary>
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Operational.IScriptHost.Execute(RaphaëlBardini.WinClean.Logic.IScript)" path="/exception" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Operational.IScriptHost.Execute(RaphaëlBardini.WinClean.Logic.IScript)" path="/exception"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.IScript.Save">
             <summary>Saves this script to the scripts dir.</summary>
         </member>
-        <member name="M:RaphaëlBardini.WinClean.Logic.IScript.Delete">
-            <summary>Deletes a script from the scripts dir.</summary>
-        </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.Program">
-            <summary>Holds the <see cref="M:RaphaëlBardini.WinClean.Logic.Program.Main" /> method and application-wide data.</summary>
+            <summary>Holds the <see cref="M:RaphaëlBardini.WinClean.Logic.Program.Main"/> method and application-wide data.</summary>
         </member>
         <member name="F:RaphaëlBardini.WinClean.Logic.Program.InstallDir">
             <summary>Application install directory.</summary>
@@ -333,129 +336,137 @@
             <summary>Runs the specified scripts.</summary>
             <remarks>If there is more than 1 script to run, shows a GUI.</remarks>
             <param name="scripts"></param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="scripts" /> is <see langword="null" />.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Program.Exit">
             <summary>Disposes of ressources and exits the program.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Program.ShowAboutBox">
-            <summary>Displays the <see cref="T:RaphaëlBardini.WinClean.Presentation.AboutBox" /> form.</summary>
+            <summary>Displays the <see cref="T:RaphaëlBardini.WinClean.Presentation.AboutBox"/> form.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Program.ShowSettings">
-            <summary>Displays the <see cref="T:RaphaëlBardini.WinClean.Presentation.Settings" /> form.</summary>
+            <summary>Displays the <see cref="T:RaphaëlBardini.WinClean.Presentation.Settings"/> form.</summary>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.PropertyEditor">
             <summary>A set of properties that can be edited by the user.</summary>
         </member>
-        <member name="M:RaphaëlBardini.WinClean.Logic.PropertyEditor.#ctor(System.Collections.Generic.IList{RaphaëlBardini.WinClean.Logic.PropertyInfo})">
-            <summary>
-            Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.PropertyEditor" /> class with the specified properties.
-            </summary>
+        <member name="M:RaphaëlBardini.WinClean.Logic.PropertyEditor.#ctor(System.Collections.Generic.IList{System.ComponentModel.PropertyDescriptor})">
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.PropertyEditor"/> class with the specified properties.</summary>
             <param name="properties">The properties that the user will be able to see.</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="properties" /> is <see langword="null" />.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="properties"/> is <see langword="null"/>.</exception>
         </member>
-        <member name="M:RaphaëlBardini.WinClean.Logic.PropertyEditor.#ctor(RaphaëlBardini.WinClean.Logic.PropertyInfo[])">
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.PropertyEditor.#ctor(System.Collections.Generic.IList{RaphaëlBardini.WinClean.Logic.PropertyInfo})" />
+        <member name="M:RaphaëlBardini.WinClean.Logic.PropertyEditor.#ctor(System.ComponentModel.PropertyDescriptor[])">
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.PropertyEditor.#ctor(System.Collections.Generic.IList{System.ComponentModel.PropertyDescriptor})"/>
+        </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.PropertyEditor.Dispose">
+            <inheritdoc/>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.PropertyEditor.Properties">
             <summary>The properties that the user will be able to see.</summary>
         </member>
+        <member name="M:RaphaëlBardini.WinClean.Logic.PropertyEditor.OnCellPaint(System.Windows.Forms.TableLayoutCellPaintEventArgs)">
+            <inheritdoc/>
+        </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.PropertyInfo">
             <summary>Represents a property.</summary>
         </member>
-        <member name="M:RaphaëlBardini.WinClean.Logic.PropertyInfo.#ctor(System.String,System.String,System.Func{System.IConvertible},System.Action{System.IConvertible},System.IConvertible)">
-            <summary>
-            Intializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.PropertyInfo" /> class.
-            </summary>
+        <member name="M:RaphaëlBardini.WinClean.Logic.PropertyInfo.#ctor(System.String,System.String,System.Object,System.Object,System.Boolean)">
+            <summary>Intializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.PropertyInfo"/> class.</summary>
             <param name="name">The name of the property.</param>
             <param name="description">An user-friendly description for the property.</param>
-            <param name="get">The <see langword="get" /> acessor of the property.</param>
-            <param name="set">The facultative <see langword="set" /> acessor of the property.</param>
+            <param name="value">The current value of the property.</param>
             <param name="default">The value it defaults and can reset to.</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="name" />, <paramref name="description" /> or <paramref name="get" /> are <see langword="null" />.</exception>
+            <param name="readOnly">Wether the user should be able to edit the property.</param>
+            <exception cref="T:System.ArgumentNullException">
+            One or more of the arguments are <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentException"><paramref name="value"/> and <paramref name="default"/> are not of the same type.</exception>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.PropertyInfo.Default">
             <summary>The value it defaults and can reset to.</summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.PropertyInfo.Value">
+            <summary>
+            The current value of the property.
+            </summary>
+        </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.PropertyInfo.ReadOnly">
+            <summary>
+            <see langword="true"/> if the property doesn't have a <see langword="set"/> acessor; otherwise <see langword="false"/>.
+            </summary>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.PropertyInfo.Description">
             <summary>An user-friendly description for the property.</summary>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.PropertyInfo.Editor">
-            <summary>The control used to show and edit the value from the user.</summary>
-            <exception cref="T:System.NotSupportedException"></exception>
-        </member>
-        <member name="P:RaphaëlBardini.WinClean.Logic.PropertyInfo.Get">
-            <summary>The <see langword="get" /> acessor of the property.</summary>
+            <summary>The type editor of the object.</summary>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.PropertyInfo.Name">
             <summary>The name of the property.</summary>
-        </member>
-        <member name="P:RaphaëlBardini.WinClean.Logic.PropertyInfo.Set">
-            <summary>The facultative <see langword="set" /> acessor of the property.</summary>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.Script">
             <summary>A script that can be executed from a script host program.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Script.#ctor(System.String,System.Windows.Forms.ListView)">
             <summary>
-            Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.Script" /> class from the specified file in the scripts dir.
+            Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.Script"/> class from the specified file in the scripts dir.
             </summary>
             <param name="scriptFilename">The filename of the script file in the scripts dir.</param>
             <param name="displayInto">The list view in which the script will be displayed.</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="scriptFilename" /> is <see langword="null" />.</exception>
-            <exception cref="T:System.ArgumentException"><paramref name="scriptFilename" /> is not a valid filename.</exception>
-            <exception cref="M:RaphaëlBardini.WinClean.Logic.Helpers.FileSystem(System.Exception)"><paramref name="scriptFilename" /> cannot be accessed.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="scriptFilename"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="scriptFilename"/> is not a valid filename.</exception>
+            <exception cref="M:RaphaëlBardini.WinClean.Logic.Helpers.FileSystem(System.Exception)"><paramref name="scriptFilename"/> cannot be accessed.</exception>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Script.#ctor(System.String,System.String,RaphaëlBardini.WinClean.Logic.ScriptAdvised,System.Collections.Generic.ICollection{RaphaëlBardini.WinClean.Logic.Impact},System.Windows.Forms.ListViewGroup,System.IO.FileInfo)">
-            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.Script" /> class.</summary>
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.Script"/> class.</summary>
             <param name="name">A brief infinitive sentence that describes the functionnality of this script.</param>
             <param name="description">Details on how this scripts work and what the effects of executing it would be.</param>
             <param name="advised">If running this script is advised in general purpose.</param>
             <param name="impacts">System impacts of running this script.</param>
-            <param name="group">The list view group the script will be part of. This parameter can be <see langword="null" />.</param>
+            <param name="group">The list view group the script will be part of. This parameter can be <see langword="null"/>.</param>
             <param name="source">The source script file.</param>
-            <exception cref="T:System.ArgumentNullException">One or more parameters are <see langword="null" />.</exception>
-            <exception cref="M:RaphaëlBardini.WinClean.Logic.Helpers.FileSystem(System.Exception)"><paramref name="source" /> cannot be accessed.</exception>
-            <exception cref="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException"><paramref name="source" />'s extensions is not supported.</exception>
+            <exception cref="T:System.ArgumentNullException">One or more parameters are <see langword="null"/>.</exception>
+            <exception cref="M:RaphaëlBardini.WinClean.Logic.Helpers.FileSystem(System.Exception)"><paramref name="source"/> cannot be accessed.</exception>
+            <exception cref="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException"><paramref name="source"/>'s extensions is not supported.</exception>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.Script.Advised">
-            <inheritdoc />
+            <inheritdoc/>
             <remarks>Set accessor changes the background color.</remarks>
         </member>
+        <member name="P:RaphaëlBardini.WinClean.Logic.Script.Code">
+            <inheritdoc/>
+        </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.Script.Description">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.Script.Impacts">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.Script.Name">
-            <inheritdoc />
-        </member>
-        <member name="P:RaphaëlBardini.WinClean.Logic.Script.Code">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Script.Delete">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Script.Execute">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Script.Save">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Script.EmulateAlpha(System.Drawing.Color,System.Drawing.Color,System.Byte)">
             <summary>Emulates alpha transparency to a specified color.</summary>
             <param name="color">The main color.</param>
             <param name="fadeIn">The color "behind" the main color.</param>
             <param name="alpha">The alpha byte color component to use.</param>
-            <returns><paramref name="color" />, blended into <paramref name="fadeIn" />.</returns>
-            <remarks>Real alpha values of <paramref name="color" /> and <paramref name="fadeIn" /> are ignored.</remarks>
+            <returns><paramref name="color"/>, blended into <paramref name="fadeIn"/>.</returns>
+            <remarks>Real alpha values of <paramref name="color"/> and <paramref name="fadeIn"/> are ignored.</remarks>
             .
-            <seealso href="https://stackoverflow.com/a/3722337/11718061" />
+            <seealso href="https://stackoverflow.com/a/3722337/11718061"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.Script.GetColor(RaphaëlBardini.WinClean.Logic.ScriptAdvised)">
             <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">
-            <paramref name="scriptAdvised" /> is not a defined <see cref="T:RaphaëlBardini.WinClean.Logic.ScriptAdvised" /> constant.
+            <paramref name="scriptAdvised"/> is not a defined <see cref="T:RaphaëlBardini.WinClean.Logic.ScriptAdvised"/> constant.
             </exception>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.ScriptAdvised">
@@ -483,14 +494,14 @@
             </summary>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI">
-            <summary>Represents a <see cref="T:RaphaëlBardini.WinClean.Logic.Script" /> collection that can be executed.</summary>
+            <summary>Represents a <see cref="T:RaphaëlBardini.WinClean.Logic.Script"/> collection that can be executed.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI.#ctor(System.Collections.Generic.IEnumerable{RaphaëlBardini.WinClean.Logic.IScript})">
-            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI" /> class.</summary>
-            <exception cref="T:System.ArgumentNullException"><paramref name="scripts" /> is <see langword="null" />.</exception>
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI"/> class.</summary>
+            <exception cref="T:System.ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI.Dispose">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ScriptExecutorGUI.ExecuteAll">
             <summary>Executes all the scripts and displays a dialog tracking the progress.</summary>
@@ -499,35 +510,33 @@
             <summary>Provides methods representing the available operations with the applicaton scripts dir.</summary>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Logic.ScriptsDir.Info">
-            <summary>The <see cref="T:System.IO.DirectoryInfo" /> representing the scripts directory.</summary>
+            <summary>The <see cref="T:System.IO.DirectoryInfo"/> representing the scripts directory.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ScriptsDir.InScriptsDir(System.String)">
-            <summary>
-            Returns the path of the specified filename as if it was in the scripts dir.
-            </summary>
+            <summary>Returns the path of the specified filename as if it was in the scripts dir.</summary>
             <param name="filename">The filename to join with the scripts dir.</param>
-            <returns><paramref name="filename" /> relative to the scripts dir.</returns>
+            <returns><paramref name="filename"/> relative to the scripts dir.</returns>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ScriptsDir.LoadAllScripts(System.Windows.Forms.ListView)">
             <summary>Loads all the scripts present in the scripts directory.</summary>
             <param name="loadInto">The listView to load the scripts into.</param>
             <returns>The scripts previously saved into the scripts dir.</returns>
-            <remarks>Lazy <see langword="yield return" /> iterator.</remarks>
+            <remarks>Lazy <see langword="yield return"/> iterator.</remarks>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Logic.ToEnumerabling">
-            <summary>Provides extension methods for converting collections to <see cref="T:System.Collections.Generic.IEnumerable`1" /> without casting.</summary>
+            <summary>Provides extension methods for converting collections to <see cref="T:System.Collections.Generic.IEnumerable`1"/> without casting.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ListView.CheckedListViewItemCollection)">
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ToolStripItemCollection)" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ToolStripItemCollection)"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ListView.ListViewItemCollection)">
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ToolStripItemCollection)" />
+            <inheritdoc cref="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ToolStripItemCollection)"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Logic.ToEnumerabling.ToEnumerable(System.Windows.Forms.ToolStripItemCollection)">
-            <summary>Converts a collection object to an <see cref="T:System.Collections.Generic.IEnumerable`1" />.</summary>
+            <summary>Converts a collection object to an <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</summary>
             <param name="c">The collection to convert.</param>
-            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1" /> containing the elements of <paramref name="c" />.</returns>
-            <exception cref="T:System.ArgumentNullException"><paramref name="c" /> is <see langword="null" />.</exception>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing the elements of <paramref name="c"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="c"/> is <see langword="null"/>.</exception>
         </member>
         <member name="T:RaphaëlBardini.WinClean.LogLevel">
             <summary>Specifies a minimum log level.</summary>
@@ -554,7 +563,7 @@
             <summary>Minimal log level for an entry.</summary>
         </member>
         <member name="F:RaphaëlBardini.WinClean.LogManager.DateTimeFilenameFormat">
-            <summary>Format string used by <see cref="M:System.DateTime.ToString(System.String)" /> used for NTFS filenames.</summary>
+            <summary>Format string used by <see cref="M:System.DateTime.ToString(System.String)"/> used for NTFS filenames.</summary>
         </member>
         <member name="F:RaphaëlBardini.WinClean.LogManager.LogDelimiter">
             <summary>CSV Log entry column delimiter.</summary>
@@ -569,31 +578,31 @@
             <summary>Empties the log folder, except for the current log file.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.LogManager.Dispose">
-            <inheritdoc cref="M:System.IDisposable.Dispose" />
+            <inheritdoc cref="M:System.IDisposable.Dispose"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.LogManager.Log(System.String,System.String,RaphaëlBardini.WinClean.LogLevel,System.String,System.Int32,System.String)">
             <summary>Logs a string.</summary>
             <param name="str">The string to log.</param>
             <param name="happening">What's happening right now.</param>
             <param name="lvl">The level of the log entry.</param>
-            <param name="caller"><see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" /> - Don't specify</param>
-            <param name="callLine"><see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute" /> - Don't specify</param>
-            <param name="callFile"><see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute" /> - Don't specify</param>
+            <param name="caller"><see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute"/> - Don't specify</param>
+            <param name="callLine"><see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute"/> - Don't specify</param>
+            <param name="callFile"><see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute"/> - Don't specify</param>
         </member>
         <member name="M:RaphaëlBardini.WinClean.LogManager.Log(System.Exception,RaphaëlBardini.WinClean.LogLevel,System.String,System.Int32,System.String)">
             <summary>Logs an exception and it's details.</summary>
             <param name="e">The exception to log.</param>
             <param name="lvl">The level of the entry.</param>
-            <param name="caller"><see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" /> - Don't specify</param>
-            <param name="callLine"><see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute" /> - Don't specify</param>
-            <param name="callFile"><see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute" /> - Don't specify</param>
+            <param name="caller"><see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute"/> - Don't specify</param>
+            <param name="callLine"><see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute"/> - Don't specify</param>
+            <param name="callFile"><see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute"/> - Don't specify</param>
         </member>
         <member name="M:RaphaëlBardini.WinClean.LogManager.CanLogFileBeDeleted(System.IO.FileInfo)">
             <summary>Checks that a log file is valid for deletion. Doesn't throw.</summary>
             <param name="logFile">The filename or path of the log file.</param>
             <returns>
-            <see langword="true" /> if <paramref name="logFile" /> is a valid path, it's filename is a valid log filename, and
-            it's not the current session's log file. If one or more of these conditions are not met, <see langword="false" />.
+            <see langword="true"/> if <paramref name="logFile"/> is a valid path, it's filename is a valid log filename, and
+            it's not the current session's log file. If one or more of these conditions are not met, <see langword="false"/>.
             </returns>
         </member>
         <member name="M:RaphaëlBardini.WinClean.LogManager.CreateLogDir">
@@ -602,8 +611,8 @@
         <member name="M:RaphaëlBardini.WinClean.LogManager.DeleteLogFile(System.IO.FileInfo)">
             <summary>Deletes a log file.</summary>
             <param name="path">The full path of the log file to delete.</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
-            <exception cref="T:System.NotSupportedException"><paramref name="path" /> is in an invalid format.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.NotSupportedException"><paramref name="path"/> is in an invalid format.</exception>
             <exception cref="T:System.IO.PathTooLongException">
             The specified path, file name, or both exceed the system-defined maximum length.
             </exception>
@@ -624,21 +633,13 @@
         <member name="M:RaphaëlBardini.WinClean.Operational.IScriptHost.Execute(RaphaëlBardini.WinClean.Logic.IScript)">
             <summary>Executes the specified script.</summary>
             <param name="script">The script to execute.</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="script" /> is <see langword="null" />.</exception>
-        </member>
-        <member name="M:RaphaëlBardini.WinClean.Operational.NativeMethods.RemoveTitleBarIcon(System.IntPtr)">
-            <summary>Removes the system menu icon from a window.</summary>
-            <param name="window">The Win32 window to remove the icon from.</param>
-            <returns>The old window icon</returns>
-        </member>
-        <member name="M:RaphaëlBardini.WinClean.Operational.NativeMethods.RemoveTitleBarIcon(System.Windows.Forms.IWin32Window)">
-            <inheritdoc cref="M:RaphaëlBardini.WinClean.Operational.NativeMethods.RemoveTitleBarIcon(System.IntPtr)" />
+            <exception cref="T:System.ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Operational.ScriptHost">
-            <inheritdoc cref="T:RaphaëlBardini.WinClean.Operational.IScriptHost" />
+            <inheritdoc cref="T:RaphaëlBardini.WinClean.Operational.IScriptHost"/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Operational.ScriptHost.#ctor(System.IO.FileInfo,System.String,System.Text.Encoding,RaphaëlBardini.WinClean.Logic.ExtensionGroup)">
-            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost" /> class.</summary>
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost"/> class.</summary>
             <param name="executable">The filename of the script host program's executable.</param>
             <param name="arguments">
             A formattable string representing the appropriate arguments to run the script host, hidden, with a single script. It
@@ -646,15 +647,15 @@
             </param>
             <param name="encoding">The default encoding of the script host.</param>
             <param name="supportedExtensions">The extensions the script host supports.</param>
-            <exception cref="T:System.ArgumentNullException">One ore more parameters are <see langword="null" />.</exception>
-            <exception cref="T:System.ArgumentException"><paramref name="arguments" /> does not contain exactly 1 formattable argument..</exception>
+            <exception cref="T:System.ArgumentNullException">One ore more parameters are <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="arguments"/> does not contain exactly 1 formattable argument..</exception>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Operational.ScriptHost.FromFileExtension(System.String)">
-            <summary>Creates a new <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost" /> object from a script file extension.</summary>
-            <param name="ext">The file extension to create a <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost" /> from.</param>
-            <exception cref="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException"><paramref name="ext" /> is not supported by any known <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost" />.</exception>
-            <exception cref="T:System.ArgumentNullException"><paramref name="ext" /> is <see langword="null" />.</exception>
-            <returns>A known <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost" />.</returns>
+            <summary>Creates a new <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost"/> object from a script file extension.</summary>
+            <param name="ext">The file extension to create a <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost"/> from.</param>
+            <exception cref="T:RaphaëlBardini.WinClean.Logic.BadFileExtensionException"><paramref name="ext"/> is not supported by any known <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="ext"/> is <see langword="null"/>.</exception>
+            <returns>A known <see cref="T:RaphaëlBardini.WinClean.Operational.ScriptHost"/>.</returns>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Operational.ScriptHost.Cmd">
             <summary>The Windows Command Line interpreter (cmd.exe) script host.</summary>
@@ -666,29 +667,29 @@
             <summary>The Windows Registry Editor script host.</summary>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Operational.ScriptHost.DisplayName">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="P:RaphaëlBardini.WinClean.Operational.ScriptHost.SupportedExtensions">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Operational.ScriptHost.Execute(RaphaëlBardini.WinClean.Logic.IScript)">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Operational.ScriptHost.ToString">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Operational.ScriptHost.ToUnicode(System.IO.StreamReader)">
             <summary>Reads everything in a stream and returns the converted Uunicode text.</summary>
             <param name="stream">A text stream in a non-unicode encoding.</param>
-            <returns>The text of <paramref name="stream" /> in Unicode.</returns>
+            <returns>The text of <paramref name="stream"/> in Unicode.</returns>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Operational.ScriptHost.IncompleteArguments">
             <summary>Formattable executable arguments with a single file path argument.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Operational.ScriptHost.IncompleteArguments.#ctor(System.String)">
             <param name="args">Formattable string with 1 argument, the path of the script file.</param>
-            <exception cref="T:System.ArgumentException"><paramref name="args" /> does not contain exactly one argument.</exception>
-            <exception cref="T:System.ArgumentNullException"><paramref name="args" /> is <see langword="null" />.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="args"/> does not contain exactly one argument.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="args"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Operational.ScriptHost.IncompleteArguments.Complete(System.IO.FileInfo)">
             <summary>Completes the arguments with the specified script file.</summary>
@@ -696,7 +697,7 @@
             <returns>The completed arguments</returns>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Operational.ScriptHost.IncompleteArguments.ToString">
-            <inheritdoc />
+            <inheritdoc/>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Operational.ShellProperty">
             <summary>Provides static methods for manipulation file and folder shell properties.</summary>
@@ -704,14 +705,14 @@
         <member name="M:RaphaëlBardini.WinClean.Operational.ShellProperty.GetFileDescription(System.IO.FileInfo)">
             <summary>Gets the shell attribute labeled "File Description" of a file.</summary>
             <param name="path">The file to get the file description from.</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
-            <returns>The file description, or <see cref="F:System.String.Empty" /> if there is none.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+            <returns>The file description, or <see cref="F:System.String.Empty"/> if there is none.</returns>
         </member>
         <member name="T:RaphaëlBardini.WinClean.Presentation.AboutBox">
             <summary>Displays the traditional about box with application-related metadata</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Presentation.AboutBox.#ctor">
-            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.AboutBox" /> classe.</summary>
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.AboutBox"/> classe.</summary>
         </member>
         <member name="F:RaphaëlBardini.WinClean.Presentation.AboutBox.components">
             <summary>
@@ -733,7 +734,7 @@
             <summary>A confirmation modal dialog box ensuring that the user knows what he's doing when about to execute scripts.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Presentation.FormConfirm.#ctor">
-            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.FormConfirm" /> class.</summary>
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.FormConfirm"/> class.</summary>
         </member>
         <member name="F:RaphaëlBardini.WinClean.Presentation.FormConfirm.components">
             <summary>
@@ -759,12 +760,12 @@
             </summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Presentation.MainForm.#ctor">
-            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.MainForm" /> class.</summary>
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.MainForm"/> class.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Presentation.MainForm.ListViewScripts_Resize(System.Object,System.EventArgs)">
             <summary>
-            Resizes <see cref="F:RaphaëlBardini.WinClean.Presentation.MainForm.listViewScripts" />'s main and only column, <see cref="F:RaphaëlBardini.WinClean.Presentation.MainForm.scriptHeaderName" />, to match <see
-            cref="F:RaphaëlBardini.WinClean.Presentation.MainForm.listViewScripts" />'s new size.
+            Resizes <see cref="F:RaphaëlBardini.WinClean.Presentation.MainForm.listViewScripts"/>'s main and only column, <see cref="F:RaphaëlBardini.WinClean.Presentation.MainForm.scriptHeaderName"/>, to match <see
+            cref="F:RaphaëlBardini.WinClean.Presentation.MainForm.listViewScripts"/>'s new size.
             </summary>
         </member>
         <member name="F:RaphaëlBardini.WinClean.Presentation.MainForm.components">
@@ -788,7 +789,7 @@
             <summary>Form to acess and modify application settings.</summary>
         </member>
         <member name="M:RaphaëlBardini.WinClean.Presentation.Settings.#ctor">
-            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.Settings" /> class.</summary>
+            <summary>Initializes a new instance of the <see cref="T:RaphaëlBardini.WinClean.Presentation.Settings"/> class.</summary>
         </member>
         <member name="F:RaphaëlBardini.WinClean.Presentation.Settings.components">
             <summary>

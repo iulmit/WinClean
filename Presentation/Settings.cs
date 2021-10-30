@@ -1,9 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
-using System.Globalization;
 using System.Windows.Forms;
 
-using RaphaëlBardini.WinClean.Logic;
+using PropertyGridHelpers;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
@@ -16,13 +15,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         public Settings()
         {
             InitializeComponent();
-            Controls.Add(new PropertyEditor(
-                new PropertyInfo("Niveau de logs",
-                                           "Niveau de journalisation global à l'application.",
-                                           () => Properties.Settings.Default.LogLevel,
-                                           (value) => Properties.Settings.Default.LogLevel = value.ToInt32(CultureInfo.CurrentCulture),
-                                           (int)LogLevel.Verbose)
-                ));
+            propertyGrid.SelectedObject = Properties.Settings.Default;
         }
 
         #endregion Public Constructors

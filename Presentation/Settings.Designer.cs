@@ -33,7 +33,14 @@ namespace RaphaëlBardini.WinClean.Presentation
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
+            this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.SuspendLayout();
+            // 
+            // propertyGrid
+            // 
+            this.propertyGrid.CausesValidation = false;
+            resources.ApplyResources(this.propertyGrid, "propertyGrid");
+            this.propertyGrid.Name = "propertyGrid";
             // 
             // Settings
             // 
@@ -41,6 +48,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.CausesValidation = false;
+            this.Controls.Add(this.propertyGrid);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -52,5 +60,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         }
 
         #endregion
+
+        private System.Windows.Forms.PropertyGrid propertyGrid;
     }
 }
