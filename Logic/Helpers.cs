@@ -23,6 +23,11 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Public Methods
 
+        /// <exception cref="ArgumentNullException"><paramref name="page"/> is <see langword="null"/>.</exception>
+        /// <inheritdoc cref="TaskDialog.ShowDialog(IWin32Window, TaskDialogPage, TaskDialogStartupLocation)"/>
+        public static TaskDialogButton ShowDialog(this TaskDialogPage page, IWin32Window? owner = null)
+            => owner is null ? TaskDialog.ShowDialog(page) : TaskDialog.ShowDialog(owner, page);
+
         /// <summary>Checks if an exception is of a type that .NET Core's filesystem methods may throw.</summary>
         /// <returns>
         /// <para><see langword="true"/> if <paramref name="e"/> is of any of the following types :</para>
@@ -31,7 +36,8 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <para>Otherwise; <see langword="false"/>.</para>
         /// </returns>
         /// <remarks>Note that unrelated methods may throw any of these exceptions.</remarks>
-        public static bool FileSystem(this Exception e) => e is IOException or UnauthorizedAccessException or NotSupportedException or System.Security.SecurityException;
+        public static bool FileSystem(this Exception e)
+            => e is IOException or UnauthorizedAccessException or NotSupportedException or System.Security.SecurityException;
 
         /// <summary>Checks if a string is a valid Windows filename.</summary>
         /// <param name="filenameCandidate">The filename candidate.</param>

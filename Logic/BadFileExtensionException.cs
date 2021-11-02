@@ -27,7 +27,7 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Properties
 
         /// <summary>The wrong file extension.</summary>
-        public string Extension { get; }
+        public string Extension { get; } = string.Empty;
 
         #endregion Public Properties
     }

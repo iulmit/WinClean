@@ -32,7 +32,6 @@ namespace RaphaëlBardini.WinClean.Presentation
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TableLayoutPanel tableLayoutPanelAll;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.ToolStripContainer toolStripContainerAll;
@@ -55,11 +54,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.MainMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewScripts = new System.Windows.Forms.ListView();
             this.scriptHeaderName = new System.Windows.Forms.ColumnHeader();
-            this.contextMenuStripScripts = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ContextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuRename = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuExecute = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.scriptEditor = new RaphaëlBardini.WinClean.Presentation.ScriptEditor();
             this.openFileDialogScripts = new System.Windows.Forms.OpenFileDialog();
             tableLayoutPanelAll = new System.Windows.Forms.TableLayoutPanel();
             toolStripContainerAll = new System.Windows.Forms.ToolStripContainer();
@@ -78,7 +73,6 @@ namespace RaphaëlBardini.WinClean.Presentation
             toolStripContainerAll.SuspendLayout();
             tableLayoutPanelButtons.SuspendLayout();
             mainMenuStrip.SuspendLayout();
-            this.contextMenuStripScripts.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanelAll
@@ -86,16 +80,18 @@ namespace RaphaëlBardini.WinClean.Presentation
             resources.ApplyResources(tableLayoutPanelAll, "tableLayoutPanelAll");
             tableLayoutPanelAll.CausesValidation = false;
             tableLayoutPanelAll.Controls.Add(this.listViewScripts, 0, 0);
+            tableLayoutPanelAll.Controls.Add(this.scriptEditor, 1, 0);
             tableLayoutPanelAll.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             tableLayoutPanelAll.Name = "tableLayoutPanelAll";
             // 
             // toolStripContainerAll
             // 
+            resources.ApplyResources(toolStripContainerAll, "toolStripContainerAll");
             // 
             // toolStripContainerAll.BottomToolStripPanel
             // 
-            toolStripContainerAll.BottomToolStripPanel.CausesValidation = false;
             resources.ApplyResources(toolStripContainerAll.BottomToolStripPanel, "toolStripContainerAll.BottomToolStripPanel");
+            toolStripContainerAll.BottomToolStripPanel.CausesValidation = false;
             toolStripContainerAll.BottomToolStripPanelVisible = false;
             // 
             // toolStripContainerAll.ContentPanel
@@ -103,24 +99,24 @@ namespace RaphaëlBardini.WinClean.Presentation
             resources.ApplyResources(toolStripContainerAll.ContentPanel, "toolStripContainerAll.ContentPanel");
             toolStripContainerAll.ContentPanel.Controls.Add(tableLayoutPanelAll);
             toolStripContainerAll.ContentPanel.Controls.Add(tableLayoutPanelButtons);
-            resources.ApplyResources(toolStripContainerAll, "toolStripContainerAll");
             // 
             // toolStripContainerAll.LeftToolStripPanel
             // 
-            toolStripContainerAll.LeftToolStripPanel.CausesValidation = false;
             resources.ApplyResources(toolStripContainerAll.LeftToolStripPanel, "toolStripContainerAll.LeftToolStripPanel");
+            toolStripContainerAll.LeftToolStripPanel.CausesValidation = false;
             toolStripContainerAll.LeftToolStripPanelVisible = false;
             toolStripContainerAll.Name = "toolStripContainerAll";
             // 
             // toolStripContainerAll.RightToolStripPanel
             // 
-            toolStripContainerAll.RightToolStripPanel.CausesValidation = false;
             resources.ApplyResources(toolStripContainerAll.RightToolStripPanel, "toolStripContainerAll.RightToolStripPanel");
+            toolStripContainerAll.RightToolStripPanel.CausesValidation = false;
             toolStripContainerAll.RightToolStripPanelVisible = false;
             toolStripContainerAll.TabStop = false;
             // 
             // toolStripContainerAll.TopToolStripPanel
             // 
+            resources.ApplyResources(toolStripContainerAll.TopToolStripPanel, "toolStripContainerAll.TopToolStripPanel");
             toolStripContainerAll.TopToolStripPanel.CausesValidation = false;
             toolStripContainerAll.TopToolStripPanel.Controls.Add(mainMenuStrip);
             // 
@@ -163,9 +159,9 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             // mainMenuStrip
             // 
+            resources.ApplyResources(mainMenuStrip, "mainMenuStrip");
             mainMenuStrip.AllowMerge = false;
             mainMenuStrip.BackColor = System.Drawing.SystemColors.Control;
-            resources.ApplyResources(mainMenuStrip, "mainMenuStrip");
             mainMenuStrip.GripMargin = new System.Windows.Forms.Padding(2);
             mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             MainMenuFile,
@@ -191,8 +187,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             // MainMenuQuit
             // 
-            MainMenuQuit.Name = "MainMenuQuit";
             resources.ApplyResources(MainMenuQuit, "MainMenuQuit");
+            MainMenuQuit.Name = "MainMenuQuit";
             MainMenuQuit.Click += new System.EventHandler(this.MainMenuQuit_Click);
             // 
             // MainMenuSelect
@@ -207,26 +203,26 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             // MainMenuSelectAll
             // 
-            this.MainMenuSelectAll.Name = "MainMenuSelectAll";
             resources.ApplyResources(this.MainMenuSelectAll, "MainMenuSelectAll");
+            this.MainMenuSelectAll.Name = "MainMenuSelectAll";
             this.MainMenuSelectAll.Click += new System.EventHandler(this.MainMenuSelectAll_Click);
             // 
             // MainMenuSelectNothing
             // 
-            this.MainMenuSelectNothing.Name = "MainMenuSelectNothing";
             resources.ApplyResources(this.MainMenuSelectNothing, "MainMenuSelectNothing");
+            this.MainMenuSelectNothing.Name = "MainMenuSelectNothing";
             this.MainMenuSelectNothing.Click += new System.EventHandler(this.MainMenuSelectNothing_Click);
             // 
             // MainMenuSelectMaintenance
             // 
-            this.MainMenuSelectMaintenance.Name = "MainMenuSelectMaintenance";
             resources.ApplyResources(this.MainMenuSelectMaintenance, "MainMenuSelectMaintenance");
+            this.MainMenuSelectMaintenance.Name = "MainMenuSelectMaintenance";
             this.MainMenuSelectMaintenance.Click += new System.EventHandler(this.MainMenuSelectMaintenance_Click);
             // 
             // MainMenuSelectDebloat
             // 
-            this.MainMenuSelectDebloat.Name = "MainMenuSelectDebloat";
             resources.ApplyResources(this.MainMenuSelectDebloat, "MainMenuSelectDebloat");
+            this.MainMenuSelectDebloat.Name = "MainMenuSelectDebloat";
             this.MainMenuSelectDebloat.Click += new System.EventHandler(this.MainMenuSelectDebloat_Click);
             // 
             // MainMenuSettings
@@ -251,8 +247,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             // MainMenuAbout
             // 
-            this.MainMenuAbout.Name = "MainMenuAbout";
             resources.ApplyResources(this.MainMenuAbout, "MainMenuAbout");
+            this.MainMenuAbout.Name = "MainMenuAbout";
             this.MainMenuAbout.Click += new System.EventHandler(this.MainMenuStripAbout_Click);
             // 
             // listViewScripts
@@ -263,14 +259,13 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.listViewScripts.CheckBoxes = true;
             this.listViewScripts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.scriptHeaderName});
-            this.listViewScripts.ContextMenuStrip = this.contextMenuStripScripts;
             this.listViewScripts.FullRowSelect = true;
             this.listViewScripts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewScripts.HideSelection = false;
             this.listViewScripts.Name = "listViewScripts";
             this.listViewScripts.UseCompatibleStateImageBehavior = false;
             this.listViewScripts.View = System.Windows.Forms.View.Details;
-            this.listViewScripts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewScripts_ItemChecked);
+            this.listViewScripts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.ListViewScripts_ItemChecked);
             this.listViewScripts.SelectedIndexChanged += new System.EventHandler(this.ListViewScripts_SelectedIndexChanged);
             this.listViewScripts.Resize += new System.EventHandler(this.ListViewScripts_Resize);
             // 
@@ -278,46 +273,17 @@ namespace RaphaëlBardini.WinClean.Presentation
             // 
             resources.ApplyResources(this.scriptHeaderName, "scriptHeaderName");
             // 
-            // contextMenuStripScripts
+            // scriptEditor
             // 
-            this.contextMenuStripScripts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ContextMenuDelete,
-            this.ContextMenuRename,
-            this.ContextMenuExecute,
-            this.ContextMenuNew});
-            this.contextMenuStripScripts.Name = "contextMenuStripScripts";
-            this.contextMenuStripScripts.ShowImageMargin = false;
-            resources.ApplyResources(this.contextMenuStripScripts, "contextMenuStripScripts");
-            this.contextMenuStripScripts.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuScripts_Opening);
-            // 
-            // ContextMenuDelete
-            // 
-            this.ContextMenuDelete.Name = "ContextMenuDelete";
-            resources.ApplyResources(this.ContextMenuDelete, "ContextMenuDelete");
-            this.ContextMenuDelete.Click += new System.EventHandler(this.ContextMenuDelete_Click);
-            // 
-            // ContextMenuRename
-            // 
-            this.ContextMenuRename.Name = "ContextMenuRename";
-            resources.ApplyResources(this.ContextMenuRename, "ContextMenuRename");
-            this.ContextMenuRename.Click += new System.EventHandler(this.ContextMenuRename_Click);
-            // 
-            // ContextMenuExecute
-            // 
-            this.ContextMenuExecute.Name = "ContextMenuExecute";
-            resources.ApplyResources(this.ContextMenuExecute, "ContextMenuExecute");
-            this.ContextMenuExecute.Click += new System.EventHandler(this.ContextMenuExecute_Click);
-            // 
-            // ContextMenuNew
-            // 
-            this.ContextMenuNew.Name = "ContextMenuNew";
-            resources.ApplyResources(this.ContextMenuNew, "ContextMenuNew");
-            this.ContextMenuNew.Click += new System.EventHandler(this.ContextMenuNew_Click);
+            resources.ApplyResources(this.scriptEditor, "scriptEditor");
+            this.scriptEditor.CausesValidation = false;
+            this.scriptEditor.Name = "scriptEditor";
+            this.scriptEditor.SelectedScript = null;
             // 
             // openFileDialogScripts
             // 
-            this.openFileDialogScripts.Multiselect = true;
             resources.ApplyResources(this.openFileDialogScripts, "openFileDialogScripts");
+            this.openFileDialogScripts.Multiselect = true;
             // 
             // MainForm
             // 
@@ -330,6 +296,8 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.MainMenuStrip = mainMenuStrip;
             this.Name = "MainForm";
             this.Opacity = 0.96D;
+            this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
+            this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
             tableLayoutPanelAll.ResumeLayout(false);
             toolStripContainerAll.ContentPanel.ResumeLayout(false);
             toolStripContainerAll.ContentPanel.PerformLayout();
@@ -341,7 +309,6 @@ namespace RaphaëlBardini.WinClean.Presentation
             tableLayoutPanelButtons.PerformLayout();
             mainMenuStrip.ResumeLayout(false);
             mainMenuStrip.PerformLayout();
-            this.contextMenuStripScripts.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -357,11 +324,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectMaintenance;
         private System.Windows.Forms.ToolStripMenuItem MainMenuSelectDebloat;
         private System.Windows.Forms.ColumnHeader scriptHeaderName;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuDelete;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuRename;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuExecute;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripScripts;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuNew;
         private System.Windows.Forms.OpenFileDialog openFileDialogScripts;
+        private ScriptEditor scriptEditor;
     }
 }

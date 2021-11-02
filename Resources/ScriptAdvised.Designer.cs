@@ -19,17 +19,17 @@ namespace RaphaëlBardini.WinClean.Resources {
     // à l'aide d'un outil, tel que ResGen ou Visual Studio.
     // Pour ajouter ou supprimer un membre, modifiez votre fichier .ResX, puis réexécutez ResGen
     // avec l'option /str ou régénérez votre projet VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Presets {
+    internal class ScriptAdvised {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Presets() {
+        internal ScriptAdvised() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RaphaëlBardini.WinClean.Resources.Presets", typeof(Presets).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RaphaëlBardini.WinClean.Resources.ScriptAdvised", typeof(ScriptAdvised).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,29 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Tous les scripts.
+        ///   Recherche une chaîne localisée semblable à Limited.
         /// </summary>
-        internal static string AllDesc {
+        internal static string Limited {
             get {
-                return ResourceManager.GetString("AllDesc", resourceCulture);
+                return ResourceManager.GetString("Limited", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Tout.
+        ///   Recherche une chaîne localisée semblable à No.
         /// </summary>
-        internal static string AllName {
+        internal static string No {
             get {
-                return ResourceManager.GetString("AllName", resourceCulture);
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Scripts correspondant à une opération initiale d&apos;amélioration des performances..
+        ///   Recherche une chaîne localisée semblable à Yes.
         /// </summary>
-        internal static string DebloatDesc {
+        internal static string Yes {
             get {
-                return ResourceManager.GetString("DebloatDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Debloat.
-        /// </summary>
-        internal static string DebloatName {
-            get {
-                return ResourceManager.GetString("DebloatName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Scripts correspondant à une opération de maintenance pouvant être effectuée régulièrement..
-        /// </summary>
-        internal static string MaintenanceDesc {
-            get {
-                return ResourceManager.GetString("MaintenanceDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Maintenance.
-        /// </summary>
-        internal static string MaintenanceName {
-            get {
-                return ResourceManager.GetString("MaintenanceName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Aucun script.
-        /// </summary>
-        internal static string NoneDesc {
-            get {
-                return ResourceManager.GetString("NoneDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Rien.
-        /// </summary>
-        internal static string NoneName {
-            get {
-                return ResourceManager.GetString("NoneName", resourceCulture);
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

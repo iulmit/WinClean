@@ -2,8 +2,6 @@
 
 using System.Windows.Forms;
 
-using PropertyGridHelpers;
-
 namespace RaphaëlBardini.WinClean.Presentation
 {
     /// <summary>Form to acess and modify application settings.</summary>
@@ -12,11 +10,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         #region Public Constructors
 
         /// <summary>Initializes a new instance of the <see cref="Settings"/> class.</summary>
-        public Settings()
-        {
-            InitializeComponent();
-            propertyGrid.SelectedObject = Properties.Settings.Default;
-        }
+        public Settings() => InitializeComponent();
 
         #endregion Public Constructors
     }

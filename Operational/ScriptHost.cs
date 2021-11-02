@@ -27,7 +27,7 @@ namespace RaphaëlBardini.WinClean.Operational
         #region Public Constructors
 
         /// <summary>Initializes a new instance of the <see cref="ScriptHost"/> class.</summary>
-        /// <param name="executable">The filename of the script host program's executable.</param>
+        /// <param name="executable">The script host program's executable.</param>
         /// <param name="arguments">
         /// A formattable string representing the appropriate arguments to run the script host, hidden, with a single script. It
         /// must have exactly 1 argument, the path of the script file to execute.
@@ -35,13 +35,18 @@ namespace RaphaëlBardini.WinClean.Operational
         /// <param name="encoding">The default encoding of the script host.</param>
         /// <param name="supportedExtensions">The extensions the script host supports.</param>
         /// <exception cref="ArgumentNullException">One ore more parameters are <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentException"><paramref name="arguments"/> does not contain exactly 1 formattable argument..</exception>
+        /// <exception cref="ArgumentException"><paramref name="arguments"/> does not contain exactly 1 formattable argument. -- OR -- <paramref name="executable"/> is not an executable (*.exe).</exception>
         public ScriptHost(FileInfo executable, string arguments, Encoding encoding, ExtensionGroup supportedExtensions)
         {
+            if ((executable ?? throw new ArgumentNullException(nameof(executable))).Extension != ".exe")
+            {
+                throw new ArgumentException("Not an executable (*.exe)", nameof(executable));
+            }
+
             _executable = executable;
             _arguments = new(arguments);
-            _encoding = encoding;
-            SupportedExtensions = supportedExtensions;
+            _encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
+            SupportedExtensions = supportedExtensions ?? throw new ArgumentNullException(nameof(supportedExtensions));
         }
 
         #endregion Public Constructors
@@ -70,7 +75,7 @@ namespace RaphaëlBardini.WinClean.Operational
 
         /// <summary>The Windows Command Line interpreter (cmd.exe) script host.</summary>
         public static ScriptHost Cmd
-            => new(executable: new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)),
+            => new(executable: new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)!),
                    arguments: "/d /c \"\"{0}\"\"",
                    encoding: Encoding.GetEncoding(850),
                    supportedExtensions: new(".cmd", ".bat"));
@@ -99,18 +104,9 @@ namespace RaphaëlBardini.WinClean.Operational
 
         #region Private Methods
 
-        private void Execute(FileInfo script, Action delete)
+        private void Execute(FileInfo script)
         {
-            Assert(script is not null && delete is not null);
-
-            try
-            {
-                script.ThrowIfUnacessible(FileAccess.Read);
-            }
-            catch (Exception e) when (e.FileSystem())
-            {
-                ErrorDialog.ScriptInacessible(script.Name, e, () => Execute(script, delete), delete);
-            }
+            Assert(script is not null);
 
             ToString().Log("Script execution");
             using Process host = Process.Start(new ProcessStartInfo(_executable.FullName, _arguments.Complete(script))
@@ -120,7 +116,7 @@ namespace RaphaëlBardini.WinClean.Operational
                 RedirectStandardOutput = true,
                 StandardErrorEncoding = _encoding,
                 StandardOutputEncoding = _encoding,
-            });
+            }) ?? throw new InvalidOperationException("Process.Start returned null");
 
             // placeholder -- simulate the time a script would take to complete.
             Thread.Sleep(2000);
@@ -140,8 +136,11 @@ namespace RaphaëlBardini.WinClean.Operational
             _ = script ?? throw new ArgumentNullException(nameof(script));
 
             FileInfo tmpScriptFile = new(Path.GetTempFileName());
-            tmpScriptFile.CreateText().Write(script.Code);
-            Execute(tmpScriptFile, script.Delete);
+            using StreamWriter s = tmpScriptFile.CreateText();
+            {
+                s.Write(script.Code);
+            }
+            Execute(tmpScriptFile);
         }
 
         /// <inheritdoc/>

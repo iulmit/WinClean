@@ -112,33 +112,18 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllDesc" xml:space="preserve">
-    <value>Tous les scripts</value>
+  <data name="Yes" xml:space="preserve">
+    <value>Oui</value>
   </data>
-  <data name="AllName" xml:space="preserve">
-    <value>Tout</value>
+  <data name="Limited" xml:space="preserve">
+    <value>Limité</value>
   </data>
-  <data name="DebloatDesc" xml:space="preserve">
-    <value>Scripts correspondant à une opération initiale d'amélioration des performances.</value>
-  </data>
-  <data name="DebloatName" xml:space="preserve">
-    <value>Debloat</value>
-  </data>
-  <data name="MaintenanceDesc" xml:space="preserve">
-    <value>Scripts correspondant à une opération de maintenance pouvant être effectuée régulièrement.</value>
-  </data>
-  <data name="MaintenanceName" xml:space="preserve">
-    <value>Maintenance</value>
-  </data>
-  <data name="NoneDesc" xml:space="preserve">
-    <value>Aucun script</value>
-  </data>
-  <data name="NoneName" xml:space="preserve">
-    <value>Rien</value>
+  <data name="No" xml:space="preserve">
+    <value>Non</value>
   </data>
 </root>

@@ -19,7 +19,7 @@ namespace RaphaëlBardini.WinClean.Resources {
     // à l'aide d'un outil, tel que ResGen ou Visual Studio.
     // Pour ajouter ou supprimer un membre, modifiez votre fichier .ResX, puis réexécutez ResGen
     // avec l'option /str ou régénérez votre projet VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ImpactEffect {
@@ -61,7 +61,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Données de diagnostic.
+        ///   Recherche une chaîne localisée semblable à Diagnostic data.
         /// </summary>
         internal static string DataCollection {
             get {
@@ -70,7 +70,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Ergonomie.
+        ///   Recherche une chaîne localisée semblable à Ergonomics.
         /// </summary>
         internal static string Ergonomics {
             get {
@@ -79,7 +79,16 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Utilisation mémoire.
+        ///   Recherche une chaîne localisée semblable à Free storage space.
+        /// </summary>
+        internal static string FreeStorageSpace {
+            get {
+                return ResourceManager.GetString("FreeStorageSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Memory usage.
         /// </summary>
         internal static string MemoryUsage {
             get {
@@ -88,7 +97,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Utilisation réseau.
+        ///   Recherche une chaîne localisée semblable à Network usage.
         /// </summary>
         internal static string NetworkUsage {
             get {
@@ -97,7 +106,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Temps de réponse système.
+        ///   Recherche une chaîne localisée semblable à System response time.
         /// </summary>
         internal static string ResponseTime {
             get {
@@ -106,7 +115,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Temps d&apos;arrêt système.
+        ///   Recherche une chaîne localisée semblable à System shutdown time.
         /// </summary>
         internal static string ShutdownTime {
             get {
@@ -115,7 +124,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Temps de démarrage système.
+        ///   Recherche une chaîne localisée semblable à System startup time.
         /// </summary>
         internal static string StartupTime {
             get {
@@ -124,16 +133,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Capacité disque.
-        /// </summary>
-        internal static string StorageCapacity {
-            get {
-                return ResourceManager.GetString("StorageCapacity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Vitesse disque.
+        ///   Recherche une chaîne localisée semblable à Disk speed.
         /// </summary>
         internal static string StorageSpeed {
             get {
@@ -142,7 +142,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Apparence.
+        ///   Recherche une chaîne localisée semblable à Visuals.
         /// </summary>
         internal static string Visuals {
             get {

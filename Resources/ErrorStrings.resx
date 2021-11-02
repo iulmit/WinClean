@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Error" xml:space="preserve">
-    <value>Erreur</value>
+    <value>Error</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Information</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Avertissement</value>
+    <value>Warning</value>
   </data>
 </root>

@@ -29,33 +29,36 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <summary>
         /// Initializes a new instance of the <see cref="Script"/> class from the specified file in the scripts dir.
         /// </summary>
-        /// <param name="scriptFilename">The filename of the script file in the scripts dir.</param>
+        /// <param name="xmlScript">The XML file containing this script's metadata, located in the scripts dir.</param>
         /// <param name="displayInto">The list view in which the script will be displayed.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="scriptFilename"/> is <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentException"><paramref name="scriptFilename"/> is not a valid filename.</exception>
-        /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="scriptFilename"/> cannot be accessed.</exception>
-        public Script(string scriptFilename, ListView displayInto)
+        /// <exception cref="ArgumentNullException"><paramref name="xmlScript"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="xmlScript"/> is not a valid filename.</exception>
+        /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="xmlScript"/> cannot be accessed.</exception>
+        public Script(string xmlScript, ListView displayInto)
         {
-            _ = scriptFilename ?? throw new ArgumentNullException(nameof(scriptFilename));
+            _ = xmlScript ?? throw new ArgumentNullException(nameof(xmlScript));
             _ = displayInto ?? throw new ArgumentNullException(nameof(displayInto));
 
-            if (!scriptFilename.IsValidFilename())
+            if (!xmlScript.IsValidFilename())
             {
-                throw new ArgumentException("Not a valid filename", nameof(scriptFilename));
+                throw new ArgumentException("Not a valid filename", nameof(xmlScript));
             }
 
             XmlDocument doc = CreateDoc();
 
+#nullable disable warnings
             Name = doc.GetElementsByTagName(nameof(Name))[0].InnerText;
             _scriptsDirFile = new($"{Name.ToFilename()}.xml".InScriptsDir());
 
             Description = doc.GetElementsByTagName(nameof(Description))[0].InnerText;
             Advised = Enum.Parse<ScriptAdvised>(doc.GetElementsByTagName(nameof(Advised))[0].InnerText);
 
-            string groupKey = doc.GetElementsByTagName(nameof(Group))[0].InnerText;
-            Group = displayInto.Groups[groupKey];
+            Group = displayInto.Groups[doc.GetElementsByTagName(nameof(Group))[0].InnerText];
 
             _extension = doc.GetElementsByTagName("Extension")[0].InnerText;
+
+            Code = doc.GetElementsByTagName("Code")[0].InnerXml;
+#nullable enable warnings
 
             _host = ScriptHost.FromFileExtension(_extension);
 
@@ -65,18 +68,16 @@ namespace RaphaëlBardini.WinClean.Logic
                                 Enum.Parse<ImpactEffect>(impactElement.GetAttribute(nameof(Impact.Effect)))));
             }
 
-            Code = doc.GetElementsByTagName("Code")[0].InnerXml;
-
             XmlDocument CreateDoc()
             {
                 XmlDocument d = new();
                 try
                 {
-                    d.Load(Path.Join(ScriptsDir.Info.FullName, scriptFilename));
+                    d.Load(Path.Join(ScriptsDir.Info.FullName, xmlScript));
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    ErrorDialog.ScriptInacessible(scriptFilename, e, () => d = CreateDoc(), Delete, () => throw e);
+                    ErrorDialog.ScriptInacessible(xmlScript, e, () => d = CreateDoc(), Delete, () => throw e);
                 }
                 return d;
             }
@@ -92,7 +93,7 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <exception cref="ArgumentNullException">One or more parameters are <see langword="null"/>.</exception>
         /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="source"/> cannot be accessed.</exception>
         /// <exception cref="BadFileExtensionException"><paramref name="source"/>'s extensions is not supported.</exception>
-        public Script(string name, string description, ScriptAdvised advised, ICollection<Impact> impacts, ListViewGroup group, FileInfo source)
+        public Script(string name, string description, ScriptAdvised advised, ICollection<Impact> impacts, ListViewGroup? group, FileInfo source)
         {
             _ = source ?? throw new ArgumentNullException(nameof(source));
 
@@ -138,7 +139,7 @@ namespace RaphaëlBardini.WinClean.Logic
         }
 
         /// <inheritdoc/>
-        public string Code { get; }
+        public string Code { get; set; }
 
         /// <inheritdoc/>
         public string Description { get => ToolTipText; set => ToolTipText = value; }
@@ -174,18 +175,18 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <inheritdoc/>
         public void Save()
         {
-            XmlDocument doc = new();
+            XmlDocument d = new();
 
-            CreateDeclaration(doc);
+            CreateDeclaration();
 
-            AddProperties(doc);
+            AddProperties();
 
-            SaveToScriptsDir(doc);
+            SaveToScriptsDir();
 
-            static void CreateDeclaration(XmlDocument d)
+            void CreateDeclaration()
                 => _ = d.AppendChild(d.CreateXmlDeclaration("1.0", "Unicode", null));
 
-            void AddProperties(XmlDocument d)
+            void AddProperties()
             {
                 XmlElement root = d.CreateElement("Script");
 
@@ -226,7 +227,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
                 // Group
                 n = d.CreateElement(nameof(Group));
-                n.InnerText = Group.Name;
+                n.InnerText = Group.Name ?? string.Empty;
                 _ = root.AppendChild(n);
 
                 // Code
@@ -237,7 +238,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 _ = d.AppendChild(root);
             }
 
-            void SaveToScriptsDir(XmlDocument d)
+            void SaveToScriptsDir()
             {
                 try
                 {
@@ -245,7 +246,7 @@ namespace RaphaëlBardini.WinClean.Logic
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    ErrorDialog.CantCreateScriptFileInScriptsDir(e, () => SaveToScriptsDir(d), Program.Exit);
+                    ErrorDialog.CantCreateScriptFileInScriptsDir(e, SaveToScriptsDir, Program.Exit);
                 }
             }
         }
@@ -265,16 +266,15 @@ namespace RaphaëlBardini.WinClean.Logic
         private static Color EmulateAlpha(Color color, Color fadeIn, byte alpha)
             => color.R == fadeIn.R && color.G == fadeIn.G && color.B == fadeIn.B
                 ? color
-                : Color.FromArgb((byte)(color.R * (alpha / (double)byte.MaxValue) + fadeIn.R * (1 - alpha / (double)byte.MaxValue)),
-                                 (byte)(color.G * (alpha / (double)byte.MaxValue) + fadeIn.G * (1 - alpha / (double)byte.MaxValue)),
-                                 (byte)(color.B * (alpha / (double)byte.MaxValue) + fadeIn.B * (1 - alpha / (double)byte.MaxValue)));
+                : Color.FromArgb((byte)((color.R * (alpha / (double)byte.MaxValue)) + (fadeIn.R * (1 - (alpha / (double)byte.MaxValue)))),
+                                 (byte)((color.G * (alpha / (double)byte.MaxValue)) + (fadeIn.G * (1 - (alpha / (double)byte.MaxValue)))),
+                                 (byte)((color.B * (alpha / (double)byte.MaxValue)) + (fadeIn.B * (1 - (alpha / (double)byte.MaxValue)))));
 
         /// <exception cref="InvalidEnumArgumentException">
         /// <paramref name="scriptAdvised"/> is not a defined <see cref="ScriptAdvised"/> constant.
         /// </exception>
         private static Color GetColor(ScriptAdvised scriptAdvised) => scriptAdvised switch
         {
-            ScriptAdvised.Unspecified => Color.White,
             ScriptAdvised.Yes => Color.Green,
             ScriptAdvised.Limited => Color.Orange,
             ScriptAdvised.No => Color.Red,

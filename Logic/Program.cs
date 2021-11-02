@@ -1,7 +1,6 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -26,33 +25,32 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <remarks>If there is more than 1 script to run, shows a GUI.</remarks>
         /// <param name="scripts"></param>
         /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
-        public static void ConfirmAndExecuteScripts(IEnumerable<IScript> scripts)
+        public static void ConfirmAndExecuteScripts(IList<IScript> scripts)
         {
             if (scripts is null)
             {
                 throw new ArgumentNullException(nameof(scripts));
             }
+            using ScriptExecutor executor = new(scripts);
+            if (scripts.Count > 1)
+            {
+                executor.ExecuteUI();
+            }
+            else
+            {
+                executor.ExecuteNoUI();
+            }
 
-            if (scripts.Count() > 1)
-            {
-                if (Confirm())
-                {
-                    using ScriptExecutorGUI executor = new(scripts);
-                    executor.ExecuteAll();
-                }
-            }
-            else if (scripts.Count() == 1)
-            {
-                scripts.First().Execute();
-            }
         }
 
-        /// <summary>Disposes of ressources and exits the program.</summary>
-        [System.Diagnostics.CodeAnalysis.DoesNotReturn]
+        /// <summary>Exits the program.</summary>
+        /// <remarks>Doesn't return.</remarks>
         public static void Exit()
         {
-            "Exiting the application".Log("Exit");
+            "Exiting the application.".Log("Exit");
             Application.Exit();
+            "Application failed to exit ! Exiting from the environment.".Log("Exit");
+            Environment.Exit(0);
         }
 
         /// <summary>Displays the <see cref="AboutBox"/> form.</summary>
@@ -72,12 +70,6 @@ namespace RaphaëlBardini.WinClean.Logic
         #endregion Public Methods
 
         #region Private Methods
-
-        private static bool Confirm()
-        {
-            using FormConfirm fc = new();
-            return fc.ShowDialog(Form.ActiveForm) == DialogResult.OK;
-        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000", Justification = "If the mutex is disposed, it won't work.")]
         private static void EnsureSingleInstance()

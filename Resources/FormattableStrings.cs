@@ -2,6 +2,7 @@
 
 using System.Globalization;
 using System.Resources;
+using System.Windows;
 
 namespace RaphaëlBardini.WinClean.Resources
 {
@@ -22,12 +23,16 @@ namespace RaphaëlBardini.WinClean.Resources
         /// <summary>Gets a formattable localized string.</summary>
         /// <returns>The localized string corresponding to "About programName".</returns>
         internal static string About(string programName)
-            => string.Format(s_dataCulture, s_resourceManager.GetString("About", s_uiCulture), programName);
+            => string.Format(s_dataCulture,
+                             s_resourceManager.GetString("About", s_uiCulture) ?? throw new ResourceReferenceKeyNotFoundException($"Not found in {nameof(FormattableStrings)}", "About"),
+                             programName);
 
         /// <summary>Gets a formattable localized string.</summary>
         /// <returns>The localized string corresponding to "Version versionNumber".</returns>
         internal static string Version(string version)
-            => string.Format(s_dataCulture, s_resourceManager.GetString("Version", s_uiCulture), version);
+            => string.Format(s_dataCulture,
+                             s_resourceManager.GetString("Version", s_uiCulture) ?? throw new ResourceReferenceKeyNotFoundException($"Not found in {nameof(FormattableStrings)}", "Version"),
+                             version);
 
         #endregion Internal Properties
     }

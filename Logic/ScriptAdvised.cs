@@ -5,9 +5,6 @@ namespace RaphaëlBardini.WinClean.Logic
     /// <summary>If a script is advised for general purpose</summary>
     public enum ScriptAdvised
     {
-        /// <summary>Not specified. It should be.</summary>
-        Unspecified,
-
         /// <summary>
         /// The script is advised for any user. It has almost no side effects and won't hinder features the said user might want
         /// to use. It can be selected automatically.

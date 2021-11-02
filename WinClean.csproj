@@ -7,7 +7,7 @@
     <StartupObject>RaphaëlBardini.WinClean.Logic.Program</StartupObject>
 	<LangVersion>preview</LangVersion>
 	<RootNamespace>RaphaëlBardini.WinClean</RootNamespace>
-	<ApplicationIcon></ApplicationIcon>
+	<ApplicationIcon>Resources\mainIcon.ico</ApplicationIcon>
 	<Platforms>AnyCPU;x64</Platforms>
 	<Authors>Raphaël Bardini</Authors>
 	<Description>Utilitaire d'optimisation et amélioration des performances Windows.
@@ -21,37 +21,48 @@
 	<Win32Resource />
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	<RepositoryType>GitHub</RepositoryType>
+	<PlatformTarget>x64</PlatformTarget>
+	<Nullable>enable</Nullable>
+	<DebugType>portable</DebugType>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <NoWarn>NU1701;1701;1702;CS0169</NoWarn>
+    <NoWarn></NoWarn>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet />
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <NoWarn>NU1701;1701;1702;CS0169</NoWarn>
+    <NoWarn></NoWarn>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet />
     <DocumentationFile>D:\Scover\Bureau\Programmation\Visual Studio\C#\WinClean\WinClean.xml</DocumentationFile>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <CodeAnalysisRuleSet />
+    <NoWarn />
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet />
+    <NoWarn />
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Logic\obj\**" />
     <EmbeddedResource Remove="Logic\obj\**" />
     <None Remove="Logic\obj\**" />
+    <Content Include="Resources\mainIcon.ico" />
     <None Include="Resources\main.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -60,7 +71,6 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="27.1.1" />
-    <PackageReference Include="PropertyGridEx" Version="1.0.0" />
     <PackageReference Include="WinCopies.WindowsAPICodePack.Shell" Version="3.8.2-preview" />
   </ItemGroup>
 
@@ -85,10 +95,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ImpactEffect.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Presets.Designer.cs">
+    <Compile Update="Resources\ScriptAdvised.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Presets.resx</DependentUpon>
+      <DependentUpon>ScriptAdvised.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -108,9 +118,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ImpactEffect.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Presets.resx">
+    <EmbeddedResource Update="Resources\ScriptAdvised.fr-FR.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Presets.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ScriptAdvised.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ScriptAdvised.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

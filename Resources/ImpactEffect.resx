@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DataCollection" xml:space="preserve">
-    <value>Données de diagnostic</value>
+    <value>Diagnostic data</value>
   </data>
   <data name="Ergonomics" xml:space="preserve">
-    <value>Ergonomie</value>
+    <value>Ergonomics</value>
   </data>
   <data name="MemoryUsage" xml:space="preserve">
-    <value>Utilisation mémoire</value>
+    <value>Memory usage</value>
   </data>
   <data name="NetworkUsage" xml:space="preserve">
-    <value>Utilisation réseau</value>
+    <value>Network usage</value>
   </data>
   <data name="ResponseTime" xml:space="preserve">
-    <value>Temps de réponse système</value>
+    <value>System response time</value>
   </data>
   <data name="ShutdownTime" xml:space="preserve">
-    <value>Temps d'arrêt système</value>
+    <value>System shutdown time</value>
   </data>
   <data name="StartupTime" xml:space="preserve">
-    <value>Temps de démarrage système</value>
+    <value>System startup time</value>
   </data>
-  <data name="StorageCapacity" xml:space="preserve">
-    <value>Capacité disque</value>
+  <data name="FreeStorageSpace" xml:space="preserve">
+    <value>Free storage space</value>
   </data>
   <data name="StorageSpeed" xml:space="preserve">
-    <value>Vitesse disque</value>
+    <value>Disk speed</value>
   </data>
   <data name="Visuals" xml:space="preserve">
-    <value>Apparence</value>
+    <value>Visuals</value>
   </data>
 </root>

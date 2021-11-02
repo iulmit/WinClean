@@ -1,6 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Logic
 {
@@ -13,8 +14,10 @@ namespace RaphaëlBardini.WinClean.Logic
         ScriptAdvised Advised { get; set; }
 
         /// <summary>The actual code making the script.</summary>
-        string Code { get; }
+        string Code { get; set; }
 
+        /// <summary>The group the script is assigned to.</summary>
+        ListViewGroup Group { get; set; }
         /// <summary>Details on how this scripts work and what the effects of executing it would be.</summary>
         string Description { get; set; }
 
@@ -33,6 +36,7 @@ namespace RaphaëlBardini.WinClean.Logic
 
         /// <summary>Executes the script in a new process.</summary>
         /// <inheritdoc cref="Operational.IScriptHost.Execute(IScript)" path="/exception"/>
+        /// <remarks>Executing a script may take time. Use <see cref="ScriptExecutor"/> to execute scripts.</remarks>
         void Execute();
 
         /// <summary>Saves this script to the scripts dir.</summary>

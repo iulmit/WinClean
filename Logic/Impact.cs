@@ -36,7 +36,7 @@ namespace RaphaëlBardini.WinClean.Logic
         #region Public Methods
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Impact i && Equals(i);
+        public override bool Equals(object? obj) => obj is Impact i && Equals(i);
 
         /// <inheritdoc/>
         public bool Equals(Impact other) => Level == other.Level && Effect == other.Effect;
@@ -71,7 +71,7 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <exception cref="InvalidEnumArgumentException">
         /// <paramref name="effect"/> is not a defined <see cref="ImpactEffect"/> constant.
         /// </exception>
-        public static string GetLocalizedString(this ImpactEffect effect, CultureInfo cultureInfo = null)
+        public static string GetLocalizedString(this ImpactEffect effect, CultureInfo? cultureInfo = null)
             => ResourceManager.GetString(effect.ToString(), cultureInfo ?? CultureInfo.CurrentUICulture)
                 ?? throw new InvalidEnumArgumentException(nameof(effect), (int)effect, typeof(ImpactEffect));
 

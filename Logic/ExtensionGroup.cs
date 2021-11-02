@@ -43,7 +43,7 @@ namespace RaphaëlBardini.WinClean.Logic
             {
                 foreach (string ext in _extensions)
                 {
-                    string result = GetFileTypeDisplayName(ext);
+                    string? result = GetFileTypeDisplayName(ext);
                     if (result is not null)
                     {
                         return result;
@@ -66,12 +66,10 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #region Private Methods
 
-        private static string GetFileTypeDisplayName(string extension)
-            => extension is null
-                ? string.Empty
-                : Registry.ClassesRoot.OpenSubKey(extension)?.GetValue(null) is string keyName
-                              ? Registry.ClassesRoot.OpenSubKey(keyName)?.GetValue(null) as string
-                              : null;
+        private static string? GetFileTypeDisplayName(string extension)
+            => Registry.ClassesRoot.OpenSubKey(extension)?.GetValue(null) is string keyName
+                           ? Registry.ClassesRoot.OpenSubKey(keyName)?.GetValue(null) as string
+                           : null;
 
         #endregion Private Methods
     }

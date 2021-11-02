@@ -14,36 +14,37 @@ namespace RaphaëlBardini.WinClean
 
         /// <summary>Shortcut to <see cref="MessageBox.Show(string)"/></summary>
         /// <remarks>Debug only</remarks>
-        public static void m<T>(this T t) => MessageBox.Show($"{typeof(T)}\n{t}", "Debug");
+        public static void M<T>(this T t) => MessageBox.Show($"{typeof(T)}\n{t}", "Debug");
 
         /// <summary>Displays a collection in a message box.</summary>
         /// <typeparam name="T">The collection item type.</typeparam>
-        /// <param name="enumerable">The collection to display.</param>
+        /// <param name="e">The collection to display.</param>
         /// <remarks>Debug only.</remarks>
-        public static void mEach<T>(this IEnumerable<T> enumerable)
+
+        public static void ME<T>(this IEnumerable<T> e)
         {
-            if (enumerable is null)
+            if (e is null)
             {
-                m(string.Empty);
+                M(string.Empty);
                 return;
             }
-            new StringBuilder().AppendLine(enumerable.GetType().ToString())
+            new StringBuilder().AppendLine(e.GetType().ToString())
                 .AppendLine("{")
-                .AppendJoin(Environment.NewLine, enumerable)
+                .AppendJoin(Environment.NewLine, e)
                 .AppendLine("}")
                 .ToString()
-                .m();
+                .M();
         }
 
         /// <summary>Displays data in a message box, waits for it's dismiss, and returns that data.</summary>
         /// <typeparam name="T">The type of the data passed.</typeparam>
-        /// <param name="o">The data passed.</param>
-        /// <returns><paramref name="o"/>.</returns>
+        /// <param name="t">The data passed.</param>
+        /// <returns><paramref name="t"/>.</returns>
         /// <remarks>Debug only.</remarks>
-        public static T mr<T>(this T o)
+        public static T MR<T>(this T t)
         {
-            o.m();
-            return o;
+            t.M();
+            return t;
         }
 
         #endregion Public Methods
