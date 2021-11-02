@@ -145,7 +145,7 @@ namespace RaphaëlBardini.WinClean.Logic
         public string Description { get => ToolTipText; set => ToolTipText = value; }
 
         /// <inheritdoc/>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2227", Justification = "Bug")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2227", Justification = "Bug on init")]
         public ICollection<Impact> Impacts { get; init; } = new List<Impact>();
 
         /// <inheritdoc/>

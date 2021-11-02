@@ -53,6 +53,12 @@ namespace RaphaëlBardini.WinClean.Logic
             Text = $"Impossible de créer le dossier des scripts. {e.Message}"
         }.RetryClose(retry, close);
 
+        public static void CantCreateTempFile(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
+        {
+            Icon = TaskDialogIcon.Error,
+            Text = $"Impossible de créer le fichier temporaire. {e.Message}"
+        }.RetryClose(retry, close);
+
         /// <summary>Can't create log file error.</summary>
         /// <param name="e">The exception that caused the error.</param>
         /// <inheritdoc cref="RetryIgnore(Action?, Action?)" path="/param"/>
@@ -72,32 +78,22 @@ namespace RaphaëlBardini.WinClean.Logic
         }.RetryIgnore(retry, ignore);
 
         /// <summary>Asks the users for confirmation before exiting the application and risking data loss.</summary>
-        /// <inheritdoc cref="YesNo(Action?, Action?)" path="/param"/>
-        public static void ConfirmAbortOperation(Action? yes = null, Action? no = null) => new ErrorDialog()
+        /// <inheritdoc cref="YesNo()" path="/returns"/>
+        public static bool ConfirmAbortOperation() => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Warning,
             Heading = "Abandonner l'opération ?",
             Text = "Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?",
-        }.YesNo(yes, no);
+        }.YesNo();
 
         /// <summary>Asks the user for confirmation before deleting a script</summary>
-        /// <inheritdoc cref="YesNo(Action?, Action?)" path="/param"/>
-        public static void ConfirmScriptDeletion(Action? yes = null, Action? no = null) => new ErrorDialog()
+        /// <inheritdoc cref="YesNo()" path="/returns"/>
+        public static bool ConfirmScriptDeletion() => new ErrorDialog()
         {
             Icon = TaskDialogIcon.Warning,
             Heading = "Remplacer le script ?",
             Text = $"Êtes-vous sûr de vouloir supprimer ce script ? Cette Action? est irréversible."
-        }.YesNo(yes, no);
-
-        /// <summary>Asks the user for confirmation before overwriting a script that already exists in the scripts directory.</summary>
-        /// <param name="overwriter">The path to the external script file that may overwrite a script file in the scripts directory.</param>
-        /// <inheritdoc cref="YesNo(Action?, Action?)" path="/param"/>
-        public static void ConfirmScriptOverwrite(FileInfo overwriter, Action? yes = null, Action? no = null) => new ErrorDialog()
-        {
-            Icon = TaskDialogIcon.Warning,
-            Heading = "Remplacer le script ?",
-            Text = $"Êtes-vous sûr de vouloir remplacer le script \"{overwriter.Name}\" par \"{overwriter.FullName}\" ?"
-        }.YesNo(yes, no);
+        }.YesNo();
 
         /// <summary>Hung script error.</summary>
         /// <param name="filename">The hung script's filename.</param>
@@ -221,19 +217,11 @@ namespace RaphaëlBardini.WinClean.Logic
 
         private Button Show() => Form.ActiveForm is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(Form.ActiveForm, this);
 
-        /// <param name="yes">Invoked when the Yes button of the dialog is clicked.</param>
-        /// <param name="no">Invoked when the No button of the dialog is clicked.</param>
-        private void YesNo(Action? yes, Action? no)
+        /// <returns><see langword="true"/> if the Yes button was clicked, otherwise; <see langword="false"/>.</returns>
+        private bool YesNo()
         {
             Buttons = new() { Button.Yes, Button.No };
-            if (Show() == Button.Yes)
-            {
-                yes?.Invoke();
-            }
-            else
-            {
-                no?.Invoke();
-            }
+            return Show() == Button.Yes;
         }
 
         #endregion Private Methods

@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading;
 
 using RaphaëlBardini.WinClean.Logic;
 
@@ -22,6 +21,10 @@ namespace RaphaëlBardini.WinClean.Operational
 
         private readonly FileInfo _executable;
 
+        private readonly Action? _beforeExecute;
+
+        private readonly Action? _afterExecute;
+
         #endregion Private Fields
 
         #region Public Constructors
@@ -34,9 +37,11 @@ namespace RaphaëlBardini.WinClean.Operational
         /// </param>
         /// <param name="encoding">The default encoding of the script host.</param>
         /// <param name="supportedExtensions">The extensions the script host supports.</param>
+        /// <param name="beforeExecute">Action to invoke before executing a script.</param>
+        /// <param name="afterExecute">Action to invoke after having executed a script.</param>
         /// <exception cref="ArgumentNullException">One ore more parameters are <see langword="null"/>.</exception>
         /// <exception cref="ArgumentException"><paramref name="arguments"/> does not contain exactly 1 formattable argument. -- OR -- <paramref name="executable"/> is not an executable (*.exe).</exception>
-        public ScriptHost(FileInfo executable, string arguments, Encoding encoding, ExtensionGroup supportedExtensions)
+        public ScriptHost(FileInfo executable, string arguments, Encoding encoding, ExtensionGroup supportedExtensions, Action? beforeExecute = null, Action? afterExecute = null)
         {
             if ((executable ?? throw new ArgumentNullException(nameof(executable))).Extension != ".exe")
             {
@@ -47,6 +52,8 @@ namespace RaphaëlBardini.WinClean.Operational
             _arguments = new(arguments);
             _encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
             SupportedExtensions = supportedExtensions ?? throw new ArgumentNullException(nameof(supportedExtensions));
+            _beforeExecute = beforeExecute;
+            _afterExecute = afterExecute;
         }
 
         #endregion Public Constructors
@@ -75,6 +82,7 @@ namespace RaphaëlBardini.WinClean.Operational
 
         /// <summary>The Windows Command Line interpreter (cmd.exe) script host.</summary>
         public static ScriptHost Cmd
+            // ! : %comspec% exists on any supported windows os.
             => new(executable: new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)!),
                    arguments: "/d /c \"\"{0}\"\"",
                    encoding: Encoding.GetEncoding(850),
@@ -82,10 +90,19 @@ namespace RaphaëlBardini.WinClean.Operational
 
         /// <summary>The Windows PowerShell script host.</summary>
         public static ScriptHost PowerShell
-           => new(executable: new(Path.Join(Environment.GetEnvironmentVariable("SystemRoot"), "System32", "WindowsPowerShell", "v1.0", "powershell.exe")),
-                  arguments: new("-WindowStyle hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\""),
-                  encoding: Encoding.GetEncoding(1252),
-                  supportedExtensions: new(".ps1"));
+        {
+            get
+            {
+                const ExecutionPolicyScope usedScope = ExecutionPolicyScope.CurrentUser;
+
+                return new(executable: new(Operational.PowerShell.Path),
+                             arguments: new("-WindowStyle Hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\""),
+                             encoding: Encoding.GetEncoding(1252),
+                             supportedExtensions: new(".ps1"),
+                             beforeExecute: () => Operational.PowerShell.SetExecutionPolicy(ExecutionPolicy.Unrestricted, usedScope),
+                             afterExecute: () => Operational.PowerShell.SetExecutionPolicy(ExecutionPolicy.Default, usedScope));
+            }
+        }
 
         /// <summary>The Windows Registry Editor script host.</summary>
         public static ScriptHost Regedit
@@ -101,6 +118,37 @@ namespace RaphaëlBardini.WinClean.Operational
         public ExtensionGroup SupportedExtensions { get; init; }
 
         #endregion Public Properties
+
+        #region Public Methods
+
+        /// <inheritdoc/>
+        public void Execute(IScript script)
+        {
+            _ = script ?? throw new ArgumentNullException(nameof(script));
+
+            _beforeExecute?.Invoke();
+
+            try
+            {
+                FileInfo tmpScriptFile = new(Path.GetTempFileName());
+                using StreamWriter s = tmpScriptFile.CreateText();
+                {
+                    s.Write(script.Code);
+                }
+                Execute(tmpScriptFile);
+            }
+            catch (IOException e)
+            {
+                ErrorDialog.CantCreateTempFile(e, () => Execute(script), Program.Exit);
+            }
+
+            _afterExecute?.Invoke();
+        }
+
+        /// <inheritdoc/>
+        public override string ToString() => $"{_executable.Name} {_arguments}";
+
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -118,37 +166,10 @@ namespace RaphaëlBardini.WinClean.Operational
                 StandardOutputEncoding = _encoding,
             }) ?? throw new InvalidOperationException("Process.Start returned null");
 
-            // placeholder -- simulate the time a script would take to complete.
-            Thread.Sleep(2000);
-
             WaitForScriptEnd(host, script);
             ToUnicode(host.StandardError).Log($"Error stream");
             ToUnicode(host.StandardOutput).Log($"Output stream");
         }
-
-        #endregion Private Methods
-
-        #region Public Methods
-
-        /// <inheritdoc/>
-        public void Execute(IScript script)
-        {
-            _ = script ?? throw new ArgumentNullException(nameof(script));
-
-            FileInfo tmpScriptFile = new(Path.GetTempFileName());
-            using StreamWriter s = tmpScriptFile.CreateText();
-            {
-                s.Write(script.Code);
-            }
-            Execute(tmpScriptFile);
-        }
-
-        /// <inheritdoc/>
-        public override string ToString() => $"{_executable.Name} {_arguments}";
-
-        #endregion Public Methods
-
-        #region Private Methods
 
         private static void WaitForScriptEnd(Process p, FileInfo script)
         {

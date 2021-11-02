@@ -31,7 +31,7 @@ namespace RaphaëlBardini.WinClean.Logic
             {
                 throw new ArgumentNullException(nameof(scripts));
             }
-            using ScriptExecutor executor = new(scripts);
+            ScriptExecutor executor = new(scripts);
             if (scripts.Count > 1)
             {
                 executor.ExecuteUI();

@@ -96,13 +96,13 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region MainForm
         // This is to prevent scroll bar flickering during resize
-        private void MainForm_ResizeBegin(object sender, EventArgs e) => listViewScripts.Scrollable = scriptEditor.AutoScroll = false;
-        private void MainForm_ResizeEnd(object sender, EventArgs e) => listViewScripts.Scrollable = scriptEditor.AutoScroll = true;
+        private void MainForm_ResizeBegin(object _, EventArgs __) => listViewScripts.Scrollable = scriptEditor.AutoScroll = false;
+        private void MainForm_ResizeEnd(object _, EventArgs __) => listViewScripts.Scrollable = scriptEditor.AutoScroll = true;
         #endregion MainForm
 
         #region Buttons
 
-        private void ButtonAddScript_Click(object sender, EventArgs e)
+        private void ButtonAddScript_Click(object _, EventArgs __)
         {
             if (openFileDialogScripts.ShowDialog(this) == DialogResult.OK)
             {
@@ -113,31 +113,31 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        private void ButtonExecuteScripts_Click(object sender, EventArgs e) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<IScript>().ToList());
+        private void ButtonExecuteScripts_Click(object _, EventArgs __) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<IScript>().ToList());
 
-        private void ButtonQuit_Click(object sender, EventArgs e) => Program.Exit();
+        private void ButtonQuit_Click(object _, EventArgs __) => Program.Exit();
 
         #endregion Buttons
 
         #region mainMenuStrip
 
-        private void MainMenuQuit_Click(object sender, EventArgs e) => Program.Exit();
+        private void MainMenuQuit_Click(object _, EventArgs __) => Program.Exit();
 
-        private void MainMenuSelectAll_Click(object sender, EventArgs e) => SetAllChecked(listViewScripts.Items, true);
+        private void MainMenuSelectAll_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);
 
-        private void MainMenuSelectDebloat_Click(object sender, EventArgs e) => SetAllChecked(listViewScripts.Items, true);// placeholder
+        private void MainMenuSelectDebloat_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);// placeholder
 
-        private void MainMenuSelectMaintenance_Click(object sender, EventArgs e) => SetAllChecked(listViewScripts.Items, true);// placeholder
+        private void MainMenuSelectMaintenance_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);// placeholder
 
-        private void MainMenuSelectNothing_Click(object sender, EventArgs e) => SetAllChecked(listViewScripts.Items, false);
+        private void MainMenuSelectNothing_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, false);
 
-        private void MainMenuStripAbout_Click(object sender, EventArgs e) => Program.ShowAboutBox();
+        private void MainMenuStripAbout_Click(object _, EventArgs __) => Program.ShowAboutBox();
 
-        private void MainMenuStripClearLogs_Click(object sender, EventArgs e) => LogManager.ClearLogsFolder();
+        private void MainMenuStripClearLogs_Click(object _, EventArgs __) => LogManager.ClearLogsFolder();
 
-        private void MainMenuStripSettings_Click(object sender, EventArgs e) => Program.ShowSettings();
+        private void MainMenuStripSettings_Click(object _, EventArgs __) => Program.ShowSettings();
 
-        private void MainMenuStripShowHelp_Click(object sender, EventArgs e)
+        private void MainMenuStripShowHelp_Click(object _, EventArgs __)
         {
         }
 
@@ -145,15 +145,15 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         #region listViewScripts
 
-        private void ListViewScripts_ItemChecked(object sender, ItemCheckedEventArgs e) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
+        private void ListViewScripts_ItemChecked(object _, ItemCheckedEventArgs __) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
 
         /// <summary>
         /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
         /// cref="listViewScripts"/>'s new size.
         /// </summary>
-        private void ListViewScripts_Resize(object sender, EventArgs e) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
+        private void ListViewScripts_Resize(object _, EventArgs __) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
 
-        private void ListViewScripts_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListViewScripts_SelectedIndexChanged(object _, EventArgs __)
             => scriptEditor.SelectedScript = listViewScripts.SelectedItems.Cast<IScript>().FirstOrDefault();
 
         #endregion listViewScripts
@@ -183,7 +183,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             lv.AfterLabelEdit += afterLabelEdit;
             lv.AfterLabelEdit += Cleanup;
 
-            void Cleanup(object sender, LabelEditEventArgs e)
+            void Cleanup(object _, LabelEditEventArgs __)
             {
                 lv.BeforeLabelEdit -= beforeLabelEdit;
                 lv.AfterLabelEdit -= afterLabelEdit;

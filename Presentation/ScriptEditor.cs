@@ -55,7 +55,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             //comboBoxGroup.DataSource =
         }
 
-        private void TextBoxName_TextChanged(object sender, EventArgs e)
+        private void TextBoxName_TextChanged(object _, EventArgs __)
         {
             if (SelectedScript is not null)
             {
@@ -63,7 +63,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        private void TextBoxDescription_TextChanged(object sender, EventArgs e)
+        private void TextBoxDescription_TextChanged(object _, EventArgs __)
         {
             if (SelectedScript is not null)
             {
@@ -71,7 +71,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        private void ComboBoxAdvised_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxAdvised_SelectedIndexChanged(object _, EventArgs __)
         {
             if (SelectedScript is not null)
             {
@@ -79,7 +79,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        private void ComboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxGroup_SelectedIndexChanged(object _, EventArgs __)
         {
             if (SelectedScript is not null)
             {
@@ -87,7 +87,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        private void TextBoxCode_TextChanged(object sender, EventArgs e)
+        private void TextBoxCode_TextChanged(object _, EventArgs __)
         {
             if (SelectedScript is not null)
             {
@@ -95,23 +95,26 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
         }
 
-        private void ButtonExecute_Click(object sender, EventArgs e)
+        private void ButtonExecute_Click(object _, EventArgs __)
         {
             if (SelectedScript is not null)
             {
-                using ScriptExecutor executor = new(SelectedScript);
+                ScriptExecutor executor = new(SelectedScript);
                 executor.ExecuteNoUI();
             }
         }
 
-        private void ButtonDelete_Click(object sender, EventArgs e)
+        private void ButtonDelete_Click(object _, EventArgs __)
         {
             if (SelectedScript is not null)
             {
-                ErrorDialog.ConfirmScriptDeletion(yes: SelectedScript.Delete);
+                if (ErrorDialog.ConfirmScriptDeletion())
+                {
+                    SelectedScript.Delete();
+                }
             }
         }
-        private void ScriptEditor_SizeChanged(object sender, EventArgs e)
+        private void ScriptEditor_SizeChanged(object _, EventArgs __)
         {
             SuspendLayout();
 

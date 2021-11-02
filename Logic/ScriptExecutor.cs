@@ -1,51 +1,36 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
-
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Win32Native.Shell;
 
-/* STEPS
- * 
- * 1 : Warning page, warn user about the risks of the operation.
- * 2 : Progress page, dynamically displays progress
- * 3 : Completed page, shows the result of the operations and prompts a reboot.
- */
+/* Steps :
+ * 1. Afficher un avertissement
+ * 2. Si consenti, exécuter les scripts en affichant dynamiquement la progression
+ * 3. Quand c'est terminé, afficher un récapitulatif et proposer de redémarrer l'ordinateur
+*/
+
 namespace RaphaëlBardini.WinClean.Logic
 {
-    /// <summary>Represents a <see cref="Script"/> collection that can be executed.</summary>
-    public sealed class ScriptExecutor : IDisposable
+    /// <summary>
+    /// Executes scripts asynchronously and displays task dialogs tracking the progress.
+    /// </summary>
+    public class ScriptExecutor
     {
-        #region Private Fields
-
-        private readonly BackgroundWorker _worker = new() { WorkerSupportsCancellation = true, WorkerReportsProgress = true };
-
-        private readonly IList<IScript> _scripts = Array.Empty<IScript>();
-
-        private readonly TaskDialogPage _progressPageStep2;
-
-        private int _elapsedSeconds;
-
-        #endregion Private Fields
-
-        private TaskDialogProgressBar ProgressPageProgressBar
+        private enum UIStep
         {
-            get
-            {
-                Assert(_progressPageStep2.ProgressBar is not null);
-                return _progressPageStep2.ProgressBar;
-            }
+            NotStarted,
+            Warning,
+            Progress,
+            Completed
         }
-        private TaskDialogExpander ProgressPageExpander
-        {
-            get
-            {
-                Assert(_progressPageStep2.Expander is not null);
-                return _progressPageStep2.Expander;
-            }
-        }
+
+        private readonly IList<IScript> _scripts;
+        private readonly CancellationTokenSource _canceler = new();
+        private readonly Progress<ProgressReport> _progress = new();
+        private UIStep _currentStep = UIStep.NotStarted;
 
         #region Public Constructors
 
@@ -54,38 +39,15 @@ namespace RaphaëlBardini.WinClean.Logic
         /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
         public ScriptExecutor(IList<IScript> scripts)
         {
-            _scripts = scripts ?? throw new ArgumentNullException(nameof(scripts));
-            _worker.DoWork += ScriptsRunnerDoWork;
-            _worker.ProgressChanged += ScriptsRunnerProgressChanged;
-
-            TaskDialogButton cancel = TaskDialogButton.Cancel;
-            cancel.Click += (s, e) =>
+            if (scripts is null)
             {
-                cancel.AllowCloseDialog = CanExitDialog();
-                if (cancel.AllowCloseDialog)
-                {
-                    _worker.CancelAsync();
-                }
-            };
-            using StockIcon software = new(StockIconIdentifier.Software);
-            _progressPageStep2 = new()
+                throw new ArgumentNullException(nameof(scripts));
+            }
+            if (scripts.Contains(null!))
             {
-                AllowCancel = true,
-                AllowMinimize = true,
-                Buttons = { cancel },
-                Caption = $"{0:p} terminé",
-                Expander = new("Script actuel : \nTemps écoulé : ")
-                {
-                    Expanded = Properties.Settings.Default.ProgressPageDetails,
-                },
-                Icon = new TaskDialogIcon(software.Icon.ToBitmap()),// software.Icon alone causes ComException at ShowDialog
-                ProgressBar = new() { Maximum = scripts.Count },
-                Text = "Nettoyage en cours. Cette opération peut prendre jusqu'à une heure, selon les performances de votre ordinateur.",
-                Footnote = new("L'ordinateur redémarrera automatiquement à la fin de l'opération.") { Icon = TaskDialogIcon.Information },
-            };
-            _worker.RunWorkerCompleted += (s, e) => _progressPageStep2.Navigate(CreateCompletedPageStep3());
-            _progressPageStep2.Expander.ExpandedChanged += (sender, e) => Properties.Settings.Default.ProgressPageDetails = _progressPageStep2.Expander.Expanded;
-            _progressPageStep2.Created += (sender, e) => _worker.RunWorkerAsync();
+                throw new ArgumentException("Contains null", nameof(scripts));
+            }
+            _scripts = scripts;
         }
 
         /// <summary>Initializes a new instance of the <see cref="ScriptExecutor"/> class with the specified script.</summary>
@@ -97,24 +59,10 @@ namespace RaphaëlBardini.WinClean.Logic
 
         #endregion Public Constructors
 
-        #region Public Methods
-
-        /// <inheritdoc/>
-        public void Dispose() => _worker.Dispose();
-
-        /// <summary>Executes the scripts and displays a dialog traking the progress.</summary>
-        public void ExecuteUI() => _ = CreateWarningPageStep1().ShowDialog(Form.ActiveForm);
-
-        /// <summary>Executes the scripts without displaying a dialog.</summary>
-        public void ExecuteNoUI() => _worker.RunWorkerAsync();
-        #endregion Public Methods
-
-        #region Private Methods
-
-        #region Creators
-
-        private TaskDialogPage CreateWarningPageStep1()
+        private void StartUISteps()
         {
+            _currentStep = UIStep.Warning;
+
             TaskDialogButton @continue = TaskDialogButton.Continue;
             TaskDialogVerificationCheckBox verification = new("Je suis prêt à continuer.");
 
@@ -139,14 +87,67 @@ J'ai fermé tout programme non essentiel
             };
 
             @continue.AllowCloseDialog = @continue.Enabled = false;
-            @continue.Click += (s, e) => p.Navigate(_progressPageStep2);
-            verification.CheckedChanged += (s, e) => @continue.Enabled = verification.Checked;
+            verification.CheckedChanged += (s, e)
+                => @continue.Enabled = verification.Checked;
+            @continue.Click += (s, e)
+                => p.Navigate(CreateProgressPage());
 
-            return p;
+            _ = p.ShowDialog(Form.ActiveForm);
+
         }
 
-        private TaskDialogPage CreateCompletedPageStep3()
+        private TaskDialogPage CreateProgressPage()
         {
+            _currentStep = UIStep.Progress;
+
+            TaskDialogButton cancel = TaskDialogButton.Cancel;
+
+            using StockIcon software = new(StockIconIdentifier.Software);
+            TaskDialogPage p = new()
+            {
+                AllowCancel = true,
+                AllowMinimize = true,
+                Buttons = { cancel },
+                Caption = $"{0:p} terminé",
+                Expander = new("Script actuel : \nTemps écoulé : ")
+                {
+                    Expanded = Properties.Settings.Default.ShowScriptExecutionProgressDetails,
+                },
+                Icon = new TaskDialogIcon(software.Icon.ToBitmap()),// software.Icon alone causes ComException at ShowDialog
+                ProgressBar = new() { Maximum = _scripts.Count - 1 },
+                Text = "Nettoyage en cours. Il est possible que des fenêtres de console s'affichent.",
+                Footnote = new("L'ordinateur redémarrera automatiquement à la fin de l'opération.") { Icon = TaskDialogIcon.Information },
+            };
+            cancel.Click += (s, e) =>
+            {
+                if (ErrorDialog.ConfirmAbortOperation())
+                {
+                    _canceler.Cancel();
+                }
+            };
+            _progress.ProgressChanged += ProgressChanged;
+            p.Expander.ExpandedChanged += (_, _)
+                => Properties.Settings.Default.ShowScriptExecutionProgressDetails = p.Expander.Expanded;
+            p.Created += (_, _)
+                => p.Navigate(CreateCompletedPage(ExecuteScriptsAsync().Result));
+
+            return p;
+
+            void ProgressChanged(object? _, ProgressReport progress)
+            {
+                if (_currentStep == UIStep.Progress)
+                {
+                    p.Caption = $"{progress.ScriptIndex / _scripts.Count:p} terminé";
+                    p.Expander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].Name}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds)}";
+                    p.ProgressBar.Value = progress.ScriptIndex;
+                }
+            }
+        }
+
+        private TaskDialogPage CreateCompletedPage(int elapsedSeconds)
+        {
+            _currentStep = UIStep.Completed;
+
             TaskDialogButton restart = new("Redémarrer");
 
             TaskDialogPage p = new()
@@ -156,7 +157,7 @@ J'ai fermé tout programme non essentiel
                 Buttons = { TaskDialogButton.Close, restart },
                 Caption = "Redémarrage requis",
                 Icon = TaskDialogIcon.ShieldSuccessGreenBar,
-                Expander = new($@"Un total de {_scripts.Count} scripts ont été exécutés avec succès en {TimeSpan.FromSeconds(_elapsedSeconds):g}.
+                Expander = new($@"Un total de {_scripts.Count} scripts ont été exécutés avec succès en {TimeSpan.FromSeconds(elapsedSeconds):g}.
 
 Pour un nettoyage plus avancé :
 
@@ -164,82 +165,51 @@ Winaero Tweaker - Personnalisation de l'apparence
 O&O ShutUp10 - Confidentialité et protection de la vie privée
 TCPOptimizer - Optimisations réseau")
                 {
-                    Expanded = Properties.Settings.Default.CompletedPageDetails,
+                    Expanded = Properties.Settings.Default.ShowScriptExecutionCompletedDetails,
                 },
                 Heading = "Nettoyage terminé",
                 Text = "Pour valider les changements, il est recommandé de redémarrer le système.",
             };
 
             restart.Click += (s, e) => Helpers.RebootForApplicationMaintenance();
-            p.Expander.ExpandedChanged += (sender, e) => Properties.Settings.Default.CompletedPageDetails = p.Expander.Expanded;
+            p.Expander.ExpandedChanged += (sender, e) => Properties.Settings.Default.ShowScriptExecutionCompletedDetails = p.Expander.Expanded;
 
             return p;
         }
 
-        #endregion Creators
+        /// <summary>Executes the scripts and displays a dialog traking the progress.</summary>
+        public void ExecuteUI() => StartUISteps();
 
-        private bool CanExitDialog()
-        {
-            bool canExit = !_worker.IsBusy;
-            if (!canExit)
+        /// <summary>Executes the scripts without displaying a dialog.</summary>
+        public async void ExecuteNoUI() => _ = await ExecuteScriptsAsync().ConfigureAwait(false);
+
+        private async Task<int> ExecuteScriptsAsync()
+            => await Task.Run(() =>
             {
-                ErrorDialog.ConfirmAbortOperation(
-                yes: () => canExit = true);
-            }
-            return canExit;
-        }
+                int elapsedSeconds = 0, scriptIndex = 0;
 
-        #region Event Methods
-
-        private void ScriptsRunnerDoWork(object? sender, DoWorkEventArgs? e)
-        {
-            int scriptIndex = 0;
-
-            using System.Timers.Timer secondsTimer = new(1000) { Enabled = true };
-            secondsTimer.Elapsed += (sender, e) =>
-            {
-                _elapsedSeconds++;
-                _worker.ReportProgress(0, new ProgressReport(scriptIndex, _elapsedSeconds));
-            };
-
-            for (scriptIndex = 0; scriptIndex < _scripts.Count; scriptIndex++)
-            {
-                _worker.ReportProgress(0, new ProgressReport(scriptIndex, _elapsedSeconds));
-                RunScriptThrow();
-            }
-            void RunScriptThrow()
-            {
-                try
+                System.Timers.Timer seconds = new(1000);
+                seconds.Elapsed += (s, e) =>
                 {
+                    elapsedSeconds++;
+                    ReportProgress();
+                };
+
+                seconds.Start();
+                for (; scriptIndex < _scripts.Count; scriptIndex++)
+                {
+                    ReportProgress();
                     _scripts[scriptIndex].Execute();
                 }
-                catch (Exception e) when (e.FileSystem())
-                {
-                    ProgressPageProgressBar.State = TaskDialogProgressBarState.Error;
-                    ErrorDialog.ScriptInacessible(_scripts[scriptIndex].Name, e, RunScriptThrow, _scripts[scriptIndex].Delete);
-                    ProgressPageProgressBar.State = TaskDialogProgressBarState.Normal;
-                }
-            }
-        }
+                seconds.Stop();
 
-        // This runs in the thread _progressPage was created in
-        private void ScriptsRunnerProgressChanged(object? sender, ProgressChangedEventArgs? e)
-        {
-            Assert(e is not null);
-            Assert(e.UserState is ProgressReport);
-            ProgressReport progress = (ProgressReport)e.UserState;
+                void ReportProgress() => ((IProgress<ProgressReport>)_progress).Report(new(scriptIndex, elapsedSeconds));
 
-            _progressPageStep2.Caption = $"{progress.ScriptIndex / _scripts.Count:p} terminé";
-            ProgressPageExpander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].Name}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds):g}";
-            ProgressPageProgressBar.Value = progress.ScriptIndex;
-        }
+                return elapsedSeconds;
 
-        #endregion Event Methods
-
-        #endregion Private Methods
+            }).ConfigureAwait(false);
 
         #region Private Structs
-
         private readonly struct ProgressReport
         {
             #region Public Constructors

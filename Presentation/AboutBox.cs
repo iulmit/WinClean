@@ -37,7 +37,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             labelCopyright.Text = a.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright;
         }
 
-        private void LabelRepoURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LabelRepoURL_LinkClicked(object __, LinkLabelLinkClickedEventArgs e)
         {
             linkLabelRepoURL.LinkVisited = true;
             using System.Diagnostics.Process _ = System.Diagnostics.Process.Start("explorer", (string)e.Link.LinkData);
