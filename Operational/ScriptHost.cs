@@ -1,243 +1,186 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
+using RaphaëlBardini.WinClean.Logic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-using RaphaëlBardini.WinClean.Logic;
+namespace RaphaëlBardini.WinClean.Operational;
 
-namespace RaphaëlBardini.WinClean.Operational
+/// <summary>Represents a program that accepts a file in it's command-line arguments.</summary>
+public abstract class ScriptHost
 {
-    /// <inheritdoc cref="IScriptHost"/>
-    public class ScriptHost : IScriptHost
+    #region Public Properties
+
+    /// <summary>User friendly name for the script host.</summary>
+    public virtual string DisplayName => new ShellFile(Executable).FileDescription;
+
+    /// <summary>Extensions of the scripts the script host program can run.</summary>
+    public abstract ExtensionGroup SupportedExtensions { get; }
+
+    #endregion Public Properties
+
+    #region Public Methods
+
+    /// <summary>Executes the specified script.</summary>
+    /// <param name="script">The script to execute.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
+    public virtual void Execute(IScript script)
+    {
+        _ = script ?? throw new ArgumentNullException(nameof(script));
+        ExecuteCode(script.Code, script.Name, script.Extension);
+    }
+
+    #endregion Public Methods
+
+    #region Protected Properties
+
+    /// <summary>
+    /// Arguments passed along <see cref="Executable"/> when executing.
+    /// </summary>
+    protected abstract IncompleteArguments Arguments { get; }
+
+    /// <summary>
+    /// The executable of the script host program.
+    /// </summary>
+    protected abstract FileInfo Executable { get; }
+
+    #endregion Protected Properties
+
+    /// <summary>
+    /// Executes the specified code.
+    /// </summary>
+    /// <param name="code">The code to execute.</param>
+    /// <param name="scriptName">The name to give the the code.</param>
+    /// <param name="extensionIfCodeWasInsideAFile">If <paramref name="code"/> was the content of a file, the file's extension.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="code"/> is <see langword="null"/>.</exception>
+    protected void ExecuteCode(string code, string scriptName, string extensionIfCodeWasInsideAFile)
+    {
+        if (code is null)
+        {
+            throw new ArgumentNullException(nameof(code));
+        }
+        if (!SupportedExtensions.Contains(extensionIfCodeWasInsideAFile))
+        {
+            throw new BadFileExtensionException(extensionIfCodeWasInsideAFile);
+        }
+
+        FileInfo tmpScriptFile = CreateTempFile(code, extensionIfCodeWasInsideAFile);
+
+        using Process host = ExecuteHost(tmpScriptFile);
+        (string stderr, string stdout) = WaitForHostExit(host, scriptName);
+
+        tmpScriptFile.Delete();
+
+        stderr.Log("Standard error");
+        stdout.Log("Standard output");
+    }
+
+    /// <summary>
+    /// Creates a temporary file with the specified text and the specified extension.
+    /// </summary>
+    /// <returns>The new temporary file.</returns>
+    protected FileInfo CreateTempFile(string? text, string? extension)
+    {
+        FileInfo tmpScriptFile = new(Path.Join(Path.GetTempPath(), $"WinCleanScript{DateTime.Now.ToBinary()}{extension}"));
+
+        try
+        {
+            using StreamWriter s = tmpScriptFile.CreateText();
+            {
+                s.Write(text);
+                s.Close();
+            }
+            return tmpScriptFile;
+        }
+        catch (IOException e)
+        {
+            ErrorDialog.CantCreateTempFile(e, () => tmpScriptFile = CreateTempFile(text, extension), Program.Exit);
+        }
+
+        return tmpScriptFile;
+    }
+    /// <summary>
+    /// Executes the script host program with the specified script.
+    /// </summary>
+    /// <param name="script">The script to execute.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
+    protected Process ExecuteHost(FileInfo script)
+        => Process.Start(new ProcessStartInfo(Executable.FullName, Arguments.Complete(script ?? throw new ArgumentNullException(nameof(script))))
+        {
+            WindowStyle = ProcessWindowStyle.Hidden,
+            RedirectStandardError = true,
+            RedirectStandardOutput = true,
+            StandardErrorEncoding = Encoding.Unicode,
+            StandardOutputEncoding = Encoding.Unicode,
+        })!; // ! : it wont return null
+
+    /// <summary>
+    /// Waits for the end of the specified script host process
+    /// </summary>
+    /// <param name="p">The process which to wait for exit.</param>
+    /// <param name="scriptName">The name of the script being executed.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="p"/> or <paramref name="scriptName"/> are <see langword="null"/>.</exception>
+    /// <returns>The standard error and standard output streams of the script host process, read to end.</returns>
+    protected (string stderr, string stdout) WaitForHostExit(Process p, string scriptName)
+    {
+        // placeholder for the time a script would take to run
+        System.Threading.Thread.Sleep(2000);
+        _ = p ?? throw new ArgumentNullException(nameof(p));
+        _ = scriptName ?? throw new ArgumentNullException(nameof(scriptName));
+
+        if (!p.WaitForExit(Convert.ToInt32(Properties.Settings.Default.ScriptTimeout.TotalMilliseconds)))
+        {
+            ErrorDialog.HungScript(scriptName,
+            restart: () =>
+            {
+                p.Kill(true);
+                _ = p.Start();
+            },
+            kill: () => p.Kill(true),
+            ignore: () => WaitForHostExit(p, scriptName));
+        }
+        return (p.StandardError.ReadToEnd(), p.StandardOutput.ReadToEnd());
+    }
+
+    #region Protected Classes
+
+    /// <summary>Formattable executable arguments with a single file path argument.</summary>
+    protected class IncompleteArguments
     {
         #region Private Fields
 
-        private readonly IncompleteArguments _arguments;
-
-        private readonly Encoding _encoding;
-
-        private readonly FileInfo _executable;
-
-        private readonly Action? _beforeExecute;
-
-        private readonly Action? _afterExecute;
+        private readonly string _args;
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="ScriptHost"/> class.</summary>
-        /// <param name="executable">The script host program's executable.</param>
-        /// <param name="arguments">
-        /// A formattable string representing the appropriate arguments to run the script host, hidden, with a single script. It
-        /// must have exactly 1 argument, the path of the script file to execute.
-        /// </param>
-        /// <param name="encoding">The default encoding of the script host.</param>
-        /// <param name="supportedExtensions">The extensions the script host supports.</param>
-        /// <param name="beforeExecute">Action to invoke before executing a script.</param>
-        /// <param name="afterExecute">Action to invoke after having executed a script.</param>
-        /// <exception cref="ArgumentNullException">One ore more parameters are <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentException"><paramref name="arguments"/> does not contain exactly 1 formattable argument. -- OR -- <paramref name="executable"/> is not an executable (*.exe).</exception>
-        public ScriptHost(FileInfo executable, string arguments, Encoding encoding, ExtensionGroup supportedExtensions, Action? beforeExecute = null, Action? afterExecute = null)
+        /// <param name="args">Formattable string with 1 argument, the path of the script file.</param>
+        /// <exception cref="ArgumentException"><paramref name="args"/> does not contain exactly one formattable argument.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="args"/> is <see langword="null"/>.</exception>
+        public IncompleteArguments(string args)
         {
-            if ((executable ?? throw new ArgumentNullException(nameof(executable))).Extension != ".exe")
+            if (FormattableStringFactory.Create(args ?? throw new ArgumentNullException(nameof(args)), string.Empty).ArgumentCount != 1)
             {
-                throw new ArgumentException("Not an executable (*.exe)", nameof(executable));
+                throw new ArgumentException($"Not exactly 1 formattable argument", nameof(args));
             }
-
-            _executable = executable;
-            _arguments = new(arguments);
-            _encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
-            SupportedExtensions = supportedExtensions ?? throw new ArgumentNullException(nameof(supportedExtensions));
-            _beforeExecute = beforeExecute;
-            _afterExecute = afterExecute;
+            _args = args;
         }
 
         #endregion Public Constructors
 
         #region Public Methods
 
-        /// <summary>Creates a new <see cref="ScriptHost"/> object from a script file extension.</summary>
-        /// <param name="ext">The file extension to create a <see cref="ScriptHost"/> from.</param>
-        /// <exception cref="BadFileExtensionException"><paramref name="ext"/> is not supported by any known <see cref="ScriptHost"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="ext"/> is <see langword="null"/>.</exception>
-        /// <returns>A known <see cref="ScriptHost"/>.</returns>
-        public static ScriptHost FromFileExtension(string ext)
-            => ext is null
-                   ? throw new ArgumentNullException(nameof(ext))
-                   : Cmd.SupportedExtensions.Contains(ext)
-                       ? Cmd
-                       : PowerShell.SupportedExtensions.Contains(ext)
-                           ? PowerShell
-                           : Regedit.SupportedExtensions.Contains(ext)
-                               ? Regedit
-                               : throw new BadFileExtensionException(ext);
+        /// <summary>Completes the arguments with the specified script file.</summary>
+        /// <param name="script">The file to complete the arguments with.</param>
+        /// <returns>The completed arguments</returns>
+        public string Complete(FileInfo script) => string.Format(CultureInfo.InvariantCulture, _args, script);
 
         #endregion Public Methods
-
-        #region Public Properties
-
-        /// <summary>The Windows Command Line interpreter (cmd.exe) script host.</summary>
-        public static ScriptHost Cmd
-            // ! : %comspec% exists on any supported windows os.
-            => new(executable: new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)!),
-                   arguments: "/d /c \"\"{0}\"\"",
-                   encoding: Encoding.GetEncoding(850),
-                   supportedExtensions: new(".cmd", ".bat"));
-
-        /// <summary>The Windows PowerShell script host.</summary>
-        public static ScriptHost PowerShell
-        {
-            get
-            {
-                const ExecutionPolicyScope usedScope = ExecutionPolicyScope.CurrentUser;
-
-                return new(executable: new(Operational.PowerShell.Path),
-                             arguments: new("-WindowStyle Hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\""),
-                             encoding: Encoding.GetEncoding(1252),
-                             supportedExtensions: new(".ps1"),
-                             beforeExecute: () => Operational.PowerShell.SetExecutionPolicy(ExecutionPolicy.Unrestricted, usedScope),
-                             afterExecute: () => Operational.PowerShell.SetExecutionPolicy(ExecutionPolicy.Default, usedScope));
-            }
-        }
-
-        /// <summary>The Windows Registry Editor script host.</summary>
-        public static ScriptHost Regedit
-            => new(executable: new(Path.Join(Environment.GetEnvironmentVariable("SystemRoot"), "regedit.exe")),
-                   arguments: new("/s {0}"),
-                   encoding: Encoding.Unicode,
-                   supportedExtensions: new(".reg"));
-
-        /// <inheritdoc/>
-        public string DisplayName => ShellProperty.GetFileDescription(_executable);
-
-        /// <inheritdoc/>
-        public ExtensionGroup SupportedExtensions { get; init; }
-
-        #endregion Public Properties
-
-        #region Public Methods
-
-        /// <inheritdoc/>
-        public void Execute(IScript script)
-        {
-            _ = script ?? throw new ArgumentNullException(nameof(script));
-
-            _beforeExecute?.Invoke();
-
-            try
-            {
-                FileInfo tmpScriptFile = new(Path.GetTempFileName());
-                using StreamWriter s = tmpScriptFile.CreateText();
-                {
-                    s.Write(script.Code);
-                }
-                Execute(tmpScriptFile);
-            }
-            catch (IOException e)
-            {
-                ErrorDialog.CantCreateTempFile(e, () => Execute(script), Program.Exit);
-            }
-
-            _afterExecute?.Invoke();
-        }
-
-        /// <inheritdoc/>
-        public override string ToString() => $"{_executable.Name} {_arguments}";
-
-        #endregion Public Methods
-
-        #region Private Methods
-
-        private void Execute(FileInfo script)
-        {
-            Assert(script is not null);
-
-            ToString().Log("Script execution");
-            using Process host = Process.Start(new ProcessStartInfo(_executable.FullName, _arguments.Complete(script))
-            {
-                WindowStyle = ProcessWindowStyle.Hidden,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true,
-                StandardErrorEncoding = _encoding,
-                StandardOutputEncoding = _encoding,
-            }) ?? throw new InvalidOperationException("Process.Start returned null");
-
-            WaitForScriptEnd(host, script);
-            ToUnicode(host.StandardError).Log($"Error stream");
-            ToUnicode(host.StandardOutput).Log($"Output stream");
-        }
-
-        private static void WaitForScriptEnd(Process p, FileInfo script)
-        {
-            Assert(p is not null);
-
-            if (!p.WaitForExit(Convert.ToInt32(Properties.Settings.Default.ScriptTimeout.TotalMilliseconds)))
-            {
-                ErrorDialog.HungScript(script.Name,
-                restart: () =>
-                {
-                    p.Kill(true);
-                    _ = p.Start();
-                },
-                kill: () => p.Kill(true),
-                ignore: () => WaitForScriptEnd(p, script));
-            }
-        }
-
-        /// <summary>Reads everything in a stream and returns the converted Uunicode text.</summary>
-        /// <param name="stream">A text stream in a non-unicode encoding.</param>
-        /// <returns>The text of <paramref name="stream"/> in Unicode.</returns>
-        private string ToUnicode(StreamReader stream)
-        {
-            Assert(stream is not null);
-
-            using StreamReader convertedStream = new(Encoding.CreateTranscodingStream(stream.BaseStream, _encoding, Encoding.Unicode, true));
-            return convertedStream.ReadToEnd();
-        }
-
-        #endregion Private Methods
-
-        #region Private Classes
-
-        /// <summary>Formattable executable arguments with a single file path argument.</summary>
-        private readonly struct IncompleteArguments
-        {
-            #region Private Fields
-
-            private readonly string _args;
-
-            #endregion Private Fields
-
-            #region Public Constructors
-
-            /// <param name="args">Formattable string with 1 argument, the path of the script file.</param>
-            /// <exception cref="ArgumentException"><paramref name="args"/> does not contain exactly one argument.</exception>
-            /// <exception cref="ArgumentNullException"><paramref name="args"/> is <see langword="null"/>.</exception>
-            public IncompleteArguments(string args)
-            {
-                Assert(FormattableStringFactory.Create(args, "dummy").ArgumentCount == 1, $"Not exactly 1 argument to {nameof(args)}");
-                _args = args;
-            }
-
-            #endregion Public Constructors
-
-            #region Public Methods
-
-            /// <summary>Completes the arguments with the specified script file.</summary>
-            /// <param name="script">The file to complete the arguments with.</param>
-            /// <returns>The completed arguments</returns>
-            public string Complete(FileInfo script) => string.Format(CultureInfo.InvariantCulture, _args, script);
-
-            /// <inheritdoc/>
-            public override string ToString() => _args;
-
-            #endregion Public Methods
-        }
-
-        #endregion Private Classes
     }
+
+    #endregion Protected Classes
 }

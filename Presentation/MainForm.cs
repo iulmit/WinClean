@@ -1,48 +1,47 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.   
 
+using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.Operational;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-using RaphaëlBardini.WinClean.Logic;
-using RaphaëlBardini.WinClean.Operational;
+namespace RaphaëlBardini.WinClean.Presentation;
 
-namespace RaphaëlBardini.WinClean.Presentation
+/// <summary>
+/// This is the application's main form. It regroups several features, including the main commit buttons, script selection,
+/// and provides UI acess to other forms.
+/// </summary>
+public partial class MainForm : Form
 {
-    /// <summary>
-    /// This is the application's main form. It regroups several features, including the main commit buttons, script selection,
-    /// and provides UI acess to other forms.
-    /// </summary>
-    public partial class MainForm : Form
+    /// <inheritdoc/>
+    /// <remarks>Reduced flickering on child control paint.</remarks>
+    protected override CreateParams CreateParams
     {
-        /// <inheritdoc/>
-        /// <remarks>Reduced flickering on child control paint.</remarks>
-        protected override CreateParams CreateParams
+        get
         {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
-                return cp;
-            }
+            CreateParams cp = base.CreateParams;
+            cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+            return cp;
         }
+    }
 
-        #region Public Constructors
+    #region Public Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="MainForm"/> class.</summary>
-        public MainForm()
+    /// <summary>Initializes a new instance of the <see cref="MainForm"/> class.</summary>
+    public MainForm()
+    {
+        InitializeComponent();
+
+        openFileDialogScripts.MakeFilter(new Cmd().SupportedExtensions, new PowerShell().SupportedExtensions, new Regedit().SupportedExtensions);
+
+        //chaud : sauvegarder les groupes
+        _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
+        _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
+
+        // Example scripts
+        IScript[] placeholders = new[]
         {
-            InitializeComponent();
-
-            openFileDialogScripts.MakeFilter(ScriptHost.Cmd.SupportedExtensions, ScriptHost.PowerShell.SupportedExtensions, ScriptHost.Regedit.SupportedExtensions);
-
-            //chaud : sauvegarder les groupes
-            _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
-            _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
-
-            // Example scripts
-            IScript[] placeholders = new[]
-            {
                 new Script
                 (
                     name: "CmdFoo",
@@ -71,127 +70,126 @@ namespace RaphaëlBardini.WinClean.Presentation
                     source: new FileInfo(@"C:\Users\Scover\Desktop\ps1script.ps1")
                 )
             };
-            foreach (IScript placeholder in placeholders)
-            {
-                placeholder.Save();
-            }
-
-            ScriptsDir.LoadAllScripts(listViewScripts);
-
-            Text = $"{Application.ProductName} {Application.ProductVersion}";
-
-            MainMenuAbout.Text = Resources.FormattableStrings.About(Application.ProductName);
-
-            foreach (ListViewGroup group in listViewScripts.Groups)
-            {
-                group.CollapsedState = ListViewGroupCollapsedState.Expanded;
-            }
-        }
-
-        #endregion Public Constructors
-
-        #region Private Methods
-
-        #region Event Handlers
-
-        #region MainForm
-        // This is to prevent scroll bar flickering during resize
-        private void MainForm_ResizeBegin(object _, EventArgs __) => listViewScripts.Scrollable = scriptEditor.AutoScroll = false;
-        private void MainForm_ResizeEnd(object _, EventArgs __) => listViewScripts.Scrollable = scriptEditor.AutoScroll = true;
-        #endregion MainForm
-
-        #region Buttons
-
-        private void ButtonAddScript_Click(object _, EventArgs __)
+        foreach (IScript placeholder in placeholders)
         {
-            if (openFileDialogScripts.ShowDialog(this) == DialogResult.OK)
-            {
-                foreach (string newScriptPath in openFileDialogScripts.FileNames)
-                {
-                    _ = listViewScripts.Items.Add(new Script("Nouveau script", "Entrez les détails de fonctionnement du script...", ScriptAdvised.No, new List<Impact>(), null, new(newScriptPath)));
-                }
-            }
+            placeholder.Save();
         }
 
-        private void ButtonExecuteScripts_Click(object _, EventArgs __) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<IScript>().ToList());
+        ScriptsDir.LoadAllScripts(listViewScripts);
 
-        private void ButtonQuit_Click(object _, EventArgs __) => Program.Exit();
+        Text = $"{Application.ProductName} {Application.ProductVersion}";
 
-        #endregion Buttons
+        MainMenuAbout.Text = Resources.FormattableStrings.About(Application.ProductName);
 
-        #region mainMenuStrip
-
-        private void MainMenuQuit_Click(object _, EventArgs __) => Program.Exit();
-
-        private void MainMenuSelectAll_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);
-
-        private void MainMenuSelectDebloat_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);// placeholder
-
-        private void MainMenuSelectMaintenance_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);// placeholder
-
-        private void MainMenuSelectNothing_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, false);
-
-        private void MainMenuStripAbout_Click(object _, EventArgs __) => Program.ShowAboutBox();
-
-        private void MainMenuStripClearLogs_Click(object _, EventArgs __) => LogManager.ClearLogsFolder();
-
-        private void MainMenuStripSettings_Click(object _, EventArgs __) => Program.ShowSettings();
-
-        private void MainMenuStripShowHelp_Click(object _, EventArgs __)
+        foreach (ListViewGroup group in listViewScripts.Groups)
         {
+            group.CollapsedState = ListViewGroupCollapsedState.Expanded;
         }
-
-        #endregion mainMenuStrip
-
-        #region listViewScripts
-
-        private void ListViewScripts_ItemChecked(object _, ItemCheckedEventArgs __) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
-
-        /// <summary>
-        /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
-        /// cref="listViewScripts"/>'s new size.
-        /// </summary>
-        private void ListViewScripts_Resize(object _, EventArgs __) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
-
-        private void ListViewScripts_SelectedIndexChanged(object _, EventArgs __)
-            => scriptEditor.SelectedScript = listViewScripts.SelectedItems.Cast<IScript>().FirstOrDefault();
-
-        #endregion listViewScripts
-
-        #endregion Event Handlers
-
-        private static void SetAllChecked(ListView.ListViewItemCollection items, bool @checked)
-        {
-            foreach (ListViewItem lvi in items)
-            {
-                lvi.Checked = @checked;
-            }
-        }
-
-        private void InitLabelEdit(ListViewItem toEdit, LabelEditEventHandler? beforeLabelEdit = null, LabelEditEventHandler? afterLabelEdit = null)
-        {
-            ListView lv = toEdit.ListView;
-
-            // beware the mandatory temporal couplings
-
-            bool oldLabelEdit = lv.LabelEdit;
-
-            lv.LabelEdit = true;
-            toEdit.BeginEdit();
-
-            lv.BeforeLabelEdit += beforeLabelEdit;
-            lv.AfterLabelEdit += afterLabelEdit;
-            lv.AfterLabelEdit += Cleanup;
-
-            void Cleanup(object _, LabelEditEventArgs __)
-            {
-                lv.BeforeLabelEdit -= beforeLabelEdit;
-                lv.AfterLabelEdit -= afterLabelEdit;
-                lv.AfterLabelEdit -= Cleanup;
-                lv.LabelEdit = oldLabelEdit;
-            }
-        }
-
-        #endregion Private Methods
     }
+
+    #endregion Public Constructors
+
+    #region Private Methods
+
+    #region Event Handlers
+
+    #region MainForm
+    // This is to prevent scroll bar flickering during resize
+    private void MainForm_ResizeBegin(object _, EventArgs __) => listViewScripts.Scrollable = scriptEditor.AutoScroll = false;
+    private void MainForm_ResizeEnd(object _, EventArgs __) => listViewScripts.Scrollable = scriptEditor.AutoScroll = true;
+    #endregion MainForm
+
+    #region Buttons
+
+    private void ButtonAddScript_Click(object _, EventArgs __)
+    {
+        if (openFileDialogScripts.ShowDialog(this) == DialogResult.OK)
+        {
+            foreach (string newScriptPath in openFileDialogScripts.FileNames)
+            {
+                _ = listViewScripts.Items.Add(new Script("Nouveau script", "Entrez les détails de fonctionnement du script...", ScriptAdvised.No, new List<Impact>(), null, new(newScriptPath)));
+            }
+        }
+    }
+
+    private void ButtonExecuteScripts_Click(object _, EventArgs __) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<IScript>().ToList());
+
+    private void ButtonQuit_Click(object _, EventArgs __) => Program.Exit();
+
+    #endregion Buttons
+
+    #region mainMenuStrip
+
+    private void MainMenuQuit_Click(object _, EventArgs __) => Program.Exit();
+
+    private void MainMenuSelectAll_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);
+
+    private void MainMenuSelectDebloat_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);// placeholder
+
+    private void MainMenuSelectMaintenance_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);// placeholder
+
+    private void MainMenuSelectNothing_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, false);
+
+    private void MainMenuStripAbout_Click(object _, EventArgs __) => Program.ShowAboutBox();
+
+    private void MainMenuStripClearLogs_Click(object _, EventArgs __) => LogManager.ClearLogsFolder();
+
+    private void MainMenuStripSettings_Click(object _, EventArgs __) => Program.ShowSettings();
+
+    private void MainMenuStripShowHelp_Click(object _, EventArgs __)
+    {
+    }
+
+    #endregion mainMenuStrip
+
+    #region listViewScripts
+
+    private void ListViewScripts_ItemChecked(object _, ItemCheckedEventArgs __) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
+
+    /// <summary>
+    /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
+    /// cref="listViewScripts"/>'s new size.
+    /// </summary>
+    private void ListViewScripts_Resize(object _, EventArgs __) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
+
+    private void ListViewScripts_SelectedIndexChanged(object _, EventArgs __)
+        => scriptEditor.SelectedScript = listViewScripts.SelectedItems.Cast<IScript>().FirstOrDefault();
+
+    #endregion listViewScripts
+
+    #endregion Event Handlers
+
+    private static void SetAllChecked(ListView.ListViewItemCollection items, bool @checked)
+    {
+        foreach (ListViewItem lvi in items)
+        {
+            lvi.Checked = @checked;
+        }
+    }
+
+    private void InitLabelEdit(ListViewItem toEdit, LabelEditEventHandler? beforeLabelEdit = null, LabelEditEventHandler? afterLabelEdit = null)
+    {
+        ListView lv = toEdit.ListView;
+
+        // beware the mandatory temporal couplings
+
+        bool oldLabelEdit = lv.LabelEdit;
+
+        lv.LabelEdit = true;
+        toEdit.BeginEdit();
+
+        lv.BeforeLabelEdit += beforeLabelEdit;
+        lv.AfterLabelEdit += afterLabelEdit;
+        lv.AfterLabelEdit += Cleanup;
+
+        void Cleanup(object _, LabelEditEventArgs __)
+        {
+            lv.BeforeLabelEdit -= beforeLabelEdit;
+            lv.AfterLabelEdit -= afterLabelEdit;
+            lv.AfterLabelEdit -= Cleanup;
+            lv.LabelEdit = oldLabelEdit;
+        }
+    }
+
+    #endregion Private Methods
 }

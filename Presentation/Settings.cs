@@ -2,16 +2,15 @@
 
 using System.Windows.Forms;
 
-namespace RaphaëlBardini.WinClean.Presentation
+namespace RaphaëlBardini.WinClean.Presentation;
+
+/// <summary>Form to acess and modify application settings.</summary>
+public partial class Settings : Form
 {
-    /// <summary>Form to acess and modify application settings.</summary>
-    public partial class Settings : Form
-    {
-        #region Public Constructors
+    #region Public Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="Settings"/> class.</summary>
-        public Settings() => InitializeComponent();
+    /// <summary>Initializes a new instance of the <see cref="Settings"/> class.</summary>
+    public Settings() => InitializeComponent();
 
-        #endregion Public Constructors
-    }
+    #endregion Public Constructors
 }

@@ -59,20 +59,20 @@
             // comboBoxAdvised
             // 
             resources.ApplyResources(this.comboBoxAdvised, "comboBoxAdvised");
-            this.comboBoxAdvised.BackColor = System.Drawing.Color.WhiteSmoke;
             this.comboBoxAdvised.CausesValidation = false;
+            this.comboBoxAdvised.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAdvised.FormattingEnabled = true;
             this.comboBoxAdvised.Name = "comboBoxAdvised";
-            this.comboBoxAdvised.SelectedIndexChanged += new System.EventHandler(this.ComboBoxGroup_SelectedIndexChanged);
+            this.comboBoxAdvised.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAdvised_SelectedIndexChanged);
             // 
             // comboBoxGroup
             // 
             resources.ApplyResources(this.comboBoxGroup, "comboBoxGroup");
-            this.comboBoxGroup.BackColor = System.Drawing.Color.WhiteSmoke;
             this.comboBoxGroup.CausesValidation = false;
+            this.comboBoxGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGroup.FormattingEnabled = true;
             this.comboBoxGroup.Name = "comboBoxGroup";
-            this.comboBoxGroup.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAdvised_SelectedIndexChanged);
+            this.comboBoxGroup.SelectedIndexChanged += new System.EventHandler(this.ComboBoxGroup_SelectedIndexChanged);
             // 
             // textBoxDescription
             // 
@@ -110,6 +110,7 @@
             this.Controls.Add(this.buttonDelete);
             this.Name = "ScriptEditor";
             this.SizeChanged += new System.EventHandler(this.ScriptEditor_SizeChanged);
+            this.Leave += new System.EventHandler(this.ScriptEditor_Leave);
             this.ResumeLayout(false);
             this.PerformLayout();
 

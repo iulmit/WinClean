@@ -65,14 +65,8 @@
   <data name="comboBoxAdvised.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="comboBoxAdvised.Text" xml:space="preserve">
-    <value>Recommandé</value>
-  </data>
   <data name="comboBoxGroup.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
-  </data>
-  <data name="comboBoxGroup.Text" xml:space="preserve">
-    <value>Groupe</value>
   </data>
   <data name="textBoxName.PlaceholderText" xml:space="preserve">
     <value>Nom</value>

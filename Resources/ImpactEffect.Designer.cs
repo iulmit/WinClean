@@ -63,7 +63,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Diagnostic data.
         /// </summary>
-        internal static string DataCollection {
+        internal static string Privacy {
             get {
                 return ResourceManager.GetString("DataCollection", resourceCulture);
             }
