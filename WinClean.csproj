@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <StartupObject>RaphaëlBardini.WinClean.Logic.Program</StartupObject>
+    <StartupObject>RaphaëlBardini.WinClean.Program</StartupObject>
 	<LangVersion>preview</LangVersion>
 	<RootNamespace>RaphaëlBardini.WinClean</RootNamespace>
 	<ApplicationIcon>Resources\mainIcon.ico</ApplicationIcon>
@@ -90,6 +90,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Images.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ImpactEffect.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -113,6 +118,10 @@
     <EmbeddedResource Update="Resources\Icons.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Images.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ImpactEffect.resx">
       <Generator>ResXFileCodeGenerator</Generator>

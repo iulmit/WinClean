@@ -59,7 +59,7 @@ public class Script : ListViewItem, IScript
         foreach (XmlElement impactElement in doc.GetElementsByTagName(nameof(Impact)))
         {
             Impacts.Add(new(Enum.Parse<ImpactLevel>(impactElement.GetAttribute(nameof(Impact.Level))),
-                            new(impactElement.GetAttribute(nameof(Impact.Effect)))));
+                            ImpactEffect.Parse(impactElement.GetAttribute(nameof(Impact.Effect)))));
         }
 
         XmlDocument CreateDoc()

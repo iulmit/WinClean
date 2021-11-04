@@ -118,39 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="Error" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Main" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>main.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MainIcon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Main" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAQAAAAAAAEAIAAoIAQARgAAADAwAAABACAAqCUAAG4gBAAgIAAAAQAgAKgQAAAWRgQAEBAAAAEA
         IABoBAAAvlYEACgAAAAAAQAAAAIAAAEAIAAAAAAAACAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

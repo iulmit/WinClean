@@ -8,17 +8,25 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>Effect of running a script.</summary>
 public class ImpactEffect
 {
-    private readonly string _value;
     /// <summary>
-    /// Initializes a new instance of the <see cref="ImpactEffect"/> class.
+    /// Gets the <see cref="ImpactEffect"/> matching the specified string.
     /// </summary>
-    public ImpactEffect(string value)
-        => _value = Values.Contains(value) ? value : throw new ArgumentException($"{value} is not supported.");
+    /// <returns>A new <see cref="ImpactEffect"/> object.</returns>
+    /// <exception cref="ArgumentException"><paramref name="value"/> does not match to any <see cref="ImpactEffect"/> value.</exception>
+    public static ImpactEffect Parse(string? value)
+        => _validValues.Contains(value)
+            ? (new(value))
+            : throw new ArgumentException($"Not a supported {nameof(ImpactEffect)} value", nameof(value));
+
+    private static readonly IEnumerable<string?> _validValues = Resources.ImpactEffect.ResourceManager.GetRessources<string>();
+    private readonly string? _value;
+
+    private ImpactEffect(string? value) => _value = value;
 
     /// <summary>
     /// Gets all the valid values.
     /// </summary>
-    public static IEnumerable<string?> Values => Resources.ImpactEffect.ResourceManager.GetRessources<string>();
+    public static IEnumerable<ImpactEffect> Values => _validValues.Select((str) => new ImpactEffect(str));
 
     /// <summary>System praticality.</summary>
     public static ImpactEffect Ergonomics => new(Resources.ImpactEffect.Ergonomics);
@@ -54,5 +62,5 @@ public class ImpactEffect
     public static implicit operator string(ImpactEffect impactEffect) => impactEffect?.ToString()!;// ! : a cast from null returns null.
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string? ToString() => _value;
 }

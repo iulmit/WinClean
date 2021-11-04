@@ -24,10 +24,10 @@ public class Impact
     #region Public Properties
 
     /// <summary>The actual effect on the system.</summary>
-    public ImpactEffect Effect { get; }
+    public ImpactEffect Effect { get; set; }
 
     /// <summary>The level of the effect.</summary>
-    public ImpactLevel Level { get; }
+    public ImpactLevel Level { get; set; }
 
     #endregion Public Properties
 }

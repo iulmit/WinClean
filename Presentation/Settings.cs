@@ -10,7 +10,12 @@ public partial class Settings : Form
     #region Public Constructors
 
     /// <summary>Initializes a new instance of the <see cref="Settings"/> class.</summary>
-    public Settings() => InitializeComponent();
+    public Settings()
+    {
+        InitializeComponent();
+        Logic.Impact impact = new(Logic.ImpactLevel.Positive, Logic.ImpactEffect.Visuals);
+        impactEditor1.SelectedImpact = impact;
+    }
 
     #endregion Public Constructors
 }

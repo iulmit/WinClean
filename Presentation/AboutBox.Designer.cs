@@ -62,7 +62,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             // logoPictureBox
             // 
             resources.ApplyResources(logoPictureBox, "logoPictureBox");
-            logoPictureBox.Image = global::RaphaëlBardini.WinClean.Resources.Icons.Main;
+            logoPictureBox.Image = global::RaphaëlBardini.WinClean.Resources.Images.Splash;
             logoPictureBox.Name = "logoPictureBox";
             tableLayoutPanel.SetRowSpan(logoPictureBox, 5);
             logoPictureBox.TabStop = false;

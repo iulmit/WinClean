@@ -83,31 +83,6 @@ internal static class Helpers
     /// <summary>Restarts the system.</summary>
     public static void RebootForApplicationMaintenance() => System.Diagnostics.Process.Start("shutdown", $"/g /t 0 /d p:4:1");
 
-    /// <summary>Throws the appropriate exception if the filesystem element is not accessible.</summary>
-    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
-    /// <exception cref="FileNotFoundException"><paramref name="info"/> was not found.</exception>
-    /// <exception cref="UnauthorizedAccessException"><paramref name="info"/> is readonly or a directory.</exception>
-    /// <exception cref="DirectoryNotFoundException">
-    /// <paramref name="info"/> is invalid, such as being on an unmapped drive.
-    /// </exception>
-    /// <exception cref="IOException"><paramref name="info"/> is already open.</exception>
-    public static void ThrowIfUnacessible(this FileInfo info, FileAccess access = FileAccess.ReadWrite)
-    {
-        Assert(info is not null);
-        using FileStream _ = info.Open(FileMode.Open, access);
-    }
-
-    /// <inheritdoc cref="ThrowIfUnacessible(FileInfo, FileAccess)" path="/summary"/>
-    /// <exception cref="DirectoryNotFoundException">
-    /// The path encapsulated in the System.IO.DirectoryInfo object is invalid (for example, it is on an unmapped drive).
-    /// </exception>
-    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
-    public static void ThrowIfUnacessible(this DirectoryInfo info)
-    {
-        Assert(info is not null);
-        _ = info.EnumerateDirectories("Trying not to find files, to improve performance. We're just here for the exception that this method may throw.");
-    }
-
     /// <summary>Creates a valid Windows filename from a string.</summary>
     /// <param name="filenameCandidate">The filename candidate.</param>
     /// <param name="replaceInvalidCharsWith">
