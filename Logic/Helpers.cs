@@ -2,11 +2,14 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
@@ -26,16 +29,54 @@ internal static class Helpers
     #region Public Methods
 
     /// <summary>
+    /// Calls <see cref="Fail(string?)"/> if <paramref name="t"/> is <see langword="null"/>.
+    /// </summary>
+    /// <returns><paramref name="t"/>.</returns>
+    [return: NotNull]
+    public static T FailIfNull<T>(this T? t, [CallerMemberName] string caller = "Not Found",
+                                            [CallerLineNumber] int callLine = 0,
+                                            [CallerFilePath] string callFile = "Not Found") where T : class
+    {
+        if (t is null)
+        {
+            Fail($"FailIfNull at {caller}, line {callLine}, in {callFile}");
+        }
+        return t;
+    }
+
+    public static RectangleF CenterIn(this SizeF child, RectangleF parent) => new(parent.Location + (parent.Size / 2) - (child / 2), child);
+    public static Rectangle CenterIn(this Size child, Rectangle parent)
+    {
+        RectangleF rF = CenterIn(child, (RectangleF)parent);
+        return new Rectangle(Convert.ToInt32(rF.X),
+                             Convert.ToInt32(rF.Y),
+                             Convert.ToInt32(rF.Height),
+                             Convert.ToInt32(rF.Width));
+    }
+
+    /// <summary>
     /// Gets all the resources of the specified type.
     /// </summary>
     /// <typeparam name="T">The type of the resources to get.</typeparam>
     /// <param name="resourceManager">The resource manager to get the resources from.</param>
     /// <param name="culture">The culture to use. If not specified, <see cref="CultureInfo.CurrentUICulture"/> is used.</param>
     /// <returns>All the resources the resource manager have access to of type <typeparamref name="T"/>.</returns>
-    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentException">The resource set for <paramref name="resourceManager"/> doesn't exist.</exception>
     public static IEnumerable<T?> GetRessources<T>(this System.Resources.ResourceManager resourceManager, CultureInfo? culture = null)
-        => (resourceManager.GetResourceSet(culture ?? CultureInfo.CurrentUICulture, true, true) ?? throw new ArgumentException("Ressource set doesn't exist", nameof(resourceManager)))
+        => (resourceManager.GetResourceSet(culture ?? CultureInfo.CurrentUICulture, true, true) ?? throw new ArgumentException("Resource set doesn't exist", nameof(resourceManager)))
            .OfType<DictionaryEntry>().Where((entry) => entry.Value is T).Select<DictionaryEntry, T?>((entry) => (T?)entry.Value);
+
+    /// <summary>
+    /// Gets the name of a specific resource.
+    /// </summary>
+    /// <param name="resourceManager">The resource manager containing the resource.</param>
+    /// <param name="resource">The resource to get the name of.</param>
+    /// <param name="culture">The culture to use. If not specified, <see cref="CultureInfo.CurrentUICulture"/> is used.</param>
+    /// <returns>The name of the resource <paramref name="resource"/>. If <paramref name="resource"/> is not found, <see langword="null"/>.</returns>
+    /// <exception cref="ArgumentException">The resource set for <paramref name="resourceManager"/> doesn't exist.</exception>
+    public static string GetName(this System.Resources.ResourceManager resourceManager, object? resource, CultureInfo? culture = null)
+        => (string)(resourceManager.GetResourceSet(culture ?? CultureInfo.CurrentUICulture, true, true) ?? throw new ArgumentException("Resource set doesn't exist", nameof(resourceManager)))
+           .OfType<DictionaryEntry>().First((entry) => entry.Value == resource).Key;
 
     /// <exception cref="ArgumentNullException"><paramref name="page"/> is <see langword="null"/>.</exception>
     /// <inheritdoc cref="TaskDialog.ShowDialog(IWin32Window, TaskDialogPage, TaskDialogStartupLocation)"/>
@@ -45,8 +86,10 @@ internal static class Helpers
     /// <summary>Checks if an exception is of a type that .NET Core's filesystem methods may throw.</summary>
     /// <returns>
     /// <para><see langword="true"/> if <paramref name="e"/> is of any of the following types :</para>
-    /// <br><see cref="IOException"/> (including all derived exceptions)</br><br><see
-    /// cref="UnauthorizedAccessException"/></br><br><see cref="NotSupportedException"/></br><br><see cref="System.Security.SecurityException"/></br>
+    /// <br><see cref="IOException"/> (including all derived exceptions)</br>
+    /// <br><seecref="UnauthorizedAccessException"/></br>
+    /// <br><see cref="NotSupportedException"/></br>
+    /// <br><see cref="System.Security.SecurityException"/></br>
     /// <para>Otherwise; <see langword="false"/>.</para>
     /// </returns>
     /// <remarks>Note that unrelated methods may throw any of these exceptions.</remarks>

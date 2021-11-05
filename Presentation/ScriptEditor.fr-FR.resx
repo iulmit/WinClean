@@ -70,4 +70,12 @@
   <data name="buttonDelete.Text" xml:space="preserve">
     <value>Supprimer</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tableImpacts.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 11, 0, 0</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tableImpacts.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
 </root>

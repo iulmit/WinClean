@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DataCollection" xml:space="preserve">
-    <value>Diagnostic data</value>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy</value>
   </data>
   <data name="Ergonomics" xml:space="preserve">
     <value>Ergonomics</value>
@@ -146,5 +146,8 @@
   </data>
   <data name="Visuals" xml:space="preserve">
     <value>Visuals</value>
+  </data>
+  <data name="Undefined" xml:space="preserve">
+    <value>Undefined</value>
   </data>
 </root>

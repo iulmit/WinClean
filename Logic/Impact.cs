@@ -12,6 +12,14 @@ public class Impact
     /// <summary>
     /// Initializes a new instance of the <see cref="Impact"/> class.
     /// </summary>
+    public Impact()
+    {
+        Effect = ImpactEffect.Undefined;
+        Level = ImpactLevel.Mixed;
+    }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Impact"/> class.
+    /// </summary>
     /// <exception cref="InvalidEnumArgumentException"><paramref name="lvl"/> is not a defined <see cref="ImpactLevel"/> constant.</exception>
     public Impact(ImpactLevel lvl, ImpactEffect effect)
     {
@@ -30,4 +38,7 @@ public class Impact
     public ImpactLevel Level { get; set; }
 
     #endregion Public Properties
+
+    /// <inheritdoc/>
+    public override string ToString() => $"{Level} {Effect}";
 }

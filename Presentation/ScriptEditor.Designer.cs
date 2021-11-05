@@ -36,7 +36,7 @@
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonDelete = new System.Windows.Forms.Button();
-            this.flowImpacts = new System.Windows.Forms.FlowLayoutPanel();
+            this.tableImpacts = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // textBoxCode
@@ -99,16 +99,17 @@
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
-            // flowImpacts
+            // tableImpacts
             // 
-            resources.ApplyResources(this.flowImpacts, "flowImpacts");
-            this.flowImpacts.CausesValidation = false;
-            this.flowImpacts.Name = "flowImpacts";
+            resources.ApplyResources(this.tableImpacts, "tableImpacts");
+            this.tableImpacts.CausesValidation = false;
+            this.tableImpacts.Name = "tableImpacts";
+            this.tableImpacts.TabStop = true;
             // 
             // ScriptEditor
             // 
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.flowImpacts);
+            this.Controls.Add(this.tableImpacts);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.buttonExecute);
             this.Controls.Add(this.textBoxCode);
@@ -133,6 +134,6 @@
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.FlowLayoutPanel flowImpacts;
+        private System.Windows.Forms.TableLayoutPanel tableImpacts;
     }
 }

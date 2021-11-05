@@ -83,6 +83,16 @@ namespace RaphaëlBardini.WinClean.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NegativeDisabled {
+            get {
+                object obj = ResourceManager.GetObject("NegativeDisabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Positive {
             get {
                 object obj = ResourceManager.GetObject("Positive", resourceCulture);
