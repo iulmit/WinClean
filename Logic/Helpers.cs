@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
@@ -86,6 +87,32 @@ internal static class Helpers
     public static string GetName(this System.Resources.ResourceManager resourceManager, object? resource, CultureInfo? culture = null)
         => (string)(resourceManager.GetResourceSet(culture ?? CultureInfo.CurrentUICulture, true, true) ?? throw new ArgumentException("Resource set doesn't exist", nameof(resourceManager)))
            .OfType<DictionaryEntry>().First((entry) => entry.Value == resource).Key;
+
+    /// <summary>
+    /// Calls <see cref="Fail(string?)"/> if <paramref name="t"/> is <see langword="null"/>.
+    /// </summary>
+    /// <returns><paramref name="t"/>.</returns>
+    [return: NotNull]
+    public static T FailIfNull<T>(this T? t, [CallerMemberName] string caller = "Not Found",
+                                            [CallerLineNumber] int callLine = 0,
+                                            [CallerFilePath] string callFile = "Not Found") where T : class
+    {
+        if (t is null)
+        {
+            Fail($"FailIfNull at {caller}, line {callLine}, in {callFile}");
+        }
+        return t;
+    }
+
+    public static RectangleF CenterIn(this SizeF child, RectangleF parent) => new(parent.Location + (parent.Size / 2) - (child / 2), child);
+    public static Rectangle CenterIn(this Size child, Rectangle parent)
+    {
+        RectangleF rF = CenterIn(child, (RectangleF)parent);
+        return new Rectangle(Convert.ToInt32(rF.X),
+                             Convert.ToInt32(rF.Y),
+                             Convert.ToInt32(rF.Height),
+                             Convert.ToInt32(rF.Width));
+    }
 
     /// <summary>
     /// Gets all the resources of the specified type.

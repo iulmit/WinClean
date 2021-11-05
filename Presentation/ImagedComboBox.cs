@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using RaphaëlBardini.WinClean.Logic;
+
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>
