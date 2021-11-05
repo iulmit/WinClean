@@ -34,16 +34,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImpactEditor));
             this.table = new System.Windows.Forms.TableLayoutPanel();
             this.comboBoxEffect = new System.Windows.Forms.ComboBox();
-            this.comboBoxLevel = new System.Windows.Forms.ComboBox();
+            this.imagedComboBoxLevel = new RaphaëlBardini.WinClean.Presentation.ImagedComboBox();
             this.table.SuspendLayout();
             this.SuspendLayout();
             // 
             // table
             // 
-            this.table.CausesValidation = false;
             resources.ApplyResources(this.table, "table");
-            this.table.Controls.Add(this.comboBoxLevel, 0, 0);
+            this.table.CausesValidation = false;
             this.table.Controls.Add(this.comboBoxEffect, 1, 0);
+            this.table.Controls.Add(this.imagedComboBoxLevel, 0, 0);
             this.table.Name = "table";
             // 
             // comboBoxEffect
@@ -54,13 +54,15 @@
             this.comboBoxEffect.Name = "comboBoxEffect";
             this.comboBoxEffect.SelectedIndexChanged += new System.EventHandler(this.ComboBoxEffect_SelectedIndexChanged);
             // 
-            // comboBoxLevel
+            // imagedComboBoxLevel
             // 
-            resources.ApplyResources(this.comboBoxLevel, "comboBoxLevel");
-            this.comboBoxLevel.CausesValidation = false;
-            this.comboBoxLevel.FormattingEnabled = true;
-            this.comboBoxLevel.Name = "comboBoxLevel";
-            this.comboBoxLevel.SelectedIndexChanged += new System.EventHandler(this.ComboBoxLevel_SelectedIndexChanged);
+            resources.ApplyResources(this.imagedComboBoxLevel, "imagedComboBoxLevel");
+            this.imagedComboBoxLevel.CausesValidation = false;
+            this.imagedComboBoxLevel.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.imagedComboBoxLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.imagedComboBoxLevel.Name = "imagedComboBoxLevel";
+            this.imagedComboBoxLevel.SelectedItem = null;
+            this.imagedComboBoxLevel.SelectedIndexChanged += new System.EventHandler(this.ComboBoxLevel_SelectedIndexChanged);
             // 
             // ImpactEditor
             // 
@@ -77,6 +79,6 @@
         #endregion
         private System.Windows.Forms.TableLayoutPanel table;
         private System.Windows.Forms.ComboBox comboBoxEffect;
-        private System.Windows.Forms.ComboBox comboBoxLevel;
+        private ImagedComboBox imagedComboBoxLevel;
     }
 }

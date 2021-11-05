@@ -61,15 +61,6 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Diagnostic data.
-        /// </summary>
-        internal static string Privacy {
-            get {
-                return ResourceManager.GetString("DataCollection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Ergonomics.
         /// </summary>
         internal static string Ergonomics {
@@ -106,6 +97,15 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Privacy.
+        /// </summary>
+        internal static string Privacy {
+            get {
+                return ResourceManager.GetString("Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à System response time.
         /// </summary>
         internal static string ResponseTime {
@@ -138,6 +138,15 @@ namespace RaphaëlBardini.WinClean.Resources {
         internal static string StorageSpeed {
             get {
                 return ResourceManager.GetString("StorageSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Undefined.
+        /// </summary>
+        internal static string Undefined {
+            get {
+                return ResourceManager.GetString("Undefined", resourceCulture);
             }
         }
         

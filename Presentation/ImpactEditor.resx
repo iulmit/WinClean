@@ -57,122 +57,116 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="table.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="comboBoxLevel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="comboBoxLevel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 8.25pt</value>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 24</value>
   </data>
-  <data name="comboBoxLevel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 0</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="comboBoxLevel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>7, 0, 0, 0</value>
-  </data>
-  <data name="comboBoxLevel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 21</value>
-  </data>
-  <data name="comboBoxLevel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLevel.Name" xml:space="preserve">
-    <value>comboBoxLevel</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLevel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLevel.Parent" xml:space="preserve">
-    <value>table</value>
-  </data>
-  <data name="&gt;&gt;comboBoxLevel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="comboBoxEffect.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="comboBoxEffect.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 8.25pt</value>
+  <data name="&gt;&gt;imagedComboBoxLevel.Type" xml:space="preserve">
+    <value>RaphaëlBardini.WinClean.Presentation.ImagedComboBox, WinClean, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="comboBoxEffect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>127, 0</value>
+    <value>46, 0</value>
   </data>
-  <data name="comboBoxEffect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>7, 0, 0, 0</value>
-  </data>
-  <data name="comboBoxEffect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 21</value>
-  </data>
-  <data name="comboBoxEffect.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;comboBoxEffect.Name" xml:space="preserve">
-    <value>comboBoxEffect</value>
-  </data>
-  <data name="&gt;&gt;comboBoxEffect.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxEffect.Parent" xml:space="preserve">
-    <value>table</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
   </data>
   <data name="&gt;&gt;comboBoxEffect.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="table.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="table.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="table.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="table.RowCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="table.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 21</value>
-  </data>
-  <data name="table.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;table.Name" xml:space="preserve">
-    <value>table</value>
-  </data>
-  <data name="&gt;&gt;table.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;table.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;table.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="imagedComboBoxLevel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 24</value>
   </data>
-  <data name="table.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="comboBoxLevel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxEffect" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50,Absolute,20" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  <data name="imagedComboBoxLevel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="table.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 21</value>
+  <data name="&gt;&gt;comboBoxEffect.Parent" xml:space="preserve">
+    <value>table</value>
   </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 21</value>
+  <data name="table.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ImpactEditor</value>
+  <data name="&gt;&gt;comboBoxEffect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;table.Name" xml:space="preserve">
+    <value>table</value>
+  </data>
+  <data name="imagedComboBoxLevel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;comboBoxEffect.Name" xml:space="preserve">
+    <value>comboBoxEffect</value>
+  </data>
+  <data name="table.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="table.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;table.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;imagedComboBoxLevel.Name" xml:space="preserve">
+    <value>imagedComboBoxLevel</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ImpactEditor</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="table.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="comboBoxEffect" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="imagedComboBoxLevel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="comboBoxEffect.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;imagedComboBoxLevel.Parent" xml:space="preserve">
+    <value>table</value>
+  </data>
+  <data name="table.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="comboBoxEffect.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;imagedComboBoxLevel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;table.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="comboBoxEffect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>7, 0, 0, 0</value>
+  </data>
+  <data name="table.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 24</value>
+  </data>
+  <data name="table.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="imagedComboBoxLevel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="comboBoxEffect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 23</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 24</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>fr-FR</value>
+  </metadata>
 </root>

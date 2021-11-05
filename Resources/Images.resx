@@ -124,6 +124,9 @@
   <data name="Negative" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Negative.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="NegativeDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>NegativeDisabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Positive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Positive.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

@@ -1,10 +1,10 @@
 ﻿using System.Windows.Forms;
-using System.Drawing;
-using System.Globalization;
 using System.Linq;
 
 using RaphaëlBardini.WinClean.Logic;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
@@ -22,17 +22,19 @@ namespace RaphaëlBardini.WinClean.Presentation
             {
                 Enabled = value is not null;
                 _selectedImpact = value;
-                comboBoxEffect.SelectedItem = value?.Effect;
-                comboBoxLevel.SelectedItem = value?.Level;
 
-                pictureBoxLevelIcon.Image = (value is null) ? null : Resources.Images.ResourceManager.GetObject(value.Level.ToString(), CultureInfo.CurrentUICulture) as Image;
+                if (value is not null)
+                {
+                    comboBoxEffect.SelectedItem = value.Effect;
+                    imagedComboBoxLevel.SelectedItem = imagedComboBoxLevel.Items.OfType<ImagedComboBoxItem>().First((item) => item.Tag.Equals(value.Level));
+                }
             }
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImpactEditor"/> class.
         /// </summary>
-        public ImpactEditor()
+        public ImpactEditor(Impact? selected = null)
         {
             InitializeComponent();
 
@@ -40,22 +42,27 @@ namespace RaphaëlBardini.WinClean.Presentation
             comboBoxEffect.MaxDropDownItems = impactEffectValues.Count;
             comboBoxEffect.DataSource = impactEffectValues;
 
-
-            comboBoxLevel.DataSource = Enum.GetValues<ImpactLevel>();
+            ImpactLevel[] levels = Enum.GetValues<ImpactLevel>();
+            for (int i = 0; i < levels.Length; ++i)
+            {
+                imagedComboBoxLevel.ImageList.Images.Add(levels[i].ToString(), GetImage(levels[i].ToString()));
+                _ = imagedComboBoxLevel.Items.Add(new ImagedComboBoxItem() { ImageIndex = i, Tag = levels[i] });
+            }
+            SelectedImpact = selected;
         }
-
+        private static Image GetImage(string levelName)
+            => (Image)Resources.Images.ResourceManager.GetObject(levelName, CultureInfo.CurrentUICulture).FailIfNull();
         private void ComboBoxLevel_SelectedIndexChanged(object _, EventArgs __)
         {
-            if (_selectedImpact is not null)
+            if (_selectedImpact is not null && imagedComboBoxLevel.SelectedItem.HasValue)
             {
-                _selectedImpact.Level = (ImpactLevel)comboBoxLevel.SelectedItem;
-                pictureBoxLevelIcon.Image = Resources.Images.ResourceManager.GetObject(((ImpactLevel)comboBoxLevel.SelectedItem).ToString(), CultureInfo.CurrentUICulture) as Image;
+                _selectedImpact.Level = (ImpactLevel)imagedComboBoxLevel.SelectedItem.Value.Tag;
             }
         }
 
         private void ComboBoxEffect_SelectedIndexChanged(object _, EventArgs __)
         {
-            if (_selectedImpact is not null)
+            if (_selectedImpact is not null && comboBoxEffect.SelectedItem is not null)
             {
                 _selectedImpact.Effect = (ImpactEffect)comboBoxEffect.SelectedItem;
             }

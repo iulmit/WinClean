@@ -58,6 +58,8 @@ public class ImpactEffect
     /// <summary>System visuals.</summary>
     public static ImpactEffect Visuals => new(Resources.ImpactEffect.Visuals);
 
+    /// <summary>Undefined effect. It should be.</summary>
+    public static ImpactEffect Undefined => new(Resources.ImpactEffect.Undefined);
     /// <inheritdoc cref="ToString"/>
     public static implicit operator string(ImpactEffect impactEffect) => impactEffect?.ToString()!;// ! : a cast from null returns null.
 
