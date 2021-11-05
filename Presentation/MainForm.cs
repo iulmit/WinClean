@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.   
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
+// file to you under the MIT license.
 
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
@@ -9,11 +10,13 @@ using System.Windows.Forms;
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>
-/// This is the application's main form. It regroups several features, including the main commit buttons, script selection,
-/// and provides UI acess to other forms.
+/// This is the application's main form. It regroups several features, including the main commit
+/// buttons, script selection, and provides UI acess to other forms.
 /// </summary>
 public partial class MainForm : Form
 {
+    #region Protected Properties
+
     /// <inheritdoc/>
     /// <remarks>Reduced flickering on child control paint.</remarks>
     protected override CreateParams CreateParams
@@ -26,9 +29,13 @@ public partial class MainForm : Form
         }
     }
 
+    #endregion Protected Properties
+
     #region Public Constructors
 
-    /// <summary>Initializes a new instance of the <see cref="MainForm"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainForm"/> class.
+    /// </summary>
     public MainForm()
     {
         InitializeComponent();
@@ -94,9 +101,12 @@ public partial class MainForm : Form
     #region Event Handlers
 
     #region MainForm
+
     // This is to prevent scroll bar flickering during resize
     private void MainForm_ResizeBegin(object _, EventArgs __) => listViewScripts.Scrollable = scriptEditor.AutoScroll = false;
+
     private void MainForm_ResizeEnd(object _, EventArgs __) => listViewScripts.Scrollable = scriptEditor.AutoScroll = true;
+
     #endregion MainForm
 
     #region Buttons
@@ -147,8 +157,8 @@ public partial class MainForm : Form
     private void ListViewScripts_ItemChecked(object _, ItemCheckedEventArgs __) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
 
     /// <summary>
-    /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
-    /// cref="listViewScripts"/>'s new size.
+    /// Resizes <see cref="listViewScripts"/>'s main and only column, <see
+    /// cref="scriptHeaderName"/>, to match <see cref="listViewScripts"/>'s new size.
     /// </summary>
     private void ListViewScripts_Resize(object _, EventArgs __) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
 

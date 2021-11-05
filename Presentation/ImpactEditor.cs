@@ -1,35 +1,21 @@
-﻿using System.Windows.Forms;
-using System.Linq;
-
-using RaphaëlBardini.WinClean.Logic;
+﻿using RaphaëlBardini.WinClean.Logic;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
     public partial class ImpactEditor : UserControl
     {
+        #region Private Fields
+
         private Impact? _selectedImpact;
 
-        /// <summary>
-        /// Gets or sets the selected impact that the user is able to see and edit
-        /// </summary>
-        public Impact? SelectedImpact
-        {
-            get => _selectedImpact;
-            set
-            {
-                Enabled = value is not null;
-                _selectedImpact = value;
+        #endregion Private Fields
 
-                if (value is not null)
-                {
-                    comboBoxEffect.SelectedItem = value.Effect;
-                    imagedComboBoxLevel.SelectedItem = imagedComboBoxLevel.Items.OfType<ImagedComboBoxItem>().First((item) => item.Tag.Equals(value.Level));
-                }
-            }
-        }
+        #region Public Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImpactEditor"/> class.
@@ -50,15 +36,36 @@ namespace RaphaëlBardini.WinClean.Presentation
             }
             SelectedImpact = selected;
         }
-        private static Image GetImage(string levelName)
-            => (Image)Resources.Images.ResourceManager.GetObject(levelName, CultureInfo.CurrentUICulture).FailIfNull();
-        private void ComboBoxLevel_SelectedIndexChanged(object _, EventArgs __)
+
+        #endregion Public Constructors
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the selected impact that the user is able to see and edit
+        /// </summary>
+        public Impact? SelectedImpact
         {
-            if (_selectedImpact is not null && imagedComboBoxLevel.SelectedItem.HasValue)
+            get => _selectedImpact;
+            set
             {
-                _selectedImpact.Level = (ImpactLevel)imagedComboBoxLevel.SelectedItem.Value.Tag;
+                Enabled = value is not null;
+                _selectedImpact = value;
+
+                if (value is not null)
+                {
+                    comboBoxEffect.SelectedItem = value.Effect;
+                    imagedComboBoxLevel.SelectedItem = imagedComboBoxLevel.Items.OfType<ImagedComboBoxItem>().First((item) => item.Tag.Equals(value.Level));
+                }
             }
         }
+
+        #endregion Public Properties
+
+        #region Private Methods
+
+        private static Image GetImage(string levelName)
+            => (Image)Resources.Images.ResourceManager.GetObject(levelName, CultureInfo.CurrentUICulture).FailIfNull();
 
         private void ComboBoxEffect_SelectedIndexChanged(object _, EventArgs __)
         {
@@ -67,5 +74,15 @@ namespace RaphaëlBardini.WinClean.Presentation
                 _selectedImpact.Effect = (ImpactEffect)comboBoxEffect.SelectedItem;
             }
         }
+
+        private void ComboBoxLevel_SelectedIndexChanged(object _, EventArgs __)
+        {
+            if (_selectedImpact is not null && imagedComboBoxLevel.SelectedItem.HasValue)
+            {
+                _selectedImpact.Level = (ImpactLevel)imagedComboBoxLevel.SelectedItem.Value.Tag;
+            }
+        }
+
+        #endregion Private Methods
     }
 }

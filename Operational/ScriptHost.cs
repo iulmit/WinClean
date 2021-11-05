@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
+// file to you under the MIT license.
 
 using RaphaëlBardini.WinClean.Logic;
 using System.Diagnostics;
@@ -9,22 +10,30 @@ using System.Text;
 
 namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>Represents a program that accepts a file in it's command-line arguments.</summary>
+/// <summary>
+/// Represents a program that accepts a file in it's command-line arguments.
+/// </summary>
 public abstract class ScriptHost
 {
     #region Public Properties
 
-    /// <summary>User friendly name for the script host.</summary>
+    /// <summary>
+    /// User friendly name for the script host.
+    /// </summary>
     public virtual string DisplayName => new ShellFile(Executable).FileDescription;
 
-    /// <summary>Extensions of the scripts the script host program can run.</summary>
+    /// <summary>
+    /// Extensions of the scripts the script host program can run.
+    /// </summary>
     public abstract ExtensionGroup SupportedExtensions { get; }
 
     #endregion Public Properties
 
     #region Public Methods
 
-    /// <summary>Executes the specified script.</summary>
+    /// <summary>
+    /// Executes the specified script.
+    /// </summary>
     /// <param name="script">The script to execute.</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
     public virtual void Execute(IScript script)
@@ -49,34 +58,7 @@ public abstract class ScriptHost
 
     #endregion Protected Properties
 
-    /// <summary>
-    /// Executes the specified code.
-    /// </summary>
-    /// <param name="code">The code to execute.</param>
-    /// <param name="scriptName">The name to give the the code.</param>
-    /// <param name="extensionIfCodeWasInsideAFile">If <paramref name="code"/> was the content of a file, the file's extension.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="code"/> is <see langword="null"/>.</exception>
-    protected void ExecuteCode(string code, string scriptName, string extensionIfCodeWasInsideAFile)
-    {
-        if (code is null)
-        {
-            throw new ArgumentNullException(nameof(code));
-        }
-        if (!SupportedExtensions.Contains(extensionIfCodeWasInsideAFile))
-        {
-            throw new BadFileExtensionException(extensionIfCodeWasInsideAFile);
-        }
-
-        FileInfo tmpScriptFile = CreateTempFile(code, extensionIfCodeWasInsideAFile);
-
-        using Process host = ExecuteHost(tmpScriptFile);
-        (string stderr, string stdout) = WaitForHostExit(host, scriptName);
-
-        tmpScriptFile.Delete();
-
-        stderr.Log("Standard error");
-        stdout.Log("Standard output");
-    }
+    #region Protected Methods
 
     /// <summary>
     /// Creates a temporary file with the specified text and the specified extension.
@@ -102,6 +84,38 @@ public abstract class ScriptHost
 
         return tmpScriptFile;
     }
+
+    /// <summary>
+    /// Executes the specified code.
+    /// </summary>
+    /// <param name="code">The code to execute.</param>
+    /// <param name="scriptName">The name to give the the code.</param>
+    /// <param name="extensionIfCodeWasInsideAFile">
+    /// If <paramref name="code"/> was the content of a file, the file's extension.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="code"/> is <see langword="null"/>.</exception>
+    protected void ExecuteCode(string code, string scriptName, string extensionIfCodeWasInsideAFile)
+    {
+        if (code is null)
+        {
+            throw new ArgumentNullException(nameof(code));
+        }
+        if (!SupportedExtensions.Contains(extensionIfCodeWasInsideAFile))
+        {
+            throw new BadFileExtensionException(extensionIfCodeWasInsideAFile);
+        }
+
+        FileInfo tmpScriptFile = CreateTempFile(code, extensionIfCodeWasInsideAFile);
+
+        using Process host = ExecuteHost(tmpScriptFile);
+        (string stderr, string stdout) = WaitForHostExit(host, scriptName);
+
+        tmpScriptFile.Delete();
+
+        stderr.Log("Standard error");
+        stdout.Log("Standard output");
+    }
+
     /// <summary>
     /// Executes the script host program with the specified script.
     /// </summary>
@@ -122,8 +136,12 @@ public abstract class ScriptHost
     /// </summary>
     /// <param name="p">The process which to wait for exit.</param>
     /// <param name="scriptName">The name of the script being executed.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="p"/> or <paramref name="scriptName"/> are <see langword="null"/>.</exception>
-    /// <returns>The standard error and standard output streams of the script host process, read to end.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="p"/> or <paramref name="scriptName"/> are <see langword="null"/>.
+    /// </exception>
+    /// <returns>
+    /// The standard error and standard output streams of the script host process, read to end.
+    /// </returns>
     protected (string stderr, string stdout) WaitForHostExit(Process p, string scriptName)
     {
         // placeholder for the time a script would take to run
@@ -145,9 +163,13 @@ public abstract class ScriptHost
         return (p.StandardError.ReadToEnd(), p.StandardOutput.ReadToEnd());
     }
 
+    #endregion Protected Methods
+
     #region Protected Classes
 
-    /// <summary>Formattable executable arguments with a single file path argument.</summary>
+    /// <summary>
+    /// Formattable executable arguments with a single file path argument.
+    /// </summary>
     protected class IncompleteArguments
     {
         #region Private Fields
@@ -159,7 +181,9 @@ public abstract class ScriptHost
         #region Public Constructors
 
         /// <param name="args">Formattable string with 1 argument, the path of the script file.</param>
-        /// <exception cref="ArgumentException"><paramref name="args"/> does not contain exactly one formattable argument.</exception>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="args"/> does not contain exactly one formattable argument.
+        /// </exception>
         /// <exception cref="ArgumentNullException"><paramref name="args"/> is <see langword="null"/>.</exception>
         public IncompleteArguments(string args)
         {
@@ -174,7 +198,9 @@ public abstract class ScriptHost
 
         #region Public Methods
 
-        /// <summary>Completes the arguments with the specified script file.</summary>
+        /// <summary>
+        /// Completes the arguments with the specified script file.
+        /// </summary>
         /// <param name="script">The file to complete the arguments with.</param>
         /// <returns>The completed arguments</returns>
         public string Complete(FileInfo script) => string.Format(CultureInfo.InvariantCulture, _args, script);

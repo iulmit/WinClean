@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
+// file to you under the MIT license.
 
 using Microsoft.Win32;
 using System.Collections;
@@ -7,12 +8,16 @@ using System.Linq;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
-/// <summary>A group of related extensions</summary>
+/// <summary>
+/// A group of related extensions
+/// </summary>
 public class ExtensionGroup : IReadOnlyCollection<string>
 {
     #region Public Constructors
 
-    /// <summary>Initializes a new instance of the <see cref="ExtensionGroup"/> structure.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExtensionGroup"/> structure.
+    /// </summary>
     /// <param name="extensions">The extensions in the group.</param>
     public ExtensionGroup(IEnumerable<string> extensions)
     {
@@ -29,13 +34,17 @@ public class ExtensionGroup : IReadOnlyCollection<string>
 
     #region Public Properties
 
-    /// <summary>File extensions included in the group.</summary>
+    /// <summary>
+    /// File extensions included in the group.
+    /// </summary>
     private readonly IReadOnlyCollection<string> _extensions;
 
     /// <inheritdoc/>
     public int Count => _extensions.Count;
 
-    /// <summary>Name of the group.</summary>
+    /// <summary>
+    /// Name of the group.
+    /// </summary>
     public string Name
     {
         get

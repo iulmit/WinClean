@@ -1,7 +1,6 @@
-﻿using System.Drawing;
+﻿using RaphaëlBardini.WinClean.Logic;
+using System.Drawing;
 using System.Windows.Forms;
-
-using RaphaëlBardini.WinClean.Logic;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
@@ -10,18 +9,29 @@ namespace RaphaëlBardini.WinClean.Presentation;
 /// </summary>
 public class ImagedComboBox : ComboBox
 {
-    /// <summary>
-    /// Gets or sets the collection of images avaible to the items.
-    /// </summary>
-    public ImageList ImageList { get; private set; } = new();
+    #region Public Constructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ImagedComboBox"/> class.
     /// </summary>
     public ImagedComboBox() => DrawMode = DrawMode.OwnerDrawFixed;
 
+    #endregion Public Constructors
+
+    #region Public Properties
+
+    /// <summary>
+    /// Gets or sets the collection of images avaible to the items.
+    /// </summary>
+    public ImageList ImageList { get; private set; } = new();
+
     /// <inheritdoc cref="ComboBox.SelectedItem"/>
     public new ImagedComboBoxItem? SelectedItem { get => (ImagedComboBoxItem?)base.SelectedItem; set => base.SelectedItem = value; }
+
+    #endregion Public Properties
+
+    #region Protected Methods
+
     /// <inheritdoc/>
     protected override void OnDrawItem(DrawItemEventArgs e)
     {
@@ -61,4 +71,6 @@ public class ImagedComboBox : ComboBox
             }
         }
     }
+
+    #endregion Protected Methods
 }

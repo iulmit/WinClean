@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
+// file to you under the MIT license.
 
 using RaphaëlBardini.WinClean.Operational;
 using System.Collections.Generic;
@@ -8,7 +9,9 @@ using System.Xml;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
-/// <summary>A script that can be executed from a script host program.</summary>
+/// <summary>
+/// A script that can be executed from a script host program.
+/// </summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237", Justification = "This class does not support serialization.")]
 public class Script : ListViewItem, IScript
 {
@@ -23,13 +26,18 @@ public class Script : ListViewItem, IScript
     #region Public Constructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Script"/> class from the specified file in the scripts dir.
+    /// Initializes a new instance of the <see cref="Script"/> class from the specified file in the
+    /// scripts dir.
     /// </summary>
-    /// <param name="xmlScript">The XML file containing this script's metadata, located in the scripts dir.</param>
+    /// <param name="xmlScript">
+    /// The XML file containing this script's metadata, located in the scripts dir.
+    /// </param>
     /// <param name="displayInto">The list view in which the script will be displayed.</param>
     /// <exception cref="ArgumentNullException"><paramref name="xmlScript"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="xmlScript"/> is not a valid filename.</exception>
-    /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="xmlScript"/> cannot be accessed.</exception>
+    /// <exception cref="Helpers.FileSystem(Exception)">
+    /// <paramref name="xmlScript"/> cannot be accessed.
+    /// </exception>
     public Script(string xmlScript, ListView displayInto)
     {
         _ = xmlScript ?? throw new ArgumentNullException(nameof(xmlScript));
@@ -77,16 +85,28 @@ public class Script : ListViewItem, IScript
         }
     }
 
-    /// <summary>Initializes a new instance of the <see cref="Script"/> class.</summary>
-    /// <param name="name">A brief infinitive sentence that describes the functionnality of this script.</param>
-    /// <param name="description">Details on how this scripts work and what the effects of executing it would be.</param>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Script"/> class.
+    /// </summary>
+    /// <param name="name">
+    /// A brief infinitive sentence that describes the functionnality of this script.
+    /// </param>
+    /// <param name="description">
+    /// Details on how this scripts work and what the effects of executing it would be.
+    /// </param>
     /// <param name="advised">If running this script is advised in general purpose.</param>
     /// <param name="impacts">System impacts of running this script.</param>
-    /// <param name="group">The list view group the script will be part of. This parameter can be <see langword="null"/>.</param>
+    /// <param name="group">
+    /// The list view group the script will be part of. This parameter can be <see langword="null"/>.
+    /// </param>
     /// <param name="source">The source script file.</param>
     /// <exception cref="ArgumentNullException">One or more parameters are <see langword="null"/>.</exception>
-    /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="source"/> cannot be accessed.</exception>
-    /// <exception cref="BadFileExtensionException"><paramref name="source"/>'s extensions is not supported.</exception>
+    /// <exception cref="Helpers.FileSystem(Exception)">
+    /// <paramref name="source"/> cannot be accessed.
+    /// </exception>
+    /// <exception cref="BadFileExtensionException">
+    /// <paramref name="source"/>'s extensions is not supported.
+    /// </exception>
     public Script(string name, string description, ScriptAdvised advised, ICollection<Impact> impacts, ListViewGroup? group, FileInfo source)
     {
         _ = source ?? throw new ArgumentNullException(nameof(source));
@@ -120,9 +140,6 @@ public class Script : ListViewItem, IScript
     #region Public Properties
 
     /// <inheritdoc/>
-    public string Extension { get; }
-
-    /// <inheritdoc/>
     /// <remarks>Set accessor changes the background color.</remarks>
     public ScriptAdvised Advised
     {
@@ -139,6 +156,9 @@ public class Script : ListViewItem, IScript
 
     /// <inheritdoc/>
     public string Description { get => ToolTipText; set => ToolTipText = value; }
+
+    /// <inheritdoc/>
+    public string Extension { get; }
 
     /// <inheritdoc/>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2227", Justification = "Bug on init")]
@@ -251,12 +271,16 @@ public class Script : ListViewItem, IScript
 
     #region Private Methods
 
-    /// <summary>Emulates alpha transparency to a specified color.</summary>
+    /// <summary>
+    /// Emulates alpha transparency to a specified color.
+    /// </summary>
     /// <param name="color">The main color.</param>
     /// <param name="fadeIn">The color "behind" the main color.</param>
     /// <param name="alpha">The alpha byte color component to use.</param>
     /// <returns><paramref name="color"/>, blended into <paramref name="fadeIn"/>.</returns>
-    /// <remarks>Real alpha values of <paramref name="color"/> and <paramref name="fadeIn"/> are ignored.</remarks>
+    /// <remarks>
+    /// Real alpha values of <paramref name="color"/> and <paramref name="fadeIn"/> are ignored.
+    /// </remarks>
     /// .
     /// <seealso href="https://stackoverflow.com/a/3722337/11718061"/>
     private static Color EmulateAlpha(Color color, Color fadeIn, byte alpha)

@@ -1,13 +1,18 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
+// file to you under the MIT license.
 
 namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>The exception is thrown when a file has the wrong extension.</summary>
+/// <summary>
+/// The exception is thrown when a file has the wrong extension.
+/// </summary>
 public class BadFileExtensionException : IOException
 {
     #region Public Constructors
 
-    /// <summary>Initializes a new instance of the <see cref="BadFileExtensionException"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BadFileExtensionException"/> class.
+    /// </summary>
     public BadFileExtensionException() : base("A bad file extension has been specified.")
     {
     }
@@ -31,7 +36,9 @@ public class BadFileExtensionException : IOException
 
     #region Public Properties
 
-    /// <summary>The wrong file extension.</summary>
+    /// <summary>
+    /// The wrong file extension.
+    /// </summary>
     public string? Extension { get; } = string.Empty;
 
     #endregion Public Properties

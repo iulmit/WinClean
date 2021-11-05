@@ -1,4 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
+// file to you under the MIT license.
 
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -11,7 +12,9 @@ using System.Runtime.CompilerServices;
 
 namespace RaphaëlBardini.WinClean;
 
-/// <summary>Provides CSV logging.</summary>
+/// <summary>
+/// Provides CSV logging.
+/// </summary>
 public static class LogManager
 {
     #region Public Constructors
@@ -33,20 +36,28 @@ public static class LogManager
 
     #region Public Properties
 
-    /// <summary>Minimal log level for an entry.</summary>
+    /// <summary>
+    /// Minimal log level for an entry.
+    /// </summary>
     public static LogLevel MinLogLevel { get; set; } = (LogLevel)Properties.Settings.Default.LogLevel;
 
     #endregion Public Properties
 
     #region Constants
 
-    /// <summary>Format string used by <see cref="DateTime.ToString(string?)"/> used for NTFS filenames.</summary>
+    /// <summary>
+    /// Format string used by <see cref="DateTime.ToString(string?)"/> used for NTFS filenames.
+    /// </summary>
     private const string DateTimeFilenameFormat = "yyyy-MM-dd--HH-mm-ss";
 
-    /// <summary>CSV Log entry column delimiter.</summary>
+    /// <summary>
+    /// CSV Log entry column delimiter.
+    /// </summary>
     private const string LogDelimiter = ";";
 
-    /// <summary>Unique log file that will be used for this session.</summary>
+    /// <summary>
+    /// Unique log file that will be used for this session.
+    /// </summary>
     private static readonly FileInfo s_currentLogFile;
 
     private static readonly DirectoryInfo s_logDir;
@@ -57,14 +68,18 @@ public static class LogManager
 
     private static readonly CsvWriter s_csvWriter;
 
-    /// <summary>Count of log entries wrote.</summary>
+    /// <summary>
+    /// Count of log entries wrote.
+    /// </summary>
     private static int s_logIndex;
 
     #endregion Private Fields
 
     #region Public Methods
 
-    /// <summary>Empties the log folder, except for the current log file.</summary>
+    /// <summary>
+    /// Empties the log folder, except for the current log file.
+    /// </summary>
     public static void ClearLogsFolder()
     {
         IEnumerable<FileInfo> deletableLogFiles = s_logDir.EnumerateFiles("*.csv").Where(csvFile => CanLogFileBeDeleted(csvFile));
@@ -81,7 +96,9 @@ public static class LogManager
     [Obsolete("Bug in CSV Helper -- Don't use")]
     public static void Dispose() => s_csvWriter.Dispose();
 
-    /// <summary>Logs a string.</summary>
+    /// <summary>
+    /// Logs a string.
+    /// </summary>
     /// <param name="str">The string to log.</param>
     /// <param name="happening">What's happening right now.</param>
     /// <param name="lvl">The level of the log entry.</param>
@@ -113,7 +130,9 @@ public static class LogManager
         }
     }
 
-    /// <summary>Logs an exception and it's details.</summary>
+    /// <summary>
+    /// Logs an exception and it's details.
+    /// </summary>
     /// <param name="e">The exception to log.</param>
     /// <param name="lvl">The level of the entry.</param>
     /// <param name="caller"><see cref="CallerMemberNameAttribute"/> - Don't specify</param>
@@ -129,17 +148,22 @@ public static class LogManager
 
     #region Private Methods
 
-    /// <summary>Checks that a log file is valid for deletion. Doesn't throw.</summary>
+    /// <summary>
+    /// Checks that a log file is valid for deletion. Doesn't throw.
+    /// </summary>
     /// <param name="logFile">The filename or path of the log file.</param>
     /// <returns>
-    /// <see langword="true"/> if <paramref name="logFile"/> is a valid path, it's filename is a valid log filename, and
-    /// it's not the current session's log file. If one or more of these conditions are not met, <see langword="false"/>.
+    /// <see langword="true"/> if <paramref name="logFile"/> is a valid path, it's filename is a
+    /// valid log filename, and it's not the current session's log file. If one or more of these
+    /// conditions are not met, <see langword="false"/>.
     /// </returns>
     private static bool CanLogFileBeDeleted(FileInfo logFile)
         => DateTime.TryParseExact(Path.GetFileNameWithoutExtension(logFile.Name), DateTimeFilenameFormat,
                                   DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out _) && logFile.Name != s_currentLogFile.Name;
 
-    /// <summary>Creates the appropriate log folder if missing.</summary>
+    /// <summary>
+    /// Creates the appropriate log folder if missing.
+    /// </summary>
     private static void CreateLogDir()
     {
         try
@@ -152,7 +176,9 @@ public static class LogManager
         }
     }
 
-    /// <summary>Deletes a log file.</summary>
+    /// <summary>
+    /// Deletes a log file.
+    /// </summary>
     /// <param name="path">The full path of the log file to delete.</param>
     /// <exception cref="ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
     /// <exception cref="NotSupportedException"><paramref name="path"/> is in an invalid format.</exception>
@@ -166,7 +192,8 @@ public static class LogManager
         {
             path.Delete();
         }
-        // For IOException, we don't want to handle derived classes. The "is" operator covers derived classes too.
+        // For IOException, we don't want to handle derived classes. The "is" operator covers
+        // derived classes too.
         catch (Exception e) when (e.FileSystem())
         {
             ErrorDialog.CantDeleteLogFile(e, () => DeleteLogFile(path));

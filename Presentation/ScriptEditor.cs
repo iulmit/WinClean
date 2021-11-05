@@ -13,35 +13,71 @@ namespace RaphaëlBardini.WinClean.Presentation;
 /// </summary>
 public partial class ScriptEditor : UserControl
 {
-    private void AddImpactTableRow(Impact impact)
-    {
-        ++tableImpacts.RowCount;
+    #region Private Fields
 
-        tableImpactRows.Add(new Control[3]
-        {
-            new ImpactEditor(impact)
-            {
-                Margin = new(0, 0, 0, 7),
-                Width = this.Width,
-                Anchor = AnchorStyles.None,
-            },
-            NewAddImpactButton,
-            NewRemoveImpactButton
-        });
-
-        tableImpacts.Controls.Add(tableImpactRows.Last()[0], 0, tableImpacts.RowCount);
-        tableImpacts.Controls.Add(tableImpactRows.Last()[1], 1, tableImpacts.RowCount);
-        tableImpacts.Controls.Add(tableImpactRows.Last()[2], 2, tableImpacts.RowCount);
-    }
-    private void RemoveImpactTableLastRow()
-    {
-        foreach (Control lastRowControl in tableImpactRows.Last())
-        {
-            tableImpacts.Controls.Remove(lastRowControl);
-        }
-        tableImpactRows.RemoveAt(--tableImpacts.RowCount);
-    }
     private readonly List<Control[]> tableImpactRows = new();
+
+    private IScript? _selectedScript;
+
+    #endregion Private Fields
+
+    #region Public Constructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ScriptEditor"/> class.
+    /// </summary>
+    public ScriptEditor()
+    {
+        InitializeComponent();
+        comboBoxAdvised.DataSource = Resources.ScriptAdvised.ResourceManager.GetRessources<string>().ToList();
+        //comboBoxGroup.DataSource =
+    }
+
+    #endregion Public Constructors
+
+    #region Public Properties
+
+    /// <inheritdoc/>
+    public override bool AutoScroll
+    {
+        get => base.AutoScroll;
+        set => base.AutoScroll = tableImpacts.AutoScroll = value;
+    }
+
+    /// <summary>
+    /// The script the user is currently able to see and edit.
+    /// </summary>
+    public IScript? SelectedScript
+    {
+        get => _selectedScript;
+        set
+        {
+            PrepareForAnother();
+
+            _selectedScript = value;
+
+            Enabled = value is not null;
+
+            if (value is not null)
+            {
+                textBoxName.Text = value.Name;
+                textBoxDescription.Text = value.Description;
+                comboBoxAdvised.SelectedItem = Resources.ScriptAdvised.ResourceManager.GetString(value.Advised.ToString(), CultureInfo.CurrentUICulture).FailIfNull();
+                comboBoxGroup.SelectedItem = value.Group;
+                textBoxCode.Text = value.Code;
+
+                foreach (Impact impact in value.Impacts)
+                {
+                    AddImpactTableRow(impact);
+                }
+            }
+        }
+    }
+
+    #endregion Public Properties
+
+    #region Private Properties
+
     private Button NewAddImpactButton
     {
         get
@@ -74,89 +110,54 @@ public partial class ScriptEditor : UserControl
         }
     }
 
-    private Button CreateTableLayoutPanelButton(Image backImg) => new()
-    {
-        BackgroundImage = backImg,
-        BackgroundImageLayout = ImageLayout.Center,
-        UseMnemonic = false,
-        UseVisualStyleBackColor = true,
-        TabIndex = buttonDelete.TabIndex + tableImpacts.RowCount,
-        Anchor = AnchorStyles.None,
-        Margin = new(5, 0, 0, 0),
-        Size = new(20, 20),
-        CausesValidation = false,
-    };
+    #endregion Private Properties
 
-    /// <inheritdoc/>
-    public override bool AutoScroll
+    #region Private Methods
+
+    private void AddImpactTableRow(Impact impact)
     {
-        get => base.AutoScroll;
-        set => base.AutoScroll = tableImpacts.AutoScroll = value;
+        ++tableImpacts.RowCount;
+
+        tableImpactRows.Add(new Control[3]
+        {
+            new ImpactEditor(impact)
+            {
+                Margin = new(0, 0, 0, 7),
+                Width = this.Width,
+                Anchor = AnchorStyles.None,
+            },
+            NewAddImpactButton,
+            NewRemoveImpactButton
+        });
+
+        tableImpacts.Controls.Add(tableImpactRows.Last()[0], 0, tableImpacts.RowCount);
+        tableImpacts.Controls.Add(tableImpactRows.Last()[1], 1, tableImpacts.RowCount);
+        tableImpacts.Controls.Add(tableImpactRows.Last()[2], 2, tableImpacts.RowCount);
     }
 
-    private IScript? _selectedScript;
-
-    /// <summary>The script the user is currently able to see and edit.</summary>
-    public IScript? SelectedScript
+    private void ButtonDelete_Click(object _, EventArgs __)
     {
-        get => _selectedScript;
-        set
+        if (_selectedScript is not null)
         {
-            PrepareForAnother();
-
-            _selectedScript = value;
-
-            Enabled = value is not null;
-
-            if (value is not null)
+            if (ErrorDialog.ConfirmScriptDeletion())
             {
-                textBoxName.Text = value.Name;
-                textBoxDescription.Text = value.Description;
-                comboBoxAdvised.SelectedItem = Resources.ScriptAdvised.ResourceManager.GetString(value.Advised.ToString(), CultureInfo.CurrentUICulture).FailIfNull();
-                comboBoxGroup.SelectedItem = value.Group;
-                textBoxCode.Text = value.Code;
-
-                foreach (Impact impact in value.Impacts)
-                {
-                    AddImpactTableRow(impact);
-                }
+                _selectedScript.Delete();
             }
         }
     }
 
-    private void PrepareForAnother()
-    {
-        tableImpactRows.Clear();
-        tableImpacts.RowCount = 0;
-
-        _selectedScript?.Save();
-        tableImpacts.Controls.Clear();
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptEditor"/> class.
-    /// </summary>
-    public ScriptEditor()
-    {
-        InitializeComponent();
-        comboBoxAdvised.DataSource = Resources.ScriptAdvised.ResourceManager.GetRessources<string>().ToList();
-        //comboBoxGroup.DataSource =
-    }
-
-    private void TextBoxName_TextChanged(object _, EventArgs __)
+    private void ButtonExecute_Click(object _, EventArgs __)
     {
         if (_selectedScript is not null)
         {
-            _selectedScript.Name = textBoxName.Text;
+            ScriptExecutor executor = new(_selectedScript);
+            executor.ExecuteNoUI();
         }
     }
 
-    private void TextBoxDescription_TextChanged(object _, EventArgs __)
+    private void ChangeWidth(Control c, int newWitdth)
     {
-        if (_selectedScript is not null)
-        {
-            _selectedScript.Description = textBoxDescription.Text;
-        }
+        c.Width = newWitdth > c.MinimumSize.Width ? newWitdth : c.MinimumSize.Width;
     }
 
     private void ComboBoxAdvised_SelectedIndexChanged(object _, EventArgs __)
@@ -175,40 +176,38 @@ public partial class ScriptEditor : UserControl
         }
     }
 
-    private void TextBoxCode_TextChanged(object _, EventArgs __)
+    private Button CreateTableLayoutPanelButton(Image backImg) => new()
     {
-        if (_selectedScript is not null)
-        {
-            _selectedScript.Code = textBoxCode.Text;
-        }
+        BackgroundImage = backImg,
+        BackgroundImageLayout = ImageLayout.Center,
+        UseMnemonic = false,
+        UseVisualStyleBackColor = true,
+        TabIndex = buttonDelete.TabIndex + tableImpacts.RowCount,
+        Anchor = AnchorStyles.None,
+        Margin = new(5, 0, 0, 0),
+        Size = new(20, 20),
+        CausesValidation = false,
+    };
+
+    private void PrepareForAnother()
+    {
+        tableImpactRows.Clear();
+        tableImpacts.RowCount = 0;
+
+        _selectedScript?.Save();
+        tableImpacts.Controls.Clear();
     }
 
-    private void ButtonExecute_Click(object _, EventArgs __)
+    private void RemoveImpactTableLastRow()
     {
-        if (_selectedScript is not null)
+        foreach (Control lastRowControl in tableImpactRows.Last())
         {
-            ScriptExecutor executor = new(_selectedScript);
-            executor.ExecuteNoUI();
+            tableImpacts.Controls.Remove(lastRowControl);
         }
-    }
-
-    private void ButtonDelete_Click(object _, EventArgs __)
-    {
-        if (_selectedScript is not null)
-        {
-            if (ErrorDialog.ConfirmScriptDeletion())
-            {
-                _selectedScript.Delete();
-            }
-        }
+        tableImpactRows.RemoveAt(--tableImpacts.RowCount);
     }
 
     private void ScriptEditor_Leave(object _, EventArgs __) => PrepareForAnother();
-
-    private void ChangeWidth(Control c, int newWitdth)
-    {
-        c.Width = newWitdth > c.MinimumSize.Width ? newWitdth : c.MinimumSize.Width;
-    }
 
     private void ScriptEditor_Resize(object _, EventArgs __)
     {
@@ -245,4 +244,30 @@ public partial class ScriptEditor : UserControl
         tableImpacts.ResumeLayout();
         ResumeLayout();
     }
+
+    private void TextBoxCode_TextChanged(object _, EventArgs __)
+    {
+        if (_selectedScript is not null)
+        {
+            _selectedScript.Code = textBoxCode.Text;
+        }
+    }
+
+    private void TextBoxDescription_TextChanged(object _, EventArgs __)
+    {
+        if (_selectedScript is not null)
+        {
+            _selectedScript.Description = textBoxDescription.Text;
+        }
+    }
+
+    private void TextBoxName_TextChanged(object _, EventArgs __)
+    {
+        if (_selectedScript is not null)
+        {
+            _selectedScript.Name = textBoxName.Text;
+        }
+    }
+
+    #endregion Private Methods
 }
