@@ -57,17 +57,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonExecute.Text" xml:space="preserve">
-    <value>Exécuter</value>
-  </data>
-  <data name="textBoxName.PlaceholderText" xml:space="preserve">
-    <value>Nom</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 25</value>
+  <data name="pictureBoxLevelIcon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 2</value>
   </data>
-  <data name="buttonDelete.Text" xml:space="preserve">
-    <value>Supprimer</value>
+  <data name="table.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 21</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 21</value>
   </data>
 </root>

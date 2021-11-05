@@ -57,236 +57,317 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBoxName.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Vertical</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="comboBoxGroup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="flowImpacts.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 11, 0, 0</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="comboBoxAdvised.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 23</value>
-  </data>
-  <data name="buttonDelete.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="buttonDelete.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>7, 0, 7, 0</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBoxName.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="textBoxDescription.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAdvised.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 301</value>
-  </data>
-  <data name="textBoxCode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 138</value>
-  </data>
-  <data name="&gt;&gt;comboBoxGroup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxCode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonDelete.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAdvised.Name" xml:space="preserve">
-    <value>comboBoxAdvised</value>
-  </data>
-  <data name="&gt;&gt;buttonExecute.Name" xml:space="preserve">
-    <value>buttonExecute</value>
-  </data>
-  <data name="textBoxName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 23</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAdvised.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="textBoxCode.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Both</value>
-  </data>
-  <data name="&gt;&gt;buttonDelete.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonDelete.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;textBoxCode.Name" xml:space="preserve">
-    <value>textBoxCode</value>
-  </data>
-  <data name="&gt;&gt;comboBoxAdvised.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonExecute.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="textBoxCode.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonExecute.Text" xml:space="preserve">
-    <value>Execute</value>
-  </data>
-  <data name="textBoxCode.PlaceholderText" xml:space="preserve">
-    <value>Code</value>
-  </data>
-  <data name="textBoxCode.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;textBoxDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxCode.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="buttonDelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 276</value>
-  </data>
-  <data name="&gt;&gt;textBoxDescription.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="comboBoxAdvised.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 91</value>
-  </data>
-  <data name="comboBoxAdvised.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="buttonExecute.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="textBoxCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 125</value>
-  </data>
-  <data name="comboBoxGroup.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="buttonDelete.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>7, 11, 0, 0</value>
-  </data>
-  <data name="buttonExecute.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>7, 0, 7, 0</value>
   </data>
   <data name="textBoxDescription.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 11, 0, 0</value>
   </data>
-  <data name="&gt;&gt;buttonDelete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonExecute.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 276</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonExecute.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;textBoxName.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="buttonExecute.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>7, 0, 7, 0</value>
   </data>
-  <data name="&gt;&gt;comboBoxGroup.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;textBoxDescription.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonExecute.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;textBoxCode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxName.Name" xml:space="preserve">
-    <value>textBoxName</value>
+  <data name="&gt;&gt;flowImpacts.Name" xml:space="preserve">
+    <value>flowImpacts</value>
   </data>
-  <data name="textBoxCode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="&gt;&gt;flowImpacts.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 46</value>
+  </data>
+  <data name="buttonDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 25</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="textBoxCode.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;flowImpacts.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="flowImpacts.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>171, 0</value>
+  </data>
+  <data name="textBoxCode.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>171, 0</value>
+  </data>
+  <data name="buttonExecute.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 11, 0, 0</value>
   </data>
-  <data name="&gt;&gt;textBoxCode.Parent" xml:space="preserve">
+  <data name="buttonDelete.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>75, 0</value>
+  </data>
+  <data name="&gt;&gt;flowImpacts.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxDescription.Name" xml:space="preserve">
     <value>textBoxDescription</value>
   </data>
-  <data name="&gt;&gt;comboBoxGroup.Name" xml:space="preserve">
-    <value>comboBoxGroup</value>
-  </data>
-  <data name="comboBoxGroup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 23</value>
-  </data>
-  <data name="buttonExecute.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="comboBoxGroup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 91</value>
-  </data>
-  <data name="textBoxName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 34</value>
-  </data>
-  <data name="buttonExecute.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 11, 0, 0</value>
-  </data>
-  <data name="textBoxDescription.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="textBoxName.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="textBoxCode.WordWrap" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;textBoxCode.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
+  <data name="textBoxCode.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="textBoxDescription.PlaceholderText" xml:space="preserve">
-    <value>Description</value>
+  <data name="&gt;&gt;comboBoxAdvised.Name" xml:space="preserve">
+    <value>comboBoxAdvised</value>
   </data>
-  <data name="buttonDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
+  <data name="&gt;&gt;comboBoxGroup.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="buttonDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ScriptEditor</value>
-  </data>
-  <data name="buttonExecute.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
-  </data>
-  <data name="&gt;&gt;buttonDelete.Name" xml:space="preserve">
-    <value>buttonDelete</value>
-  </data>
-  <data name="&gt;&gt;buttonExecute.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="textBoxName.PlaceholderText" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="comboBoxAdvised.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>11, 11, 0, 0</value>
-  </data>
-  <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 46</value>
-  </data>
-  <data name="&gt;&gt;comboBoxGroup.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="textBoxName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 23</value>
   </data>
   <data name="&gt;&gt;textBoxName.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>fr-FR</value>
+  <data name="textBoxDescription.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>171, 0</value>
+  </data>
+  <data name="buttonExecute.Text" xml:space="preserve">
+    <value>Execute</value>
+  </data>
+  <data name="&gt;&gt;textBoxCode.Name" xml:space="preserve">
+    <value>textBoxCode</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAdvised.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxGroup.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="buttonDelete.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="buttonDelete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="textBoxDescription.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="flowImpacts.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;textBoxName.Name" xml:space="preserve">
+    <value>textBoxName</value>
+  </data>
+  <data name="comboBoxGroup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 91</value>
+  </data>
+  <data name="textBoxCode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 11, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ScriptEditor</value>
+  </data>
+  <data name="&gt;&gt;textBoxCode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 34</value>
+  </data>
+  <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;textBoxName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonExecute.Location" type="System.Drawing.Point, System.Drawing">
+    <value>27, 349</value>
+  </data>
+  <data name="&gt;&gt;buttonDelete.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;buttonDelete.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="textBoxCode.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAdvised.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="textBoxDescription.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="flowImpacts.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 125</value>
+  </data>
+  <data name="&gt;&gt;buttonExecute.Name" xml:space="preserve">
+    <value>buttonExecute</value>
+  </data>
+  <data name="&gt;&gt;comboBoxGroup.Name" xml:space="preserve">
+    <value>comboBoxGroup</value>
+  </data>
+  <data name="textBoxCode.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
+  </data>
+  <data name="comboBoxGroup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 23</value>
+  </data>
+  <data name="&gt;&gt;comboBoxGroup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 374</value>
+  </data>
+  <data name="textBoxCode.PlaceholderText" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="buttonDelete.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>7, 11, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;textBoxDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comboBoxGroup.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="buttonDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="flowImpacts.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 72</value>
+  </data>
+  <data name="textBoxName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="flowImpacts.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
+    <value>TopDown</value>
+  </data>
+  <data name="comboBoxAdvised.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="comboBoxAdvised.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>80, 0</value>
+  </data>
+  <data name="&gt;&gt;buttonDelete.Name" xml:space="preserve">
+    <value>buttonDelete</value>
+  </data>
+  <data name="buttonExecute.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 25</value>
+  </data>
+  <data name="textBoxName.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="textBoxCode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 208</value>
+  </data>
+  <data name="comboBoxAdvised.Location" type="System.Drawing.Point, System.Drawing">
+    <value>111, 91</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAdvised.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonDelete.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 349</value>
+  </data>
+  <data name="comboBoxGroup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 11, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;buttonExecute.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="flowImpacts.WrapContents" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxCode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 130</value>
+  </data>
+  <data name="buttonExecute.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="comboBoxGroup.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>80, 0</value>
+  </data>
+  <data name="textBoxName.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="textBoxName.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>171, 0</value>
+  </data>
+  <data name="comboBoxAdvised.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>11, 11, 0, 0</value>
+  </data>
+  <data name="flowImpacts.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="buttonExecute.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>75, 0</value>
+  </data>
+  <data name="textBoxName.PlaceholderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="&gt;&gt;textBoxName.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;buttonExecute.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonDelete.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>7, 0, 7, 0</value>
+  </data>
+  <data name="&gt;&gt;buttonExecute.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="textBoxDescription.PlaceholderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="comboBoxAdvised.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 23</value>
+  </data>
+  <data name="&gt;&gt;buttonDelete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="textBoxDescription.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="comboBoxAdvised.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="textBoxName.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="textBoxCode.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="comboBoxGroup.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="buttonExecute.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="buttonDelete.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="flowImpacts.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>fr-FR</value>
   </metadata>
 </root>

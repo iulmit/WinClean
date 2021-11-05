@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 
 using RaphaëlBardini.WinClean.Logic;
+using System.Collections.Generic;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
@@ -34,7 +35,12 @@ namespace RaphaëlBardini.WinClean.Presentation
         public ImpactEditor()
         {
             InitializeComponent();
-            comboBoxEffect.DataSource = ImpactEffect.Values.ToList();
+
+            IList<ImpactEffect> impactEffectValues = ImpactEffect.Values.ToList();
+            comboBoxEffect.MaxDropDownItems = impactEffectValues.Count;
+            comboBoxEffect.DataSource = impactEffectValues;
+
+
             comboBoxLevel.DataSource = Enum.GetValues<ImpactLevel>();
         }
 

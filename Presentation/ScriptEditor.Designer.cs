@@ -36,6 +36,7 @@
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonDelete = new System.Windows.Forms.Button();
+            this.flowImpacts = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // textBoxCode
@@ -98,9 +99,16 @@
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
+            // flowImpacts
+            // 
+            resources.ApplyResources(this.flowImpacts, "flowImpacts");
+            this.flowImpacts.CausesValidation = false;
+            this.flowImpacts.Name = "flowImpacts";
+            // 
             // ScriptEditor
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.flowImpacts);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.buttonExecute);
             this.Controls.Add(this.textBoxCode);
@@ -109,8 +117,8 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.buttonDelete);
             this.Name = "ScriptEditor";
-            this.SizeChanged += new System.EventHandler(this.ScriptEditor_SizeChanged);
             this.Leave += new System.EventHandler(this.ScriptEditor_Leave);
+            this.Resize += new System.EventHandler(this.ScriptEditor_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,5 +133,6 @@
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.FlowLayoutPanel flowImpacts;
     }
 }
