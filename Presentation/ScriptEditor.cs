@@ -114,26 +114,7 @@ public partial class ScriptEditor : UserControl
 
     #region Private Methods
 
-    private void AddImpactTableRow(Impact impact)
-    {
-        ++tableImpacts.RowCount;
-
-        tableImpactRows.Add(new Control[3]
-        {
-            new ImpactEditor(impact)
-            {
-                Margin = new(0, 0, 0, 7),
-                Width = this.Width,
-                Anchor = AnchorStyles.None,
-            },
-            NewAddImpactButton,
-            NewRemoveImpactButton
-        });
-
-        tableImpacts.Controls.Add(tableImpactRows.Last()[0], 0, tableImpacts.RowCount);
-        tableImpacts.Controls.Add(tableImpactRows.Last()[1], 1, tableImpacts.RowCount);
-        tableImpacts.Controls.Add(tableImpactRows.Last()[2], 2, tableImpacts.RowCount);
-    }
+    #region Event Handlers
 
     private void ButtonDelete_Click(object _, EventArgs __)
     {
@@ -155,11 +136,6 @@ public partial class ScriptEditor : UserControl
         }
     }
 
-    private void ChangeWidth(Control c, int newWitdth)
-    {
-        c.Width = newWitdth > c.MinimumSize.Width ? newWitdth : c.MinimumSize.Width;
-    }
-
     private void ComboBoxAdvised_SelectedIndexChanged(object _, EventArgs __)
     {
         if (_selectedScript is not null)
@@ -176,37 +152,6 @@ public partial class ScriptEditor : UserControl
         }
     }
 
-    private Button CreateTableLayoutPanelButton(Image backImg) => new()
-    {
-        BackgroundImage = backImg,
-        BackgroundImageLayout = ImageLayout.Center,
-        UseMnemonic = false,
-        UseVisualStyleBackColor = true,
-        TabIndex = buttonDelete.TabIndex + tableImpacts.RowCount,
-        Anchor = AnchorStyles.None,
-        Margin = new(5, 0, 0, 0),
-        Size = new(20, 20),
-        CausesValidation = false,
-    };
-
-    private void PrepareForAnother()
-    {
-        tableImpactRows.Clear();
-        tableImpacts.RowCount = 0;
-
-        _selectedScript?.Save();
-        tableImpacts.Controls.Clear();
-    }
-
-    private void RemoveImpactTableLastRow()
-    {
-        foreach (Control lastRowControl in tableImpactRows.Last())
-        {
-            tableImpacts.Controls.Remove(lastRowControl);
-        }
-        tableImpactRows.RemoveAt(--tableImpacts.RowCount);
-    }
-
     private void ScriptEditor_Leave(object _, EventArgs __) => PrepareForAnother();
 
     private void ScriptEditor_Resize(object _, EventArgs __)
@@ -215,7 +160,10 @@ public partial class ScriptEditor : UserControl
         tableImpacts.SuspendLayout();
 
         int newWidth = Width;
-        newWidth -= SystemInformation.VerticalScrollBarWidth;
+        if (Height < buttonExecute.Location.Y + buttonExecute.Height)
+        {
+            newWidth -= SystemInformation.VerticalScrollBarWidth;
+        }
 
         // TextBoxes
         ChangeWidth(textBoxName, newWidth);
@@ -267,6 +215,63 @@ public partial class ScriptEditor : UserControl
         {
             _selectedScript.Name = textBoxName.Text;
         }
+    }
+
+    #endregion Event Handlers
+
+    private static void ChangeWidth(Control c, int newWitdth)
+        => c.Width = newWitdth > c.MinimumSize.Width ? newWitdth : c.MinimumSize.Width;
+
+    private void AddImpactTableRow(Impact impact)
+    {
+        ++tableImpacts.RowCount;
+
+        tableImpactRows.Add(new Control[3]
+        {
+            new ImpactEditor(impact)
+            {
+                Margin = new(0, 0, 0, 7),
+                Width = this.Width,
+                Anchor = AnchorStyles.None,
+            },
+            NewAddImpactButton,
+            NewRemoveImpactButton
+        });
+
+        tableImpacts.Controls.Add(tableImpactRows.Last()[0], 0, tableImpacts.RowCount);
+        tableImpacts.Controls.Add(tableImpactRows.Last()[1], 1, tableImpacts.RowCount);
+        tableImpacts.Controls.Add(tableImpactRows.Last()[2], 2, tableImpacts.RowCount);
+    }
+
+    private Button CreateTableLayoutPanelButton(Image backImg) => new()
+    {
+        BackgroundImage = backImg,
+        BackgroundImageLayout = ImageLayout.Center,
+        UseMnemonic = false,
+        UseVisualStyleBackColor = true,
+        TabIndex = buttonDelete.TabIndex + tableImpacts.RowCount,
+        Anchor = AnchorStyles.None,
+        Margin = new(5, 0, 0, 0),
+        Size = new(20, 20),
+        CausesValidation = false,
+    };
+
+    private void PrepareForAnother()
+    {
+        tableImpactRows.Clear();
+        tableImpacts.RowCount = 0;
+
+        _selectedScript?.Save();
+        tableImpacts.Controls.Clear();
+    }
+
+    private void RemoveImpactTableLastRow()
+    {
+        foreach (Control lastRowControl in tableImpactRows.Last())
+        {
+            tableImpacts.Controls.Remove(lastRowControl);
+        }
+        tableImpactRows.RemoveAt(--tableImpacts.RowCount);
     }
 
     #endregion Private Methods

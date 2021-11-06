@@ -123,9 +123,6 @@
   <data name="FreeStorageSpace" xml:space="preserve">
     <value>Espace de stockage libre</value>
   </data>
-  <data name="DataCollection" xml:space="preserve">
-    <value>Données de diagnostic</value>
-  </data>
   <data name="Ergonomics" xml:space="preserve">
     <value>Ergonomie</value>
   </data>
@@ -146,5 +143,11 @@
   </data>
   <data name="StorageSpeed" xml:space="preserve">
     <value>Vitesse disque</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Vie privée</value>
+  </data>
+  <data name="Undefined" xml:space="preserve">
+    <value>Non défini</value>
   </data>
 </root>

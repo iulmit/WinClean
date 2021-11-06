@@ -17,7 +17,12 @@ public class Script : ListViewItem, IScript
 {
     #region Private Fields
 
+    #region Constants
+
     private const byte RecommendedColorAlpha = 48;
+
+    #endregion Constants
+
     private readonly FileInfo _scriptsDirFile;
     private ScriptAdvised _advised;
 
@@ -284,11 +289,14 @@ public class Script : ListViewItem, IScript
     /// .
     /// <seealso href="https://stackoverflow.com/a/3722337/11718061"/>
     private static Color EmulateAlpha(Color color, Color fadeIn, byte alpha)
-        => color.R == fadeIn.R && color.G == fadeIn.G && color.B == fadeIn.B
-            ? color
-            : Color.FromArgb((byte)((color.R * (alpha / (double)byte.MaxValue)) + (fadeIn.R * (1 - (alpha / (double)byte.MaxValue)))),
-                             (byte)((color.G * (alpha / (double)byte.MaxValue)) + (fadeIn.G * (1 - (alpha / (double)byte.MaxValue)))),
-                             (byte)((color.B * (alpha / (double)byte.MaxValue)) + (fadeIn.B * (1 - (alpha / (double)byte.MaxValue)))));
+    {
+        double amount = alpha / (double)byte.MaxValue;
+        return color.R == fadeIn.R && color.G == fadeIn.G && color.B == fadeIn.B
+                    ? color
+                    : Color.FromArgb((byte)((color.R * amount) + (fadeIn.R * (1 - amount))),
+                                     (byte)((color.G * amount) + (fadeIn.G * (1 - amount))),
+                                     (byte)((color.B * amount) + (fadeIn.B * (1 - amount))));
+    }
 
     #endregion Private Methods
 }

@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace RaphaëlBardini.WinClean;
 
@@ -80,17 +81,18 @@ public static class LogManager
     /// <summary>
     /// Empties the log folder, except for the current log file.
     /// </summary>
-    public static void ClearLogsFolder()
-    {
-        IEnumerable<FileInfo> deletableLogFiles = s_logDir.EnumerateFiles("*.csv").Where(csvFile => CanLogFileBeDeleted(csvFile));
-
-        $"Deleting {deletableLogFiles.Count()} files".Log("Clearing logs folder");
-
-        foreach (FileInfo logFile in deletableLogFiles)
+    public static async void ClearLogsFolderAsync()
+        => await Task.Run(() =>
         {
-            DeleteLogFile(logFile);
-        }
-    }
+            IEnumerable<FileInfo> deletableLogFiles = s_logDir.EnumerateFiles("*.csv").Where(csvFile => CanLogFileBeDeleted(csvFile));
+
+            $"Deleting {deletableLogFiles.Count()} files".Log("Clearing logs folder");
+
+            foreach (FileInfo logFile in deletableLogFiles)
+            {
+                DeleteLogFile(logFile);
+            }
+        }).ConfigureAwait(false);
 
     /// <inheritdoc cref="IDisposable.Dispose"/>
     [Obsolete("Bug in CSV Helper -- Don't use")]

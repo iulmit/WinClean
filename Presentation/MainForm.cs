@@ -142,7 +142,7 @@ public partial class MainForm : Form
 
     private void MainMenuStripAbout_Click(object _, EventArgs __) => Program.ShowAboutBox();
 
-    private void MainMenuStripClearLogs_Click(object _, EventArgs __) => LogManager.ClearLogsFolder();
+    private void MainMenuStripClearLogs_Click(object _, EventArgs __) => LogManager.ClearLogsFolderAsync();
 
     private void MainMenuStripSettings_Click(object _, EventArgs __) => Program.ShowSettings();
 
@@ -174,30 +174,6 @@ public partial class MainForm : Form
         foreach (ListViewItem lvi in items)
         {
             lvi.Checked = @checked;
-        }
-    }
-
-    private void InitLabelEdit(ListViewItem toEdit, LabelEditEventHandler? beforeLabelEdit = null, LabelEditEventHandler? afterLabelEdit = null)
-    {
-        ListView lv = toEdit.ListView;
-
-        // beware the mandatory temporal couplings
-
-        bool oldLabelEdit = lv.LabelEdit;
-
-        lv.LabelEdit = true;
-        toEdit.BeginEdit();
-
-        lv.BeforeLabelEdit += beforeLabelEdit;
-        lv.AfterLabelEdit += afterLabelEdit;
-        lv.AfterLabelEdit += Cleanup;
-
-        void Cleanup(object _, LabelEditEventArgs __)
-        {
-            lv.BeforeLabelEdit -= beforeLabelEdit;
-            lv.AfterLabelEdit -= afterLabelEdit;
-            lv.AfterLabelEdit -= Cleanup;
-            lv.LabelEdit = oldLabelEdit;
         }
     }
 
