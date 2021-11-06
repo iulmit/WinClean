@@ -23,7 +23,7 @@ public class ImagedComboBox : ComboBox
     /// <summary>
     /// Gets or sets the collection of images avaible to the items.
     /// </summary>
-    public ImageList ImageList { get; private set; } = new();
+    public ImageList ImageList { get; set; } = new();
 
     /// <inheritdoc cref="ComboBox.SelectedItem"/>
     public new ImagedComboBoxItem? SelectedItem { get => (ImagedComboBoxItem?)base.SelectedItem; set => base.SelectedItem = value; }

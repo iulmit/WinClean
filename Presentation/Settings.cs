@@ -18,8 +18,6 @@ public partial class Settings : Form
     public Settings()
     {
         InitializeComponent();
-        Logic.Impact impact = new(Logic.ImpactLevel.Positive, Logic.ImpactEffect.Visuals);
-        impactEditor1.SelectedImpact = impact;
     }
 
     #endregion Public Constructors

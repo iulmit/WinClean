@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
+﻿<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -71,6 +70,10 @@
   <data name="buttonDelete.Text" xml:space="preserve">
     <value>Supprimer</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tableImpacts.CellBorderStyle" type="System.Windows.Forms.TableLayoutPanelCellBorderStyle, System.Windows.Forms">
+    <value>Inset</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tableImpacts.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 11, 0, 0</value>
@@ -78,11 +81,5 @@
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tableImpacts.RowCount" type="System.Int32, mscorlib">
     <value>1</value>
-  </data>
-  <data name="textBoxCode.PlaceholderText" xml:space="preserve">
-    <value>Code</value>
-  </data>
-  <data name="textBoxDescription.PlaceholderText" xml:space="preserve">
-    <value>Description</value>
   </data>
 </root>

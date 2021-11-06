@@ -33,14 +33,7 @@ namespace RaphaëlBardini.WinClean.Presentation
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
-            this.impactEditor1 = new RaphaëlBardini.WinClean.Presentation.ImpactEditor();
             this.SuspendLayout();
-            // 
-            // impactEditor1
-            // 
-            resources.ApplyResources(this.impactEditor1, "impactEditor1");
-            this.impactEditor1.Name = "impactEditor1";
-            this.impactEditor1.SelectedImpact = null;
             // 
             // Settings
             // 
@@ -48,7 +41,6 @@ namespace RaphaëlBardini.WinClean.Presentation
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.CausesValidation = false;
-            this.Controls.Add(this.impactEditor1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -59,7 +51,5 @@ namespace RaphaëlBardini.WinClean.Presentation
         }
 
         #endregion
-
-        private ImpactEditor impactEditor1;
     }
 }

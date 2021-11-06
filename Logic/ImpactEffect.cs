@@ -9,7 +9,7 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>
 /// Effect of running a script.
 /// </summary>
-public class ImpactEffect
+public class ImpactEffect : IEquatable<ImpactEffect?>
 {
     #region Private Fields
 
@@ -91,8 +91,7 @@ public class ImpactEffect
 
     #region Public Methods
 
-    /// <inheritdoc cref="ToString"/>
-    public static implicit operator string(ImpactEffect impactEffect) => impactEffect?.ToString()!;
+    // ! : a cast from null returns null.
 
     /// <summary>
     /// Gets the <see cref="ImpactEffect"/> matching the specified string.
@@ -106,7 +105,14 @@ public class ImpactEffect
             ? (new(value))
             : throw new ArgumentException($"Not a supported {nameof(ImpactEffect)} value", nameof(value));
 
-    // ! : a cast from null returns null.
+    /// <inheritdoc/>
+    public override bool Equals(object? obj) => Equals(obj as ImpactEffect);
+
+    /// <inheritdoc/>
+    public bool Equals(ImpactEffect? other) => other != null && _value == other._value;
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => HashCode.Combine(_value);
 
     /// <inheritdoc/>
     public override string? ToString() => _value;

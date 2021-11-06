@@ -8,7 +8,7 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>
 /// A system-wide impact.
 /// </summary>
-public class Impact
+public class Impact : IEquatable<Impact?>
 {
     #region Public Constructors
 
@@ -50,6 +50,15 @@ public class Impact
     #endregion Public Properties
 
     #region Public Methods
+
+    /// <inheritdoc/>
+    public override bool Equals(object? obj) => Equals(obj as Impact);
+
+    /// <inheritdoc/>
+    public bool Equals(Impact? other) => other is not null && Effect.Equals(other.Effect) && Level == other.Level;
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => HashCode.Combine(Effect, Level);
 
     /// <inheritdoc/>
     public override string ToString() => $"{Level} {Effect}";

@@ -5,6 +5,21 @@
     /// </summary>
     public struct ImagedComboBoxItem : IEquatable<ImagedComboBoxItem>
     {
+        #region Public Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImagedComboBoxItem"/> structure with the
+        /// specified image index and text.
+        /// </summary>
+        public ImagedComboBoxItem(int imageIndex = -1, string? text = null, object? tag = null)
+        {
+            ImageIndex = imageIndex;
+            Text = text ?? string.Empty;
+            Tag = tag;
+        }
+
+        #endregion Public Constructors
+
         #region Public Properties
 
         /// <summary>
@@ -15,7 +30,7 @@
         /// <summary>
         /// Additional informations about the control
         /// </summary>
-        public object Tag { get; set; }
+        public object? Tag { get; set; }
 
         /// <summary>
         /// Text associated with this instance.
@@ -46,7 +61,7 @@
         public override bool Equals(object? obj) => obj is ImagedComboBoxItem item && Equals(item);
 
         /// <inheritdoc/>
-        public bool Equals(ImagedComboBoxItem other) => ImageIndex == other.ImageIndex && Tag.Equals(other.Tag) && Text == other.Text;
+        public bool Equals(ImagedComboBoxItem other) => ImageIndex == other.ImageIndex && Equals(Tag, other.Tag) && Text == other.Text;
 
         /// <inheritdoc/>
         public override int GetHashCode() => HashCode.Combine(ImageIndex, Tag, Text);

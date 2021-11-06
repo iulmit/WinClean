@@ -13,9 +13,23 @@ namespace RaphaëlBardini.WinClean.Presentation;
 /// </summary>
 public partial class ScriptEditor : UserControl
 {
-    #region Private Fields
+    #region Protected Properties
 
-    private readonly List<Control[]> tableImpactRows = new();
+    /// <inheritdoc/>
+    /// <remarks>Reduced flickering on child control paint.</remarks>
+    protected override CreateParams CreateParams
+    {
+        get
+        {
+            CreateParams cp = base.CreateParams;
+            cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+            return cp;
+        }
+    }
+
+    #endregion Protected Properties
+
+    #region Private Fields
 
     private IScript? _selectedScript;
 
@@ -41,7 +55,7 @@ public partial class ScriptEditor : UserControl
     public override bool AutoScroll
     {
         get => base.AutoScroll;
-        set => base.AutoScroll = tableImpacts.AutoScroll = value;
+        set => base.AutoScroll = impactCollectionEditor.AutoScroll = value;
     }
 
     /// <summary>
@@ -65,52 +79,12 @@ public partial class ScriptEditor : UserControl
                 comboBoxAdvised.SelectedItem = Resources.ScriptAdvised.ResourceManager.GetString(value.Advised.ToString(), CultureInfo.CurrentUICulture).FailIfNull();
                 comboBoxGroup.SelectedItem = value.Group;
                 textBoxCode.Text = value.Code;
-
-                foreach (Impact impact in value.Impacts)
-                {
-                    AddImpactTableRow(impact);
-                }
+                impactCollectionEditor.AddRange(value.Impacts);
             }
         }
     }
 
     #endregion Public Properties
-
-    #region Private Properties
-
-    private Button NewAddImpactButton
-    {
-        get
-        {
-            Button b = CreateTableLayoutPanelButton(Resources.Images.Positive);
-            b.Click += (s, e) =>
-            {
-                if (_selectedScript is not null)
-                {
-                    Impact @new = new();
-                    _selectedScript.Impacts.Add(@new);
-                    AddImpactTableRow(@new);
-                }
-            };
-            return b;
-        }
-    }
-
-    private Button NewRemoveImpactButton
-    {
-        get
-        {
-            Button b = CreateTableLayoutPanelButton(tableImpactRows.Count > 0 ? Resources.Images.Negative : Resources.Images.NegativeDisabled);
-            b.Enabled = tableImpactRows.Count > 0;
-            b.Click += (s, e) =>
-            {
-                RemoveImpactTableLastRow();
-            };
-            return b;
-        }
-    }
-
-    #endregion Private Properties
 
     #region Private Methods
 
@@ -157,7 +131,6 @@ public partial class ScriptEditor : UserControl
     private void ScriptEditor_Resize(object _, EventArgs __)
     {
         SuspendLayout();
-        tableImpacts.SuspendLayout();
 
         int newWidth = Width;
         if (Height < buttonExecute.Location.Y + buttonExecute.Height)
@@ -182,14 +155,6 @@ public partial class ScriptEditor : UserControl
         buttonExecute.Location = new((int)((newWidth / 2D) - (ButtonSpacing / 2D) - buttonExecute.Width), buttonExecute.Location.Y);
         buttonDelete.Location = new((int)((newWidth / 2D) + (ButtonSpacing / 2D)), buttonDelete.Location.Y);
 
-        // FlowLayoutPanels
-        ChangeWidth(tableImpacts, newWidth);
-        foreach (Control c in tableImpacts.Controls)
-        {
-            ChangeWidth(c, newWidth);
-        }
-
-        tableImpacts.ResumeLayout();
         ResumeLayout();
     }
 
@@ -222,56 +187,10 @@ public partial class ScriptEditor : UserControl
     private static void ChangeWidth(Control c, int newWitdth)
         => c.Width = newWitdth > c.MinimumSize.Width ? newWitdth : c.MinimumSize.Width;
 
-    private void AddImpactTableRow(Impact impact)
-    {
-        ++tableImpacts.RowCount;
-
-        tableImpactRows.Add(new Control[3]
-        {
-            new ImpactEditor(impact)
-            {
-                Margin = new(0, 0, 0, 7),
-                Width = this.Width,
-                Anchor = AnchorStyles.None,
-            },
-            NewAddImpactButton,
-            NewRemoveImpactButton
-        });
-
-        tableImpacts.Controls.Add(tableImpactRows.Last()[0], 0, tableImpacts.RowCount);
-        tableImpacts.Controls.Add(tableImpactRows.Last()[1], 1, tableImpacts.RowCount);
-        tableImpacts.Controls.Add(tableImpactRows.Last()[2], 2, tableImpacts.RowCount);
-    }
-
-    private Button CreateTableLayoutPanelButton(Image backImg) => new()
-    {
-        BackgroundImage = backImg,
-        BackgroundImageLayout = ImageLayout.Center,
-        UseMnemonic = false,
-        UseVisualStyleBackColor = true,
-        TabIndex = buttonDelete.TabIndex + tableImpacts.RowCount,
-        Anchor = AnchorStyles.None,
-        Margin = new(5, 0, 0, 0),
-        Size = new(20, 20),
-        CausesValidation = false,
-    };
-
     private void PrepareForAnother()
     {
-        tableImpactRows.Clear();
-        tableImpacts.RowCount = 0;
-
         _selectedScript?.Save();
-        tableImpacts.Controls.Clear();
-    }
-
-    private void RemoveImpactTableLastRow()
-    {
-        foreach (Control lastRowControl in tableImpactRows.Last())
-        {
-            tableImpacts.Controls.Remove(lastRowControl);
-        }
-        tableImpactRows.RemoveAt(--tableImpacts.RowCount);
+        impactCollectionEditor.Clear();
     }
 
     #endregion Private Methods
