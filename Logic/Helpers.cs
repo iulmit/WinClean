@@ -31,7 +31,7 @@ internal static class Helpers
 
     #region Public Methods
 
-    public static RectangleF CenterIn(this SizeF child, RectangleF parent) => new(parent.Location + (parent.Size / 2) - (child / 2), child);
+    public static RectangleF CenterIn(this SizeF child, RectangleF parent) => new(parent.Location + parent.Size / 2 - child / 2, child);
 
     public static Rectangle CenterIn(this Size child, Rectangle parent)
     {
@@ -48,13 +48,10 @@ internal static class Helpers
     /// <returns><paramref name="t"/>.</returns>
     [return: NotNull]
     public static T FailIfNull<T>(this T? t, [CallerMemberName] string caller = "Not Found",
-                                            [CallerLineNumber] int callLine = 0,
-                                            [CallerFilePath] string callFile = "Not Found") where T : class
+                                             [CallerLineNumber] int callLine = 0,
+                                             [CallerFilePath] string callFile = "Not Found") where T : class
     {
-        if (t is null)
-        {
-            Fail($"FailIfNull at {caller}, line {callLine}, in {callFile}");
-        }
+        Assert(t is not null, $"FailIfNull at {caller}, line {callLine}, in {callFile}");
         return t;
     }
 

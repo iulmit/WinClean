@@ -1,11 +1,12 @@
-﻿using RaphaëlBardini.WinClean.Logic;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+
+using RaphaëlBardini.WinClean.Logic;
 
 namespace RaphaëlBardini.WinClean.Presentation
 {
@@ -13,7 +14,7 @@ namespace RaphaëlBardini.WinClean.Presentation
     /// Displays to the user and allows edition of a collection of <see cref="Impact"/> objects.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1710", Justification = "CollectionEditor implies Collection")]
-    public partial class ImpactCollectionEditor : UserControl, ICollection<Impact>
+    public partial class ImpactCollectionEditor : UserControl
     {
         #region Private Fields
 
@@ -32,55 +33,35 @@ namespace RaphaëlBardini.WinClean.Presentation
         /// </summary>
         public ImpactCollectionEditor()
         {
-            
             InitializeComponent();
             foreach (string levelName in Enum.GetNames<ImpactLevel>())
             {
                 _levelImages.Images.Add(levelName, (Resources.Images.ResourceManager.GetObject(levelName, CultureInfo.CurrentUICulture) as Image).FailIfNull());
             }
+            _impacts.CollectionChanged += ImpactsCollectionChanged;
+        }
+
+        private void ImpactsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems is not null) // if new items were added
+            {
+                foreach (Impact @new in e.NewItems)
+                {
+                    AddImpactRow(@new);
+                }
+            }
+            else if (e.OldItems is not null) // if old items had been deleted
+            {
+                foreach (Impact deleted in e.OldItems)
+                {
+                    RemoveImpactRow(deleted);
+                }
+            }
         }
 
         #endregion Public Constructors
 
-        #region Public Properties
-
-        /// <inheritdoc/>
-        public int Count => _impacts.Count;
-
-        /// <inheritdoc/>
-        public bool IsReadOnly => _impacts.IsReadOnly;
-
-        #endregion Public Properties
-
         #region Public Methods
-
-        /// <inheritdoc/>
-        /// <exception cref="ArgumentNullException"><paramref name="item"/> is <see langword="null"/>.</exception>
-        public void Add(Impact item)
-        {
-            if (item is null)
-            {
-                throw new ArgumentNullException(nameof(item));
-            }
-            AddImpactRow(item);
-            _impacts.Add(item);
-        }
-
-        /// <inheritdoc/>
-        public void Clear()
-        {
-            for (int i = 0; i < _tableImpactsRows.Count; i++)
-            {
-                RemoveImpactRow(i);
-            }
-            _impacts.Clear();
-        }
-
-        /// <inheritdoc/>
-        public bool Contains(Impact item) => _impacts.Contains(item);
-
-        /// <inheritdoc/>
-        public void CopyTo(Impact[] array, int arrayIndex) => _impacts.CopyTo(array, arrayIndex);
 
         /// <inheritdoc cref="IDisposable.Dispose"/>
         public new void Dispose()
@@ -89,23 +70,11 @@ namespace RaphaëlBardini.WinClean.Presentation
             base.Dispose();
         }
 
-        /// <inheritdoc/>
-        public IEnumerator<Impact> GetEnumerator() => _impacts.GetEnumerator();
-
-        /// <inheritdoc/>
-        public bool Remove(Impact item)
-        {
-            RemoveImpactRow(_tableImpactsRows.FindIndex((row) => row.Impact.Equals(item)));
-            return _impacts.Remove(item);
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_impacts).GetEnumerator();
-
         #endregion Public Methods
 
         #region Private Properties
 
-        private Button NewRemoveImpactButton(int rowIndex)
+        private Button NewRemoveImpactButton(Impact target)
         {
             Button b = SetForTable(new Button()
             {
@@ -118,7 +87,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             });
             b.Click += (_, _) =>
             {
-                RemoveImpactRow(rowIndex);
+                RemoveImpactRow(target);
             };
             return b;
         }
@@ -146,7 +115,7 @@ namespace RaphaëlBardini.WinClean.Presentation
             levelSelector.Items.AddRange(Enum.GetValues<ImpactLevel>().Select((lvl) => (object)new ImagedComboBoxItem(_levelImages.Images.IndexOfKey(Enum.GetName<ImpactLevel>(lvl))) { Tag = lvl }).ToArray());
             levelSelector.SelectedItem = levelSelector.Items.Cast<ImagedComboBoxItem>().First((item) => Equals(item.Tag, impact.Level));
 
-            IList effects = ImpactEffect.Values.ToList();
+            IList<ImpactEffect> effects = ImpactEffect.Values.ToList();
             ComboBox effectSelector = SetForTable(new ComboBox()
             {
                 MaxDropDownItems = effects.Count,
@@ -166,7 +135,7 @@ namespace RaphaëlBardini.WinClean.Presentation
                     Image = _levelImages.Images[Enum.GetName<ImpactLevel>(impact.Level)]
                 });
             }
-            _tableImpactsRows.Add(new ImpactRow(levelSelector, effectSelector, NewRemoveImpactButton(_tableImpactsRows.Count + 1), impact));
+            _tableImpactsRows.Add(new ImpactRow(levelSelector, effectSelector, NewRemoveImpactButton(impact), impact));
 
             _ = tableImpacts.RowStyles.Add(new(SizeType.Absolute, 23));
             tableImpacts.Controls.AddRange(_tableImpactsRows[tableImpacts.RowCount++ - 1].ToArray());
@@ -174,8 +143,9 @@ namespace RaphaëlBardini.WinClean.Presentation
 
         private void ButtonAddImpact_Click(object _, EventArgs __) => AddImpactRow(new());
 
-        private void RemoveImpactRow(int rowIndex)
+        private void RemoveImpactRow(Impact impact)
         {
+            int rowIndex = _tableImpactsRows.FindIndex((row) => row.Impact.Equals(impact));
             foreach (Control control in _tableImpactsRows[rowIndex].ToArray())
             {
                 tableImpacts.Controls.Remove(control);

@@ -293,9 +293,9 @@ public class Script : ListViewItem, IScript
         double amount = alpha / (double)byte.MaxValue;
         return color.R == fadeIn.R && color.G == fadeIn.G && color.B == fadeIn.B
                     ? color
-                    : Color.FromArgb((byte)((color.R * amount) + (fadeIn.R * (1 - amount))),
-                                     (byte)((color.G * amount) + (fadeIn.G * (1 - amount))),
-                                     (byte)((color.B * amount) + (fadeIn.B * (1 - amount))));
+                    : Color.FromArgb((byte)(color.R * amount + fadeIn.R * (1 - amount)),
+                                     (byte)(color.G * amount + fadeIn.G * (1 - amount)),
+                                     (byte)(color.B * amount + fadeIn.B * (1 - amount)));
     }
 
     #endregion Private Methods

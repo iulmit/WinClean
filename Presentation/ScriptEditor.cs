@@ -145,15 +145,15 @@ public partial class ScriptEditor : UserControl
 
         // ComboBoxes
         const int ComboBoxSpacing = 11;
-        int cBoxWidth = (int)((newWidth / 2D) - (ComboBoxSpacing / 2D));
+        int cBoxWidth = (int)(newWidth / 2D - ComboBoxSpacing / 2D);
         ChangeWidth(comboBoxGroup, cBoxWidth);
         ChangeWidth(comboBoxAdvised, cBoxWidth);
         comboBoxAdvised.Location = new(newWidth - cBoxWidth, comboBoxAdvised.Location.Y);
 
         // Buttons
         const int ButtonSpacing = 7;
-        buttonExecute.Location = new((int)((newWidth / 2D) - (ButtonSpacing / 2D) - buttonExecute.Width), buttonExecute.Location.Y);
-        buttonDelete.Location = new((int)((newWidth / 2D) + (ButtonSpacing / 2D)), buttonDelete.Location.Y);
+        buttonExecute.Location = new((int)(newWidth / 2D - ButtonSpacing / 2D - buttonExecute.Width), buttonExecute.Location.Y);
+        buttonDelete.Location = new((int)(newWidth / 2D + ButtonSpacing / 2D), buttonDelete.Location.Y);
 
         ResumeLayout();
     }
