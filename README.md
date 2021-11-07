@@ -1,4 +1,4 @@
-# WinClean
+# WinClean - Coming Soon
 Windows optimization and debloating utility. 
 
 Allows the average Windows user to improve performance in a few clicks.
@@ -24,3 +24,4 @@ Behaviors are documented.
 
 ## Contributing
 Feel free to request new features and report bugs.
+Additionnaly, as I'm still a beginner and I must be writing terrible code, advice and tips are welcome !
