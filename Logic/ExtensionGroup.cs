@@ -13,6 +13,12 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// </summary>
 public class ExtensionGroup : IReadOnlyCollection<string>
 {
+    #region Private Fields
+
+    private readonly IReadOnlyCollection<string> _extensions;
+
+    #endregion Private Fields
+
     #region Public Constructors
 
     /// <summary>
@@ -34,17 +40,9 @@ public class ExtensionGroup : IReadOnlyCollection<string>
 
     #region Public Properties
 
-    /// <summary>
-    /// File extensions included in the group.
-    /// </summary>
-    private readonly IReadOnlyCollection<string> _extensions;
-
     /// <inheritdoc/>
     public int Count => _extensions.Count;
 
-    /// <summary>
-    /// Name of the group.
-    /// </summary>
     public string Name
     {
         get
