@@ -7,10 +7,6 @@
     {
         #region Public Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ImagedComboBoxItem"/> structure with the
-        /// specified image index and text.
-        /// </summary>
         public ImagedComboBoxItem(int imageIndex = -1, string? text = null, object? tag = null)
         {
             ImageIndex = imageIndex;
@@ -41,20 +37,7 @@
 
         #region Public Methods
 
-        /// <summary>
-        /// Compares two <see cref="ImagedComboBoxItem"/> objects.
-        /// </summary>
-        /// <returns>
-        /// Wether <paramref name="left"/> and <paramref name="right"/> can be considered different.
-        /// </returns>
         public static bool operator !=(ImagedComboBoxItem left, ImagedComboBoxItem right) => !(left == right);
-
-        /// <summary>
-        /// Compares two <see cref="ImagedComboBoxItem"/> objects.
-        /// </summary>
-        /// <returns>
-        /// Wether <paramref name="left"/> and <paramref name="right"/> can be considered equal.
-        /// </returns>
         public static bool operator ==(ImagedComboBoxItem left, ImagedComboBoxItem right) => left.Equals(right);
 
         /// <inheritdoc/>
