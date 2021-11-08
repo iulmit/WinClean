@@ -75,7 +75,7 @@ public static class LogManager
             {
                 DeleteLogFile(logFile);
             }
-        }
+        };
 
     /// <summary>
     /// Logs a string.
