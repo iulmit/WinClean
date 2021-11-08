@@ -17,7 +17,7 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>
 /// Provides a set of extension methods that fulfill a relatively generic role.
 /// </summary>
-internal static class Helpers
+public static class Helpers
 {
     #region Private Fields
 
@@ -42,16 +42,12 @@ internal static class Helpers
                              Convert.ToInt32(rF.Width));
     }
 
-    /// <summary>
-    /// Calls <see cref="Fail(string?)"/> if <paramref name="t"/> is <see langword="null"/>.
-    /// </summary>
-    /// <returns><paramref name="t"/>.</returns>
     [return: NotNull]
     public static T FailIfNull<T>(this T? t, [CallerMemberName] string caller = "Not Found",
                                              [CallerLineNumber] int callLine = 0,
                                              [CallerFilePath] string callFile = "Not Found") where T : class
     {
-        Assert(t is not null, $"FailIfNull at {caller}, line {callLine}, in {callFile}");
+        Assert(t is not null, $"Null at {caller}, line {callLine}, in {callFile}");
         return t;
     }
 
