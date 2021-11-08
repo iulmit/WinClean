@@ -91,8 +91,6 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
 
     #region Public Methods
 
-    // ! : a cast from null returns null.
-
     /// <summary>
     /// Gets the <see cref="ImpactEffect"/> matching the specified string.
     /// </summary>
