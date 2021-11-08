@@ -6,8 +6,7 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>
 /// If a script is advised for general purpose
 /// </summary>
-/// <remarks>Values are hex colors.</remarks>
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1008", Justification = "Values represent colors")]
+// chaud : faire ça correctement avec les couleurs 
 public enum ScriptAdvised
 {
     /// <summary>
