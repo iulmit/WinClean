@@ -37,32 +37,23 @@ public static class LogManager
 
     #region Public Properties
 
-    /// <summary>
-    /// Minimal log level for an entry.
-    /// </summary>
     public static LogLevel MinLogLevel { get; set; } = (LogLevel)Properties.Settings.Default.LogLevel;
 
     #endregion Public Properties
+
+    #region Private Fields
 
     #region Constants
 
     private const string DateTimeFilenameFormat = "yyyy-MM-dd--HH-mm-ss";
 
-    /// <summary>
-    /// CSV Log entry column delimiter.
-    /// </summary>
     private const string LogDelimiter = ";";
 
-    /// <summary>
-    /// Unique log file that will be used for this session.
-    /// </summary>
     private static readonly FileInfo s_currentLogFile;
 
     private static readonly DirectoryInfo s_logDir;
 
     #endregion Constants
-
-    #region Private Fields
 
     private static readonly CsvWriter s_csvWriter;
 
