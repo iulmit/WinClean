@@ -75,7 +75,7 @@ public static class LogManager
             {
                 DeleteLogFile(logFile);
             }
-        };
+        }.ConfigureAwait(false);
 
     /// <summary>
     /// Logs a string.
