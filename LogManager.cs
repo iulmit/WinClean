@@ -46,9 +46,6 @@ public static class LogManager
 
     #region Constants
 
-    /// <summary>
-    /// Format string used by <see cref="DateTime.ToString(string?)"/> used for NTFS filenames.
-    /// </summary>
     private const string DateTimeFilenameFormat = "yyyy-MM-dd--HH-mm-ss";
 
     /// <summary>
@@ -69,11 +66,6 @@ public static class LogManager
 
     private static readonly CsvWriter s_csvWriter;
 
-    /// <summary>
-    /// Count of log entries wrote.
-    /// </summary>
-    private static int s_logIndex;
-
     #endregion Private Fields
 
     #region Public Methods
@@ -92,11 +84,7 @@ public static class LogManager
             {
                 DeleteLogFile(logFile);
             }
-        }).ConfigureAwait(false);
-
-    /// <inheritdoc cref="IDisposable.Dispose"/>
-    [Obsolete("Bug in CSV Helper -- Don't use")]
-    public static void Dispose() => s_csvWriter.Dispose();
+        }
 
     /// <summary>
     /// Logs a string.
@@ -117,7 +105,6 @@ public static class LogManager
             s_csvWriter.WriteRecord(new LogEntry()
             {
                 Date = DateTime.Now,
-                Index = s_logIndex,
                 Level = lvl,
                 Happening = happening,
                 Message = str ?? string.Empty,
@@ -128,7 +115,6 @@ public static class LogManager
 
             s_csvWriter.NextRecord();
             s_csvWriter.Flush();
-            s_logIndex++;
         }
     }
 
@@ -149,23 +135,11 @@ public static class LogManager
     #endregion Public Methods
 
     #region Private Methods
-
-    /// <summary>
-    /// Checks that a log file is valid for deletion. Doesn't throw.
-    /// </summary>
-    /// <param name="logFile">The filename or path of the log file.</param>
-    /// <returns>
-    /// <see langword="true"/> if <paramref name="logFile"/> is a valid path, it's filename is a
-    /// valid log filename, and it's not the current session's log file. If one or more of these
-    /// conditions are not met, <see langword="false"/>.
-    /// </returns>
+ 
     private static bool CanLogFileBeDeleted(FileInfo logFile)
         => DateTime.TryParseExact(Path.GetFileNameWithoutExtension(logFile.Name), DateTimeFilenameFormat,
                                   DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out _) && logFile.Name != s_currentLogFile.Name;
 
-    /// <summary>
-    /// Creates the appropriate log folder if missing.
-    /// </summary>
     private static void CreateLogDir()
     {
         try
@@ -178,24 +152,12 @@ public static class LogManager
         }
     }
 
-    /// <summary>
-    /// Deletes a log file.
-    /// </summary>
-    /// <param name="path">The full path of the log file to delete.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
-    /// <exception cref="NotSupportedException"><paramref name="path"/> is in an invalid format.</exception>
-    /// <exception cref="PathTooLongException">
-    /// The specified path, file name, or both exceed the system-defined maximum length.
-    /// </exception>
-    /// <remarks>Handles some filesystem exceptions.</remarks>
     private static void DeleteLogFile(FileInfo path)
     {
         try
         {
             path.Delete();
         }
-        // For IOException, we don't want to handle derived classes. The "is" operator covers
-        // derived classes too.
         catch (Exception e) when (e.FileSystem())
         {
             ErrorDialog.CantDeleteLogFile(e, () => DeleteLogFile(path));
@@ -207,19 +169,18 @@ public static class LogManager
     #region Private Structs
 
     ///<remarks>The fields are in the order we want the CSV header to be in. Topmost = leftmost</remarks>
-    private readonly struct LogEntry
+    private record LogEntry
     {
         #region Public Properties
 
-        public string Caller { get; init; }
-        public string CallFileFullPath { get; init; }
-        public int CallLine { get; init; }
+        public LogLevel Level { get; init; }
         public DateTime Date { get; init; }
         public string Happening { get; init; }
-        public int Index { get; init; }
-        public LogLevel Level { get; init; }
         public string Message { get; init; }
-
+        public string Caller { get; init; }
+        public int CallLine { get; init; }
+        public string CallFileFullPath { get; init; }
+        
         #endregion Public Properties
     }
 
