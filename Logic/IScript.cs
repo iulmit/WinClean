@@ -61,13 +61,10 @@ public interface IScript
     /// Executes the script in a new process.
     /// </summary>
     /// <inheritdoc cref="Operational.ScriptHost.Execute(IScript)" path="/exception"/>
-    /// <remarks>
-    /// Executing a script may take time. Use <see cref="ScriptExecutor"/> to execute scripts.
-    /// </remarks>
     void Execute();
 
     /// <summary>
-    /// Saves this script to the scripts dir.
+    /// Saves this script to the disk.
     /// </summary>
     void Save();
 
