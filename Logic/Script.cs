@@ -12,7 +12,6 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>
 /// A script that can be executed from a script host program.
 /// </summary>
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237", Justification = "This class does not support serialization.")]
 public class Script : ListViewItem, IScript
 {
     #region Private Fields
@@ -30,32 +29,27 @@ public class Script : ListViewItem, IScript
 
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Script"/> class from the specified file in the
-    /// scripts dir.
-    /// </summary>
-    /// <param name="xmlScript">
-    /// The XML file containing this script's metadata, located in the scripts dir.
+    /// <param name="filename">
+    /// The name of the XML file containing this script's metadata, located in the scripts dir.
     /// </param>
     /// <param name="displayInto">The list view in which the script will be displayed.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="xmlScript"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException"><paramref name="xmlScript"/> is not a valid filename.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="filename"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException"><paramref name="filename"/> is not a valid filename.</exception>
     /// <exception cref="Helpers.FileSystem(Exception)">
-    /// <paramref name="xmlScript"/> cannot be accessed.
+    /// <paramref name="filename"/> cannot be accessed.
     /// </exception>
-    public Script(string xmlScript, ListView displayInto)
+    public Script(string filename, ListView displayInto)
     {
-        _ = xmlScript ?? throw new ArgumentNullException(nameof(xmlScript));
+        _ = filename ?? throw new ArgumentNullException(nameof(filename));
         _ = displayInto ?? throw new ArgumentNullException(nameof(displayInto));
 
-        if (!xmlScript.IsValidFilename())
+        if (!filename.IsValidFilename())
         {
-            throw new ArgumentException("Not a valid filename", nameof(xmlScript));
+            throw new ArgumentException("Not a valid filename", nameof(filename));
         }
 
         XmlDocument doc = CreateDoc();
 
-#nullable disable warnings
         Name = doc.GetElementsByTagName(nameof(Name))[0].InnerText;
         _scriptsDirFile = new($"{Name.ToFilename()}.xml".InScriptsDir());
 
@@ -67,7 +61,6 @@ public class Script : ListViewItem, IScript
         Extension = doc.GetElementsByTagName("Extension")[0].InnerText;
 
         Code = doc.GetElementsByTagName("Code")[0].InnerXml;
-#nullable enable warnings
 
         foreach (XmlElement impactElement in doc.GetElementsByTagName(nameof(Impact)))
         {
@@ -80,7 +73,7 @@ public class Script : ListViewItem, IScript
             XmlDocument d = new();
             try
             {
-                d.Load(Path.Join(ScriptsDir.Info.FullName, xmlScript));
+                d.Load(Path.Join(ScriptsDir.Info.FullName, filename));
             }
             catch (Exception e) when (e.FileSystem())
             {
@@ -90,9 +83,6 @@ public class Script : ListViewItem, IScript
         }
     }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Script"/> class.
-    /// </summary>
     /// <param name="name">
     /// A brief infinitive sentence that describes the functionnality of this script.
     /// </param>
@@ -145,7 +135,6 @@ public class Script : ListViewItem, IScript
     #region Public Properties
 
     /// <inheritdoc/>
-    /// <remarks>Set accessor changes the background color.</remarks>
     public ScriptAdvised Advised
     {
         get => _advised;
@@ -166,7 +155,6 @@ public class Script : ListViewItem, IScript
     public string Extension { get; }
 
     /// <inheritdoc/>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2227", Justification = "Bug on init")]
     public ICollection<Impact> Impacts { get; init; } = new List<Impact>();
 
     /// <inheritdoc/>
@@ -276,17 +264,6 @@ public class Script : ListViewItem, IScript
 
     #region Private Methods
 
-    /// <summary>
-    /// Emulates alpha transparency to a specified color.
-    /// </summary>
-    /// <param name="color">The main color.</param>
-    /// <param name="fadeIn">The color "behind" the main color.</param>
-    /// <param name="alpha">The alpha byte color component to use.</param>
-    /// <returns><paramref name="color"/>, blended into <paramref name="fadeIn"/>.</returns>
-    /// <remarks>
-    /// Real alpha values of <paramref name="color"/> and <paramref name="fadeIn"/> are ignored.
-    /// </remarks>
-    /// .
     /// <seealso href="https://stackoverflow.com/a/3722337/11718061"/>
     private static Color EmulateAlpha(Color color, Color fadeIn, byte alpha)
     {
