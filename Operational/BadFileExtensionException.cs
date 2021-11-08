@@ -10,24 +10,18 @@ public class BadFileExtensionException : IOException
 {
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BadFileExtensionException"/> class.
-    /// </summary>
     public BadFileExtensionException() : base("A bad file extension has been specified.")
     {
     }
 
-    /// <inheritdoc cref="BadFileExtensionException()"/>
     /// <param name="extension">The wrong extension.</param>
     public BadFileExtensionException(string? extension) : base($"Bad file extension for the operation : '{extension}'.") => Extension = extension;
 
-    /// <inheritdoc cref="BadFileExtensionException()"/>
     /// <param name="extension">The wrong extension.</param>
     /// <param name="message">The exception's message.</param>
     public BadFileExtensionException(string? extension, string? message) : base(message) => Extension = extension;
 
-    /// <inheritdoc cref="BadFileExtensionException(string)"/>
-    /// <inheritdoc path="/param"/>
+    /// <inheritdoc path="param"/>
     public BadFileExtensionException(string? message, Exception? innerException) : base(message, innerException)
     {
     }
