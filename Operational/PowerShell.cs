@@ -5,7 +5,7 @@ namespace RaphaëlBardini.WinClean.Operational;
 /// <summary>
 /// The Windows PowerShell script host.
 /// </summary>
-internal class PowerShell : ScriptHost
+public class PowerShell : ScriptHost
 {
     #region Private Fields
 
