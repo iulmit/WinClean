@@ -30,15 +30,10 @@ public static class Program
     /// Runs the specified scripts.
     /// </summary>
     /// <remarks>If there is more than 1 script to run, shows a GUI.</remarks>
-    /// <param name="scripts"></param>
     /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
     public static void ConfirmAndExecuteScripts(IList<IScript> scripts)
     {
-        if (scripts is null)
-        {
-            throw new ArgumentNullException(nameof(scripts));
-        }
-        ScriptExecutor executor = new(scripts);
+        ScriptExecutor executor = new(scripts ?? throw new ArgumentNullException(nameof(scripts)));
         if (scripts.Count > 1)
         {
             executor.ExecuteUI();
@@ -94,7 +89,7 @@ public static class Program
         else
         {
             ErrorDialog.SingleInstanceOnly(EnsureSingleInstance, Exit);
-            singleInstanceEnforcer.Close();
+            singleInstanceEnforcer.Dispose();
         }
     }
 
@@ -109,8 +104,6 @@ public static class Program
     [STAThread]
     private static void Main()
     {
-        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
         Application.SetCompatibleTextRenderingDefault(false);
         Application.EnableVisualStyles();
 
