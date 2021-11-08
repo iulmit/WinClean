@@ -8,7 +8,7 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>
 /// Provides methods representing the available operations with the applicaton scripts dir.
 /// </summary>
-internal static class ScriptsDir
+public static class ScriptsDir
 {
     #region Public Constructors
 
