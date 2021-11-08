@@ -18,9 +18,6 @@ public class ShellFile : IDisposable
 
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ShellFile"/> class.
-    /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>
     public ShellFile(FileInfo source)
     {
