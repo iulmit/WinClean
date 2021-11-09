@@ -3,7 +3,7 @@
 
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
-using System.Collections.Generic;
+
 using System.Linq;
 using System.Windows.Forms;
 
@@ -47,40 +47,40 @@ public partial class MainForm : Form
         _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
 
         // Example scripts
-        IScript[] placeholders = new[]
+        /*IScript[] placeholders = new[]
         {
                 new Script
                 (
                     name: "CmdFoo",
                     description: "Foo description 0",
-                    impacts: new[] { new Impact(ImpactLevel.Positive, ImpactEffect.Visuals) },
+                    impact: new(ImpactLevel.Positive, ImpactEffect.Visuals),
                     group: listViewScripts.Groups[0],
                     advised: ScriptAdvised.Yes,
-                    source: new FileInfo(@"C:\Users\Scover\Desktop\foo.cmd")
+                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\foo.cmd")
                 ),
                 new Script
                 (
                     name: "RegDummy",
                     description: "Dummy description 1",
-                    impacts: new[] { new Impact(ImpactLevel.Negative, ImpactEffect.ShutdownTime) },
+                    impact: new(ImpactLevel.Negative, ImpactEffect.ShutdownTime),
                     group: listViewScripts.Groups[1],
                     advised: ScriptAdvised.Limited,
-                    source: new FileInfo(@"C:\Users\Scover\Desktop\dummy.reg")
+                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\dummy.reg")
                 ),
                 new Script
                 (
                     name: "PowerShellSensass",
                     description: "PowShe desc 3",
-                    impacts: new[] { new Impact(ImpactLevel.Positive, ImpactEffect.ResponseTime) },
+                    impact: new(ImpactLevel.Positive, ImpactEffect.ResponseTime),
                     group: listViewScripts.Groups[1],
                     advised: ScriptAdvised.No,
-                    source: new FileInfo(@"C:\Users\Scover\Desktop\ps1script.ps1")
+                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\ps1script.ps1")
                 )
             };
         foreach (IScript placeholder in placeholders)
         {
             placeholder.Save();
-        }
+        }*/
 
         ScriptsDir.LoadAllScripts(listViewScripts);
 
@@ -117,7 +117,7 @@ public partial class MainForm : Form
         {
             foreach (string newScriptPath in openFileDialogScripts.FileNames)
             {
-                _ = listViewScripts.Items.Add(new Script("Nouveau script", "Entrez les détails de fonctionnement du script...", ScriptAdvised.No, new List<Impact>(), null, new(newScriptPath)));
+                _ = listViewScripts.Items.Add(new Script("Nouveau script", "Entrez les détails de fonctionnement du script...", ScriptAdvised.No, new(), null, new(newScriptPath)));
             }
         }
     }
@@ -163,7 +163,7 @@ public partial class MainForm : Form
     private void ListViewScripts_Resize(object _, EventArgs __) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
 
     private void ListViewScripts_SelectedIndexChanged(object _, EventArgs __)
-        => scriptEditor.SelectedScript = listViewScripts.SelectedItems.Cast<IScript>().FirstOrDefault();
+        => scriptEditor.Selected = listViewScripts.SelectedItems.Cast<IScript>().FirstOrDefault();
 
     #endregion listViewScripts
 

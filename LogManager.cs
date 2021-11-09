@@ -3,7 +3,9 @@
 
 using CsvHelper;
 using CsvHelper.Configuration;
+
 using RaphaëlBardini.WinClean.Logic;
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -75,7 +77,7 @@ public static class LogManager
             {
                 DeleteLogFile(logFile);
             }
-        }.ConfigureAwait(false);
+        }).ConfigureAwait(false);
 
     /// <summary>
     /// Logs a string.
@@ -126,7 +128,7 @@ public static class LogManager
     #endregion Public Methods
 
     #region Private Methods
- 
+
     private static bool CanLogFileBeDeleted(FileInfo logFile)
         => DateTime.TryParseExact(Path.GetFileNameWithoutExtension(logFile.Name), DateTimeFilenameFormat,
                                   DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out _) && logFile.Name != s_currentLogFile.Name;
@@ -166,12 +168,12 @@ public static class LogManager
 
         public LogLevel Level { get; init; }
         public DateTime Date { get; init; }
-        public string Happening { get; init; }
-        public string Message { get; init; }
-        public string Caller { get; init; }
+        public string? Happening { get; init; }
+        public string? Message { get; init; }
+        public string? Caller { get; init; }
         public int CallLine { get; init; }
-        public string CallFileFullPath { get; init; }
-        
+        public string? CallFileFullPath { get; init; }
+
         #endregion Public Properties
     }
 

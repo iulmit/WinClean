@@ -1,7 +1,6 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
 // file to you under the MIT license.
 
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Logic;
@@ -14,7 +13,7 @@ public interface IScript
     #region Public Properties
 
     /// <summary>
-    /// If running this script is advised in general purpose.
+    /// Wether running this script would be advised in general purpose.
     /// </summary>
     ScriptAdvised Advised { get; set; }
 
@@ -39,9 +38,9 @@ public interface IScript
     ListViewGroup Group { get; set; }
 
     /// <summary>
-    /// System impacts of running this script.
+    /// System impact of running this script.
     /// </summary>
-    ICollection<Impact> Impacts { get; }
+    Impact Impact { get; }
 
     /// <summary>
     /// A brief infinitive sentence that describes the functionnality of this script.

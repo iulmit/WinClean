@@ -1,7 +1,6 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
 // file to you under the MIT license.
 
-using RaphaëlBardini.WinClean.Logic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -36,7 +35,7 @@ public abstract class ScriptHost
     /// </summary>
     /// <param name="script">The script to execute.</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
-    public virtual void Execute(IScript script)
+    public virtual void Execute(Logic.IScript script)
     {
         _ = script ?? throw new ArgumentNullException(nameof(script));
         ExecuteCode(script.Code, script.Name, script.Extension);

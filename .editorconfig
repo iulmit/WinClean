@@ -1051,7 +1051,7 @@ dotnet_diagnostic.CA1302.severity = warning
 
 dotnet_diagnostic.CA1303.severity = warning
 
-dotnet_diagnostic.CA1304.severity =suggestion
+dotnet_diagnostic.CA1304.severity =silent
 
 dotnet_diagnostic.CA1305.severity = warning
 
@@ -1133,7 +1133,7 @@ dotnet_diagnostic.CA1709.severity = warning
 
 dotnet_diagnostic.CA1710.severity = warning
 
-dotnet_diagnostic.CA1711.severity = warning
+dotnet_diagnostic.CA1711.severity =silent
 
 dotnet_diagnostic.CA1712.severity = warning
 
@@ -1557,6 +1557,48 @@ dotnet_diagnostic.CA1838.severity=suggestion
 dotnet_diagnostic.IDE0033.severity=suggestion
 dotnet_diagnostic.IDE0044.severity=suggestion
 dotnet_diagnostic.IDE0070.severity=suggestion
+dotnet_diagnostic.CA1416.severity=suggestion
+dotnet_diagnostic.CA1417.severity=suggestion
+dotnet_diagnostic.CA1418.severity=suggestion
+dotnet_diagnostic.CA1419.severity=suggestion
+dotnet_diagnostic.CA1727.severity=suggestion
+dotnet_diagnostic.CA1826.severity=suggestion
+dotnet_diagnostic.CA1827.severity=suggestion
+dotnet_diagnostic.CA1828.severity=suggestion
+dotnet_diagnostic.CA1829.severity=suggestion
+dotnet_diagnostic.CA1830.severity=suggestion
+dotnet_diagnostic.CA1831.severity=suggestion
+dotnet_diagnostic.CA1832.severity=suggestion
+dotnet_diagnostic.CA1833.severity=suggestion
+dotnet_diagnostic.CA1834.severity=suggestion
+dotnet_diagnostic.CA1835.severity=suggestion
+dotnet_diagnostic.CA1836.severity=suggestion
+dotnet_diagnostic.CA1837.severity=suggestion
+dotnet_diagnostic.CA1839.severity=suggestion
+dotnet_diagnostic.CA1840.severity=suggestion
+dotnet_diagnostic.CA1842.severity=suggestion
+dotnet_diagnostic.CA1843.severity=suggestion
+dotnet_diagnostic.CA1844.severity=suggestion
+dotnet_diagnostic.CA1846.severity=suggestion
+dotnet_diagnostic.CA1847.severity=suggestion
+dotnet_diagnostic.CA1848.severity=suggestion
+dotnet_diagnostic.CA2018.severity=suggestion
+dotnet_diagnostic.CA2017.severity=suggestion
+dotnet_diagnostic.CA2015.severity=suggestion
+dotnet_diagnostic.CA2012.severity=suggestion
+dotnet_diagnostic.CA2011.severity=suggestion
+dotnet_diagnostic.CA2009.severity=suggestion
+dotnet_diagnostic.CA2245.severity=suggestion
+dotnet_diagnostic.CA2247.severity=suggestion
+dotnet_diagnostic.CA2248.severity=suggestion
+dotnet_diagnostic.CA2249.severity=suggestion
+dotnet_diagnostic.CA2250.severity=suggestion
+dotnet_diagnostic.CA2251.severity=suggestion
+dotnet_diagnostic.CA2253.severity=suggestion
+dotnet_diagnostic.CA2254.severity=suggestion
+dotnet_diagnostic.CA2256.severity=suggestion
+dotnet_diagnostic.CA2257.severity=suggestion
+dotnet_diagnostic.CA2258.severity=suggestion
 
 [*.cs]
 csharp_style_expression_bodied_methods=true:suggestion
@@ -1655,3 +1697,14 @@ dotnet_diagnostic.IDE2004.severity=suggestion
 
 # Default severity for all analyzer diagnostics
 dotnet_analyzer_diagnostic.severity = none
+dotnet_diagnostic.CA1070.severity=warning
+dotnet_diagnostic.CA1507.severity=suggestion
+dotnet_diagnostic.CA1825.severity=suggestion
+dotnet_diagnostic.CA1841.severity=suggestion
+dotnet_diagnostic.CA1845.severity=suggestion
+dotnet_diagnostic.CA2016.severity=suggestion
+dotnet_diagnostic.CA2014.severity=suggestion
+dotnet_diagnostic.CA2244.severity=suggestion
+dotnet_diagnostic.CA2246.severity=suggestion
+dotnet_diagnostic.CA2255.severity=suggestion
+dotnet_diagnostic.CA2252.severity=suggestion

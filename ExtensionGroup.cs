@@ -2,11 +2,12 @@
 // file to you under the MIT license.
 
 using Microsoft.Win32;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RaphaëlBardini.WinClean.Logic;
+namespace RaphaëlBardini.WinClean;
 
 /// <summary>
 /// A group of related extensions

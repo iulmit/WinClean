@@ -37,7 +37,7 @@ public class ErrorDialog : TaskDialogPage
     public static void CantCreateLogDir(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le dossier de journalisation. {e.Message}"
+        Text = $"Impossible de créer le dossier de journalisation. {e?.Message}"
     }.RetryClose(retry, close);
 
     /// <summary>
@@ -48,7 +48,7 @@ public class ErrorDialog : TaskDialogPage
     public static void CantCreateScriptFileInScriptsDir(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le fichier de script dans le répertoire des scripts. {e.Message}"
+        Text = $"Impossible de créer le fichier de script dans le répertoire des scripts. {e?.Message}"
     }.RetryClose(retry, close);
 
     /// <summary>
@@ -59,13 +59,13 @@ public class ErrorDialog : TaskDialogPage
     public static void CantCreateScriptsDir(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le dossier des scripts. {e.Message}"
+        Text = $"Impossible de créer le dossier des scripts. {e?.Message}"
     }.RetryClose(retry, close);
 
     public static void CantCreateTempFile(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le fichier temporaire. {e.Message}"
+        Text = $"Impossible de créer le fichier temporaire. {e?.Message}"
     }.RetryClose(retry, close);
 
     /// <summary>
@@ -76,7 +76,7 @@ public class ErrorDialog : TaskDialogPage
     public static void CantDeleteLogFile(Exception e, Action? retry = null, Action? ignore = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de supprimer le fichier de logs. {e.Message}"
+        Text = $"Impossible de supprimer le fichier de logs. {e?.Message}"
     }.RetryIgnore(retry, ignore);
 
     /// <summary>
@@ -87,7 +87,7 @@ public class ErrorDialog : TaskDialogPage
     public static void CantDeleteScript(Exception e, Action? retry = null, Action? ignore = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de supprimer le script. {e.Message}"
+        Text = $"Impossible de supprimer le script. {e?.Message}"
     }.RetryIgnore(retry, ignore);
 
     /// <summary>
@@ -134,7 +134,7 @@ public class ErrorDialog : TaskDialogPage
     {
         Icon = TaskDialogIcon.Error,
         Heading = "Script inacessible",
-        Text = $"Le script \"{filename}\" est inacessible. {e.Message}"
+        Text = $"Le script \"{filename}\" est inacessible. {e?.Message}"
     }.DeleteRetryIgnore(delete, retry, ignore);
 
     /// <summary>

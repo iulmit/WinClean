@@ -2,7 +2,7 @@
 // file to you under the MIT license.
 
 using RaphaëlBardini.WinClean.Operational;
-using System.Collections.Generic;
+
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
@@ -23,7 +23,7 @@ public class Script : ListViewItem, IScript
     #endregion Constants
 
     private readonly FileInfo _scriptsDirFile;
-    private ScriptAdvised _advised;
+    private ScriptAdvised _advised = ScriptAdvised.No;
 
     #endregion Private Fields
 
@@ -51,22 +51,22 @@ public class Script : ListViewItem, IScript
         XmlDocument doc = CreateDoc();
 
         Name = doc.GetElementsByTagName(nameof(Name))[0].InnerText;
+
         _scriptsDirFile = new($"{Name.ToFilename()}.xml".InScriptsDir());
 
         Description = doc.GetElementsByTagName(nameof(Description))[0].InnerText;
-        Advised = Enum.Parse<ScriptAdvised>(doc.GetElementsByTagName(nameof(Advised))[0].InnerText);
+
+        Advised = ScriptAdvised.ParseName(doc.GetElementsByTagName(nameof(Advised))[0].InnerText);
 
         Group = displayInto.Groups[doc.GetElementsByTagName(nameof(Group))[0].InnerText];
 
-        Extension = doc.GetElementsByTagName("Extension")[0].InnerText;
+        Extension = doc.GetElementsByTagName(nameof(Extension))[0].InnerText;
 
-        Code = doc.GetElementsByTagName("Code")[0].InnerXml;
+        Code = doc.GetElementsByTagName(nameof(Code))[0].InnerXml;
 
-        foreach (XmlElement impactElement in doc.GetElementsByTagName(nameof(Impact)))
-        {
-            Impacts.Add(new(Enum.Parse<ImpactLevel>(impactElement.GetAttribute(nameof(Impact.Level))),
-                            ImpactEffect.Parse(impactElement.GetAttribute(nameof(Impact.Effect)))));
-        }
+        XmlElement impactElement = (XmlElement)doc.GetElementsByTagName(nameof(Impact))[0];
+        Impact = new(ImpactLevel.ParseName(impactElement.GetAttribute(nameof(Impact.Level))),
+                     ImpactEffect.ParseName(impactElement.GetAttribute(nameof(Impact.Effect))));
 
         XmlDocument CreateDoc()
         {
@@ -77,7 +77,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.ScriptInacessible(xmlScript, e, () => d = CreateDoc(), Delete, () => throw e);
+                ErrorDialog.ScriptInacessible(filename, e, () => d = CreateDoc(), Delete, () => throw e);
             }
             return d;
         }
@@ -90,7 +90,7 @@ public class Script : ListViewItem, IScript
     /// Details on how this scripts work and what the effects of executing it would be.
     /// </param>
     /// <param name="advised">If running this script is advised in general purpose.</param>
-    /// <param name="impacts">System impacts of running this script.</param>
+    /// <param name="impact">System impacts of running this script.</param>
     /// <param name="group">
     /// The list view group the script will be part of. This parameter can be <see langword="null"/>.
     /// </param>
@@ -102,7 +102,7 @@ public class Script : ListViewItem, IScript
     /// <exception cref="BadFileExtensionException">
     /// <paramref name="source"/>'s extensions is not supported.
     /// </exception>
-    public Script(string name, string description, ScriptAdvised advised, ICollection<Impact> impacts, ListViewGroup? group, FileInfo source)
+    public Script(string name, string description, ScriptAdvised advised, Impact impact, ListViewGroup? group, FileInfo source)
     {
         _ = source ?? throw new ArgumentNullException(nameof(source));
 
@@ -110,7 +110,7 @@ public class Script : ListViewItem, IScript
         _scriptsDirFile = new($"{Name.ToFilename()}.xml".InScriptsDir());
         Description = description ?? throw new ArgumentNullException(nameof(description));
         Advised = advised;
-        Impacts = impacts ?? throw new ArgumentNullException(nameof(impacts));
+        Impact = impact ?? throw new ArgumentNullException(nameof(impact));
         Group = group;
         Extension = source.Extension;
         Code = GetCode();
@@ -124,7 +124,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.ScriptInacessible(source.Name, e, () => code = GetCode(), Delete, () => throw e);
+                ErrorDialog.ScriptInacessible(source.Name, e, () => code = GetCode(), Delete, Delete/*chaud : faire un retry close dialog*/);
             }
             return code;
         }
@@ -135,13 +135,14 @@ public class Script : ListViewItem, IScript
     #region Public Properties
 
     /// <inheritdoc/>
+    /// <exception cref="ArgumentNullException">The property was set to <see langword="null"/>.</exception>
     public ScriptAdvised Advised
     {
         get => _advised;
         set
         {
-            _advised = value;
-            BackColor = EmulateAlpha(Color.FromArgb((int)value), Color.White, RecommendedColorAlpha);
+            _advised = value ?? throw new ArgumentNullException(nameof(value));
+            BackColor = EmulateAlpha(value.Color, Color.White, RecommendedColorAlpha);
         }
     }
 
@@ -155,7 +156,7 @@ public class Script : ListViewItem, IScript
     public string Extension { get; }
 
     /// <inheritdoc/>
-    public ICollection<Impact> Impacts { get; init; } = new List<Impact>();
+    public Impact Impact { get; init; }
 
     /// <inheritdoc/>
     public new string Name { get => Text; set => Text = value; }
@@ -217,21 +218,16 @@ public class Script : ListViewItem, IScript
             _ = root.AppendChild(n);
 
             // Host
-            n = d.CreateElement("Extension");
+            n = d.CreateElement(nameof(Extension));
             n.InnerText = Extension;
             _ = root.AppendChild(n);
 
             // Impacts
-            n = d.CreateElement(nameof(Impacts));
-            foreach (Impact impact in Impacts)
-            {
-                XmlElement impactElement = d.CreateElement(nameof(Impact));
+            n = d.CreateElement(nameof(Impact));
 
-                impactElement.SetAttribute(nameof(Impact.Level), impact.Level.ToString());
-                impactElement.SetAttribute(nameof(Impact.Effect), impact.Effect.ToString());
+            n.SetAttribute(nameof(Impact.Level), Impact.Level.ToString());
+            n.SetAttribute(nameof(Impact.Effect), Impact.Effect.ToString());
 
-                _ = n.AppendChild(impactElement);
-            }
             _ = root.AppendChild(n);
 
             // Group
@@ -240,7 +236,7 @@ public class Script : ListViewItem, IScript
             _ = root.AppendChild(n);
 
             // Code
-            n = d.CreateElement("Code");
+            n = d.CreateElement(nameof(Code));
             n.InnerText = Code;
             _ = root.AppendChild(n);
 

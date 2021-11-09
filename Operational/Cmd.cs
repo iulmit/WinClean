@@ -1,8 +1,6 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
 // file to you under the MIT license.
 
-using RaphaëlBardini.WinClean.Logic;
-
 namespace RaphaëlBardini.WinClean.Operational;
 
 /// <summary>
@@ -23,9 +21,7 @@ public class Cmd : ScriptHost
     protected override IncompleteArguments Arguments => new("/d /c \"\"{0}\"\"");
 
     /// <inheritdoc/>
-    protected override FileInfo Executable => new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)!);
+    protected override FileInfo Executable => new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)!);// ! : comspecs exists natively on windows
 
     #endregion Protected Properties
-
-    // ! : comspec exists on any windows machine
 }

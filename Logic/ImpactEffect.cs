@@ -9,19 +9,21 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>
 /// Effect of running a script.
 /// </summary>
-public class ImpactEffect : IEquatable<ImpactEffect?>
+public class ImpactEffect
 {
-    #region Private Fields
 
-    private static readonly IEnumerable<string?> _validValues = Resources.ImpactEffect.ResourceManager.GetRessources<string>();
+    public string? LocalizedName { get; }
 
-    private readonly string? _value;
+    private readonly string _name;
 
-    #endregion Private Fields
 
     #region Private Constructors
 
-    private ImpactEffect(string? value) => _value = value;
+    private ImpactEffect(string name, string? localizedName)
+    {
+        LocalizedName = localizedName;
+        _name = name;
+    }
 
     #endregion Private Constructors
 
@@ -30,90 +32,104 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
     /// <summary>
     /// System praticality.
     /// </summary>
-    public static ImpactEffect Ergonomics => new(Resources.ImpactEffect.Ergonomics);
+    public static ImpactEffect Ergonomics => new(nameof(Ergonomics), Resources.ImpactEffect.Ergonomics);
 
     /// <summary>
     /// Free storage space.
     /// </summary>
-    public static ImpactEffect FreeStorageSpace => new(Resources.ImpactEffect.FreeStorageSpace);
+    public static ImpactEffect FreeStorageSpace => new(nameof(FreeStorageSpace), Resources.ImpactEffect.FreeStorageSpace);
 
     /// <summary>
     /// Idle system memory usage.
     /// </summary>
-    public static ImpactEffect MemoryUsage => new(Resources.ImpactEffect.MemoryUsage);
+    public static ImpactEffect MemoryUsage => new(nameof(MemoryUsage), Resources.ImpactEffect.MemoryUsage);
 
     /// <summary>
     /// Idle system network usage.
     /// </summary>
-    public static ImpactEffect NetworkUsage => new(Resources.ImpactEffect.NetworkUsage);
+    public static ImpactEffect NetworkUsage => new(nameof(NetworkUsage), Resources.ImpactEffect.NetworkUsage);
 
     /// <summary>
     /// System privacy invasion and spying.
     /// </summary>
-    public static ImpactEffect Privacy => new(Resources.ImpactEffect.Privacy);
+    public static ImpactEffect Privacy => new(nameof(Privacy), Resources.ImpactEffect.Privacy);
 
     /// <summary>
     /// System rapidity of executing commands.
     /// </summary>
-    public static ImpactEffect ResponseTime => new(Resources.ImpactEffect.ResponseTime);
+    public static ImpactEffect ResponseTime => new(nameof(ResponseTime), Resources.ImpactEffect.ResponseTime);
 
     /// <summary>
     /// System shutdown time.
     /// </summary>
-    public static ImpactEffect ShutdownTime => new(Resources.ImpactEffect.ShutdownTime);
+    public static ImpactEffect ShutdownTime => new(nameof(ShutdownTime), Resources.ImpactEffect.ShutdownTime);
 
     /// <summary>
     /// System startup time.
     /// </summary>
-    public static ImpactEffect StartupTime => new(Resources.ImpactEffect.StartupTime);
+    public static ImpactEffect StartupTime => new(nameof(StartupTime), Resources.ImpactEffect.StartupTime);
 
     /// <summary>
     /// Storage read-write speed.
     /// </summary>
-    public static ImpactEffect StorageSpeed => new(Resources.ImpactEffect.StorageSpeed);
+    public static ImpactEffect StorageSpeed => new(nameof(StorageSpeed), Resources.ImpactEffect.StorageSpeed);
 
     /// <summary>
-    /// Undefined effect. It should be.
+    /// Gets all the values.
     /// </summary>
-    public static ImpactEffect Undefined => new(Resources.ImpactEffect.Undefined);
-
-    /// <summary>
-    /// Gets all the valid values.
-    /// </summary>
-    public static IEnumerable<ImpactEffect> Values => _validValues.Select((str) => new ImpactEffect(str));
+    public static IEnumerable<ImpactEffect> Values => new[]
+    {
+        Ergonomics,
+        FreeStorageSpace,
+        MemoryUsage,
+        NetworkUsage,
+        Privacy,
+        ResponseTime,
+        ShutdownTime,
+        StartupTime,
+        StorageSpeed,
+        Visuals
+    };
 
     /// <summary>
     /// System visuals.
     /// </summary>
-    public static ImpactEffect Visuals => new(Resources.ImpactEffect.Visuals);
+    public static ImpactEffect Visuals => new(nameof(Visuals), Resources.ImpactEffect.Visuals);
 
     #endregion Public Properties
 
     #region Public Methods
 
     /// <summary>
-    /// Gets the <see cref="ImpactEffect"/> matching the specified string.
+    /// Gets the <see cref="ImpactEffect"/> matching the specified name.
     /// </summary>
     /// <returns>A new <see cref="ImpactEffect"/> object.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">
-    /// <paramref name="value"/> does not match to any <see cref="ImpactEffect"/> value.
+    /// <paramref name="name"/> does not match to any <see cref="ImpactEffect"/> name.
     /// </exception>
-    public static ImpactEffect Parse(string? value)
-        => _validValues.Contains(value)
-            ? (new(value))
-            : throw new ArgumentException($"Not a supported {nameof(ImpactEffect)} value", nameof(value));
+    public static ImpactEffect ParseName(string name)
+        => name is null
+            ? throw new ArgumentNullException(nameof(name))
+            : Values.FirstOrDefault(validValue => validValue._name == name)
+                ?? throw new ArgumentException($"Not a valid {nameof(ImpactEffect)} name.", nameof(name));
+
+    /// <summary>
+    /// Gets the <see cref="ImpactEffect"/> matching the specified localized name.
+    /// </summary>
+    /// <returns>A new <see cref="ImpactEffect"/> object.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="localizedName"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="localizedName"/> does not match to any <see cref="ImpactEffect"/> localizedName.
+    /// </exception>
+    public static ImpactEffect ParseLocalizedName(string localizedName)
+        => localizedName is null
+            ? throw new ArgumentNullException(nameof(localizedName))
+            : Values.FirstOrDefault(validValue => validValue.LocalizedName == localizedName)
+                ?? throw new ArgumentException($"Not a valid {nameof(ImpactEffect)} localized name.", nameof(localizedName));
 
     /// <inheritdoc/>
-    public override bool Equals(object? obj) => Equals(obj as ImpactEffect);
-
-    /// <inheritdoc/>
-    public bool Equals(ImpactEffect? other) => other != null && _value == other._value;
-
-    /// <inheritdoc/>
-    public override int GetHashCode() => HashCode.Combine(_value);
-
-    /// <inheritdoc/>
-    public override string? ToString() => _value;
+    public override string ToString() => _name;
 
     #endregion Public Methods
 }

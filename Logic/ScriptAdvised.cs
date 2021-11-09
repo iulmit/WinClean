@@ -1,30 +1,77 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
 // file to you under the MIT license.
 
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+
 namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>
-/// If a script is advised for general purpose
+/// Wether a script is advised for general purpose
 /// </summary>
 // chaud : faire ça correctement avec les couleurs 
-public enum ScriptAdvised
+public class ScriptAdvised
 {
+    private readonly string _name;
+    private ScriptAdvised(string name, Color color, string? localizedName)
+    {
+        Color = color;
+        _name = name;
+        LocalizedName = localizedName;
+    }
+
+    public string? LocalizedName { get; }
+
     /// <summary>
     /// The script is advised for any user. It has almost no side effects and won't hinder features
     /// the said user might want to use. It can be selected automatically.
     /// </summary>
-    Yes = unchecked((int)0xFF008000),
+    public static ScriptAdvised Yes => new(nameof(Yes), Color.Green, Resources.ScriptAdvised.Yes);
 
     /// <summary>
     /// The script only advised for users who want advanced optimisation. It may hinder useful
     /// system features. It should be selected individually by the user.
     /// </summary>
-    Limited = unchecked((int)0xFFFFA500),
+    public static ScriptAdvised Limited => new(nameof(Limited), Color.Orange, Resources.ScriptAdvised.Limited);
 
     /// <summary>
     /// The script must be selected only by users who know what they are doing. It will almost
     /// certainly hinder useful system features. It should be selected by the user, only if
     /// specifically needed.
     /// </summary>
-    No = unchecked((int)0xFFFF0000)
+    public static ScriptAdvised No => new(nameof(No), Color.Red, Resources.ScriptAdvised.No);
+
+    public Color Color { get; }
+
+    public static IEnumerable<ScriptAdvised> Values => new[] { Yes, Limited, No };
+
+    public override string ToString() => _name;
+
+    /// <summary>
+    /// Gets the <see cref="ScriptAdvised"/> matching the specified localized name.
+    /// </summary>
+    /// <returns>A new <see cref="ScriptAdvised"/> object.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="localizedName"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="localizedName"/> does not match to any <see cref="ScriptAdvised"/> localized name.
+    /// </exception>
+    public static ScriptAdvised ParseLocalizedName(string localizedName)
+        => localizedName is null
+            ? throw new ArgumentNullException(nameof(localizedName))
+            : Values.FirstOrDefault(validValue => validValue.LocalizedName == localizedName)
+                ?? throw new ArgumentException($"Not a valid {nameof(ScriptAdvised)} localized name.", nameof(localizedName));
+    /// <summary>
+    /// Gets the <see cref="ScriptAdvised"/> matching the specified name.
+    /// </summary>
+    /// <returns>A new <see cref="ScriptAdvised"/> object.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="name"/> does not match to any <see cref="ScriptAdvised"/> name.
+    /// </exception>
+    public static ScriptAdvised ParseName(string name)
+        => name is null
+            ? throw new ArgumentNullException(nameof(name))
+            : Values.FirstOrDefault(validValue => validValue._name == name)
+                ?? throw new ArgumentException($"Not a valid {nameof(ScriptAdvised)} localized name.", nameof(name));
 }

@@ -1,4 +1,5 @@
-﻿using RaphaëlBardini.WinClean.Logic;
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
+// file to you under the MIT license.
 
 namespace RaphaëlBardini.WinClean.Operational;
 
@@ -33,8 +34,15 @@ public class PowerShell : ScriptHost
     #region Public Methods
 
     /// <inheritdoc/>
-    public override void Execute(IScript script)
-        => ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{script.Code}", script.Name, script.Extension);
+    public override void Execute(Logic.IScript script)
+    {
+        if (script is null)
+        {
+            throw new ArgumentNullException(nameof(script));
+        }
+
+        ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{script.Code}", script.Name, script.Extension);
+    }
 
     #endregion Public Methods
 }

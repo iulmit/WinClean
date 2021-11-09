@@ -1,9 +1,8 @@
 ﻿using RaphaëlBardini.WinClean.Logic;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
+
 using System.Linq;
 using System.Windows.Forms;
+
 using WinCopies.Collections;
 
 namespace RaphaëlBardini.WinClean.Presentation;
@@ -31,7 +30,7 @@ public partial class ScriptEditor : UserControl
 
     #region Private Fields
 
-    private IScript? _selectedScript;
+    private IScript? _selected;
 
     #endregion Private Fields
 
@@ -43,7 +42,7 @@ public partial class ScriptEditor : UserControl
     public ScriptEditor()
     {
         InitializeComponent();
-        comboBoxAdvised.DataSource = Resources.ScriptAdvised.ResourceManager.GetRessources<string>().ToList();
+        comboBoxAdvised.DataSource = ScriptAdvised.Values.Select((val) => val.LocalizedName).ToList();
         //comboBoxGroup.DataSource =
     }
 
@@ -51,24 +50,17 @@ public partial class ScriptEditor : UserControl
 
     #region Public Properties
 
-    /// <inheritdoc/>
-    public override bool AutoScroll
-    {
-        get => base.AutoScroll;
-        set => base.AutoScroll = impactCollectionEditor.AutoScroll = value;
-    }
-
     /// <summary>
     /// The script the user is currently able to see and edit.
     /// </summary>
-    public IScript? SelectedScript
+    public IScript? Selected
     {
-        get => _selectedScript;
+        get => _selected;
         set
         {
             PrepareForAnother();
 
-            _selectedScript = value;
+            _selected = value;
 
             Enabled = value is not null;
 
@@ -76,10 +68,10 @@ public partial class ScriptEditor : UserControl
             {
                 textBoxName.Text = value.Name;
                 textBoxDescription.Text = value.Description;
-                comboBoxAdvised.SelectedItem = Resources.ScriptAdvised.ResourceManager.GetString(value.Advised.ToString(), CultureInfo.CurrentUICulture).FailIfNull();
+                comboBoxAdvised.SelectedItem = value.Advised.LocalizedName;
                 comboBoxGroup.SelectedItem = value.Group;
                 textBoxCode.Text = value.Code;
-                impactCollectionEditor.AddRange(value.Impacts);
+                impactEditor.Selected = value.Impact;
             }
         }
     }
@@ -92,37 +84,37 @@ public partial class ScriptEditor : UserControl
 
     private void ButtonDelete_Click(object _, EventArgs __)
     {
-        if (_selectedScript is not null)
+        if (_selected is not null)
         {
             if (ErrorDialog.ConfirmScriptDeletion())
             {
-                _selectedScript.Delete();
+                _selected.Delete();
             }
         }
     }
 
     private void ButtonExecute_Click(object _, EventArgs __)
     {
-        if (_selectedScript is not null)
+        if (_selected is not null)
         {
-            ScriptExecutor executor = new(_selectedScript);
+            ScriptExecutor executor = new(_selected);
             executor.ExecuteNoUI();
         }
     }
 
     private void ComboBoxAdvised_SelectedIndexChanged(object _, EventArgs __)
     {
-        if (_selectedScript is not null)
+        if (_selected is not null)
         {
-            _selectedScript.Advised = Enum.Parse<ScriptAdvised>((string)comboBoxAdvised.SelectedItem);
+            _selected.Advised = ScriptAdvised.ParseLocalizedName((string)comboBoxAdvised.SelectedItem);
         }
     }
 
     private void ComboBoxGroup_SelectedIndexChanged(object _, EventArgs __)
     {
-        if (_selectedScript is not null)
+        if (_selected is not null)
         {
-            _selectedScript.Group = (ListViewGroup)comboBoxGroup.SelectedItem;
+            _selected.Group = (ListViewGroup)comboBoxGroup.SelectedItem;
         }
     }
 
@@ -132,53 +124,55 @@ public partial class ScriptEditor : UserControl
     {
         SuspendLayout();
 
-        int newWidth = Width;
         if (Height < buttonExecute.Location.Y + buttonExecute.Height)
         {
-            newWidth -= SystemInformation.VerticalScrollBarWidth;
+            Width -= SystemInformation.VerticalScrollBarWidth;
         }
 
         // TextBoxes
-        ChangeWidth(textBoxName, newWidth);
-        ChangeWidth(textBoxDescription, newWidth);
-        ChangeWidth(textBoxCode, newWidth);
+        ChangeWidth(textBoxName, Width);
+        ChangeWidth(textBoxDescription, Width);
+        ChangeWidth(textBoxCode, Width);
 
         // ComboBoxes
         const int ComboBoxSpacing = 11;
-        int cBoxWidth = (int)(newWidth / 2D - ComboBoxSpacing / 2D);
+        int cBoxWidth = (int)(Width / 2D - ComboBoxSpacing / 2D);
         ChangeWidth(comboBoxGroup, cBoxWidth);
         ChangeWidth(comboBoxAdvised, cBoxWidth);
-        comboBoxAdvised.Location = new(newWidth - cBoxWidth, comboBoxAdvised.Location.Y);
+        comboBoxAdvised.Location = new(Width - cBoxWidth, comboBoxAdvised.Location.Y);
 
         // Buttons
         const int ButtonSpacing = 7;
-        buttonExecute.Location = new((int)(newWidth / 2D - ButtonSpacing / 2D - buttonExecute.Width), buttonExecute.Location.Y);
-        buttonDelete.Location = new((int)(newWidth / 2D + ButtonSpacing / 2D), buttonDelete.Location.Y);
+        buttonExecute.Location = new((int)(Width / 2D - ButtonSpacing / 2D - buttonExecute.Width), buttonExecute.Location.Y);
+        buttonDelete.Location = new((int)(Width / 2D + ButtonSpacing / 2D), buttonDelete.Location.Y);
+
+        // Impact Editor
+        impactEditor.Width = Width;
 
         ResumeLayout();
     }
 
     private void TextBoxCode_TextChanged(object _, EventArgs __)
     {
-        if (_selectedScript is not null)
+        if (_selected is not null)
         {
-            _selectedScript.Code = textBoxCode.Text;
+            _selected.Code = textBoxCode.Text;
         }
     }
 
     private void TextBoxDescription_TextChanged(object _, EventArgs __)
     {
-        if (_selectedScript is not null)
+        if (_selected is not null)
         {
-            _selectedScript.Description = textBoxDescription.Text;
+            _selected.Description = textBoxDescription.Text;
         }
     }
 
     private void TextBoxName_TextChanged(object _, EventArgs __)
     {
-        if (_selectedScript is not null)
+        if (_selected is not null)
         {
-            _selectedScript.Name = textBoxName.Text;
+            _selected.Name = textBoxName.Text;
         }
     }
 
@@ -187,11 +181,7 @@ public partial class ScriptEditor : UserControl
     private static void ChangeWidth(Control c, int newWitdth)
         => c.Width = newWitdth > c.MinimumSize.Width ? newWitdth : c.MinimumSize.Width;
 
-    private void PrepareForAnother()
-    {
-        _selectedScript?.Save();
-        impactCollectionEditor.Clear();
-    }
+    private void PrepareForAnother() => _selected?.Save();
 
     #endregion Private Methods
 }

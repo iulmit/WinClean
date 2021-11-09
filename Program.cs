@@ -3,8 +3,8 @@
 
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Presentation;
+
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean;

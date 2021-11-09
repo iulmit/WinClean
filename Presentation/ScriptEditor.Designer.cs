@@ -1,33 +1,33 @@
-﻿namespace RaphaëlBardini.WinClean.Presentation
+﻿namespace RaphaëlBardini.WinClean.Presentation;
+
+partial class ScriptEditor
 {
-    partial class ScriptEditor
+    /// <summary> 
+    /// Variable nécessaire au concepteur.
+    /// </summary>
+    private System.ComponentModel.IContainer components = null;
+
+    /// <summary> 
+    /// Nettoyage des ressources utilisées.
+    /// </summary>
+    /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
+    protected override void Dispose(bool disposing)
     {
-        /// <summary> 
-        /// Variable nécessaire au concepteur.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
-        /// <summary> 
-        /// Nettoyage des ressources utilisées.
-        /// </summary>
-        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
-        protected override void Dispose(bool disposing)
+        if (disposing && (components != null))
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
+            components.Dispose();
         }
+        base.Dispose(disposing);
+    }
 
-        #region Code généré par le Concepteur de composants
+    #region Code généré par le Concepteur de composants
 
-        /// <summary> 
-        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas 
-        /// le contenu de cette méthode avec l'éditeur de code.
-        /// </summary>
-        private void InitializeComponent()
-        {
+    /// <summary> 
+    /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas 
+    /// le contenu de cette méthode avec l'éditeur de code.
+    /// </summary>
+    private void InitializeComponent()
+    {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScriptEditor));
             this.textBoxCode = new System.Windows.Forms.TextBox();
             this.buttonExecute = new System.Windows.Forms.Button();
@@ -36,7 +36,7 @@
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonDelete = new System.Windows.Forms.Button();
-            this.impactCollectionEditor = new RaphaëlBardini.WinClean.Presentation.ImpactCollectionEditor();
+            this.impactEditor = new RaphaëlBardini.WinClean.Presentation.ImpactEditor();
             this.SuspendLayout();
             // 
             // textBoxCode
@@ -99,16 +99,16 @@
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
-            // impactCollectionEditor
+            // impactEditor1
             // 
-            this.impactCollectionEditor.CausesValidation = false;
-            resources.ApplyResources(this.impactCollectionEditor, "impactCollectionEditor");
-            this.impactCollectionEditor.Name = "impactCollectionEditor";
+            resources.ApplyResources(this.impactEditor, "impactEditor1");
+            this.impactEditor.Name = "impactEditor1";
+            this.impactEditor.Selected = null;
             // 
             // ScriptEditor
             // 
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.impactCollectionEditor);
+            this.Controls.Add(this.impactEditor);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.buttonExecute);
             this.Controls.Add(this.textBoxCode);
@@ -123,17 +123,16 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
-
-        #endregion
-
-        private System.Windows.Forms.TextBox textBoxCode;
-        private System.Windows.Forms.Button buttonExecute;
-        private System.Windows.Forms.ComboBox comboBoxAdvised;
-        private System.Windows.Forms.ComboBox comboBoxGroup;
-        private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.Button buttonDelete;
-        private ImpactCollectionEditor impactCollectionEditor;
     }
+
+    #endregion
+
+    private System.Windows.Forms.TextBox textBoxCode;
+    private System.Windows.Forms.Button buttonExecute;
+    private System.Windows.Forms.ComboBox comboBoxAdvised;
+    private System.Windows.Forms.ComboBox comboBoxGroup;
+    private System.Windows.Forms.TextBox textBoxDescription;
+    private System.Windows.Forms.TextBox textBoxName;
+    private System.Windows.Forms.Button buttonDelete;
+    private ImpactEditor impactEditor;
 }

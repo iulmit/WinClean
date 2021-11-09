@@ -1,4 +1,5 @@
 ﻿using RaphaëlBardini.WinClean.Logic;
+
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,18 +18,6 @@ public class ImagedComboBox : ComboBox
     public ImagedComboBox() => DrawMode = DrawMode.OwnerDrawFixed;
 
     #endregion Public Constructors
-
-    #region Public Properties
-
-    /// <summary>
-    /// Gets or sets the collection of images avaible to the items.
-    /// </summary>
-    public ImageList ImageList { get; set; } = new();
-
-    /// <inheritdoc cref="ComboBox.SelectedItem"/>
-    public new ImagedComboBoxItem? SelectedItem { get => (ImagedComboBoxItem?)base.SelectedItem; set => base.SelectedItem = value; }
-
-    #endregion Public Properties
 
     #region Protected Methods
 
@@ -50,9 +39,9 @@ public class ImagedComboBox : ComboBox
         {
             if (Items[e.Index] is ImagedComboBoxItem icbitem)
             {
-                if (icbitem.ImageIndex != -1)
+                if (icbitem.Image is not null)
                 {
-                    ImageList.Draw(e.Graphics, ImageList.Images[icbitem.ImageIndex].Size.CenterIn(e.Bounds).Location, icbitem.ImageIndex);
+                    e.Graphics.DrawImage(icbitem.Image, icbitem.Image.Size.CenterIn(e.Bounds).Location);
                 }
                 DrawText(icbitem.Text);
             }
@@ -67,7 +56,7 @@ public class ImagedComboBox : ComboBox
         {
             if (!string.IsNullOrWhiteSpace(text))
             {
-                e.Graphics.DrawString(text, e.Font, eForeBrush, e.Bounds.Left + ImageList.ImageSize.Width, e.Bounds.Top);
+                e.Graphics.DrawString(text, e.Font, eForeBrush, e.Bounds.Left, e.Bounds.Top);
             }
         }
     }

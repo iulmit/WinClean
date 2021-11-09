@@ -80,8 +80,9 @@ public static class Helpers
     /// <exception cref="ArgumentException">
     /// The resource set for <paramref name="resourceManager"/> doesn't exist.
     /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="resourceManager"/> is <see langword="null"/>.</exception>
     public static string GetName(this System.Resources.ResourceManager resourceManager, object? resource, CultureInfo? culture = null)
-        => (string)(resourceManager.GetResourceSet(culture ?? CultureInfo.CurrentUICulture, true, true) ?? throw new ArgumentException("Resource set doesn't exist", nameof(resourceManager)))
+        => (string)((resourceManager ?? throw new ArgumentNullException(nameof(resourceManager))).GetResourceSet(culture ?? CultureInfo.CurrentUICulture, true, true) ?? throw new ArgumentException("Resource set doesn't exist", nameof(resourceManager)))
            .OfType<DictionaryEntry>().First((entry) => entry.Value == resource).Key;
 
     /// <summary>
@@ -99,7 +100,7 @@ public static class Helpers
     /// The resource set for <paramref name="resourceManager"/> doesn't exist.
     /// </exception>
     public static IEnumerable<T?> GetRessources<T>(this System.Resources.ResourceManager resourceManager, CultureInfo? culture = null)
-        => (resourceManager.GetResourceSet(culture ?? CultureInfo.CurrentUICulture, true, true) ?? throw new ArgumentException("Resource set doesn't exist", nameof(resourceManager)))
+        => ((resourceManager ?? throw new ArgumentNullException(nameof(resourceManager))).GetResourceSet(culture ?? CultureInfo.CurrentUICulture, true, true) ?? throw new ArgumentException("Resource set doesn't exist", nameof(resourceManager)))
            .OfType<DictionaryEntry>().Where((entry) => entry.Value is T).Select<DictionaryEntry, T?>((entry) => (T?)entry.Value);
 
     /// <summary>

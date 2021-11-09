@@ -57,8 +57,14 @@ public static class ScriptsDir
     /// </summary>
     /// <param name="loadInto">The listView to load the scripts into.</param>
     /// <returns>The scripts previously saved into the scripts dir.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="loadInto"/> is <see langword="null"/>.</exception>
     public static void LoadAllScripts(ListView loadInto)
     {
+        if (loadInto == null)
+        {
+            throw new ArgumentNullException(nameof(loadInto));
+        }
+
         foreach (FileInfo script in Info.EnumerateFiles("*.xml"))
         {
             _ = loadInto.Items.Add(new Script(script.Name, loadInto));
