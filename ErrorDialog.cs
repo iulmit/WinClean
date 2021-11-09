@@ -13,7 +13,7 @@ namespace RaphaëlBardini.WinClean;
 /// <summary>
 /// A standardised error message, implementing Microsoft's error messages design reccomendations.
 /// </summary>
-internal class ErrorDialog : TaskDialogPage
+public class ErrorDialog : TaskDialogPage
 {
     #region Public Constructors
 
