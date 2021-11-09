@@ -7,9 +7,6 @@ using Button = System.Windows.Forms.TaskDialogButton;
 
 namespace RaphaëlBardini.WinClean;
 
-// chaud : implémenter les dialogs spécifiques dans les classes dans lesquels ils sont utilisés, au
-// lieu d'avoir tout ici. ou, faire autre chose pour rendre ça plus propre
-
 /// <summary>
 /// A standardised error message, implementing Microsoft's error messages design reccomendations.
 /// </summary>

@@ -124,7 +124,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.ScriptInacessible(source.Name, e, () => code = GetCode(), Delete, Delete/*chaud : faire un retry close dialog*/);
+                ErrorDialog.ScriptInacessible(source.Name, e, () => code = GetCode(), Delete, () => code = GetCode()/*chaud : faire un retry close dialog*/);
             }
             return code;
         }

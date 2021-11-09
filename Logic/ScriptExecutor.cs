@@ -116,6 +116,7 @@ TCPOptimizer - Optimisations réseau")
         };
 
         restart.Click += (s, e) => Helpers.RebootForApplicationMaintenance();
+
         p.Expander.ExpandedChanged += (sender, e) => Properties.Settings.Default.ShowScriptExecutionCompletedDetails = p.Expander.Expanded;
 
         return p;
@@ -138,9 +139,13 @@ TCPOptimizer - Optimisations réseau")
             },
             Icon = new TaskDialogIcon(software.Icon.ToBitmap()),// software.Icon alone causes ComException at ShowDialog
             ProgressBar = new() { Maximum = _scripts.Count },
-            Text = "Nettoyage en cours. Il est possible que des fenêtres de console s'affichent.",
-            Footnote = new("L'ordinateur redémarrera automatiquement à la fin de l'opération.") { Icon = TaskDialogIcon.Information },
+            Text = "Exécution des scripts. Il est possible que des fenêtres de console s'affichent. Cette opération peut prendre un certain temps.",
+            Verification = new("À la fin de l'opération, redémarrer automatiquement")
         };
+
+        bool autoRestart = false;
+        page.Verification.CheckedChanged += (_, _) => autoRestart = page.Verification.Checked;
+
         cancel.Click += (s, e) =>
         {
             if (ErrorDialog.ConfirmAbortOperation())
@@ -148,15 +153,26 @@ TCPOptimizer - Optimisations réseau")
                 _canceler.Cancel();
             }
         };
+
         _progress.ProgressChanged += ProgressChanged;
+
         page.Expander.ExpandedChanged += (_, _)
             => Properties.Settings.Default.ShowScriptExecutionProgressDetails = page.Expander.Expanded;
+
         page.Created += async (_, _) =>
         {
             int result = await ExecuteScriptsAsync().ConfigureAwait(true);
 
             _uiStep = UIStep.Completed;
-            page.Navigate(CreateCompletedPage(result));
+
+            if (autoRestart)
+            {
+                Helpers.RebootForApplicationMaintenance();
+            }
+            else
+            {
+                page.Navigate(CreateCompletedPage(result));
+            }
         };
 
         return page;
@@ -165,7 +181,8 @@ TCPOptimizer - Optimisations réseau")
         {
             if (_uiStep == UIStep.InProgress)
             {
-                page.Caption = $"{progress.ScriptIndex / _scripts.Count:p} terminé";
+                page.Caption = $"{progress.ScriptIndex / (double)_scripts.Count:p0} terminé";
+
                 page.Expander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].Name}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds)}";
 
                 page.ProgressBar.Value = progress.ScriptIndex;
@@ -211,7 +228,7 @@ TCPOptimizer - Optimisations réseau")
             Caption = Resources.ErrorStrings.Warning,
             Heading = "Avant de commencer l'opération, veuillez confirmer :",
             Text = @"L'ordinateur est branché sur secteur
-- L'ordinateur doit resté branché sur secteur durant toute la durée de l'opération afin d'éviter un échec du system à un moment critique.
+- L'ordinateur doit resté branché sur secteur durant toute la durée de l'opération afin d'éviter un échec du système.
 
 J'ai sauvegardé tout travail non enregistré
 - L'opération aboutira par le redémarrage de l'ordinateur. Sauvegardez tout document non enregistré.
@@ -223,7 +240,7 @@ J'ai fermé tout programme non essentiel
             Verification = verification,
         };
 
-        @continue.AllowCloseDialog = false;
+        @continue.AllowCloseDialog = @continue.Enabled = false;
         verification.CheckedChanged += (s, e)
             => @continue.Enabled = verification.Checked;
 
