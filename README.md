@@ -10,7 +10,7 @@ Allows the average Windows user to improve performance in a few clicks.
 - Access known system tools such as *Windows Features*, *Event logs*, ...
 - But if you don't have the time to do all of that, simply click on "Select all safe" and "Run Scripts"
 
-## Yet Another PC Optimizer Scam
+## ~~Yet Another PC Optimizer Scam~~
 
 WinClean was designed with the intent of giving the user full control of it.
 Basically, you know what's happening under the hood when you run the scripts.
