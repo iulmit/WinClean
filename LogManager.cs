@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
-// file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -15,9 +14,7 @@ using System.Threading.Tasks;
 
 namespace RaphaëlBardini.WinClean;
 
-/// <summary>
-/// Provides CSV logging.
-/// </summary>
+/// <summary>Provides CSV logging.</summary>
 public static class LogManager
 {
     #region Public Constructors
@@ -63,9 +60,7 @@ public static class LogManager
 
     #region Public Methods
 
-    /// <summary>
-    /// Empties the log folder, except for the current log file.
-    /// </summary>
+    /// <summary>Empties the log folder, except for the current log file.</summary>
     public static async void ClearLogsFolderAsync()
         => await Task.Run(() =>
         {
@@ -79,9 +74,7 @@ public static class LogManager
             }
         }).ConfigureAwait(false);
 
-    /// <summary>
-    /// Logs a string.
-    /// </summary>
+    /// <summary>Logs a string.</summary>
     /// <param name="str">The string to log.</param>
     /// <param name="happening">What's happening right now.</param>
     /// <param name="lvl">The level of the log entry.</param>
@@ -111,9 +104,7 @@ public static class LogManager
         }
     }
 
-    /// <summary>
-    /// Logs an exception and it's details.
-    /// </summary>
+    /// <summary>Logs an exception and it's details.</summary>
     /// <param name="e">The exception to log.</param>
     /// <param name="lvl">The level of the entry.</param>
     /// <param name="caller"><see cref="CallerMemberNameAttribute"/> - Don't specify</param>

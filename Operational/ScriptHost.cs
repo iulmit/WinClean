@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
-// file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Diagnostics;
 using System.Globalization;
@@ -9,30 +8,22 @@ using System.Text;
 
 namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>
-/// Represents a program that accepts a file in it's command-line arguments.
-/// </summary>
+/// <summary>Represents a program that accepts a file in it's command-line arguments.</summary>
 public abstract class ScriptHost
 {
     #region Public Properties
 
-    /// <summary>
-    /// User friendly name for the script host.
-    /// </summary>
+    /// <summary>User friendly name for the script host.</summary>
     public virtual string DisplayName => new ShellFile(Executable).FileDescription;
 
-    /// <summary>
-    /// Extensions of the scripts the script host program can run.
-    /// </summary>
+    /// <summary>Extensions of the scripts the script host program can run.</summary>
     public abstract ExtensionGroup SupportedExtensions { get; }
 
     #endregion Public Properties
 
     #region Public Methods
 
-    /// <summary>
-    /// Executes the specified script.
-    /// </summary>
+    /// <summary>Executes the specified script.</summary>
     /// <param name="script">The script to execute.</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
     public virtual void Execute(Logic.IScript script)
@@ -45,23 +36,17 @@ public abstract class ScriptHost
 
     #region Protected Properties
 
-    /// <summary>
-    /// Arguments passed along <see cref="Executable"/> when executing.
-    /// </summary>
+    /// <summary>Arguments passed along <see cref="Executable"/> when executing.</summary>
     protected abstract IncompleteArguments Arguments { get; }
 
-    /// <summary>
-    /// The executable of the script host program.
-    /// </summary>
+    /// <summary>The executable of the script host program.</summary>
     protected abstract FileInfo Executable { get; }
 
     #endregion Protected Properties
 
     #region Protected Methods
 
-    /// <summary>
-    /// Creates a temporary file with the specified text and the specified extension.
-    /// </summary>
+    /// <summary>Creates a temporary file with the specified text and the specified extension.</summary>
     /// <returns>The new temporary file.</returns>
     protected FileInfo CreateTempFile(string? text, string? extension)
     {
@@ -84,14 +69,10 @@ public abstract class ScriptHost
         return tmpScriptFile;
     }
 
-    /// <summary>
-    /// Executes the specified code.
-    /// </summary>
+    /// <summary>Executes the specified code.</summary>
     /// <param name="code">The code to execute.</param>
     /// <param name="scriptName">The name to give the the code.</param>
-    /// <param name="extensionIfCodeWasInsideAFile">
-    /// If <paramref name="code"/> was the content of a file, the file's extension.
-    /// </param>
+    /// <param name="extensionIfCodeWasInsideAFile">If <paramref name="code"/> was the content of a file, the file's extension.</param>
     /// <exception cref="ArgumentNullException"><paramref name="code"/> is <see langword="null"/>.</exception>
     protected void ExecuteCode(string code, string scriptName, string extensionIfCodeWasInsideAFile)
     {
@@ -115,9 +96,7 @@ public abstract class ScriptHost
         stdout.Log("Standard output");
     }
 
-    /// <summary>
-    /// Executes the script host program with the specified script.
-    /// </summary>
+    /// <summary>Executes the script host program with the specified script.</summary>
     /// <param name="script">The script to execute.</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
     protected Process ExecuteHost(FileInfo script)
@@ -130,17 +109,11 @@ public abstract class ScriptHost
             StandardOutputEncoding = Encoding.Unicode,
         })!; // ! : it wont return null
 
-    /// <summary>
-    /// Waits for the end of the specified script host process
-    /// </summary>
+    /// <summary>Waits for the end of the specified script host process</summary>
     /// <param name="p">The process which to wait for exit.</param>
     /// <param name="scriptName">The name of the script being executed.</param>
-    /// <exception cref="ArgumentNullException">
-    /// <paramref name="p"/> or <paramref name="scriptName"/> are <see langword="null"/>.
-    /// </exception>
-    /// <returns>
-    /// The standard error and standard output streams of the script host process, read to end.
-    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref name="p"/> or <paramref name="scriptName"/> are <see langword="null"/>.</exception>
+    /// <returns>The standard error and standard output streams of the script host process, read to end.</returns>
     protected (string stderr, string stdout) WaitForHostExit(Process p, string scriptName)
     {
         // placeholder for the time a script would take to run
@@ -166,9 +139,7 @@ public abstract class ScriptHost
 
     #region Protected Classes
 
-    /// <summary>
-    /// Formattable executable arguments with a single file path argument.
-    /// </summary>
+    /// <summary>Formattable executable arguments with a single file path argument.</summary>
     protected class IncompleteArguments
     {
         #region Private Fields
@@ -180,9 +151,7 @@ public abstract class ScriptHost
         #region Public Constructors
 
         /// <param name="args">Formattable string with 1 argument, the path of the script file.</param>
-        /// <exception cref="ArgumentException">
-        /// <paramref name="args"/> does not contain exactly one formattable argument.
-        /// </exception>
+        /// <exception cref="ArgumentException"><paramref name="args"/> does not contain exactly one formattable argument.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="args"/> is <see langword="null"/>.</exception>
         public IncompleteArguments(string args)
         {
@@ -197,9 +166,7 @@ public abstract class ScriptHost
 
         #region Public Methods
 
-        /// <summary>
-        /// Completes the arguments with the specified script file.
-        /// </summary>
+        /// <summary>Completes the arguments with the specified script file.</summary>
         /// <param name="script">The file to complete the arguments with.</param>
         /// <returns>The completed arguments</returns>
         public string Complete(FileInfo script) => string.Format(CultureInfo.InvariantCulture, _args, script);

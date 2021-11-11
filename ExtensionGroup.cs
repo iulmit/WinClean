@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
-// file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.Win32;
 
@@ -9,9 +8,7 @@ using System.Linq;
 
 namespace RaphaëlBardini.WinClean;
 
-/// <summary>
-/// A group of related extensions
-/// </summary>
+/// <summary>A group of related extensions</summary>
 public class ExtensionGroup : IReadOnlyCollection<string>
 {
     #region Private Fields
@@ -22,9 +19,6 @@ public class ExtensionGroup : IReadOnlyCollection<string>
 
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ExtensionGroup"/> structure.
-    /// </summary>
     /// <param name="extensions">The extensions in the group.</param>
     public ExtensionGroup(IEnumerable<string> extensions)
     {

@@ -1,21 +1,15 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
-// file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Reflection;
 using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Displays the traditional about box with application-related metadata
-/// </summary>
+/// <summary>Displays the traditional about box with application-related metadata</summary>
 public partial class AboutBox : Form
 {
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AboutBox"/> classe.
-    /// </summary>
     public AboutBox()
     {
         InitializeComponent();

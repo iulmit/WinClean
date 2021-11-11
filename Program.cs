@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
-// file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Presentation;
@@ -9,26 +8,20 @@ using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean;
 
-/// <summary>
-/// Holds the <see cref="Main"/> method and application-wide data.
-/// </summary>
+/// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>
 public static class Program
 {
     #region Public Fields
 
     // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
-    /// <summary>
-    /// Application install directory.
-    /// </summary>
+    /// <summary>Application install directory.</summary>
     public static readonly DirectoryInfo InstallDir = new(Application.StartupPath);
 
     #endregion Public Fields
 
     #region Public Methods
 
-    /// <summary>
-    /// Runs the specified scripts.
-    /// </summary>
+    /// <summary>Runs the specified scripts.</summary>
     /// <remarks>If there is more than 1 script to run, shows a GUI.</remarks>
     /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
     public static void ConfirmAndExecuteScripts(IList<IScript> scripts)
@@ -44,9 +37,7 @@ public static class Program
         }
     }
 
-    /// <summary>
-    /// Exits the program.
-    /// </summary>
+    /// <summary>Exits the program.</summary>
     /// <remarks>Doesn't return.</remarks>
     public static void Exit()
     {
@@ -56,18 +47,14 @@ public static class Program
         Environment.Exit(0);
     }
 
-    /// <summary>
-    /// Displays the <see cref="AboutBox"/> form.
-    /// </summary>
+    /// <summary>Displays the <see cref="AboutBox"/> form.</summary>
     public static void ShowAboutBox()
     {
         using AboutBox about = new();
         _ = about.ShowDialog(Form.ActiveForm); // Use showdialog so the windows dosen't disappear immediately
     }
 
-    /// <summary>
-    /// Displays the <see cref="Settings"/> form.
-    /// </summary>
+    /// <summary>Displays the <see cref="Settings"/> form.</summary>
     public static void ShowSettings()
     {
         using Settings settings = new();
@@ -112,8 +99,6 @@ public static class Program
 
         using MainForm mainForm = new();
         Application.Run(mainForm);
-
-        Exit();
     }
 
     #endregion Private Methods

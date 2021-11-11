@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
-// file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
@@ -10,32 +9,14 @@ using System.Windows.Forms;
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>
-/// This is the application's main form. It regroups several features, including the main commit
-/// buttons, script selection, and provides UI acess to other forms.
+/// This is the application's main form. It regroups several features, including the main commit buttons, script selection, and
+/// provides UI acess to other forms.
 /// </summary>
 public partial class MainForm : Form
 {
-    #region Protected Properties
-
-    /// <inheritdoc/>
-    /// <remarks>Reduced flickering on child control paint.</remarks>
-    protected override CreateParams CreateParams
-    {
-        get
-        {
-            CreateParams cp = base.CreateParams;
-            cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
-            return cp;
-        }
-    }
-
-    #endregion Protected Properties
 
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MainForm"/> class.
-    /// </summary>
     public MainForm()
     {
         InitializeComponent();
@@ -46,8 +27,8 @@ public partial class MainForm : Form
         _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
         _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
 
-        // Example scripts
-        /*IScript[] placeholders = new[]
+        /*// Example scripts
+        IScript[] placeholders = new[]
         {
                 new Script
                 (
@@ -149,7 +130,7 @@ public partial class MainForm : Form
     private void MainMenuStripShowHelp_Click(object _, EventArgs __)
     {
     }
-
+    
     #endregion mainMenuStrip
 
     #region listViewScripts
@@ -157,8 +138,8 @@ public partial class MainForm : Form
     private void ListViewScripts_ItemChecked(object _, ItemCheckedEventArgs __) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
 
     /// <summary>
-    /// Resizes <see cref="listViewScripts"/>'s main and only column, <see
-    /// cref="scriptHeaderName"/>, to match <see cref="listViewScripts"/>'s new size.
+    /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
+    /// cref="listViewScripts"/>'s new size.
     /// </summary>
     private void ListViewScripts_Resize(object _, EventArgs __) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
 

@@ -8,8 +8,15 @@ namespace RaphaëlBardini.WinClean.Presentation;
 
 public partial class ImpactEditor : UserControl
 {
-    private Impact? _selected;
+    #region Private Fields
+
     private readonly List<ImagedComboBoxItem> levelItems = new();
+    private Impact? _selected;
+
+    #endregion Private Fields
+
+    #region Public Constructors
+
     public ImpactEditor()
     {
         InitializeComponent();
@@ -21,6 +28,10 @@ public partial class ImpactEditor : UserControl
         }
         comboBoxEffect.DataSource = ImpactEffect.Values.Select((val) => val.LocalizedName).ToList();
     }
+
+    #endregion Public Constructors
+
+    #region Public Properties
 
     public Impact? Selected
     {
@@ -38,13 +49,9 @@ public partial class ImpactEditor : UserControl
         }
     }
 
-    private void ImagedComboBoxLevel_SelectedIndexChanged(object _, EventArgs __)
-    {
-        if (_selected is not null && imagedComboBoxLevel.SelectedItem is not null)
-        {
-            _selected.Level = (ImpactLevel)((ImagedComboBoxItem)imagedComboBoxLevel.SelectedItem).Tag.FailIfNull();
-        }
-    }
+    #endregion Public Properties
+
+    #region Private Methods
 
     private void ComboBoxEffect_SelectedIndexChanged(object _, EventArgs __)
     {
@@ -54,6 +61,16 @@ public partial class ImpactEditor : UserControl
         }
     }
 
+    private void ImagedComboBoxLevel_SelectedIndexChanged(object _, EventArgs __)
+    {
+        if (_selected is not null && imagedComboBoxLevel.SelectedItem is not null)
+        {
+            _selected.Level = (ImpactLevel)((ImagedComboBoxItem)imagedComboBoxLevel.SelectedItem).Tag.FailNull();
+        }
+    }
+
     private void ImpactEditor_Resize(object sender, EventArgs e)
         => comboBoxEffect.Width = Width - imagedComboBoxLevel.Width - imagedComboBoxLevel.Margin.Horizontal;
+
+    #endregion Private Methods
 }

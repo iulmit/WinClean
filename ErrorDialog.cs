@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
-// file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Windows.Forms;
 
@@ -7,9 +6,7 @@ using Button = System.Windows.Forms.TaskDialogButton;
 
 namespace RaphaëlBardini.WinClean;
 
-/// <summary>
-/// A standardised error message, implementing Microsoft's error messages design reccomendations.
-/// </summary>
+/// <summary>A standardised error message, implementing Microsoft's error messages design reccomendations.</summary>
 public class ErrorDialog : TaskDialogPage
 {
     #region Public Constructors
@@ -26,9 +23,7 @@ public class ErrorDialog : TaskDialogPage
 
 #pragma warning disable CS1573
 
-    /// <summary>
-    /// Can't create log directory error.
-    /// </summary>
+    /// <summary>Can't create log directory error.</summary>
     /// <param name="e">The exception that caused the error.</param>
     /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
     public static void CantCreateLogDir(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
@@ -37,9 +32,7 @@ public class ErrorDialog : TaskDialogPage
         Text = $"Impossible de créer le dossier de journalisation. {e?.Message}"
     }.RetryClose(retry, close);
 
-    /// <summary>
-    /// Can't create script file error.
-    /// </summary>
+    /// <summary>Can't create script file error.</summary>
     /// <param name="e">The exception that caused the error.</param>
     /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
     public static void CantCreateScriptFileInScriptsDir(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
@@ -48,9 +41,7 @@ public class ErrorDialog : TaskDialogPage
         Text = $"Impossible de créer le fichier de script dans le répertoire des scripts. {e?.Message}"
     }.RetryClose(retry, close);
 
-    /// <summary>
-    /// Can't create scripts directory error.
-    /// </summary>
+    /// <summary>Can't create scripts directory error.</summary>
     /// <param name="e">The exception that caused the error.</param>
     /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
     public static void CantCreateScriptsDir(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
@@ -65,9 +56,7 @@ public class ErrorDialog : TaskDialogPage
         Text = $"Impossible de créer le fichier temporaire. {e?.Message}"
     }.RetryClose(retry, close);
 
-    /// <summary>
-    /// Can't create log file error.
-    /// </summary>
+    /// <summary>Can't create log file error.</summary>
     /// <param name="e">The exception that caused the error.</param>
     /// <inheritdoc cref="RetryIgnore(Action?, Action?)" path="/param"/>
     public static void CantDeleteLogFile(Exception e, Action? retry = null, Action? ignore = null) => new ErrorDialog()
@@ -76,9 +65,7 @@ public class ErrorDialog : TaskDialogPage
         Text = $"Impossible de supprimer le fichier de logs. {e?.Message}"
     }.RetryIgnore(retry, ignore);
 
-    /// <summary>
-    /// Can't create log file error.
-    /// </summary>
+    /// <summary>Can't create log file error.</summary>
     /// <param name="e">The exception that caused the error.</param>
     /// <inheritdoc cref="RetryIgnore(Action?, Action?)" path="/param"/>
     public static void CantDeleteScript(Exception e, Action? retry = null, Action? ignore = null) => new ErrorDialog()
@@ -87,9 +74,7 @@ public class ErrorDialog : TaskDialogPage
         Text = $"Impossible de supprimer le script. {e?.Message}"
     }.RetryIgnore(retry, ignore);
 
-    /// <summary>
-    /// Asks the users for confirmation before exiting the application and risking data loss.
-    /// </summary>
+    /// <summary>Asks the users for confirmation before exiting the application and risking data loss.</summary>
     /// <inheritdoc cref="YesNo()" path="/returns"/>
     public static bool ConfirmAbortOperation() => new ErrorDialog()
     {
@@ -98,9 +83,7 @@ public class ErrorDialog : TaskDialogPage
         Text = "Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?",
     }.YesNo();
 
-    /// <summary>
-    /// Asks the user for confirmation before deleting a script
-    /// </summary>
+    /// <summary>Asks the user for confirmation before deleting a script</summary>
     /// <inheritdoc cref="YesNo()" path="/returns"/>
     public static bool ConfirmScriptDeletion() => new ErrorDialog()
     {
@@ -109,9 +92,7 @@ public class ErrorDialog : TaskDialogPage
         Text = $"Êtes-vous sûr de vouloir supprimer ce script ? Cette Action? est irréversible."
     }.YesNo();
 
-    /// <summary>
-    /// Hung script error.
-    /// </summary>
+    /// <summary>Hung script error.</summary>
     /// <param name="filename">The hung script's filename.</param>
     /// <inheritdoc cref="RestartKillIgnore(Action?, Action?, Action?)" path="/param"/>
     public static void HungScript(string filename, Action? restart = null, Action? kill = null, Action? ignore = null) => new ErrorDialog()
@@ -121,9 +102,7 @@ public class ErrorDialog : TaskDialogPage
         Text = $"Le script (\"{filename}\") est en cours d'exécution depuis {Properties.Settings.Default.ScriptTimeout} et ne s'arrêtera probablement jamais.",
     }.RestartKillIgnore(restart, kill, ignore);
 
-    /// <summary>
-    /// Script not found error.
-    /// </summary>
+    /// <summary>Script not found error.</summary>
     /// <param name="filename">The inacessible script's filename.</param>
     /// <inheritdoc cref="DeleteRetryIgnore(Action?, Action?, Action?)" path="/param"/>
     /// <param name="e">The exception that caused the error.</param>
@@ -134,9 +113,7 @@ public class ErrorDialog : TaskDialogPage
         Text = $"Le script \"{filename}\" est inacessible. {e?.Message}"
     }.DeleteRetryIgnore(delete, retry, ignore);
 
-    /// <summary>
-    /// Single instance only error.
-    /// </summary>
+    /// <summary>Single instance only error.</summary>
     /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
     public static void SingleInstanceOnly(Action? retry = null, Action? close = null) => new ErrorDialog()
     {
@@ -144,9 +121,7 @@ public class ErrorDialog : TaskDialogPage
         Text = "L'application est déjà en cours d'exécution."
     }.RetryClose(retry, close);
 
-    /// <summary>
-    /// Wrong startup path error.
-    /// </summary>
+    /// <summary>Wrong startup path error.</summary>
     /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
     public static void WrongStartupPath(Action? retry = null, Action? close = null) => new ErrorDialog()
     {

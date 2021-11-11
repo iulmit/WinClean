@@ -14,9 +14,7 @@ using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
-/// <summary>
-/// Executes scripts asynchronously and displays task dialogs tracking the progress.
-/// </summary>
+/// <summary>Executes scripts asynchronously and displays task dialogs tracking the progress.</summary>
 public class ScriptExecutor
 {
     #region Private Fields
@@ -45,9 +43,6 @@ public class ScriptExecutor
 
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptExecutor"/> class with the specified scripts.
-    /// </summary>
     /// <param name="scripts">The scripts to execute.</param>
     /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
     public ScriptExecutor(IList<IScript> scripts)
@@ -63,9 +58,6 @@ public class ScriptExecutor
         _scripts = scripts;
     }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptExecutor"/> class with the specified script.
-    /// </summary>
     /// <param name="script">The script to execute</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
     public ScriptExecutor(IScript script) : this(new List<IScript> { script ?? throw new ArgumentNullException(nameof(script)) })
@@ -76,14 +68,10 @@ public class ScriptExecutor
 
     #region Public Methods
 
-    /// <summary>
-    /// Executes the scripts without displaying a dialog.
-    /// </summary>
+    /// <summary>Executes the scripts without displaying a dialog.</summary>
     public async void ExecuteNoUI() => _ = await ExecuteScriptsAsync().ConfigureAwait(false);
 
-    /// <summary>
-    /// Executes the scripts and displays a dialog traking the progress.
-    /// </summary>
+    /// <summary>Executes the scripts and displays a dialog traking the progress.</summary>
     public void ExecuteUI() => StartUISteps();
 
     #endregion Public Methods

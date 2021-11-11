@@ -5,16 +5,11 @@ using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Represents a combo box with images instad of text for elements.
-/// </summary>
+/// <summary>Represents a combo box with images instad of text for elements.</summary>
 public class ImagedComboBox : ComboBox
 {
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ImagedComboBox"/> class.
-    /// </summary>
     public ImagedComboBox() => DrawMode = DrawMode.OwnerDrawFixed;
 
     #endregion Public Constructors

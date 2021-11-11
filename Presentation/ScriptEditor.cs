@@ -7,27 +7,9 @@ using WinCopies.Collections;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Control used to display and edit a script.
-/// </summary>
+/// <summary>Control used to display and edit a script.</summary>
 public partial class ScriptEditor : UserControl
 {
-    #region Protected Properties
-
-    /// <inheritdoc/>
-    /// <remarks>Reduced flickering on child control paint.</remarks>
-    protected override CreateParams CreateParams
-    {
-        get
-        {
-            CreateParams cp = base.CreateParams;
-            cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
-            return cp;
-        }
-    }
-
-    #endregion Protected Properties
-
     #region Private Fields
 
     private IScript? _selected;
@@ -36,9 +18,6 @@ public partial class ScriptEditor : UserControl
 
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptEditor"/> class.
-    /// </summary>
     public ScriptEditor()
     {
         InitializeComponent();
@@ -50,9 +29,7 @@ public partial class ScriptEditor : UserControl
 
     #region Public Properties
 
-    /// <summary>
-    /// The script the user is currently able to see and edit.
-    /// </summary>
+    /// <summary>The script the user is currently able to see and edit.</summary>
     public IScript? Selected
     {
         get => _selected;

@@ -1,17 +1,16 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
-// file to you under the MIT license.
+﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using RaphaëlBardini.WinClean.Operational;
 
 using System.Drawing;
+using System.Runtime.Serialization;
 using System.Windows.Forms;
 using System.Xml;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
-/// <summary>
-/// A script that can be executed from a script host program.
-/// </summary>
+/// <summary>A script that can be executed from a script host program.</summary>
+[Serializable]
 public class Script : ListViewItem, IScript
 {
     #region Private Fields
@@ -22,22 +21,24 @@ public class Script : ListViewItem, IScript
 
     #endregion Constants
 
-    private readonly FileInfo _scriptsDirFile;
+    private readonly FileInfo _file;
     private ScriptAdvised _advised = ScriptAdvised.No;
 
     #endregion Private Fields
 
+    #region Protected Constructors
+
+    protected Script(SerializationInfo info, StreamingContext context) => throw new NotSupportedException("Binary serialization is not supported");
+
+    #endregion Protected Constructors
+
     #region Public Constructors
 
-    /// <param name="filename">
-    /// The name of the XML file containing this script's metadata, located in the scripts dir.
-    /// </param>
+    /// <param name="filename">The name of the XML file containing this script's metadata, located in the scripts dir.</param>
     /// <param name="displayInto">The list view in which the script will be displayed.</param>
     /// <exception cref="ArgumentNullException"><paramref name="filename"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="filename"/> is not a valid filename.</exception>
-    /// <exception cref="Helpers.FileSystem(Exception)">
-    /// <paramref name="filename"/> cannot be accessed.
-    /// </exception>
+    /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="filename"/> cannot be accessed.</exception>
     public Script(string filename, ListView displayInto)
     {
         _ = filename ?? throw new ArgumentNullException(nameof(filename));
@@ -50,21 +51,21 @@ public class Script : ListViewItem, IScript
 
         XmlDocument doc = CreateDoc();
 
-        Name = doc.GetElementsByTagName(nameof(Name))[0].InnerText;
+        Name = doc.GetElementsByTagName(nameof(Name))[0].FailNull().InnerText;
 
-        _scriptsDirFile = new($"{Name.ToFilename()}.xml".InScriptsDir());
+        _file = new($"{Name.ToFilename()}.xml".InScriptsDir());
 
-        Description = doc.GetElementsByTagName(nameof(Description))[0].InnerText;
+        Description = doc.GetElementsByTagName(nameof(Description))[0].FailNull().InnerText;
 
-        Advised = ScriptAdvised.ParseName(doc.GetElementsByTagName(nameof(Advised))[0].InnerText);
+        Advised = ScriptAdvised.ParseName(doc.GetElementsByTagName(nameof(Advised))[0].FailNull().InnerText);
 
-        Group = displayInto.Groups[doc.GetElementsByTagName(nameof(Group))[0].InnerText];
+        Group = displayInto.Groups[doc.GetElementsByTagName(nameof(Group))[0].FailNull().InnerText];
 
-        Extension = doc.GetElementsByTagName(nameof(Extension))[0].InnerText;
+        Extension = doc.GetElementsByTagName(nameof(Extension))[0].FailNull().InnerText;
 
-        Code = doc.GetElementsByTagName(nameof(Code))[0].InnerXml;
+        Code = doc.GetElementsByTagName(nameof(Code))[0].FailNull().InnerXml;
 
-        XmlElement impactElement = (XmlElement)doc.GetElementsByTagName(nameof(Impact))[0];
+        XmlElement impactElement = (XmlElement)doc.GetElementsByTagName(nameof(Impact))[0].FailNull();
         Impact = new(ImpactLevel.ParseName(impactElement.GetAttribute(nameof(Impact.Level))),
                      ImpactEffect.ParseName(impactElement.GetAttribute(nameof(Impact.Effect))));
 
@@ -83,31 +84,21 @@ public class Script : ListViewItem, IScript
         }
     }
 
-    /// <param name="name">
-    /// A brief infinitive sentence that describes the functionnality of this script.
-    /// </param>
-    /// <param name="description">
-    /// Details on how this scripts work and what the effects of executing it would be.
-    /// </param>
+    /// <param name="name">A brief infinitive sentence that describes the functionnality of this script.</param>
+    /// <param name="description">Details on how this scripts work and what the effects of executing it would be.</param>
     /// <param name="advised">If running this script is advised in general purpose.</param>
     /// <param name="impact">System impacts of running this script.</param>
-    /// <param name="group">
-    /// The list view group the script will be part of. This parameter can be <see langword="null"/>.
-    /// </param>
+    /// <param name="group">The list view group the script will be part of. This parameter can be <see langword="null"/>.</param>
     /// <param name="source">The source script file.</param>
     /// <exception cref="ArgumentNullException">One or more parameters are <see langword="null"/>.</exception>
-    /// <exception cref="Helpers.FileSystem(Exception)">
-    /// <paramref name="source"/> cannot be accessed.
-    /// </exception>
-    /// <exception cref="BadFileExtensionException">
-    /// <paramref name="source"/>'s extensions is not supported.
-    /// </exception>
+    /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="source"/> cannot be accessed.</exception>
+    /// <exception cref="BadFileExtensionException"><paramref name="source"/>'s extensions is not supported.</exception>
     public Script(string name, string description, ScriptAdvised advised, Impact impact, ListViewGroup? group, FileInfo source)
     {
         _ = source ?? throw new ArgumentNullException(nameof(source));
 
         Name = name ?? throw new ArgumentNullException(nameof(name));
-        _scriptsDirFile = new($"{Name.ToFilename()}.xml".InScriptsDir());
+        _file = new($"{Name.ToFilename()}.xml".InScriptsDir());
         Description = description ?? throw new ArgumentNullException(nameof(description));
         Advised = advised;
         Impact = impact ?? throw new ArgumentNullException(nameof(impact));
@@ -171,7 +162,7 @@ public class Script : ListViewItem, IScript
         base.Remove();
         try
         {
-            _scriptsDirFile.Delete();
+            _file.Delete();
         }
         catch (Exception e) when (e.FileSystem())
         {
@@ -247,7 +238,7 @@ public class Script : ListViewItem, IScript
         {
             try
             {
-                d.Save(_scriptsDirFile.FullName);
+                d.Save(_file.FullName);
             }
             catch (Exception e) when (e.FileSystem())
             {
