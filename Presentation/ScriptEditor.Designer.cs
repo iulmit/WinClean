@@ -81,6 +81,7 @@ partial class ScriptEditor
             this.textBoxDescription.CausesValidation = false;
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
             this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.TextChanged += new System.EventHandler(this.TextBoxDescription_TextChanged);
             // 
             // textBoxName
             // 
@@ -89,7 +90,7 @@ partial class ScriptEditor
             this.textBoxName.CausesValidation = false;
             resources.ApplyResources(this.textBoxName, "textBoxName");
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxDescription_TextChanged);
+            this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxName_TextChanged);
             // 
             // buttonDelete
             // 
@@ -99,10 +100,10 @@ partial class ScriptEditor
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
-            // impactEditor1
+            // impactEditor
             // 
-            resources.ApplyResources(this.impactEditor, "impactEditor1");
-            this.impactEditor.Name = "impactEditor1";
+            resources.ApplyResources(this.impactEditor, "impactEditor");
+            this.impactEditor.Name = "impactEditor";
             this.impactEditor.Selected = null;
             // 
             // ScriptEditor

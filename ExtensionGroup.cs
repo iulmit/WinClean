@@ -34,8 +34,6 @@ public class ExtensionGroup : IReadOnlyCollection<string>
     #endregion Public Constructors
 
     #region Public Properties
-
-    /// <inheritdoc/>
     public int Count => _extensions.Count;
 
     public string Name
@@ -58,7 +56,6 @@ public class ExtensionGroup : IReadOnlyCollection<string>
 
     #region Public Methods
 
-    /// <inheritdoc/>
     public IEnumerator<string> GetEnumerator() => _extensions.GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_extensions).GetEnumerator();

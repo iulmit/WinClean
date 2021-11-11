@@ -30,8 +30,6 @@ public class ImpactEffect
 
     #endregion Private Constructors
 
-
-
     #region Public Properties
 
     /// <summary>System praticality.</summary>
@@ -105,7 +103,6 @@ public class ImpactEffect
             : Values.FirstOrDefault(validValue => validValue._name == name)
                 ?? throw new ArgumentException($"Not a valid {nameof(ImpactEffect)} name.", nameof(name));
 
-    /// <inheritdoc/>
     public override string ToString() => _name;
 
     #endregion Public Methods

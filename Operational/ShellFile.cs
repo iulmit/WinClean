@@ -44,7 +44,6 @@ public class ShellFile : IDisposable
 
     #region Public Methods
 
-    /// <inheritdoc/>
     public void Dispose()
     {
         Dispose(true);

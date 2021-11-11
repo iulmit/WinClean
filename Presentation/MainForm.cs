@@ -23,7 +23,6 @@ public partial class MainForm : Form
 
         openFileDialogScripts.MakeFilter(new Cmd().SupportedExtensions, new PowerShell().SupportedExtensions, new Regedit().SupportedExtensions);
 
-        //chaud : sauvegarder les groupes
         _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
         _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
 

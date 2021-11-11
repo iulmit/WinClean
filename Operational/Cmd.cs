@@ -7,17 +7,14 @@ public class Cmd : ScriptHost
 {
     #region Public Properties
 
-    /// <inheritdoc/>
     public override ExtensionGroup SupportedExtensions => new(".cmd", ".bat");
 
     #endregion Public Properties
 
     #region Protected Properties
 
-    /// <inheritdoc/>
     protected override IncompleteArguments Arguments => new("/d /c \"\"{0}\"\"");
 
-    /// <inheritdoc/>
     protected override FileInfo Executable => new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)!);// ! : comspecs exists natively on windows
 
     #endregion Protected Properties

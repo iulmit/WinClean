@@ -16,7 +16,6 @@ public class ImagedComboBox : ComboBox
 
     #region Protected Methods
 
-    /// <inheritdoc/>
     protected override void OnDrawItem(DrawItemEventArgs e)
     {
         Assert(e is not null);

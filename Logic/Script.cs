@@ -3,14 +3,13 @@
 using RaphaëlBardini.WinClean.Operational;
 
 using System.Drawing;
-using System.Runtime.Serialization;
 using System.Windows.Forms;
 using System.Xml;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>A script that can be executed from a script host program.</summary>
-[Serializable]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237", Justification = "Binary serialization is not supported")]
 public class Script : ListViewItem, IScript
 {
     #region Private Fields
@@ -26,14 +25,9 @@ public class Script : ListViewItem, IScript
 
     #endregion Private Fields
 
-    #region Protected Constructors
-
-    protected Script(SerializationInfo info, StreamingContext context) => throw new NotSupportedException("Binary serialization is not supported");
-
-    #endregion Protected Constructors
-
     #region Public Constructors
 
+    /// <summary>Initializes a new instance of the <see cref="Script"/> class from the specified XML script file.</summary>
     /// <param name="filename">The name of the XML file containing this script's metadata, located in the scripts dir.</param>
     /// <param name="displayInto">The list view in which the script will be displayed.</param>
     /// <exception cref="ArgumentNullException"><paramref name="filename"/> is <see langword="null"/>.</exception>
@@ -78,12 +72,12 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.ScriptInacessible(filename, e, () => d = CreateDoc(), Delete, () => throw e);
+                ErrorDialog.ScriptInacessible(filename, e, () => d = CreateDoc(), Program.Exit);
             }
             return d;
         }
     }
-
+    /// <summary>Initializes a new instance of the <see cref="Script"/> class with the specified data.</summary>
     /// <param name="name">A brief infinitive sentence that describes the functionnality of this script.</param>
     /// <param name="description">Details on how this scripts work and what the effects of executing it would be.</param>
     /// <param name="advised">If running this script is advised in general purpose.</param>
@@ -92,7 +86,6 @@ public class Script : ListViewItem, IScript
     /// <param name="source">The source script file.</param>
     /// <exception cref="ArgumentNullException">One or more parameters are <see langword="null"/>.</exception>
     /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="source"/> cannot be accessed.</exception>
-    /// <exception cref="BadFileExtensionException"><paramref name="source"/>'s extensions is not supported.</exception>
     public Script(string name, string description, ScriptAdvised advised, Impact impact, ListViewGroup? group, FileInfo source)
     {
         _ = source ?? throw new ArgumentNullException(nameof(source));
@@ -115,7 +108,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.ScriptInacessible(source.Name, e, () => code = GetCode(), Delete, () => code = GetCode()/*chaud : faire un retry close dialog*/);
+                ErrorDialog.ScriptInacessible(source.Name, e, () => code = GetCode(), Program.Exit);
             }
             return code;
         }
@@ -137,26 +130,20 @@ public class Script : ListViewItem, IScript
         }
     }
 
-    /// <inheritdoc/>
     public string Code { get; set; }
 
-    /// <inheritdoc/>
     public string Description { get => ToolTipText; set => ToolTipText = value; }
 
-    /// <inheritdoc/>
     public string Extension { get; }
 
-    /// <inheritdoc/>
     public Impact Impact { get; init; }
 
-    /// <inheritdoc/>
     public new string Name { get => Text; set => Text = value; }
 
     #endregion Public Properties
 
     #region Public Methods
 
-    /// <inheritdoc/>
     public void Delete()
     {
         base.Remove();
@@ -170,13 +157,11 @@ public class Script : ListViewItem, IScript
         }
     }
 
-    /// <inheritdoc/>
     public void Execute() => ScriptHostFactory.FromFileExtension(Extension).Execute(this);
 
-    /// <inheritdoc/>
     public void Save()
     {
-        XmlDocument d = new();
+        XmlDocument doc = new();
 
         CreateDeclaration();
 
@@ -185,60 +170,60 @@ public class Script : ListViewItem, IScript
         SaveToScriptsDir();
 
         void CreateDeclaration()
-            => _ = d.AppendChild(d.CreateXmlDeclaration("1.0", "Unicode", null));
+            => _ = doc.AppendChild(doc.CreateXmlDeclaration("1.0", "Unicode", null));
 
         void AddProperties()
         {
-            XmlElement root = d.CreateElement("Script");
+            XmlElement root = doc.CreateElement(nameof(Script));
 
-            XmlElement n;
+            XmlElement current;
 
             // Name
-            n = d.CreateElement(nameof(Name)); // Creation
-            n.InnerText = Name;                // Assignment
-            _ = root.AppendChild(n);           // Addition
+            current = doc.CreateElement(nameof(Name)); // Creation
+            current.InnerText = Name;                // Assignment
+            _ = root.AppendChild(current);           // Addition
 
             // Description
-            n = d.CreateElement(nameof(Description));
-            n.InnerText = Description;
-            _ = root.AppendChild(n);
+            current = doc.CreateElement(nameof(Description));
+            current.InnerText = Description;
+            _ = root.AppendChild(current);
 
             // Advised
-            n = d.CreateElement(nameof(Advised));
-            n.InnerText = _advised.ToString();
-            _ = root.AppendChild(n);
+            current = doc.CreateElement(nameof(Advised));
+            current.InnerText = _advised.ToString();
+            _ = root.AppendChild(current);
 
             // Host
-            n = d.CreateElement(nameof(Extension));
-            n.InnerText = Extension;
-            _ = root.AppendChild(n);
+            current = doc.CreateElement(nameof(Extension));
+            current.InnerText = Extension;
+            _ = root.AppendChild(current);
 
             // Impacts
-            n = d.CreateElement(nameof(Impact));
+            current = doc.CreateElement(nameof(Impact));
 
-            n.SetAttribute(nameof(Impact.Level), Impact.Level.ToString());
-            n.SetAttribute(nameof(Impact.Effect), Impact.Effect.ToString());
+            current.SetAttribute(nameof(Impact.Level), Impact.Level.ToString());
+            current.SetAttribute(nameof(Impact.Effect), Impact.Effect.ToString());
 
-            _ = root.AppendChild(n);
+            _ = root.AppendChild(current);
 
             // Group
-            n = d.CreateElement(nameof(Group));
-            n.InnerText = Group?.Name ?? string.Empty;
-            _ = root.AppendChild(n);
+            current = doc.CreateElement(nameof(Group));
+            current.InnerText = Group?.Name ?? string.Empty;
+            _ = root.AppendChild(current);
 
             // Code
-            n = d.CreateElement(nameof(Code));
-            n.InnerText = Code;
-            _ = root.AppendChild(n);
+            current = doc.CreateElement(nameof(Code));
+            current.InnerText = Code;
+            _ = root.AppendChild(current);
 
-            _ = d.AppendChild(root);
+            _ = doc.AppendChild(root);
         }
 
         void SaveToScriptsDir()
         {
             try
             {
-                d.Save(_file.FullName);
+                doc.Save(_file.FullName);
             }
             catch (Exception e) when (e.FileSystem())
             {

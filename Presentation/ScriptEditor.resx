@@ -304,28 +304,28 @@
   <data name="&gt;&gt;buttonDelete.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="impactEditor1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="impactEditor.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 125</value>
   </data>
-  <data name="impactEditor1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="impactEditor.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 11, 0, 0</value>
   </data>
-  <data name="impactEditor1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="impactEditor.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 23</value>
   </data>
-  <data name="impactEditor1.TabIndex" type="System.Int32, mscorlib">
+  <data name="impactEditor.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;impactEditor1.Name" xml:space="preserve">
-    <value>impactEditor1</value>
+  <data name="&gt;&gt;impactEditor.Name" xml:space="preserve">
+    <value>impactEditor</value>
   </data>
-  <data name="&gt;&gt;impactEditor1.Type" xml:space="preserve">
+  <data name="&gt;&gt;impactEditor.Type" xml:space="preserve">
     <value>RaphaëlBardini.WinClean.Presentation.ImpactEditor, WinClean, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;impactEditor1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;impactEditor.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;impactEditor1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;impactEditor.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

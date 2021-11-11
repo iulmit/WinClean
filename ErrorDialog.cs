@@ -106,12 +106,12 @@ public class ErrorDialog : TaskDialogPage
     /// <param name="filename">The inacessible script's filename.</param>
     /// <inheritdoc cref="DeleteRetryIgnore(Action?, Action?, Action?)" path="/param"/>
     /// <param name="e">The exception that caused the error.</param>
-    public static void ScriptInacessible(string filename, Exception e, Action? retry = null, Action? delete = null, Action? ignore = null) => new ErrorDialog()
+    public static void ScriptInacessible(string filename, Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
         Heading = "Script inacessible",
         Text = $"Le script \"{filename}\" est inacessible. {e?.Message}"
-    }.DeleteRetryIgnore(delete, retry, ignore);
+    }.RetryClose(retry, close);
 
     /// <summary>Single instance only error.</summary>
     /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>

@@ -13,24 +13,20 @@ public class PowerShell : ScriptHost
 
     #region Public Properties
 
-    /// <inheritdoc/>
     public override ExtensionGroup SupportedExtensions => new(".ps1");
 
     #endregion Public Properties
 
     #region Protected Properties
 
-    /// <inheritdoc/>
     protected override IncompleteArguments Arguments => new("-WindowStyle Hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\"");
 
-    /// <inheritdoc/>
     protected override FileInfo Executable => new(_path);
 
     #endregion Protected Properties
 
     #region Public Methods
 
-    /// <inheritdoc/>
     public override void Execute(Logic.IScript script)
     {
         if (script is null)

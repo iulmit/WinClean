@@ -41,15 +41,12 @@ public partial class ScriptEditor : UserControl
 
             Enabled = value is not null;
 
-            if (value is not null)
-            {
-                textBoxName.Text = value.Name;
-                textBoxDescription.Text = value.Description;
-                comboBoxAdvised.SelectedItem = value.Advised.LocalizedName;
-                comboBoxGroup.SelectedItem = value.Group;
-                textBoxCode.Text = value.Code;
-                impactEditor.Selected = value.Impact;
-            }
+            textBoxName.Text = value?.Name;
+            textBoxDescription.Text = value?.Description;
+            comboBoxAdvised.SelectedItem = value?.Advised.LocalizedName;
+            comboBoxGroup.SelectedItem = value?.Group;
+            textBoxCode.Text = value?.Code;
+            impactEditor.Selected = value?.Impact;
         }
     }
 
