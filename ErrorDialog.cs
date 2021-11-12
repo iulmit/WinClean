@@ -21,61 +21,40 @@ public class ErrorDialog : TaskDialogPage
 
     #region Public Methods
 
-#pragma warning disable CS1573
-
-    /// <summary>Can't create log directory error.</summary>
+    /// <summary>
+    /// Can't create file error.
+    /// </summary>
     /// <param name="e">The exception that caused the error.</param>
-    /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
-    public static void CantCreateLogDir(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
+    /// <param name="path">The path of the file that couldn't be created.</param>
+    /// <inheritdoc cref="RetryExit(Action?, Action?)"/>
+    public static void CantCreateFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le dossier de journalisation. {e?.Message}"
-    }.RetryClose(retry, close);
+        Text = $"Impossible de créer le fichier \"{path}\". {e?.Message}"
+    }.RetryExit(retry);
 
-    /// <summary>Can't create script file error.</summary>
+    /// <summary>Can't create directory error.</summary>
     /// <param name="e">The exception that caused the error.</param>
-    /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
-    public static void CantCreateScriptFileInScriptsDir(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
+    /// <param name="path">The path of the directory that couldn't be created.</param>
+    /// <inheritdoc cref="RetryExit(Action?, Action?)"/>
+    public static void CantCreateDirectory(Exception e, string path, Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le fichier de script dans le répertoire des scripts. {e?.Message}"
-    }.RetryClose(retry, close);
-
-    /// <summary>Can't create scripts directory error.</summary>
-    /// <param name="e">The exception that caused the error.</param>
-    /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
-    public static void CantCreateScriptsDir(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
-    {
-        Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le dossier des scripts. {e?.Message}"
-    }.RetryClose(retry, close);
-
-    public static void CantCreateTempFile(Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
-    {
-        Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le fichier temporaire. {e?.Message}"
-    }.RetryClose(retry, close);
+        Text = $"Impossible de créer le dossier \"{path}\". {e?.Message}"
+    }.RetryExit(retry);
 
     /// <summary>Can't create log file error.</summary>
     /// <param name="e">The exception that caused the error.</param>
-    /// <inheritdoc cref="RetryIgnore(Action?, Action?)" path="/param"/>
-    public static void CantDeleteLogFile(Exception e, Action? retry = null, Action? ignore = null) => new ErrorDialog()
+    /// <param name="path">The path of the file that couldn't be deleted.</param>
+    /// <inheritdoc cref="RetryIgnore(Action?, Action?)"/>
+    public static void CantDeleteFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de supprimer le fichier de logs. {e?.Message}"
-    }.RetryIgnore(retry, ignore);
-
-    /// <summary>Can't create log file error.</summary>
-    /// <param name="e">The exception that caused the error.</param>
-    /// <inheritdoc cref="RetryIgnore(Action?, Action?)" path="/param"/>
-    public static void CantDeleteScript(Exception e, Action? retry = null, Action? ignore = null) => new ErrorDialog()
-    {
-        Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de supprimer le script. {e?.Message}"
-    }.RetryIgnore(retry, ignore);
+        Text = $"Impossible de supprimer le fichier \"{path}\". {e?.Message}"
+    }.RetryExit(retry);
 
     /// <summary>Asks the users for confirmation before exiting the application and risking data loss.</summary>
-    /// <inheritdoc cref="YesNo()" path="/returns"/>
+    /// <inheritdoc cref="YesNo()"/>
     public static bool ConfirmAbortOperation() => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Warning,
@@ -83,18 +62,23 @@ public class ErrorDialog : TaskDialogPage
         Text = "Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?",
     }.YesNo();
 
+    public static bool ConfirmProgramExit() => new ErrorDialog()
+    {
+        Icon = TaskDialogIcon.Warning,
+        Text = $"Êtes-vous sûr de vouloir quitter {Application.ProductName} ?",
+    }.YesNo();
     /// <summary>Asks the user for confirmation before deleting a script</summary>
-    /// <inheritdoc cref="YesNo()" path="/returns"/>
+    /// <inheritdoc cref="YesNo()"/>
     public static bool ConfirmScriptDeletion() => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Warning,
         Heading = "Remplacer le script ?",
-        Text = $"Êtes-vous sûr de vouloir supprimer ce script ? Cette Action? est irréversible."
+        Text = $"Êtes-vous sûr de vouloir supprimer ce script ? Cette action est irréversible."
     }.YesNo();
 
     /// <summary>Hung script error.</summary>
     /// <param name="filename">The hung script's filename.</param>
-    /// <inheritdoc cref="RestartKillIgnore(Action?, Action?, Action?)" path="/param"/>
+    /// <inheritdoc cref="RestartKillIgnore(Action?, Action?, Action?)"/>
     public static void HungScript(string filename, Action? restart = null, Action? kill = null, Action? ignore = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Warning,
@@ -102,34 +86,32 @@ public class ErrorDialog : TaskDialogPage
         Text = $"Le script (\"{filename}\") est en cours d'exécution depuis {Properties.Settings.Default.ScriptTimeout} et ne s'arrêtera probablement jamais.",
     }.RestartKillIgnore(restart, kill, ignore);
 
-    /// <summary>Script not found error.</summary>
-    /// <param name="filename">The inacessible script's filename.</param>
-    /// <inheritdoc cref="DeleteRetryIgnore(Action?, Action?, Action?)" path="/param"/>
+    /// <summary>File inacessible error.</summary>
+    /// <param name="path">The path of the inacessible file.</param>
     /// <param name="e">The exception that caused the error.</param>
-    public static void ScriptInacessible(string filename, Exception e, Action? retry = null, Action? close = null) => new ErrorDialog()
+    /// <inheritdoc cref="DeleteRetryIgnore(Action?, Action?, Action?)"/>
+    public static void CantAcessFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Heading = "Script inacessible",
-        Text = $"Le script \"{filename}\" est inacessible. {e?.Message}"
-    }.RetryClose(retry, close);
+        Heading = "Fichier inacessible",
+        Text = $"Le fichier \"{path}\" est inacessible. {e?.Message}"
+    }.RetryExit(retry);
 
     /// <summary>Single instance only error.</summary>
-    /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
-    public static void SingleInstanceOnly(Action? retry = null, Action? close = null) => new ErrorDialog()
+    /// <inheritdoc cref="RetryExit(Action?, Action?)"/>
+    public static void SingleInstanceOnly(Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
         Text = "L'application est déjà en cours d'exécution."
-    }.RetryClose(retry, close);
+    }.RetryExit(retry);
 
     /// <summary>Wrong startup path error.</summary>
-    /// <inheritdoc cref="RetryClose(Action?, Action?)" path="/param"/>
-    public static void WrongStartupPath(Action? retry = null, Action? close = null) => new ErrorDialog()
+    /// <inheritdoc cref="RetryExit(Action?, Action?)"/>
+    public static void WrongStartupPath(Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans \"{Program.InstallDir}\"."
-    }.RetryClose(retry, close);
-
-#pragma warning restore CS1573
+        Text = $"L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans \"{Program.AppDir}\"."
+    }.RetryExit(retry);
 
     #endregion Public Methods
 
@@ -183,17 +165,20 @@ public class ErrorDialog : TaskDialogPage
     }
 
     /// <param name="retry">Invoked when the Retry button of the dialog is clicked.</param>
-    /// <param name="close">Invoked when the Close button of the dialog is clicked.</param>
-    private void RetryClose(Action? retry, Action? close)
+    /// <remarks>Exits the program wh en Exit button clicked.</remarks>
+    private void RetryExit(Action? retry)
     {
-        Buttons = new() { Button.Close, Button.Retry };
-        if (Show() == Button.Retry)
+        Button exit = new("Quitter");
+        exit.Click += (_, _) => exit.AllowCloseDialog = ConfirmProgramExit();
+
+        Buttons = new() { exit, Button.Retry };
+        if (Show() == exit)
         {
-            retry?.Invoke();
+            Program.Exit();
         }
         else
         {
-            close?.Invoke();
+            retry?.Invoke();
         }
     }
 
@@ -211,8 +196,11 @@ public class ErrorDialog : TaskDialogPage
             ignore?.Invoke();
         }
     }
-
-    private Button Show() => Form.ActiveForm is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(Form.ActiveForm, this);
+    private Button Show()
+    {
+        IWin32Window? owner = Helpers.GetActiveWindow();
+        return owner is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(owner, this);
+    }
 
     /// <returns><see langword="true"/> if the Yes button was clicked, otherwise; <see langword="false"/>.</returns>
     private bool YesNo()

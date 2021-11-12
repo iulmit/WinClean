@@ -2,8 +2,6 @@
 
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Presentation;
-
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean;
@@ -11,31 +9,15 @@ namespace RaphaëlBardini.WinClean;
 /// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>
 public static class Program
 {
-    #region Public Fields
+    #region Public Properties
 
-    // chaud : a lire de puis le registre entree installation. Besoin d'un installeur pour faire ça.
+    // chaud : read install dir from registry program entry. Needs an installer.
     /// <summary>Application install directory.</summary>
-    public static readonly DirectoryInfo InstallDir = new(Application.StartupPath);
+    public static DirectoryInfo AppDir => new(Application.StartupPath);
 
-    #endregion Public Fields
+    #endregion Public Properties
 
     #region Public Methods
-
-    /// <summary>Runs the specified scripts.</summary>
-    /// <remarks>If there is more than 1 script to run, shows a GUI.</remarks>
-    /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
-    public static void ConfirmAndExecuteScripts(IList<IScript> scripts)
-    {
-        ScriptExecutor executor = new(scripts ?? throw new ArgumentNullException(nameof(scripts)));
-        if (scripts.Count > 1)
-        {
-            executor.ExecuteUI();
-        }
-        else
-        {
-            executor.ExecuteNoUI();
-        }
-    }
 
     /// <summary>Exits the program.</summary>
     /// <remarks>Doesn't return.</remarks>
@@ -43,22 +25,8 @@ public static class Program
     {
         "Exiting the application.".Log("Exit");
         Application.Exit();
-        "Application failed to exit ! Exiting from the environment.".Log("Exit");
+        // If we didnt exit at this stage, we must be out of the message loop. Exit from the environment.
         Environment.Exit(0);
-    }
-
-    /// <summary>Displays the <see cref="AboutBox"/> form.</summary>
-    public static void ShowAboutBox()
-    {
-        using AboutBox about = new();
-        _ = about.ShowDialog(Form.ActiveForm); // Use showdialog so the windows dosen't disappear immediately
-    }
-
-    /// <summary>Displays the <see cref="Settings"/> form.</summary>
-    public static void ShowSettings()
-    {
-        using Settings settings = new();
-        _ = settings.ShowDialog(Form.ActiveForm);
     }
 
     #endregion Public Methods
@@ -75,16 +43,16 @@ public static class Program
         }
         else
         {
-            ErrorDialog.SingleInstanceOnly(EnsureSingleInstance, Exit);
+            ErrorDialog.SingleInstanceOnly(EnsureSingleInstance);
             singleInstanceEnforcer.Dispose();
         }
     }
 
     private static void EnsureStartupPath()
     {
-        if (!Application.StartupPath.Equals(InstallDir.FullName, StringComparison.OrdinalIgnoreCase))
+        if (!Helpers.PathEquals(Application.StartupPath, AppDir.FullName))
         {
-            ErrorDialog.WrongStartupPath(EnsureStartupPath, Exit);
+            ErrorDialog.WrongStartupPath(EnsureStartupPath);
         }
     }
 

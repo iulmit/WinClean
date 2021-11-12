@@ -23,7 +23,7 @@ public static class LogManager
         Justification = "Properties rely on each other for their initialization - They must be assigned in a specific order")]
     static LogManager()
     {
-        s_logDir = new(Path.Join(Program.InstallDir.FullName, "Logs"));
+        s_logDir = new(Path.Join(Program.AppDir.FullName, "Logs"));
         s_currentLogFile = new(Path.Join(s_logDir.FullName, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
         CreateLogDir();
         s_csvWriter = new(new StreamWriter(s_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = LogDelimiter });
@@ -132,19 +132,19 @@ public static class LogManager
         }
         catch (IOException e)
         {
-            ErrorDialog.CantCreateLogDir(e, CreateLogDir, Program.Exit);
+            ErrorDialog.CantCreateDirectory(e, s_logDir.FullName, CreateLogDir);
         }
     }
 
-    private static void DeleteLogFile(FileInfo path)
+    private static void DeleteLogFile(FileInfo file)
     {
         try
         {
-            path.Delete();
+            file.Delete();
         }
         catch (Exception e) when (e.FileSystem())
         {
-            ErrorDialog.CantDeleteLogFile(e, () => DeleteLogFile(path));
+            ErrorDialog.CantDeleteFile(e, file.FullName, () => DeleteLogFile(file));
         }
     }
 

@@ -50,23 +50,22 @@ public abstract class ScriptHost
     /// <returns>The new temporary file.</returns>
     protected FileInfo CreateTempFile(string? text, string? extension)
     {
-        FileInfo tmpScriptFile = new(Path.Join(Path.GetTempPath(), $"WinCleanScript{DateTime.Now.ToBinary()}{extension}"));
-
+        string tmpScriptPath = Path.Join(Path.GetTempPath(), $"WinCleanScript{DateTime.Now.ToBinary()}{extension}");
+        FileInfo tmpScript = null!;
         try
         {
-            using StreamWriter s = tmpScriptFile.CreateText();
+            tmpScript = new FileInfo(tmpScriptPath);
+            using StreamWriter s = tmpScript.CreateText();
             {
                 s.Write(text);
-                s.Close();
             }
-            return tmpScriptFile;
+            return tmpScript;
         }
         catch (IOException e)
         {
-            ErrorDialog.CantCreateTempFile(e, () => tmpScriptFile = CreateTempFile(text, extension), Program.Exit);
+            ErrorDialog.CantCreateFile(e, tmpScriptPath, () => tmpScript = CreateTempFile(text, extension));
         }
-
-        return tmpScriptFile;
+        return tmpScript;
     }
 
     /// <summary>Executes the specified code.</summary>

@@ -14,7 +14,6 @@ namespace RaphaëlBardini.WinClean.Presentation;
 /// </summary>
 public partial class MainForm : Form
 {
-
     #region Public Constructors
 
     public MainForm()
@@ -23,11 +22,14 @@ public partial class MainForm : Form
 
         openFileDialogScripts.MakeFilter(new Cmd().SupportedExtensions, new PowerShell().SupportedExtensions, new Regedit().SupportedExtensions);
 
-        _ = listViewScripts.Groups.Add("TestGroup1", "Groupe test 1");
-        _ = listViewScripts.Groups.Add("TestGroup2", "Groupe test 2");
+        /*ListViewGroup[] placeholderGroups = new[]
+        {
+            new ListViewGroup("TestGroup1", "Groupe test 1") { Subtitle = "Scripts du groupe de test 1." },
+            new ListViewGroup("TestGroup2", "Groupe test 2") { Subtitle = "Scripts du groupe de test 2." }
+        };
+        listViewScripts.Groups.AddRange(placeholderGroups);*/
 
-        /*// Example scripts
-        IScript[] placeholders = new[]
+        /*IScript[] placeholders = new[]
         {
                 new Script
                 (
@@ -62,16 +64,12 @@ public partial class MainForm : Form
             placeholder.Save();
         }*/
 
-        ScriptsDir.LoadAllScripts(listViewScripts);
+        AppDir.GroupsFile.Instance.LoadGroups(listViewScripts);
+        listViewScripts.Items.AddRange(AppDir.ScriptsDir.Instance.LoadAllScripts().ToArray());
 
         Text = $"{Application.ProductName} {Application.ProductVersion}";
 
         MainMenuAbout.Text = Resources.FormattableStrings.About(Application.ProductName);
-
-        foreach (ListViewGroup group in listViewScripts.Groups)
-        {
-            group.CollapsedState = ListViewGroupCollapsedState.Expanded;
-        }
     }
 
     #endregion Public Constructors
@@ -102,7 +100,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void ButtonExecuteScripts_Click(object _, EventArgs __) => Program.ConfirmAndExecuteScripts(listViewScripts.CheckedItems.Cast<IScript>().ToList());
+    private void ButtonExecuteScripts_Click(object _, EventArgs __) => ScriptExecutor.ConfirmAndExecute(listViewScripts.CheckedItems.Cast<IScript>().ToList());
 
     private void ButtonQuit_Click(object _, EventArgs __) => Program.Exit();
 
@@ -120,16 +118,24 @@ public partial class MainForm : Form
 
     private void MainMenuSelectNothing_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, false);
 
-    private void MainMenuStripAbout_Click(object _, EventArgs __) => Program.ShowAboutBox();
+    private void MainMenuStripAbout_Click(object _, EventArgs __)
+    {
+        using AboutBox about = new();
+        _ = about.ShowDialog(this);
+    }
 
     private void MainMenuStripClearLogs_Click(object _, EventArgs __) => LogManager.ClearLogsFolderAsync();
 
-    private void MainMenuStripSettings_Click(object _, EventArgs __) => Program.ShowSettings();
+    private void MainMenuStripSettings_Click(object _, EventArgs __)
+    {
+        using Settings settings = new();
+        _ = settings.ShowDialog(this);
+    }
 
     private void MainMenuStripShowHelp_Click(object _, EventArgs __)
     {
     }
-    
+
     #endregion mainMenuStrip
 
     #region listViewScripts
@@ -144,6 +150,8 @@ public partial class MainForm : Form
 
     private void ListViewScripts_SelectedIndexChanged(object _, EventArgs __)
         => scriptEditor.Selected = listViewScripts.SelectedItems.Cast<IScript>().FirstOrDefault();
+
+    private void ListViewScripts_Leave(object _, EventArgs __) => AppDir.GroupsFile.Instance.SaveGroups(listViewScripts.Groups.OfType<ListViewGroup>());
 
     #endregion listViewScripts
 

@@ -7,11 +7,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace RaphaëlBardini.WinClean.Logic;
+namespace RaphaëlBardini.WinClean;
 
 /// <summary>Provides a set of extension methods that fulfill a relatively generic role.</summary>
 public static class Helpers
@@ -55,6 +56,16 @@ public static class Helpers
     /// <remarks>Note that unrelated methods may throw any of these exceptions.</remarks>
     public static bool FileSystem(this Exception e)
         => e is IOException or UnauthorizedAccessException or NotSupportedException or System.Security.SecurityException;
+
+    /// <summary>Gets the currently active window control.</summary>
+    /// <returns>The currently active window, or <see langword="null"/> if threre is not active window.</returns>
+    public static IWin32Window? GetActiveWindow()
+    {
+        return new Win32Window(GetForegroundWindow());
+        [DllImport("user32.dll")]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+        static extern IntPtr GetForegroundWindow();
+    }
 
     /// <summary>Gets the name of a specific resource.</summary>
     /// <param name="resourceManager">The resource manager containing the resource.</param>
@@ -106,8 +117,10 @@ public static class Helpers
     /// <inheritdoc cref="MakeFilter(OpenFileDialog, IEnumerable{ExtensionGroup})"/>
     public static void MakeFilter(this OpenFileDialog ofd, params ExtensionGroup[] exts) => MakeFilter(ofd, (IEnumerable<ExtensionGroup>)exts);
 
+    public static bool PathEquals(string left, string right) => string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
+
     /// <summary>Restarts the system.</summary>
-    public static void RebootForApplicationMaintenance() => System.Diagnostics.Process.Start("shutdown", $"/g /t 0 /d p:4:1");
+    public static void RebootForApplicationMaintenance() => Process.Start("shutdown", $"/g /t 0 /d p:4:1");
 
     /// <exception cref="ArgumentNullException"><paramref name="page"/> is <see langword="null"/>.</exception>
     /// <inheritdoc cref="TaskDialog.ShowDialog(IWin32Window, TaskDialogPage, TaskDialogStartupLocation)"/>

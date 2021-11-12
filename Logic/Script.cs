@@ -5,6 +5,7 @@ using RaphaëlBardini.WinClean.Operational;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
+using System.Linq;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
@@ -30,13 +31,12 @@ public class Script : ListViewItem, IScript
     /// <summary>Initializes a new instance of the <see cref="Script"/> class from the specified XML script file.</summary>
     /// <param name="filename">The name of the XML file containing this script's metadata, located in the scripts dir.</param>
     /// <param name="displayInto">The list view in which the script will be displayed.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="filename"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="filename"/> or <paramref name="displayInto"/> are <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="filename"/> is not a valid filename.</exception>
     /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="filename"/> cannot be accessed.</exception>
-    public Script(string filename, ListView displayInto)
+    public Script(string filename)
     {
         _ = filename ?? throw new ArgumentNullException(nameof(filename));
-        _ = displayInto ?? throw new ArgumentNullException(nameof(displayInto));
 
         if (!filename.IsValidFilename())
         {
@@ -47,13 +47,13 @@ public class Script : ListViewItem, IScript
 
         Name = doc.GetElementsByTagName(nameof(Name))[0].FailNull().InnerText;
 
-        _file = new($"{Name.ToFilename()}.xml".InScriptsDir());
+        _file = new($"{Name.ToFilename()}.xml");
 
         Description = doc.GetElementsByTagName(nameof(Description))[0].FailNull().InnerText;
 
         Advised = ScriptAdvised.ParseName(doc.GetElementsByTagName(nameof(Advised))[0].FailNull().InnerText);
 
-        Group = displayInto.Groups[doc.GetElementsByTagName(nameof(Group))[0].FailNull().InnerText];
+        Group = AppDir.GroupsFile.Instance.Groups.FailNull().FirstOrDefault(group => group.Name == doc.GetElementsByTagName(nameof(Group))[0].FailNull().InnerText);
 
         Extension = doc.GetElementsByTagName(nameof(Extension))[0].FailNull().InnerText;
 
@@ -66,13 +66,14 @@ public class Script : ListViewItem, IScript
         XmlDocument CreateDoc()
         {
             XmlDocument d = new();
+            string xmlFilePath = AppDir.ScriptsDir.Instance.Join(filename);
             try
             {
-                d.Load(Path.Join(ScriptsDir.Info.FullName, filename));
+                d.Load(xmlFilePath);
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.ScriptInacessible(filename, e, () => d = CreateDoc(), Program.Exit);
+                ErrorDialog.CantAcessFile(e, xmlFilePath, () => d = CreateDoc());
             }
             return d;
         }
@@ -91,7 +92,7 @@ public class Script : ListViewItem, IScript
         _ = source ?? throw new ArgumentNullException(nameof(source));
 
         Name = name ?? throw new ArgumentNullException(nameof(name));
-        _file = new($"{Name.ToFilename()}.xml".InScriptsDir());
+        _file = new(AppDir.ScriptsDir.Instance.Join($"{Name.ToFilename()}.xml"));
         Description = description ?? throw new ArgumentNullException(nameof(description));
         Advised = advised;
         Impact = impact ?? throw new ArgumentNullException(nameof(impact));
@@ -108,7 +109,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.ScriptInacessible(source.Name, e, () => code = GetCode(), Program.Exit);
+                ErrorDialog.CantAcessFile(e, source.FullName, () => code = GetCode());
             }
             return code;
         }
@@ -153,7 +154,7 @@ public class Script : ListViewItem, IScript
         }
         catch (Exception e) when (e.FileSystem())
         {
-            ErrorDialog.CantDeleteScript(e, Delete);
+            ErrorDialog.CantDeleteFile(e, _file.FullName, Delete);
         }
     }
 
@@ -163,14 +164,11 @@ public class Script : ListViewItem, IScript
     {
         XmlDocument doc = new();
 
-        CreateDeclaration();
+        _ = doc.AppendChild(doc.CreateXmlDeclaration("1.0", "Unicode", null));
 
         AddProperties();
 
         SaveToScriptsDir();
-
-        void CreateDeclaration()
-            => _ = doc.AppendChild(doc.CreateXmlDeclaration("1.0", "Unicode", null));
 
         void AddProperties()
         {
@@ -180,8 +178,8 @@ public class Script : ListViewItem, IScript
 
             // Name
             current = doc.CreateElement(nameof(Name)); // Creation
-            current.InnerText = Name;                // Assignment
-            _ = root.AppendChild(current);           // Addition
+            current.InnerText = Name; // Assignment
+            _ = root.AppendChild(current); // Addition
 
             // Description
             current = doc.CreateElement(nameof(Description));
@@ -227,7 +225,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.CantCreateScriptFileInScriptsDir(e, SaveToScriptsDir, Program.Exit);
+                ErrorDialog.CantCreateFile(e, _file.FullName, SaveToScriptsDir);
             }
         }
     }

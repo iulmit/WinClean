@@ -22,7 +22,6 @@ public partial class ScriptEditor : UserControl
     {
         InitializeComponent();
         comboBoxAdvised.DataSource = ScriptAdvised.Values.Select((val) => val.LocalizedName).ToList();
-        //comboBoxGroup.DataSource =
     }
 
     #endregion Public Constructors
@@ -44,7 +43,10 @@ public partial class ScriptEditor : UserControl
             textBoxName.Text = value?.Name;
             textBoxDescription.Text = value?.Description;
             comboBoxAdvised.SelectedItem = value?.Advised.LocalizedName;
+
+            comboBoxGroup.DataSource = AppDir.GroupsFile.Instance.Groups;
             comboBoxGroup.SelectedItem = value?.Group;
+
             textBoxCode.Text = value?.Code;
             impactEditor.Selected = value?.Impact;
         }
@@ -58,12 +60,9 @@ public partial class ScriptEditor : UserControl
 
     private void ButtonDelete_Click(object _, EventArgs __)
     {
-        if (_selected is not null)
+        if (_selected is not null && ErrorDialog.ConfirmScriptDeletion())
         {
-            if (ErrorDialog.ConfirmScriptDeletion())
-            {
-                _selected.Delete();
-            }
+            _selected.Delete();
         }
     }
 
@@ -97,11 +96,6 @@ public partial class ScriptEditor : UserControl
     private void ScriptEditor_Resize(object _, EventArgs __)
     {
         SuspendLayout();
-
-        if (Height < buttonExecute.Location.Y + buttonExecute.Height)
-        {
-            Width -= SystemInformation.VerticalScrollBarWidth;
-        }
 
         // TextBoxes
         ChangeWidth(textBoxName, Width);
