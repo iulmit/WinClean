@@ -30,6 +30,8 @@ public class ImpactEffect
 
     #endregion Private Constructors
 
+
+
     #region Public Properties
 
     /// <summary>System praticality.</summary>

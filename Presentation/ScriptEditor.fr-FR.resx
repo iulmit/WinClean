@@ -1,4 +1,5 @@
-﻿<root>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -81,5 +82,14 @@
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tableImpacts.RowCount" type="System.Int32, mscorlib">
     <value>1</value>
+  </data>
+  <data name="textBoxCode.PlaceholderText" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="textBoxDescription.PlaceholderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="textBoxGroup.PlaceholderText" xml:space="preserve">
+    <value>Groupe</value>
   </data>
 </root>

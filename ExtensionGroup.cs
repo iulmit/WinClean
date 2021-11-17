@@ -34,6 +34,7 @@ public class ExtensionGroup : IReadOnlyCollection<string>
     #endregion Public Constructors
 
     #region Public Properties
+
     public int Count => _extensions.Count;
 
     public string Name

@@ -21,16 +21,15 @@ public class ErrorDialog : TaskDialogPage
 
     #region Public Methods
 
-    /// <summary>
-    /// Can't create file error.
-    /// </summary>
+    /// <summary>File inacessible error.</summary>
+    /// <param name="path">The path of the inacessible file.</param>
     /// <param name="e">The exception that caused the error.</param>
-    /// <param name="path">The path of the file that couldn't be created.</param>
-    /// <inheritdoc cref="RetryExit(Action?, Action?)"/>
-    public static void CantCreateFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
+    /// <inheritdoc cref="DeleteRetryIgnore(Action?, Action?, Action?)"/>
+    public static void CantAcessFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le fichier \"{path}\". {e?.Message}"
+        Heading = "Fichier inacessible",
+        Text = $"Le fichier \"{path}\" est inacessible. {e?.Message}"
     }.RetryExit(retry);
 
     /// <summary>Can't create directory error.</summary>
@@ -41,6 +40,16 @@ public class ErrorDialog : TaskDialogPage
     {
         Icon = TaskDialogIcon.Error,
         Text = $"Impossible de créer le dossier \"{path}\". {e?.Message}"
+    }.RetryExit(retry);
+
+    /// <summary>Can't create file error.</summary>
+    /// <param name="e">The exception that caused the error.</param>
+    /// <param name="path">The path of the file that couldn't be created.</param>
+    /// <inheritdoc cref="RetryExit(Action?, Action?)"/>
+    public static void CantCreateFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
+    {
+        Icon = TaskDialogIcon.Error,
+        Text = $"Impossible de créer le fichier \"{path}\". {e?.Message}"
     }.RetryExit(retry);
 
     /// <summary>Can't create log file error.</summary>
@@ -67,6 +76,7 @@ public class ErrorDialog : TaskDialogPage
         Icon = TaskDialogIcon.Warning,
         Text = $"Êtes-vous sûr de vouloir quitter {Application.ProductName} ?",
     }.YesNo();
+
     /// <summary>Asks the user for confirmation before deleting a script</summary>
     /// <inheritdoc cref="YesNo()"/>
     public static bool ConfirmScriptDeletion() => new ErrorDialog()
@@ -85,17 +95,6 @@ public class ErrorDialog : TaskDialogPage
         Heading = "Un script est bloqué",
         Text = $"Le script (\"{filename}\") est en cours d'exécution depuis {Properties.Settings.Default.ScriptTimeout} et ne s'arrêtera probablement jamais.",
     }.RestartKillIgnore(restart, kill, ignore);
-
-    /// <summary>File inacessible error.</summary>
-    /// <param name="path">The path of the inacessible file.</param>
-    /// <param name="e">The exception that caused the error.</param>
-    /// <inheritdoc cref="DeleteRetryIgnore(Action?, Action?, Action?)"/>
-    public static void CantAcessFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
-    {
-        Icon = TaskDialogIcon.Error,
-        Heading = "Fichier inacessible",
-        Text = $"Le fichier \"{path}\" est inacessible. {e?.Message}"
-    }.RetryExit(retry);
 
     /// <summary>Single instance only error.</summary>
     /// <inheritdoc cref="RetryExit(Action?, Action?)"/>
@@ -124,7 +123,7 @@ public class ErrorDialog : TaskDialogPage
     {
         Button deleteScript = new("Supprimer le script");
         Buttons = new() { Button.Ignore, Button.Retry, deleteScript };
-        Button result = Show();
+        Button result = this.ShowDialog();
         if (result == deleteScript)
         {
             delete?.Invoke();
@@ -148,7 +147,7 @@ public class ErrorDialog : TaskDialogPage
         Button restartScript = new("Redémarrer le script");
         Buttons = new() { Button.Ignore, killScript, restartScript };
 
-        Button result = Show();
+        Button result = this.ShowDialog();
 
         if (result == restartScript)
         {
@@ -172,7 +171,7 @@ public class ErrorDialog : TaskDialogPage
         exit.Click += (_, _) => exit.AllowCloseDialog = ConfirmProgramExit();
 
         Buttons = new() { exit, Button.Retry };
-        if (Show() == exit)
+        if (this.ShowDialog() == exit)
         {
             Program.Exit();
         }
@@ -187,7 +186,7 @@ public class ErrorDialog : TaskDialogPage
     private void RetryIgnore(Action? retry, Action? ignore)
     {
         Buttons = new() { Button.Ignore, Button.Retry };
-        if (Show() == Button.Retry)
+        if (this.ShowDialog() == Button.Retry)
         {
             retry?.Invoke();
         }
@@ -196,17 +195,12 @@ public class ErrorDialog : TaskDialogPage
             ignore?.Invoke();
         }
     }
-    private Button Show()
-    {
-        IWin32Window? owner = Helpers.GetActiveWindow();
-        return owner is null ? TaskDialog.ShowDialog(this) : TaskDialog.ShowDialog(owner, this);
-    }
 
     /// <returns><see langword="true"/> if the Yes button was clicked, otherwise; <see langword="false"/>.</returns>
     private bool YesNo()
     {
         Buttons = new() { Button.Yes, Button.No };
-        return Show() == Button.Yes;
+        return this.ShowDialog() == Button.Yes;
     }
 
     #endregion Private Methods

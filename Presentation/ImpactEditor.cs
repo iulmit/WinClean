@@ -41,8 +41,9 @@ public partial class ImpactEditor : UserControl
             _selected = value;
 
             Enabled = value is not null;
+
             imagedComboBoxLevel.SelectedItem = (value is null) ? null : levelItems.Find((icbitem) => Equals(icbitem.Tag, value.Level));
-            comboBoxEffect.SelectedItem = value?.Effect;
+            comboBoxEffect.SelectedItem = value?.Effect.LocalizedName;
         }
     }
 

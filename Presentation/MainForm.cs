@@ -24,8 +24,8 @@ public partial class MainForm : Form
 
         /*ListViewGroup[] placeholderGroups = new[]
         {
-            new ListViewGroup("TestGroup1", "Groupe test 1") { Subtitle = "Scripts du groupe de test 1." },
-            new ListViewGroup("TestGroup2", "Groupe test 2") { Subtitle = "Scripts du groupe de test 2." }
+            new ListViewGroup("TestGroup1", "Groupe test 1"),
+            new ListViewGroup("TestGroup2", "Groupe test 2")
         };
         listViewScripts.Groups.AddRange(placeholderGroups);*/
 
@@ -142,6 +142,8 @@ public partial class MainForm : Form
 
     private void ListViewScripts_ItemChecked(object _, ItemCheckedEventArgs __) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
 
+    private void ListViewScripts_Leave(object _, EventArgs __) => AppDir.GroupsFile.Instance.SaveGroups();
+
     /// <summary>
     /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
     /// cref="listViewScripts"/>'s new size.
@@ -150,8 +152,6 @@ public partial class MainForm : Form
 
     private void ListViewScripts_SelectedIndexChanged(object _, EventArgs __)
         => scriptEditor.Selected = listViewScripts.SelectedItems.Cast<IScript>().FirstOrDefault();
-
-    private void ListViewScripts_Leave(object _, EventArgs __) => AppDir.GroupsFile.Instance.SaveGroups(listViewScripts.Groups.OfType<ListViewGroup>());
 
     #endregion listViewScripts
 

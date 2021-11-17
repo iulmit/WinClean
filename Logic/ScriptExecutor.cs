@@ -2,6 +2,7 @@
 using Microsoft.WindowsAPICodePack.Win32Native.Shell;
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -94,6 +95,8 @@ public class ScriptExecutor
 
     #region Private Methods
 
+    private static void RebootForApplicationMaintenance() => Process.Start("shutdown", $"/g /t 0 /d p:4:1");
+
     private TaskDialogPage CreateCompletedPage(int elapsedSeconds)
     {
         TaskDialogButton restart = new("Redémarrer");
@@ -119,7 +122,7 @@ TCPOptimizer - Optimisations réseau")
             Text = "Pour valider les changements, il est recommandé de redémarrer le système.",
         };
 
-        restart.Click += (s, e) => Helpers.RebootForApplicationMaintenance();
+        restart.Click += (s, e) => RebootForApplicationMaintenance();
 
         p.Expander.ExpandedChanged += (sender, e) => Properties.Settings.Default.ShowScriptExecutionCompletedDetails = p.Expander.Expanded;
 
@@ -171,7 +174,7 @@ TCPOptimizer - Optimisations réseau")
 
             if (autoRestart)
             {
-                Helpers.RebootForApplicationMaintenance();
+                RebootForApplicationMaintenance();
             }
             else
             {
@@ -255,7 +258,8 @@ J'ai fermé tout programme non essentiel
         };
 
         _uiStep = UIStep.Warning;
-        _ = warningPage.ShowDialog(Form.ActiveForm);
+
+        _ = warningPage.ShowDialog();
     }
 
     #endregion Private Methods

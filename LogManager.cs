@@ -3,8 +3,6 @@
 using CsvHelper;
 using CsvHelper.Configuration;
 
-using RaphaëlBardini.WinClean.Logic;
-
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;

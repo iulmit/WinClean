@@ -4,9 +4,7 @@ using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean;
 
-/// <summary>
-/// Simple container for a handle which implements <see cref="IWin32Window"/>.
-/// </summary>
+/// <summary>Simple container for a handle which implements <see cref="IWin32Window"/>.</summary>
 public record struct Win32Window : IWin32Window
 {
     #region Public Constructors

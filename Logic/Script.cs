@@ -3,9 +3,9 @@
 using RaphaëlBardini.WinClean.Operational;
 
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
-using System.Linq;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
@@ -31,7 +31,9 @@ public class Script : ListViewItem, IScript
     /// <summary>Initializes a new instance of the <see cref="Script"/> class from the specified XML script file.</summary>
     /// <param name="filename">The name of the XML file containing this script's metadata, located in the scripts dir.</param>
     /// <param name="displayInto">The list view in which the script will be displayed.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="filename"/> or <paramref name="displayInto"/> are <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="filename"/> or <paramref name="displayInto"/> are <see langword="null"/>.
+    /// </exception>
     /// <exception cref="ArgumentException"><paramref name="filename"/> is not a valid filename.</exception>
     /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="filename"/> cannot be accessed.</exception>
     public Script(string filename)
@@ -45,23 +47,23 @@ public class Script : ListViewItem, IScript
 
         XmlDocument doc = CreateDoc();
 
-        Name = doc.GetElementsByTagName(nameof(Name))[0].FailNull().InnerText;
+        Name = doc.GetElementsByTagName(nameof(Name))[0].FailNull().InnerText.Trim();
 
-        _file = new($"{Name.ToFilename()}.xml");
+        _file = new(AppDir.ScriptsDir.Instance.Join($"{Name.ToFilename()}.xml"));
 
-        Description = doc.GetElementsByTagName(nameof(Description))[0].FailNull().InnerText;
+        Description = doc.GetElementsByTagName(nameof(Description))[0].FailNull().InnerText.Trim();
 
-        Advised = ScriptAdvised.ParseName(doc.GetElementsByTagName(nameof(Advised))[0].FailNull().InnerText);
+        Advised = ScriptAdvised.ParseName(doc.GetElementsByTagName(nameof(Advised))[0].FailNull().InnerText.Trim());
 
-        Group = AppDir.GroupsFile.Instance.Groups.FailNull().FirstOrDefault(group => group.Name == doc.GetElementsByTagName(nameof(Group))[0].FailNull().InnerText);
+        Group = AppDir.GroupsFile.Instance.Groups.FirstOrDefault(group => group.Header == doc.GetElementsByTagName(nameof(Group))[0].FailNull().InnerText.Trim());
 
-        Extension = doc.GetElementsByTagName(nameof(Extension))[0].FailNull().InnerText;
+        Extension = doc.GetElementsByTagName(nameof(Extension))[0].FailNull().InnerText.Trim();
 
-        Code = doc.GetElementsByTagName(nameof(Code))[0].FailNull().InnerXml;
+        Code = doc.GetElementsByTagName(nameof(Code))[0].FailNull().InnerXml.Trim();
 
         XmlElement impactElement = (XmlElement)doc.GetElementsByTagName(nameof(Impact))[0].FailNull();
-        Impact = new(ImpactLevel.ParseName(impactElement.GetAttribute(nameof(Impact.Level))),
-                     ImpactEffect.ParseName(impactElement.GetAttribute(nameof(Impact.Effect))));
+        Impact = new(ImpactLevel.ParseName(impactElement.GetAttribute(nameof(Impact.Level)).Trim()),
+                     ImpactEffect.ParseName(impactElement.GetAttribute(nameof(Impact.Effect)).Trim()));
 
         XmlDocument CreateDoc()
         {
@@ -78,6 +80,7 @@ public class Script : ListViewItem, IScript
             return d;
         }
     }
+
     /// <summary>Initializes a new instance of the <see cref="Script"/> class with the specified data.</summary>
     /// <param name="name">A brief infinitive sentence that describes the functionnality of this script.</param>
     /// <param name="description">Details on how this scripts work and what the effects of executing it would be.</param>
@@ -91,14 +94,14 @@ public class Script : ListViewItem, IScript
     {
         _ = source ?? throw new ArgumentNullException(nameof(source));
 
-        Name = name ?? throw new ArgumentNullException(nameof(name));
+        Name = name?.Trim() ?? throw new ArgumentNullException(nameof(name));
         _file = new(AppDir.ScriptsDir.Instance.Join($"{Name.ToFilename()}.xml"));
-        Description = description ?? throw new ArgumentNullException(nameof(description));
+        Description = description?.Trim() ?? throw new ArgumentNullException(nameof(description));
         Advised = advised;
         Impact = impact ?? throw new ArgumentNullException(nameof(impact));
         Group = group;
-        Extension = source.Extension;
-        Code = GetCode();
+        Extension = source.Extension.Trim();
+        Code = GetCode().Trim();
 
         string GetCode()
         {

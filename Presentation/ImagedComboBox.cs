@@ -1,6 +1,4 @@
-﻿using RaphaëlBardini.WinClean.Logic;
-
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.Presentation;
@@ -35,7 +33,7 @@ public class ImagedComboBox : ComboBox
             {
                 if (icbitem.Image is not null)
                 {
-                    e.Graphics.DrawImage(icbitem.Image, icbitem.Image.Size.CenterIn(e.Bounds).Location);
+                    e.Graphics.DrawImage(icbitem.Image, Center(icbitem.Image.Size, e.Bounds).Location);
                 }
                 DrawText(icbitem.Text);
             }
@@ -54,6 +52,15 @@ public class ImagedComboBox : ComboBox
             }
         }
     }
+    private static RectangleF Center(SizeF child, RectangleF parent) => new(parent.Location + parent.Size / 2 - child / 2, child);
 
+    private static Rectangle Center(Size child, Rectangle parent)
+    {
+        RectangleF rF = Center(child, (RectangleF)parent);
+        return new Rectangle(Convert.ToInt32(rF.X),
+                             Convert.ToInt32(rF.Y),
+                             Convert.ToInt32(rF.Height),
+                             Convert.ToInt32(rF.Width));
+    }
     #endregion Protected Methods
 }

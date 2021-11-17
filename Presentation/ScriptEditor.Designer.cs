@@ -32,18 +32,17 @@ partial class ScriptEditor
             this.textBoxCode = new System.Windows.Forms.TextBox();
             this.buttonExecute = new System.Windows.Forms.Button();
             this.comboBoxAdvised = new System.Windows.Forms.ComboBox();
-            this.comboBoxGroup = new System.Windows.Forms.ComboBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.impactEditor = new RaphaëlBardini.WinClean.Presentation.ImpactEditor();
+            this.textBoxGroup = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxCode
             // 
             this.textBoxCode.AcceptsReturn = true;
             this.textBoxCode.AcceptsTab = true;
-            this.textBoxCode.BackColor = System.Drawing.Color.WhiteSmoke;
             this.textBoxCode.CausesValidation = false;
             resources.ApplyResources(this.textBoxCode, "textBoxCode");
             this.textBoxCode.Name = "textBoxCode";
@@ -66,18 +65,8 @@ partial class ScriptEditor
             this.comboBoxAdvised.Name = "comboBoxAdvised";
             this.comboBoxAdvised.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAdvised_SelectedIndexChanged);
             // 
-            // comboBoxGroup
-            // 
-            this.comboBoxGroup.CausesValidation = false;
-            this.comboBoxGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxGroup.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxGroup, "comboBoxGroup");
-            this.comboBoxGroup.Name = "comboBoxGroup";
-            this.comboBoxGroup.SelectedIndexChanged += new System.EventHandler(this.ComboBoxGroup_SelectedIndexChanged);
-            // 
             // textBoxDescription
             // 
-            this.textBoxDescription.BackColor = System.Drawing.Color.WhiteSmoke;
             this.textBoxDescription.CausesValidation = false;
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
             this.textBoxDescription.Name = "textBoxDescription";
@@ -86,7 +75,6 @@ partial class ScriptEditor
             // textBoxName
             // 
             this.textBoxName.AcceptsReturn = true;
-            this.textBoxName.BackColor = System.Drawing.Color.WhiteSmoke;
             this.textBoxName.CausesValidation = false;
             resources.ApplyResources(this.textBoxName, "textBoxName");
             this.textBoxName.Name = "textBoxName";
@@ -106,14 +94,22 @@ partial class ScriptEditor
             this.impactEditor.Name = "impactEditor";
             this.impactEditor.Selected = null;
             // 
+            // textBoxGroup
+            // 
+            this.textBoxGroup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.textBoxGroup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            resources.ApplyResources(this.textBoxGroup, "textBoxGroup");
+            this.textBoxGroup.Name = "textBoxGroup";
+            this.textBoxGroup.TextChanged += new System.EventHandler(this.TextBoxGroup_TextChanged);
+            // 
             // ScriptEditor
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.textBoxGroup);
             this.Controls.Add(this.impactEditor);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.buttonExecute);
             this.Controls.Add(this.textBoxCode);
-            this.Controls.Add(this.comboBoxGroup);
             this.Controls.Add(this.comboBoxAdvised);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.buttonDelete);
@@ -131,9 +127,9 @@ partial class ScriptEditor
     private System.Windows.Forms.TextBox textBoxCode;
     private System.Windows.Forms.Button buttonExecute;
     private System.Windows.Forms.ComboBox comboBoxAdvised;
-    private System.Windows.Forms.ComboBox comboBoxGroup;
     private System.Windows.Forms.TextBox textBoxDescription;
     private System.Windows.Forms.TextBox textBoxName;
     private System.Windows.Forms.Button buttonDelete;
     private ImpactEditor impactEditor;
+    private System.Windows.Forms.TextBox textBoxGroup;
 }

@@ -44,8 +44,8 @@ public partial class ScriptEditor : UserControl
             textBoxDescription.Text = value?.Description;
             comboBoxAdvised.SelectedItem = value?.Advised.LocalizedName;
 
-            comboBoxGroup.DataSource = AppDir.GroupsFile.Instance.Groups;
-            comboBoxGroup.SelectedItem = value?.Group;
+            textBoxGroup.AutoCompleteCustomSource.AddRange(AppDir.GroupsFile.Instance.Groups.Select(group => group.Header).ToArray());
+            textBoxGroup.Text = value?.Group.Header;
 
             textBoxCode.Text = value?.Code;
             impactEditor.Selected = value?.Impact;
@@ -60,7 +60,7 @@ public partial class ScriptEditor : UserControl
 
     private void ButtonDelete_Click(object _, EventArgs __)
     {
-        if (_selected is not null && ErrorDialog.ConfirmScriptDeletion())
+        if (_selected is not null)
         {
             _selected.Delete();
         }
@@ -82,30 +82,42 @@ public partial class ScriptEditor : UserControl
             _selected.Advised = ScriptAdvised.ParseLocalizedName((string)comboBoxAdvised.SelectedItem);
         }
     }
-
-    private void ComboBoxGroup_SelectedIndexChanged(object _, EventArgs __)
+    private void TextBoxGroup_TextChanged(object _, EventArgs __)
     {
-        if (_selected is not null)
+        if (_selected is not null && !string.IsNullOrWhiteSpace(textBoxGroup.Text))
         {
-            _selected.Group = (ListViewGroup)comboBoxGroup.SelectedItem;
+            ListViewGroup? foundExistingGroup = AppDir.GroupsFile.Instance.Groups.FirstOrDefault(group => group.Header == textBoxGroup.Text.Trim());
+            if (foundExistingGroup is null)
+            {
+                ListViewGroup newGroup = new(textBoxGroup.Text.Trim());
+
+                _ = _selected.Group.ListView.FailNull().Groups.Add(newGroup);
+                _selected.Group = newGroup;
+
+                AppDir.GroupsFile.Instance.Groups.Add(newGroup);
+            }
+            else
+            {
+                _selected.Group = foundExistingGroup;
+            }
         }
     }
-
     private void ScriptEditor_Leave(object _, EventArgs __) => PrepareForAnother();
 
     private void ScriptEditor_Resize(object _, EventArgs __)
     {
         SuspendLayout();
 
-        // TextBoxes
+        // Fullwidth controls
         ChangeWidth(textBoxName, Width);
         ChangeWidth(textBoxDescription, Width);
         ChangeWidth(textBoxCode, Width);
+        ChangeWidth(impactEditor, Width);
 
-        // ComboBoxes
+        // Advised and group
         const int ComboBoxSpacing = 11;
         int cBoxWidth = (int)(Width / 2D - ComboBoxSpacing / 2D);
-        ChangeWidth(comboBoxGroup, cBoxWidth);
+        ChangeWidth(textBoxGroup, cBoxWidth);
         ChangeWidth(comboBoxAdvised, cBoxWidth);
         comboBoxAdvised.Location = new(Width - cBoxWidth, comboBoxAdvised.Location.Y);
 
@@ -114,15 +126,12 @@ public partial class ScriptEditor : UserControl
         buttonExecute.Location = new((int)(Width / 2D - ButtonSpacing / 2D - buttonExecute.Width), buttonExecute.Location.Y);
         buttonDelete.Location = new((int)(Width / 2D + ButtonSpacing / 2D), buttonDelete.Location.Y);
 
-        // Impact Editor
-        impactEditor.Width = Width;
-
         ResumeLayout();
     }
 
     private void TextBoxCode_TextChanged(object _, EventArgs __)
     {
-        if (_selected is not null)
+        if (_selected is not null && _selected.Code != textBoxCode.Text)
         {
             _selected.Code = textBoxCode.Text;
         }
@@ -130,7 +139,7 @@ public partial class ScriptEditor : UserControl
 
     private void TextBoxDescription_TextChanged(object _, EventArgs __)
     {
-        if (_selected is not null)
+        if (_selected is not null && _selected.Description != textBoxDescription.Text)
         {
             _selected.Description = textBoxDescription.Text;
         }
@@ -138,7 +147,7 @@ public partial class ScriptEditor : UserControl
 
     private void TextBoxName_TextChanged(object _, EventArgs __)
     {
-        if (_selected is not null)
+        if (_selected is not null && _selected.Name != textBoxName.Text)
         {
             _selected.Name = textBoxName.Text;
         }

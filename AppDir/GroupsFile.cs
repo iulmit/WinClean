@@ -1,7 +1,6 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -9,9 +8,7 @@ using WinCopies.Collections;
 
 namespace RaphaëlBardini.WinClean.AppDir
 {
-    /// <summary>
-    /// Represents the groups file in the application root directory.
-    /// </summary>
+    /// <summary>Represents the groups file in the application root directory.</summary>
     public class GroupsFile
     {
         #region Private Fields
@@ -32,67 +29,63 @@ namespace RaphaëlBardini.WinClean.AppDir
 
         public static GroupsFile Instance { get; } = new();
 
-        /// <summary>
-        /// Gets the loaded groups
-        /// </summary>
-        /// <value>Groups loaded by <see cref="LoadGroups(ListView?)"/>. If the method has yet not been called, <see langword="null"/>.</value>
-        public IList<ListViewGroup>? Groups { get; private set; }
+        /// <summary>Gets the loaded groups</summary>
+        /// <value>Groups loaded by <see cref="LoadGroups(ListView?)"/>. If the method has yet not been called, an empty list of groups.</value>
+        public IList<ListViewGroup> Groups { get; } = new List<ListViewGroup>();
 
         #endregion Public Properties
 
         #region Public Methods
 
-        /// <summary>
-        /// Loads all the saved groups into the specified <see cref="ListView"/> control.
-        /// </summary>
+        /// <summary>Loads all the saved groups into the specified <see cref="ListView"/> control.</summary>
         /// <param name="owner">The control to add the loaded groups to. Can be null to only get the get the groups.</param>
-        public void LoadGroups(ListView? owner)
+        /// <exception cref="ArgumentNullException"><paramref name="owner"/> is <see langword="null"/>.</exception>
+        public void LoadGroups(ListView owner)
         {
-            Groups = new List<ListViewGroup>();
+            _ = owner ?? throw new ArgumentNullException(nameof(owner));
 
-            if (s_groupsFile.Exists && s_groupsFile.Length > 0)
+            if (s_groupsFile.Exists)
             {
                 XmlDocument doc = new();
 
-                using FileStream groupsFile = s_groupsFile.OpenRead();
                 {
-                    doc.Load(groupsFile);
+                    try
+                    {
+                        using FileStream groupsFile = s_groupsFile.OpenRead();
+                        {
+                            doc.Load(groupsFile);
+                        }
+                    }
+                    catch (Exception e) when (e is XmlException || e.FileSystem())
+                    {
+                        // The file may be corrupted, so overwrite with a fresh new group file, with no saved groups.
+                        SaveGroups();
+                    }
 
-                    XmlNode? root = doc.GetElementsByTagName("Groups")[0];
-                    Assert(doc.FirstChild is not null && root is not null);
+                    XmlNode root = doc.GetElementsByTagName("Groups")[0].FailNull();
+
                     foreach (XmlElement element in root.ChildNodes)
                     {
                         ListViewGroup group = FetchGroupFromAttributes(element);
 
-                        if (owner is not null)
-                        {
-                            _ = owner.Groups.AddIfNotContains(group);
-                        }
+                        _ = owner.Groups.AddIfNotContains(group);
                         Groups.Add(group);
                     }
                 }
             }
             else
             {
-                SaveGroups(Array.Empty<ListViewGroup>());
+                SaveGroups();
             }
 
             static ListViewGroup FetchGroupFromAttributes(XmlElement n) => new()
             {
-                CollapsedState = Enum.Parse<ListViewGroupCollapsedState>(n.GetAttribute(nameof(ListViewGroup.CollapsedState))),
-                Footer = n.GetAttribute(nameof(ListViewGroup.Footer)),
-                FooterAlignment = Enum.Parse<HorizontalAlignment>(n.GetAttribute(nameof(ListViewGroup.FooterAlignment))),
-                Header = n.GetAttribute(nameof(ListViewGroup.Header)),
-                HeaderAlignment = Enum.Parse<HorizontalAlignment>(n.GetAttribute(nameof(ListViewGroup.HeaderAlignment))),
-                Name = n.GetAttribute(nameof(ListViewGroup.Name)),
-                Subtitle = n.GetAttribute(nameof(ListViewGroup.Subtitle)),
-                TaskLink = n.GetAttribute(nameof(ListViewGroup.TaskLink)),
-                TitleImageIndex = int.Parse(n.GetAttribute(nameof(ListViewGroup.TitleImageIndex)), CultureInfo.InvariantCulture),
-                TitleImageKey = n.GetAttribute(nameof(ListViewGroup.TitleImageKey)),
+                CollapsedState = Enum.Parse<ListViewGroupCollapsedState>(n.GetAttribute(nameof(ListViewGroup.CollapsedState)).Trim()),
+                Header = n.GetAttribute(nameof(ListViewGroup.Header)).Trim(),
             };
         }
 
-        public void SaveGroups(IEnumerable<ListViewGroup> groups)
+        public void SaveGroups()
         {
             XmlDocument doc = new();
 
@@ -100,9 +93,12 @@ namespace RaphaëlBardini.WinClean.AppDir
 
             XmlElement root = doc.CreateElement("Groups");
 
-            foreach (ListViewGroup group in groups ?? throw new ArgumentNullException(nameof(groups)))
+            foreach (ListViewGroup group in Groups)
             {
-                AppendGroupToRoot(group);
+                if (group.Items.Count > 0)
+                {
+                    AppendGroupToRoot(group);
+                }
             }
 
             _ = doc.AppendChild(root);
@@ -113,8 +109,7 @@ namespace RaphaëlBardini.WinClean.AppDir
             {
                 try
                 {
-                    using FileStream groupsFile = s_groupsFile.OpenWrite();
-                    doc.Save(groupsFile);
+                    doc.Save(s_groupsFile.FullName);
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
@@ -126,15 +121,7 @@ namespace RaphaëlBardini.WinClean.AppDir
                 XmlElement n = doc.CreateElement("Group");
 
                 n.SetAttribute(nameof(ListViewGroup.CollapsedState), Enum.GetName<ListViewGroupCollapsedState>(group.CollapsedState));
-                n.SetAttribute(nameof(ListViewGroup.Footer), group.Footer);
-                n.SetAttribute(nameof(ListViewGroup.FooterAlignment), Enum.GetName<HorizontalAlignment>(group.FooterAlignment));
                 n.SetAttribute(nameof(ListViewGroup.Header), group.Header);
-                n.SetAttribute(nameof(ListViewGroup.HeaderAlignment), Enum.GetName<HorizontalAlignment>(group.HeaderAlignment));
-                n.SetAttribute(nameof(ListViewGroup.Name), group.Name);
-                n.SetAttribute(nameof(ListViewGroup.Subtitle), group.Subtitle);
-                n.SetAttribute(nameof(ListViewGroup.TaskLink), group.TaskLink);
-                n.SetAttribute(nameof(ListViewGroup.TitleImageIndex), group.TitleImageIndex.ToString(CultureInfo.InvariantCulture));
-                n.SetAttribute(nameof(ListViewGroup.TitleImageKey), group.TitleImageKey);
 
                 _ = root.AppendChild(n);
             }
