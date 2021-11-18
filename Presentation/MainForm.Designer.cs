@@ -266,7 +266,6 @@ partial class MainForm
             this.listViewScripts.View = System.Windows.Forms.View.Details;
             this.listViewScripts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.ListViewScripts_ItemChecked);
             this.listViewScripts.SelectedIndexChanged += new System.EventHandler(this.ListViewScripts_SelectedIndexChanged);
-            this.listViewScripts.Leave += new System.EventHandler(this.ListViewScripts_Leave);
             this.listViewScripts.Resize += new System.EventHandler(this.ListViewScripts_Resize);
             // 
             // scriptHeaderName

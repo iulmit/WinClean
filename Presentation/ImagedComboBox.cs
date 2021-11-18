@@ -16,7 +16,7 @@ public class ImagedComboBox : ComboBox
 
     protected override void OnDrawItem(DrawItemEventArgs e)
     {
-        Assert(e is not null);
+        _ = e ?? throw new ArgumentNullException(nameof(e));
 
         e.DrawBackground();
         e.DrawFocusRectangle();

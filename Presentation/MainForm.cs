@@ -6,6 +6,8 @@ using RaphaëlBardini.WinClean.Operational;
 using System.Linq;
 using System.Windows.Forms;
 
+using WinCopies.Collections;
+
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>
@@ -64,8 +66,7 @@ public partial class MainForm : Form
             placeholder.Save();
         }*/
 
-        AppDir.GroupsFile.Instance.LoadGroups(listViewScripts);
-        listViewScripts.Items.AddRange(AppDir.ScriptsDir.Instance.LoadAllScripts().ToArray());
+        AppDir.ScriptsDir.Instance.LoadScripts(listViewScripts);
 
         Text = $"{Application.ProductName} {Application.ProductVersion}";
 
@@ -95,7 +96,7 @@ public partial class MainForm : Form
         {
             foreach (string newScriptPath in openFileDialogScripts.FileNames)
             {
-                _ = listViewScripts.Items.Add(new Script("Nouveau script", "Entrez les détails de fonctionnement du script...", ScriptAdvised.No, new(), null, new(newScriptPath)));
+                _ = listViewScripts.Items.Add(new Script("Nouveau script", "Entrez les détails de fonctionnement du script...", ScriptAdvised.No, new(), listViewScripts.Groups.Add("Nouveau groupe", "Nouveau groupe"), new(newScriptPath)));
             }
         }
     }
@@ -141,8 +142,6 @@ public partial class MainForm : Form
     #region listViewScripts
 
     private void ListViewScripts_ItemChecked(object _, ItemCheckedEventArgs __) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
-
-    private void ListViewScripts_Leave(object _, EventArgs __) => AppDir.GroupsFile.Instance.SaveGroups();
 
     /// <summary>
     /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see

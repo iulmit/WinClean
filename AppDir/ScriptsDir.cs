@@ -4,6 +4,7 @@ using RaphaëlBardini.WinClean.Logic;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace RaphaëlBardini.WinClean.AppDir;
 
@@ -18,18 +19,16 @@ public class ScriptsDir
 
         DirectoryInfo GetOrCreate()
         {
-            string scriptsDirpath = Path.Join(Program.AppDir.FullName, "Scripts");
-
-            DirectoryInfo created = null!;
+            DirectoryInfo info = new(Path.Join(Program.AppDir.FullName, "Scripts"));
             try
             {
-                created = Directory.CreateDirectory(scriptsDirpath);
+                info.Create();
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.CantCreateDirectory(e, scriptsDirpath, () => created = GetOrCreate());
+                ErrorDialog.CantCreateDirectory(e, info, () => info = GetOrCreate());
             }
-            return created;
+            return info;
         }
     }
 
@@ -38,6 +37,8 @@ public class ScriptsDir
     #region Public Properties
 
     public static ScriptsDir Instance { get; } = new();
+
+    public IEnumerable<string> Groups => Info.EnumerateDirectories().Select((dir) => dir.Name);
 
     /// <summary>The <see cref="DirectoryInfo"/> representing the scripts directory.</summary>
     public DirectoryInfo Info { get; }
@@ -52,16 +53,16 @@ public class ScriptsDir
     public string Join(params string[] paths) => Path.Join(paths.Prepend(Info.FullName).ToArray());
 
     /// <summary>Loads all the scripts present in the scripts directory.</summary>
-    /// <param name="loadInto">The listView to load the scripts into.</param>
+    /// <param name="owner">The listView to load the scripts into.</param>
     /// <returns>The scripts previously saved into the scripts dir.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="loadInto"/> is <see langword="null"/>.</exception>
-    public IEnumerable<Script> LoadAllScripts()
+    /// <exception cref="ArgumentNullException"><paramref name="owner"/> is <see langword="null"/>.</exception>
+    public void LoadScripts(ListView owner)
     {
-        foreach (FileInfo script in Info.EnumerateFiles("*.xml"))
+        _ = owner ?? throw new ArgumentNullException(nameof(owner));
+        foreach (FileInfo script in Info.EnumerateFiles("*.xml", SearchOption.AllDirectories))
         {
-            yield return new Script(script.Name);
+            _ = owner.Items.Add(new Script(script, owner));
         }
     }
-
     #endregion Public Methods
 }

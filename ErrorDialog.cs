@@ -21,45 +21,50 @@ public class ErrorDialog : TaskDialogPage
 
     #region Public Methods
 
-    /// <summary>File inacessible error.</summary>
-    /// <param name="path">The path of the inacessible file.</param>
     /// <param name="e">The exception that caused the error.</param>
+    /// <param name="file">The inacessible file.</param>
     /// <inheritdoc cref="DeleteRetryIgnore(Action?, Action?, Action?)"/>
-    public static void CantAcessFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
+    public static void CantAcessFile(Exception e, FileInfo file, Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
         Heading = "Fichier inacessible",
-        Text = $"Le fichier \"{path}\" est inacessible. {e?.Message}"
+        Text = $"Le fichier \"{file?.FullName}\" est inacessible. {e?.Message}"
     }.RetryExit(retry);
 
-    /// <summary>Can't create directory error.</summary>
     /// <param name="e">The exception that caused the error.</param>
-    /// <param name="path">The path of the directory that couldn't be created.</param>
+    /// <param name="directory">The directory that couldn't be created.</param>
     /// <inheritdoc cref="RetryExit(Action?, Action?)"/>
-    public static void CantCreateDirectory(Exception e, string path, Action? retry = null) => new ErrorDialog()
+    public static void CantCreateDirectory(Exception e, DirectoryInfo directory, Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le dossier \"{path}\". {e?.Message}"
+        Text = $"Impossible de créer le dossier \"{directory?.FullName}\". {e?.Message}"
     }.RetryExit(retry);
 
-    /// <summary>Can't create file error.</summary>
     /// <param name="e">The exception that caused the error.</param>
-    /// <param name="path">The path of the file that couldn't be created.</param>
+    /// <param name="file">The file that couldn't be created.</param>
     /// <inheritdoc cref="RetryExit(Action?, Action?)"/>
-    public static void CantCreateFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
+    public static void CantCreateFile(Exception e, FileInfo file, Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de créer le fichier \"{path}\". {e?.Message}"
+        Text = $"Impossible de créer le fichier \"{file?.FullName}\". {e?.Message}"
     }.RetryExit(retry);
 
-    /// <summary>Can't create log file error.</summary>
     /// <param name="e">The exception that caused the error.</param>
-    /// <param name="path">The path of the file that couldn't be deleted.</param>
+    /// <param name="file">Tthe file that couldn't be deleted.</param>
     /// <inheritdoc cref="RetryIgnore(Action?, Action?)"/>
-    public static void CantDeleteFile(Exception e, string path, Action? retry = null) => new ErrorDialog()
+    public static void CantDeleteFile(Exception e, FileInfo file, Action? retry = null) => new ErrorDialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"Impossible de supprimer le fichier \"{path}\". {e?.Message}"
+        Text = $"Impossible de supprimer le fichier \"{file?.FullName}\". {e?.Message}"
+    }.RetryExit(retry);
+
+    /// <param name="e">The exception that caused the error.</param>
+    /// <param name="file">Tthe directory that couldn't be deleted.</param>
+    /// <inheritdoc cref="RetryIgnore(Action?, Action?)"/>
+    public static void CantDeleteDirectory(Exception e, DirectoryInfo directory, Action? retry = null) => new ErrorDialog()
+    {
+        Icon = TaskDialogIcon.Error,
+        Text = $"Impossible de supprimer le dossier \"{directory?.FullName}\". {e?.Message}"
     }.RetryExit(retry);
 
     /// <summary>Asks the users for confirmation before exiting the application and risking data loss.</summary>

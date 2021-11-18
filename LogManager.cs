@@ -130,7 +130,7 @@ public static class LogManager
         }
         catch (IOException e)
         {
-            ErrorDialog.CantCreateDirectory(e, s_logDir.FullName, CreateLogDir);
+            ErrorDialog.CantCreateDirectory(e, s_logDir, CreateLogDir);
         }
     }
 
@@ -142,7 +142,7 @@ public static class LogManager
         }
         catch (Exception e) when (e.FileSystem())
         {
-            ErrorDialog.CantDeleteFile(e, file.FullName, () => DeleteLogFile(file));
+            ErrorDialog.CantDeleteFile(e, file, () => DeleteLogFile(file));
         }
     }
 

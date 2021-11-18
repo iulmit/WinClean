@@ -20,7 +20,7 @@ public static class Helpers
     #region Public Methods
 
     [return: NotNull]
-    public static T FailNull<T>(this T? t) where T : class
+    public static T AssertNotNull<T>(this T? t) where T : class
     {
         Assert(t is not null, $"Null at {new StackFrame(1, true)}");
         return t;

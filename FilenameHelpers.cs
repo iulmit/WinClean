@@ -13,7 +13,7 @@ namespace RaphaëlBardini.WinClean
         /// <see langword="true"/> if <paramref name="filenameCandidate"/> can be a filename, otherwise; <see langword="false"/>.
         /// This method returns <see langword="false"/> if <paramref name="filenameCandidate"/> is <see langword="null"/>.
         /// </returns>
-        public static bool IsValidFilename(this string filenameCandidate)
+        public static bool IsValidFilename(this string? filenameCandidate)
             => !string.IsNullOrWhiteSpace(filenameCandidate)
                   && filenameCandidate.Length <= MaxFilename
                   && filenameCandidate.IndexOfAny(Path.GetInvalidFileNameChars()) == -1;

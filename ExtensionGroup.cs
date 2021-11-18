@@ -20,11 +20,8 @@ public class ExtensionGroup : IReadOnlyCollection<string>
     #region Public Constructors
 
     /// <param name="extensions">The extensions in the group.</param>
-    public ExtensionGroup(IEnumerable<string> extensions)
-    {
-        Assert(extensions is not null);
-        _extensions = extensions.ToList();
-    }
+    /// <exception cref="ArgumentNullException"><paramref name="extensions"/> is <see langword="null"/>.</exception>
+    public ExtensionGroup(IEnumerable<string> extensions) => _extensions = (extensions ?? throw new ArgumentNullException(nameof(extensions))).ToList();
 
     /// <inheritdoc cref="ExtensionGroup(IEnumerable{string})"/>
     public ExtensionGroup(params string[] extensionsParam) : this(extensions: extensionsParam)

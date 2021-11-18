@@ -63,7 +63,7 @@ public partial class ImpactEditor : UserControl
     {
         if (_selected is not null && imagedComboBoxLevel.SelectedItem is not null)
         {
-            _selected.Level = (ImpactLevel)((ImagedComboBoxItem)imagedComboBoxLevel.SelectedItem).Tag.FailNull();
+            _selected.Level = (ImpactLevel)((ImagedComboBoxItem)imagedComboBoxLevel.SelectedItem).Tag.AssertNotNull();
         }
     }
 

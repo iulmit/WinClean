@@ -13,11 +13,17 @@ namespace RaphaëlBardini.WinClean.Logic;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237", Justification = "Binary serialization is not supported")]
 public class Script : ListViewItem, IScript
 {
+    private FileInfo GetFile(string groupHeader)
+    {
+        Assert(groupHeader.IsValidFilename());
+        return new(AppDir.ScriptsDir.Instance.Join(groupHeader, $"{Name.ToFilename()}.xml"));
+    }
+
     #region Private Fields
 
     #region Constants
 
-    private const byte RecommendedColorAlpha = 48;
+    private const byte AdvisedColorAlpha = 48;
 
     #endregion Constants
 
@@ -29,53 +35,45 @@ public class Script : ListViewItem, IScript
     #region Public Constructors
 
     /// <summary>Initializes a new instance of the <see cref="Script"/> class from the specified XML script file.</summary>
-    /// <param name="filename">The name of the XML file containing this script's metadata, located in the scripts dir.</param>
-    /// <param name="displayInto">The list view in which the script will be displayed.</param>
+    /// <param name="file">The XML file containing this script's metadata, located in a group subdirectory of the scripts dir.</param>
+    /// <param name="owner">The list view in which the script will be displayed.</param>
     /// <exception cref="ArgumentNullException">
-    /// <paramref name="filename"/> or <paramref name="displayInto"/> are <see langword="null"/>.
+    /// <paramref name="file"/> or <paramref name="owner"/> are <see langword="null"/>.
     /// </exception>
-    /// <exception cref="ArgumentException"><paramref name="filename"/> is not a valid filename.</exception>
     /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="filename"/> cannot be accessed.</exception>
-    public Script(string filename)
+    public Script(FileInfo file, ListView owner)
     {
-        _ = filename ?? throw new ArgumentNullException(nameof(filename));
-
-        if (!filename.IsValidFilename())
-        {
-            throw new ArgumentException("Not a valid filename", nameof(filename));
-        }
-
+        _ = owner ?? throw new ArgumentNullException(nameof(owner));
+        _file = file ?? throw new ArgumentNullException(nameof(file));
         XmlDocument doc = CreateDoc();
 
-        Name = doc.GetElementsByTagName(nameof(Name))[0].FailNull().InnerText.Trim();
+        Name = doc.GetElementsByTagName(nameof(Name))[0].AssertNotNull().InnerText.Trim();
 
-        _file = new(AppDir.ScriptsDir.Instance.Join($"{Name.ToFilename()}.xml"));
+        Description = doc.GetElementsByTagName(nameof(Description))[0].AssertNotNull().InnerText.Trim();
 
-        Description = doc.GetElementsByTagName(nameof(Description))[0].FailNull().InnerText.Trim();
+        Advised = ScriptAdvised.ParseName(doc.GetElementsByTagName(nameof(Advised))[0].AssertNotNull().InnerText.Trim());
 
-        Advised = ScriptAdvised.ParseName(doc.GetElementsByTagName(nameof(Advised))[0].FailNull().InnerText.Trim());
+        string groupDirName = _file.Directory!.Name; // ! : wont return null as _file will never be a root directory
+        Group = owner.Groups[groupDirName] ?? owner.Groups.Add(groupDirName, groupDirName);
 
-        Group = AppDir.GroupsFile.Instance.Groups.FirstOrDefault(group => group.Header == doc.GetElementsByTagName(nameof(Group))[0].FailNull().InnerText.Trim());
+        Extension = doc.GetElementsByTagName(nameof(Extension))[0].AssertNotNull().InnerText.Trim();
 
-        Extension = doc.GetElementsByTagName(nameof(Extension))[0].FailNull().InnerText.Trim();
+        Code = doc.GetElementsByTagName(nameof(Code))[0].AssertNotNull().InnerXml.Trim();
 
-        Code = doc.GetElementsByTagName(nameof(Code))[0].FailNull().InnerXml.Trim();
-
-        XmlElement impactElement = (XmlElement)doc.GetElementsByTagName(nameof(Impact))[0].FailNull();
+        XmlElement impactElement = (XmlElement)doc.GetElementsByTagName(nameof(Impact))[0].AssertNotNull();
         Impact = new(ImpactLevel.ParseName(impactElement.GetAttribute(nameof(Impact.Level)).Trim()),
                      ImpactEffect.ParseName(impactElement.GetAttribute(nameof(Impact.Effect)).Trim()));
 
         XmlDocument CreateDoc()
         {
             XmlDocument d = new();
-            string xmlFilePath = AppDir.ScriptsDir.Instance.Join(filename);
             try
             {
-                d.Load(xmlFilePath);
+                d.Load(_file.FullName);
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.CantAcessFile(e, xmlFilePath, () => d = CreateDoc());
+                ErrorDialog.CantAcessFile(e, _file, () => d = CreateDoc());
             }
             return d;
         }
@@ -86,16 +84,17 @@ public class Script : ListViewItem, IScript
     /// <param name="description">Details on how this scripts work and what the effects of executing it would be.</param>
     /// <param name="advised">If running this script is advised in general purpose.</param>
     /// <param name="impact">System impacts of running this script.</param>
-    /// <param name="group">The list view group the script will be part of. This parameter can be <see langword="null"/>.</param>
+    /// <param name="group">The list view group to contain the script in.</param>
     /// <param name="source">The source script file.</param>
     /// <exception cref="ArgumentNullException">One or more parameters are <see langword="null"/>.</exception>
     /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="source"/> cannot be accessed.</exception>
-    public Script(string name, string description, ScriptAdvised advised, Impact impact, ListViewGroup? group, FileInfo source)
+    public Script(string name, string description, ScriptAdvised advised, Impact impact, ListViewGroup group, FileInfo source)
     {
         _ = source ?? throw new ArgumentNullException(nameof(source));
+        _ = group ?? throw new ArgumentNullException(nameof(group));
 
         Name = name?.Trim() ?? throw new ArgumentNullException(nameof(name));
-        _file = new(AppDir.ScriptsDir.Instance.Join($"{Name.ToFilename()}.xml"));
+        _file = new(AppDir.ScriptsDir.Instance.Join(group.Header, $"{Name.ToFilename()}.xml"));
         Description = description?.Trim() ?? throw new ArgumentNullException(nameof(description));
         Advised = advised;
         Impact = impact ?? throw new ArgumentNullException(nameof(impact));
@@ -112,7 +111,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.CantAcessFile(e, source.FullName, () => code = GetCode());
+                ErrorDialog.CantAcessFile(e, source, () => code = GetCode());
             }
             return code;
         }
@@ -130,7 +129,7 @@ public class Script : ListViewItem, IScript
         set
         {
             _advised = value ?? throw new ArgumentNullException(nameof(value));
-            BackColor = EmulateAlpha(value.Color, Color.White, RecommendedColorAlpha);
+            BackColor = EmulateAlpha(value.Color, Color.White, AdvisedColorAlpha);
         }
     }
 
@@ -157,7 +156,7 @@ public class Script : ListViewItem, IScript
         }
         catch (Exception e) when (e.FileSystem())
         {
-            ErrorDialog.CantDeleteFile(e, _file.FullName, Delete);
+            ErrorDialog.CantDeleteFile(e, _file, Delete);
         }
     }
 
@@ -207,11 +206,6 @@ public class Script : ListViewItem, IScript
 
             _ = root.AppendChild(current);
 
-            // Group
-            current = doc.CreateElement(nameof(Group));
-            current.InnerText = Group?.Name ?? string.Empty;
-            _ = root.AppendChild(current);
-
             // Code
             current = doc.CreateElement(nameof(Code));
             current.InnerText = Code;
@@ -222,13 +216,60 @@ public class Script : ListViewItem, IScript
 
         void SaveToScriptsDir()
         {
-            try
+            DeleteOldScript();
+            DeleteOldGroupDirIfEmpty();
+
+            SaveToNewLocation(Path.Join(CreateGroupDirectory().FullName, $"{Name.ToFilename()}.xml"));
+
+            void DeleteOldGroupDirIfEmpty()
             {
-                doc.Save(_file.FullName);
+                if (_file.Directory!.EnumerateFiles().Any()) // ! : _file will never be a root directory
+                {
+                    try
+                    {
+                        _file.Directory.Delete();
+                    }
+                    catch (Exception e) when (e.FileSystem())
+                    {
+                        ErrorDialog.CantDeleteDirectory(e, _file.Directory, DeleteOldGroupDirIfEmpty);
+                    }
+                }
             }
-            catch (Exception e) when (e.FileSystem())
+
+            void DeleteOldScript()
             {
-                ErrorDialog.CantCreateFile(e, _file.FullName, SaveToScriptsDir);
+                try
+                {
+                    _file.Delete();
+                }
+                catch (Exception e) when (e.FileSystem())
+                {
+                    ErrorDialog.CantDeleteFile(e, _file, DeleteOldScript);
+                }
+            }
+            DirectoryInfo CreateGroupDirectory()
+            {
+                DirectoryInfo groupDir = new(AppDir.ScriptsDir.Instance.Join(Group.Header));
+                try
+                {
+                    groupDir.Create();
+                }
+                catch (Exception e) when (e.FileSystem())
+                {
+                    ErrorDialog.CantCreateDirectory(e, groupDir, () => groupDir = CreateGroupDirectory());
+                }
+                return groupDir;
+            }
+            void SaveToNewLocation(string fullpath)
+            {
+                try
+                {
+                    doc.Save(fullpath);
+                }
+                catch (Exception e) when (e.FileSystem())
+                {
+                    ErrorDialog.CantCreateFile(e, new(fullpath), () => SaveToNewLocation(fullpath));
+                }
             }
         }
     }
