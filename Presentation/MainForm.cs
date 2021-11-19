@@ -66,7 +66,7 @@ public partial class MainForm : Form
             placeholder.Save();
         }*/
 
-        AppDir.ScriptsDir.Instance.LoadScripts(listViewScripts);
+        ScriptsDir.Instance.LoadScripts(listViewScripts);
 
         Text = $"{Application.ProductName} {Application.ProductVersion}";
 

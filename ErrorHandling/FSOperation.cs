@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RaphaëlBardini.WinClean;
+namespace RaphaëlBardini.WinClean.ErrorHandling;
 
 public class FSOperation : IEquatable<FSOperation?>
 {

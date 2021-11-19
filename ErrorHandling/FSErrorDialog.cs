@@ -2,7 +2,7 @@
 
 using System.Windows.Forms;
 
-namespace RaphaëlBardini.WinClean;
+namespace RaphaëlBardini.WinClean.ErrorHandling;
 
 public class FSErrorDialog : Dialog
 {

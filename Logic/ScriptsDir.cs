@@ -1,12 +1,12 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
-using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.ErrorHandling;
 
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace RaphaëlBardini.WinClean.AppDir;
+namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>Represents the scripts dir of the application root directory.</summary>
 public class ScriptsDir
@@ -19,7 +19,7 @@ public class ScriptsDir
 
         DirectoryInfo GetOrCreate()
         {
-            DirectoryInfo info = new(Path.Join(Program.AppDir.FullName, "Scripts"));
+            DirectoryInfo info = new(Path.Join(Program.AppDir.Info.FullName, "Scripts"));
             try
             {
                 info.Create();
@@ -38,9 +38,11 @@ public class ScriptsDir
 
     public static ScriptsDir Instance { get; } = new();
 
-    public IEnumerable<string> Groups => Info.EnumerateDirectories().Select((dir) => dir.Name);
+    /// <summary>
+    /// The group directories contained in the scripts dir.
+    /// </summary>
+    public IEnumerable<GroupDir> Groups => Info.EnumerateDirectories().Select((dir) => new GroupDir(dir));
 
-    /// <summary>The <see cref="DirectoryInfo"/> representing the scripts directory.</summary>
     public DirectoryInfo Info { get; }
 
     #endregion Public Properties

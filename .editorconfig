@@ -1193,7 +1193,7 @@ dotnet_diagnostic.CA1820.severity = warning
 
 dotnet_diagnostic.CA1821.severity = warning
 
-dotnet_diagnostic.CA1822.severity = warning
+dotnet_diagnostic.CA1822.severity =silent
 
 dotnet_diagnostic.CA1823.severity = warning
 

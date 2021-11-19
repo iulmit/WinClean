@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 using Button = System.Windows.Forms.TaskDialogButton;
 
-namespace RaphaëlBardini.WinClean;
+namespace RaphaëlBardini.WinClean.ErrorHandling;
 
 public class Dialog : TaskDialogPage
 {

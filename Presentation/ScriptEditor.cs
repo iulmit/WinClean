@@ -44,7 +44,7 @@ public partial class ScriptEditor : UserControl
             textBoxDescription.Text = value?.Description;
             comboBoxAdvised.SelectedItem = value?.Advised.LocalizedName;
 
-            textBoxGroup.AutoCompleteCustomSource.AddRange(AppDir.ScriptsDir.Instance.Groups.ToArray());
+            textBoxGroup.AutoCompleteCustomSource.AddRange(ScriptsDir.Instance.Groups.ToArray());
             textBoxGroup.Text = value?.Group.Header;
 
             textBoxCode.Text = value?.Code;

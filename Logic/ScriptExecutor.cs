@@ -1,6 +1,8 @@
 ﻿using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Win32Native.Shell;
 
+using RaphaëlBardini.WinClean.ErrorHandling;
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;

@@ -3,6 +3,8 @@
 using CsvHelper;
 using CsvHelper.Configuration;
 
+using RaphaëlBardini.WinClean.ErrorHandling;
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -21,7 +23,7 @@ public static class LogManager
         Justification = "Properties rely on each other for their initialization - They must be assigned in a specific order")]
     static LogManager()
     {
-        s_logDir = new(Path.Join(Program.AppDir.FullName, "Logs"));
+        s_logDir = new(Path.Join(Program.AppDir.Info.FullName, "Logs"));
         s_currentLogFile = new(Path.Join(s_logDir.FullName, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
         CreateLogDir();
         s_csvWriter = new(new StreamWriter(s_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = LogDelimiter });

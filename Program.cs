@@ -1,5 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
+using RaphaëlBardini.WinClean.ErrorHandling;
+using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Presentation;
 
 using System.Windows.Forms;
@@ -11,9 +13,7 @@ public static class Program
 {
     #region Public Properties
 
-    // chaud : read install dir from registry program entry. Needs an installer.
-    /// <summary>Application install directory.</summary>
-    public static DirectoryInfo AppDir => new(Application.StartupPath);
+    public static AppDir AppDir => AppDir.Instance;
 
     #endregion Public Properties
 
@@ -50,7 +50,7 @@ public static class Program
 
     private static void EnsureStartupPath()
     {
-        if (!Helpers.PathEquals(Application.StartupPath, AppDir.FullName))
+        if (!Helpers.PathEquals(Application.StartupPath, AppDir.Info.FullName))
         {
             Dialog.WrongStartupPath(EnsureStartupPath);
         }

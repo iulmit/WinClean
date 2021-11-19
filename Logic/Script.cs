@@ -1,5 +1,6 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
+using RaphaëlBardini.WinClean.ErrorHandling;
 using RaphaëlBardini.WinClean.Operational;
 
 using System.Drawing;
@@ -18,7 +19,7 @@ public class Script : ListViewItem, IScript
     private FileInfo GetFile(string groupHeader)
     {
         Assert(groupHeader.IsValidFilename());
-        return new(AppDir.ScriptsDir.Instance.Join(groupHeader, $"{Name.ToFilename()}.xml"));
+        return new(Program.AppDir.ScriptsDir.Join(groupHeader, $"{Name.ToFilename()}.xml"));
     }
 
     #endregion Private Methods
@@ -96,7 +97,7 @@ public class Script : ListViewItem, IScript
         _ = group ?? throw new ArgumentNullException(nameof(group));
 
         Name = name?.Trim() ?? throw new ArgumentNullException(nameof(name));
-        _file = new(AppDir.ScriptsDir.Instance.Join(group.Header, $"{Name.ToFilename()}.xml"));
+        _file = new(Program.AppDir.ScriptsDir.Join(group.Header, $"{Name.ToFilename()}.xml"));
         Description = description?.Trim() ?? throw new ArgumentNullException(nameof(description));
         Advised = advised;
         Impact = impact ?? throw new ArgumentNullException(nameof(impact));
@@ -252,7 +253,7 @@ public class Script : ListViewItem, IScript
             }
             DirectoryInfo CreateGroupDirectory()
             {
-                DirectoryInfo groupDir = new(AppDir.ScriptsDir.Instance.Join(Group.Header));
+                DirectoryInfo groupDir = new(Program.AppDir.ScriptsDir.Join(Group.Header));
                 try
                 {
                     groupDir.Create();
