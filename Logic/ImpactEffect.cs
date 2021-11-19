@@ -6,31 +6,17 @@ using System.Linq;
 namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>Effect of running a script.</summary>
-public class ImpactEffect
+public class ImpactEffect : IEquatable<ImpactEffect?>
 {
-    #region Private Fields
-
-    private readonly string _name;
-
-    #endregion Private Fields
-
-    #region Public Properties
-
-    public string? LocalizedName { get; }
-
-    #endregion Public Properties
-
     #region Private Constructors
 
     private ImpactEffect(string name, string? localizedName)
     {
         LocalizedName = localizedName;
-        _name = name;
+        Name = name;
     }
 
     #endregion Private Constructors
-
-
 
     #region Public Properties
 
@@ -79,6 +65,10 @@ public class ImpactEffect
     /// <summary>System visuals.</summary>
     public static ImpactEffect Visuals => new(nameof(Visuals), Resources.ImpactEffect.Visuals);
 
+    public string? LocalizedName { get; }
+
+    public string Name { get; }
+
     #endregion Public Properties
 
     #region Public Methods
@@ -102,10 +92,16 @@ public class ImpactEffect
     public static ImpactEffect ParseName(string name)
         => name is null
             ? throw new ArgumentNullException(nameof(name))
-            : Values.FirstOrDefault(validValue => validValue._name == name)
+            : Values.FirstOrDefault(validValue => validValue.Name == name)
                 ?? throw new ArgumentException($"Not a valid {nameof(ImpactEffect)} name.", nameof(name));
 
-    public override string ToString() => _name;
+    public override bool Equals(object? obj) => Equals(obj as ImpactEffect);
+
+    public bool Equals(ImpactEffect? other) => other is not null && Name == other.Name;
+
+    public override int GetHashCode() => HashCode.Combine(Name);
+
+    public override string ToString() => Name;
 
     #endregion Public Methods
 }

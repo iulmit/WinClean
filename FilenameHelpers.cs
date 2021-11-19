@@ -5,13 +5,19 @@ namespace RaphaëlBardini.WinClean
 {
     public static class FilenameHelpers
     {
+        #region Private Fields
+
         private const int MaxFilename = 255;
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         /// <summary>Checks if a string is a valid Windows filename.</summary>
         /// <param name="filenameCandidate">The filename candidate.</param>
         /// <returns>
-        /// <see langword="true"/> if <paramref name="filenameCandidate"/> can be a filename, otherwise; <see langword="false"/>.
-        /// This method returns <see langword="false"/> if <paramref name="filenameCandidate"/> is <see langword="null"/>.
+        /// <see langword="true"/> if <paramref name="filenameCandidate"/> can be a filename, otherwise; <see
+        /// langword="false"/>. This method returns <see langword="false"/> if <paramref name="filenameCandidate"/> is <see langword="null"/>.
         /// </returns>
         public static bool IsValidFilename(this string? filenameCandidate)
             => !string.IsNullOrWhiteSpace(filenameCandidate)
@@ -38,5 +44,7 @@ namespace RaphaëlBardini.WinClean
                         : (new(Regex.Replace(filenameCandidate.Trim(), $"[{Regex.Escape(new(Path.GetInvalidFileNameChars()))}]",
                                              replaceInvalidCharsWith, RegexOptions.Compiled | RegexOptions.CultureInvariant)
                                .Take(MaxFilename).ToArray()));
+
+        #endregion Public Methods
     }
 }

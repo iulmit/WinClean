@@ -8,20 +8,14 @@ namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>Wether a script is advised for general purpose</summary>
 // chaud : faire ça correctement avec les couleurs
-public class ScriptAdvised
+public class ScriptAdvised : IEquatable<ScriptAdvised?>
 {
-    #region Private Fields
-
-    private readonly string _name;
-
-    #endregion Private Fields
-
     #region Private Constructors
 
-    private ScriptAdvised(string name, Color color, string? localizedName)
+    private ScriptAdvised(string name, Color color, string localizedName)
     {
         Color = color;
-        _name = name;
+        Name = name;
         LocalizedName = localizedName;
     }
 
@@ -47,10 +41,12 @@ public class ScriptAdvised
     /// The script is advised for any user. It has almost no side effects and won't hinder features the said user might want to
     /// use. It can be selected automatically.
     /// </summary>
-    public static ScriptAdvised Yes => new(nameof(Yes), Color.Green, Resources.ScriptAdvised.Yes);
+    public static ScriptAdvised Yes { get; } = new(nameof(Yes), Color.Green, Resources.ScriptAdvised.Yes);
 
     public Color Color { get; }
-    public string? LocalizedName { get; }
+
+    public string LocalizedName { get; }
+    public string Name { get; }
 
     #endregion Public Properties
 
@@ -75,10 +71,16 @@ public class ScriptAdvised
     public static ScriptAdvised ParseName(string name)
         => name is null
             ? throw new ArgumentNullException(nameof(name))
-            : Values.FirstOrDefault(validValue => validValue._name == name)
-                ?? throw new ArgumentException($"Not a valid {nameof(ScriptAdvised)} localized name.", nameof(name));
+            : Values.FirstOrDefault(validValue => validValue.Name == name)
+                ?? throw new ArgumentException($"Not a valid {nameof(ScriptAdvised)} name.", nameof(name));
 
-    public override string ToString() => _name;
+    public override bool Equals(object? obj) => Equals(obj as ScriptAdvised);
+
+    public bool Equals(ScriptAdvised? other) => other is not null && Name == other.Name;
+
+    public override int GetHashCode() => HashCode.Combine(Name);
+
+    public override string ToString() => Name;
 
     #endregion Public Methods
 }

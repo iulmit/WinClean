@@ -61,7 +61,7 @@ public abstract class ScriptHost
         }
         catch (Exception e) when (e.FileSystem())
         {
-            ErrorDialog.CantCreateFile(e, tmpScript, () => tmpScript = CreateTempFile(text, extension));
+            new FSErrorDialog(e, tmpScript, FSOperation.Create, () => tmpScript = CreateTempFile(text, extension)).ShowErrorDialog();
         }
         return tmpScript;
     }
@@ -120,7 +120,7 @@ public abstract class ScriptHost
 
         if (!p.WaitForExit(Convert.ToInt32(Properties.Settings.Default.ScriptTimeout.TotalMilliseconds)))
         {
-            ErrorDialog.HungScript(scriptName,
+            Dialog.HungScript(scriptName,
             restart: () =>
             {
                 p.Kill(true);

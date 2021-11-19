@@ -9,18 +9,12 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>Represents the level of an <see cref="ImpactEffect"/>.</summary>
 public class ImpactLevel : IEquatable<ImpactLevel?>
 {
-    #region Private Fields
-
-    private readonly string _name;
-
-    #endregion Private Fields
-
     #region Private Constructors
 
     private ImpactLevel(string name, Image image)
     {
         Image = image;
-        _name = name;
+        Name = name;
     }
 
     #endregion Private Constructors
@@ -36,14 +30,9 @@ public class ImpactLevel : IEquatable<ImpactLevel?>
     /// <summary>Improvement.</summary>
     public static ImpactLevel Positive => new(nameof(Positive), Resources.Images.Positive);
 
-    public static IEnumerable<ImpactLevel> Values => new[]
-                {
-        Positive,
-        Negative,
-        Mixed
-    };
-
+    public static IEnumerable<ImpactLevel> Values => new[] { Positive, Negative, Mixed };
     public Image Image { get; }
+    public string Name { get; }
 
     #endregion Public Properties
 
@@ -56,16 +45,16 @@ public class ImpactLevel : IEquatable<ImpactLevel?>
     public static ImpactLevel ParseName(string name)
         => name is null
             ? throw new ArgumentNullException(nameof(name))
-            : Values.FirstOrDefault(validValue => validValue._name == name)
+            : Values.FirstOrDefault(validValue => validValue.Name == name)
                 ?? throw new ArgumentException($"Not a valid {nameof(ImpactLevel)} name.", nameof(name));
 
     public override bool Equals(object? obj) => Equals(obj as ImpactLevel);
 
-    public bool Equals(ImpactLevel? other) => other is not null && _name == other._name;
+    public bool Equals(ImpactLevel? other) => other is not null && Name == other.Name;
 
-    public override int GetHashCode() => HashCode.Combine(_name);
+    public override int GetHashCode() => HashCode.Combine(Name);
 
-    public override string ToString() => _name;
+    public override string ToString() => Name;
 
     #endregion Public Methods
 }

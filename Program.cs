@@ -43,7 +43,7 @@ public static class Program
         }
         else
         {
-            ErrorDialog.SingleInstanceOnly(EnsureSingleInstance);
+            Dialog.SingleInstanceOnly(EnsureSingleInstance);
             singleInstanceEnforcer.Dispose();
         }
     }
@@ -52,7 +52,7 @@ public static class Program
     {
         if (!Helpers.PathEquals(Application.StartupPath, AppDir.FullName))
         {
-            ErrorDialog.WrongStartupPath(EnsureStartupPath);
+            Dialog.WrongStartupPath(EnsureStartupPath);
         }
     }
 

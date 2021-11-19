@@ -52,6 +52,7 @@ public class ImagedComboBox : ComboBox
             }
         }
     }
+
     private static RectangleF Center(SizeF child, RectangleF parent) => new(parent.Location + parent.Size / 2 - child / 2, child);
 
     private static Rectangle Center(Size child, Rectangle parent)
@@ -62,5 +63,6 @@ public class ImagedComboBox : ComboBox
                              Convert.ToInt32(rF.Height),
                              Convert.ToInt32(rF.Width));
     }
+
     #endregion Protected Methods
 }

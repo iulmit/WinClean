@@ -13,11 +13,15 @@ namespace RaphaëlBardini.WinClean.Logic;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237", Justification = "Binary serialization is not supported")]
 public class Script : ListViewItem, IScript
 {
+    #region Private Methods
+
     private FileInfo GetFile(string groupHeader)
     {
         Assert(groupHeader.IsValidFilename());
         return new(AppDir.ScriptsDir.Instance.Join(groupHeader, $"{Name.ToFilename()}.xml"));
     }
+
+    #endregion Private Methods
 
     #region Private Fields
 
@@ -37,9 +41,7 @@ public class Script : ListViewItem, IScript
     /// <summary>Initializes a new instance of the <see cref="Script"/> class from the specified XML script file.</summary>
     /// <param name="file">The XML file containing this script's metadata, located in a group subdirectory of the scripts dir.</param>
     /// <param name="owner">The list view in which the script will be displayed.</param>
-    /// <exception cref="ArgumentNullException">
-    /// <paramref name="file"/> or <paramref name="owner"/> are <see langword="null"/>.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="file"/> or <paramref name="owner"/> are <see langword="null"/>.</exception>
     /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="filename"/> cannot be accessed.</exception>
     public Script(FileInfo file, ListView owner)
     {
@@ -73,7 +75,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.CantAcessFile(e, _file, () => d = CreateDoc());
+                new FSErrorDialog(e, _file, FSOperation.Acess, () => d = CreateDoc()).ShowErrorDialog();
             }
             return d;
         }
@@ -111,7 +113,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.CantAcessFile(e, source, () => code = GetCode());
+                new FSErrorDialog(e, source, FSOperation.Acess, () => code = GetCode()).ShowErrorDialog();
             }
             return code;
         }
@@ -156,7 +158,7 @@ public class Script : ListViewItem, IScript
         }
         catch (Exception e) when (e.FileSystem())
         {
-            ErrorDialog.CantDeleteFile(e, _file, Delete);
+            new FSErrorDialog(e, _file, FSOperation.Delete, Delete).ShowErrorDialog();
         }
     }
 
@@ -216,35 +218,36 @@ public class Script : ListViewItem, IScript
 
         void SaveToScriptsDir()
         {
-            DeleteOldScript();
-            DeleteOldGroupDirIfEmpty();
+            MoveScriptFileInAppropriateGroupDir();
 
-            SaveToNewLocation(Path.Join(CreateGroupDirectory().FullName, $"{Name.ToFilename()}.xml"));
-
-            void DeleteOldGroupDirIfEmpty()
+            void MoveScriptFileInAppropriateGroupDir()
             {
-                if (_file.Directory!.EnumerateFiles().Any()) // ! : _file will never be a root directory
-                {
-                    try
-                    {
-                        _file.Directory.Delete();
-                    }
-                    catch (Exception e) when (e.FileSystem())
-                    {
-                        ErrorDialog.CantDeleteDirectory(e, _file.Directory, DeleteOldGroupDirIfEmpty);
-                    }
-                }
-            }
+                DirectoryInfo oldGroupDir = _file.Directory!;// ! : _file will never be a root directory
 
-            void DeleteOldScript()
-            {
                 try
                 {
-                    _file.Delete();
+                    _file.MoveTo(Path.Join(CreateGroupDirectory().FullName, $"{Name.ToFilename()}.xml"));
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    ErrorDialog.CantDeleteFile(e, _file, DeleteOldScript);
+                    new FSErrorDialog(e, _file, FSOperation.Move, MoveScriptFileInAppropriateGroupDir).ShowErrorDialog();
+                }
+
+                DeleteOldGroupDirIfEmpty();
+
+                void DeleteOldGroupDirIfEmpty()
+                {
+                    if (!oldGroupDir.EnumerateFileSystemInfos().Any())
+                    {
+                        try
+                        {
+                            oldGroupDir.Delete();
+                        }
+                        catch (Exception e) when (e.FileSystem())
+                        {
+                            new FSErrorDialog(e, oldGroupDir, FSOperation.Delete, DeleteOldGroupDirIfEmpty).ShowErrorDialog();
+                        }
+                    }
                 }
             }
             DirectoryInfo CreateGroupDirectory()
@@ -256,20 +259,9 @@ public class Script : ListViewItem, IScript
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    ErrorDialog.CantCreateDirectory(e, groupDir, () => groupDir = CreateGroupDirectory());
+                    new FSErrorDialog(e, groupDir, FSOperation.Create, () => groupDir = CreateGroupDirectory()).ShowErrorDialog();
                 }
                 return groupDir;
-            }
-            void SaveToNewLocation(string fullpath)
-            {
-                try
-                {
-                    doc.Save(fullpath);
-                }
-                catch (Exception e) when (e.FileSystem())
-                {
-                    ErrorDialog.CantCreateFile(e, new(fullpath), () => SaveToNewLocation(fullpath));
-                }
             }
         }
     }

@@ -4,7 +4,7 @@ namespace RaphaëlBardini.WinClean.AppDir
 {
     public class GroupDir
     {
-        public DirectoryInfo Info { get; }
+        #region Public Constructors
 
         public GroupDir(string name)
         {
@@ -25,11 +25,19 @@ namespace RaphaëlBardini.WinClean.AppDir
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    ErrorDialog.CantCreateDirectory(e, info, () => info = GetOrCreate());
+                    new FSErrorDialog(e, info, FSOperation.Create, () => info = GetOrCreate()).ShowErrorDialog();
                 }
 
                 return info;
             }
         }
+
+        #endregion Public Constructors
+
+        #region Public Properties
+
+        public DirectoryInfo Info { get; }
+
+        #endregion Public Properties
     }
 }

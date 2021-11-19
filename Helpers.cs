@@ -13,10 +13,6 @@ namespace RaphaëlBardini.WinClean;
 /// <summary>Provides a set of extension methods that fulfill a relatively generic role.</summary>
 public static class Helpers
 {
-    #region Private Fields
-
-    #endregion Private Fields
-
     #region Public Methods
 
     [return: NotNull]
@@ -55,12 +51,10 @@ public static class Helpers
 
     public static bool PathEquals(string left, string right) => string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
 
-    /// <summary>
-    /// Shows the dialog in foreground window
-    /// </summary>
+    /// <summary>Shows the dialog in foreground window</summary>
     /// <param name="page"></param>
     /// <returns></returns>
-    public static TaskDialogButton ShowDialog(this TaskDialogPage page)
+    public static TaskDialogButton ShowPageInForegroundWindow(this TaskDialogPage page)
     {
         IntPtr ownerHandle = GetForegroundWindow();
         IWin32Window? owner = (ownerHandle == IntPtr.Zero) ? null : new Win32Window(ownerHandle);

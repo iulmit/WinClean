@@ -128,9 +128,9 @@ public static class LogManager
         {
             s_logDir.Create();
         }
-        catch (IOException e)
+        catch (Exception e) when (e.FileSystem())
         {
-            ErrorDialog.CantCreateDirectory(e, s_logDir, CreateLogDir);
+            new FSErrorDialog(e, s_logDir, FSOperation.Create, CreateLogDir).ShowErrorDialog();
         }
     }
 
@@ -142,7 +142,7 @@ public static class LogManager
         }
         catch (Exception e) when (e.FileSystem())
         {
-            ErrorDialog.CantDeleteFile(e, file, () => DeleteLogFile(file));
+            new FSErrorDialog(e, file, FSOperation.Delete, () => DeleteLogFile(file)).ShowErrorDialog();
         }
     }
 

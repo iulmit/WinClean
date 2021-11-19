@@ -82,27 +82,7 @@ public partial class ScriptEditor : UserControl
             _selected.Advised = ScriptAdvised.ParseLocalizedName((string)comboBoxAdvised.SelectedItem);
         }
     }
-    private void TextBoxGroup_TextChanged(object _, EventArgs __)
-    {
-        if (_selected is not null && textBoxGroup.Text.IsValidFilename())
-        {
-            ListView owner = _selected.Group.ListView.AssertNotNull();
 
-            ListViewGroup? foundExistingGroup = owner.Groups[textBoxGroup.Text.Trim()];
-
-            if (foundExistingGroup is null)
-            {
-                ListViewGroup newGroup = new(textBoxGroup.Text.Trim());
-
-                _ = owner.Groups.Add(newGroup);
-                _selected.Group = newGroup;
-            }
-            else
-            {
-                _selected.Group = foundExistingGroup;
-            }
-        }
-    }
     private void ScriptEditor_Leave(object _, EventArgs __) => PrepareForAnother();
 
     private void ScriptEditor_Resize(object _, EventArgs __)
@@ -143,6 +123,28 @@ public partial class ScriptEditor : UserControl
         if (_selected is not null && _selected.Description != textBoxDescription.Text)
         {
             _selected.Description = textBoxDescription.Text;
+        }
+    }
+
+    private void TextBoxGroup_TextChanged(object _, EventArgs __)
+    {
+        if (_selected is not null && textBoxGroup.Text.IsValidFilename())
+        {
+            ListView owner = _selected.Group.ListView.AssertNotNull();
+
+            ListViewGroup? foundExistingGroup = owner.Groups[textBoxGroup.Text.Trim()];
+
+            if (foundExistingGroup is null)
+            {
+                ListViewGroup newGroup = new(textBoxGroup.Text.Trim());
+
+                _ = owner.Groups.Add(newGroup);
+                _selected.Group = newGroup;
+            }
+            else
+            {
+                _selected.Group = foundExistingGroup;
+            }
         }
     }
 

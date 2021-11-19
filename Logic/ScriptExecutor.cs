@@ -155,7 +155,7 @@ TCPOptimizer - Optimisations réseau")
 
         cancel.Click += (s, e) =>
         {
-            if (ErrorDialog.ConfirmAbortOperation())
+            if (ConfirmationDialog.AbortOperation.ShowDialog())
             {
                 _canceler.Cancel();
             }
@@ -259,7 +259,7 @@ J'ai fermé tout programme non essentiel
 
         _uiStep = UIStep.Warning;
 
-        _ = warningPage.ShowDialog();
+        _ = warningPage.ShowPageInForegroundWindow();
     }
 
     #endregion Private Methods

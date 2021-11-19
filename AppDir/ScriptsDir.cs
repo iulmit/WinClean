@@ -26,7 +26,7 @@ public class ScriptsDir
             }
             catch (Exception e) when (e.FileSystem())
             {
-                ErrorDialog.CantCreateDirectory(e, info, () => info = GetOrCreate());
+                new FSErrorDialog(e, info, FSOperation.Create, () => info = GetOrCreate()).ShowErrorDialog();
             }
             return info;
         }
@@ -64,5 +64,6 @@ public class ScriptsDir
             _ = owner.Items.Add(new Script(script, owner));
         }
     }
+
     #endregion Public Methods
 }
