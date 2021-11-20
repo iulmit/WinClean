@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -32,6 +33,14 @@ public static class Helpers
     /// <remarks>Note that unrelated methods may throw any of these exceptions.</remarks>
     public static bool FileSystem(this Exception e)
         => e is IOException or UnauthorizedAccessException or NotSupportedException or System.Security.SecurityException;
+
+    /// <summary>Gets the neutral culture associated with this culture.</summary>
+    /// <returns>The neutral culture specified by the two letter ISO language name of this culture.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="cultureInfo"/> is <see langword="null"/>.</exception>
+    public static CultureInfo GetNeutralCulture(this CultureInfo cultureInfo)
+    {
+        return new((cultureInfo ?? throw new ArgumentNullException(nameof(cultureInfo))).TwoLetterISOLanguageName);
+    }
 
     /// <summary>Creates a file extension filter for an <see cref="OpenFileDialog"/> control.</summary>
     /// <param name="ofd">The <see cref="OpenFileDialog"/> control to make a filter for.</param>

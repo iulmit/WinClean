@@ -38,9 +38,7 @@ public class ScriptsDir
 
     public static ScriptsDir Instance { get; } = new();
 
-    /// <summary>
-    /// The group directories contained in the scripts dir.
-    /// </summary>
+    /// <summary>The group directories contained in the scripts dir.</summary>
     public IEnumerable<GroupDir> Groups => Info.EnumerateDirectories().Select((dir) => new GroupDir(dir));
 
     public DirectoryInfo Info { get; }

@@ -396,7 +396,6 @@ partial class MainForm
             this.ClientSize = new System.Drawing.Size(784, 455);
             this.Controls.Add(toolStripContainerAll);
             this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = mainMenuStrip;
             this.MinimumSize = new System.Drawing.Size(400, 247);
             this.Name = "MainForm";

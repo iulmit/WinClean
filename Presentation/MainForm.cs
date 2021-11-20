@@ -6,9 +6,9 @@ using RaphaëlBardini.WinClean.Operational;
 using System.Linq;
 using System.Windows.Forms;
 
-using static System.Globalization.CultureInfo;
-
 using WinCopies.Collections;
+
+using static System.Globalization.CultureInfo;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
@@ -24,6 +24,7 @@ public partial class MainForm : Form
     {
         InitializeComponent();
 
+        Icon = Resources.Icons.Main;
         openFileDialogScripts.MakeFilter(new Cmd().SupportedExtensions, new PowerShell().SupportedExtensions, new Regedit().SupportedExtensions);
 
         /*ListViewGroup[] placeholderGroups = new[]

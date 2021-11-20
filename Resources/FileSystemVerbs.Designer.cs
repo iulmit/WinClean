@@ -61,7 +61,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Acess.
+        ///   Recherche une chaîne localisée semblable à acess.
         /// </summary>
         internal static string Acess {
             get {
@@ -70,7 +70,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Create.
+        ///   Recherche une chaîne localisée semblable à create.
         /// </summary>
         internal static string Create {
             get {
@@ -79,7 +79,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Delete.
+        ///   Recherche une chaîne localisée semblable à delete.
         /// </summary>
         internal static string Delete {
             get {
@@ -88,7 +88,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Move.
+        ///   Recherche une chaîne localisée semblable à move.
         /// </summary>
         internal static string Move {
             get {
