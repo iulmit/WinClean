@@ -28,7 +28,6 @@ partial class ScriptEditor
     /// </summary>
     private void InitializeComponent()
     {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScriptEditor));
             this.textBoxCode = new System.Windows.Forms.TextBox();
             this.buttonExecute = new System.Windows.Forms.Button();
             this.comboBoxAdvised = new System.Windows.Forms.ComboBox();
@@ -44,15 +43,30 @@ partial class ScriptEditor
             this.textBoxCode.AcceptsReturn = true;
             this.textBoxCode.AcceptsTab = true;
             this.textBoxCode.CausesValidation = false;
-            resources.ApplyResources(this.textBoxCode, "textBoxCode");
+            this.textBoxCode.Location = new System.Drawing.Point(0, 159);
+            this.textBoxCode.Margin = new System.Windows.Forms.Padding(0, 11, 0, 0);
+            this.textBoxCode.MinimumSize = new System.Drawing.Size(171, 0);
+            this.textBoxCode.Multiline = true;
             this.textBoxCode.Name = "textBoxCode";
+            this.textBoxCode.PlaceholderText = "Code";
+            this.textBoxCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxCode.Size = new System.Drawing.Size(211, 130);
+            this.textBoxCode.TabIndex = 6;
+            this.textBoxCode.WordWrap = false;
             this.textBoxCode.TextChanged += new System.EventHandler(this.TextBoxCode_TextChanged);
             // 
             // buttonExecute
             // 
             this.buttonExecute.CausesValidation = false;
-            resources.ApplyResources(this.buttonExecute, "buttonExecute");
+            this.buttonExecute.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonExecute.Location = new System.Drawing.Point(27, 300);
+            this.buttonExecute.Margin = new System.Windows.Forms.Padding(0, 11, 0, 0);
+            this.buttonExecute.MinimumSize = new System.Drawing.Size(75, 0);
             this.buttonExecute.Name = "buttonExecute";
+            this.buttonExecute.Padding = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.buttonExecute.Size = new System.Drawing.Size(75, 25);
+            this.buttonExecute.TabIndex = 7;
+            this.buttonExecute.Text = "Execute";
             this.buttonExecute.UseVisualStyleBackColor = true;
             this.buttonExecute.Click += new System.EventHandler(this.ButtonExecute_Click);
             // 
@@ -61,50 +75,80 @@ partial class ScriptEditor
             this.comboBoxAdvised.CausesValidation = false;
             this.comboBoxAdvised.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAdvised.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAdvised, "comboBoxAdvised");
+            this.comboBoxAdvised.Location = new System.Drawing.Point(111, 91);
+            this.comboBoxAdvised.Margin = new System.Windows.Forms.Padding(11, 11, 0, 0);
+            this.comboBoxAdvised.MinimumSize = new System.Drawing.Size(80, 0);
             this.comboBoxAdvised.Name = "comboBoxAdvised";
+            this.comboBoxAdvised.Size = new System.Drawing.Size(100, 23);
+            this.comboBoxAdvised.TabIndex = 4;
             this.comboBoxAdvised.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAdvised_SelectedIndexChanged);
             // 
             // textBoxDescription
             // 
             this.textBoxDescription.CausesValidation = false;
-            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
+            this.textBoxDescription.Location = new System.Drawing.Point(0, 34);
+            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(0, 11, 0, 0);
+            this.textBoxDescription.MinimumSize = new System.Drawing.Size(171, 0);
+            this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.PlaceholderText = "Description";
+            this.textBoxDescription.Size = new System.Drawing.Size(211, 46);
+            this.textBoxDescription.TabIndex = 2;
             this.textBoxDescription.TextChanged += new System.EventHandler(this.TextBoxDescription_TextChanged);
             // 
             // textBoxName
             // 
             this.textBoxName.AcceptsReturn = true;
             this.textBoxName.CausesValidation = false;
-            resources.ApplyResources(this.textBoxName, "textBoxName");
+            this.textBoxName.Location = new System.Drawing.Point(0, 0);
+            this.textBoxName.Margin = new System.Windows.Forms.Padding(0);
+            this.textBoxName.MinimumSize = new System.Drawing.Size(171, 0);
             this.textBoxName.Name = "textBoxName";
+            this.textBoxName.PlaceholderText = "Name";
+            this.textBoxName.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxName.Size = new System.Drawing.Size(211, 23);
+            this.textBoxName.TabIndex = 1;
             this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxName_TextChanged);
             // 
             // buttonDelete
             // 
             this.buttonDelete.CausesValidation = false;
-            resources.ApplyResources(this.buttonDelete, "buttonDelete");
+            this.buttonDelete.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonDelete.Location = new System.Drawing.Point(109, 300);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(7, 11, 0, 0);
+            this.buttonDelete.MinimumSize = new System.Drawing.Size(75, 0);
             this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Padding = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.buttonDelete.Size = new System.Drawing.Size(75, 25);
+            this.buttonDelete.TabIndex = 8;
+            this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // impactEditor
             // 
-            resources.ApplyResources(this.impactEditor, "impactEditor");
+            this.impactEditor.Location = new System.Drawing.Point(0, 125);
+            this.impactEditor.Margin = new System.Windows.Forms.Padding(0, 11, 0, 0);
             this.impactEditor.Name = "impactEditor";
             this.impactEditor.Selected = null;
+            this.impactEditor.Size = new System.Drawing.Size(211, 23);
+            this.impactEditor.TabIndex = 9;
             // 
             // textBoxGroup
             // 
             this.textBoxGroup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxGroup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            resources.ApplyResources(this.textBoxGroup, "textBoxGroup");
+            this.textBoxGroup.Location = new System.Drawing.Point(0, 91);
+            this.textBoxGroup.Margin = new System.Windows.Forms.Padding(0, 11, 0, 0);
             this.textBoxGroup.Name = "textBoxGroup";
+            this.textBoxGroup.PlaceholderText = "Group";
+            this.textBoxGroup.Size = new System.Drawing.Size(100, 23);
+            this.textBoxGroup.TabIndex = 10;
             this.textBoxGroup.TextChanged += new System.EventHandler(this.TextBoxGroup_TextChanged);
             // 
             // ScriptEditor
             // 
-            resources.ApplyResources(this, "$this");
+            this.AutoScroll = true;
             this.Controls.Add(this.textBoxGroup);
             this.Controls.Add(this.impactEditor);
             this.Controls.Add(this.textBoxDescription);
@@ -114,7 +158,9 @@ partial class ScriptEditor
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.buttonDelete);
             this.DoubleBuffered = true;
+            this.MinimumSize = new System.Drawing.Size(0, 325);
             this.Name = "ScriptEditor";
+            this.Size = new System.Drawing.Size(211, 325);
             this.Leave += new System.EventHandler(this.ScriptEditor_Leave);
             this.Resize += new System.EventHandler(this.ScriptEditor_Resize);
             this.ResumeLayout(false);

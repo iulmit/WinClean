@@ -96,6 +96,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FileSystemVerbs.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\FormattableStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FormattableStrings.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Icons.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -132,7 +137,8 @@
       <LastGenOutput>FileSystemVerbs.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\FormattableStrings.resx">
-      <Generator></Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FormattableStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Icons.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -145,9 +151,6 @@
     <EmbeddedResource Update="Resources\ImpactEffect.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ImpactEffect.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\ScriptAdvised.fr-FR.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ScriptAdvised.resx">
       <Generator>ResXFileCodeGenerator</Generator>

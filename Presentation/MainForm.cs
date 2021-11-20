@@ -6,6 +6,8 @@ using RaphaëlBardini.WinClean.Operational;
 using System.Linq;
 using System.Windows.Forms;
 
+using static System.Globalization.CultureInfo;
+
 using WinCopies.Collections;
 
 namespace RaphaëlBardini.WinClean.Presentation;
@@ -70,7 +72,7 @@ public partial class MainForm : Form
 
         Text = $"{Application.ProductName} {Application.ProductVersion}";
 
-        MainMenuAbout.Text = Resources.FormattableStrings.About(Application.ProductName);
+        MainMenuAbout.Text = string.Format(CurrentCulture, Resources.FormattableStrings.About, Application.ProductName);
     }
 
     #endregion Public Constructors
