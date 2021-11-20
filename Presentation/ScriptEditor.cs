@@ -44,7 +44,7 @@ public partial class ScriptEditor : UserControl
             textBoxDescription.Text = value?.Description;
             comboBoxAdvised.SelectedItem = value?.Advised.LocalizedName;
 
-            textBoxGroup.AutoCompleteCustomSource.AddRange(ScriptsDir.Instance.Groups.ToArray());
+            textBoxGroup.AutoCompleteCustomSource.AddRange(ScriptsDir.Instance.Groups.Select(group => group.Info.Name).ToArray());
             textBoxGroup.Text = value?.Group.Header;
 
             textBoxCode.Text = value?.Code;
@@ -128,7 +128,7 @@ public partial class ScriptEditor : UserControl
 
     private void TextBoxGroup_TextChanged(object _, EventArgs __)
     {
-        if (_selected is not null && textBoxGroup.Text.IsValidFilename())
+        if (_selected is not null && textBoxGroup.Text.IsValidFilename() && !textBoxGroup.Text.Contains('.', StringComparison.Ordinal))
         {
             ListView owner = _selected.Group.ListView.AssertNotNull();
 
