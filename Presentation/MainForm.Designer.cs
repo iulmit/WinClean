@@ -32,319 +32,84 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
-            System.Windows.Forms.TableLayoutPanel tableLayoutPanelAll;
-            System.Windows.Forms.ToolStripContainer toolStripContainerAll;
-            System.Windows.Forms.TableLayoutPanel tableLayoutPanelButtons;
-            System.Windows.Forms.MenuStrip mainMenuStrip;
-            System.Windows.Forms.ToolStripMenuItem MainMenuFile;
-            System.Windows.Forms.ToolStripMenuItem MainMenuClearLogs;
-            System.Windows.Forms.ToolStripMenuItem MainMenuQuit;
-            System.Windows.Forms.ToolStripMenuItem MainMenuSelect;
-            System.Windows.Forms.ToolStripMenuItem MainMenuSettings;
-            System.Windows.Forms.ToolStripMenuItem MainMenuHelp;
-            System.Windows.Forms.ToolStripMenuItem MainMenuShowHelp;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.toolStripContainerAll = new System.Windows.Forms.ToolStripContainer();
+            this.tableLayoutPanelAll = new System.Windows.Forms.TableLayoutPanel();
+            this.listViewScripts = new System.Windows.Forms.ListView();
+            this.scriptHeaderName = new System.Windows.Forms.ColumnHeader();
+            this.scriptEditor = new RaphaëlBardini.WinClean.Presentation.ScriptEditor();
+            this.tableLayoutPanelButtons = new System.Windows.Forms.TableLayoutPanel();
             this.buttonExecuteScripts = new System.Windows.Forms.Button();
-            this.buttonQuit = new System.Windows.Forms.Button();
             this.buttonAddScript = new System.Windows.Forms.Button();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.MainMenuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuClearLogs = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuQuit = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectNothing = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectMaintenance = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectDebloat = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuShowHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.listViewScripts = new System.Windows.Forms.ListView();
-            this.scriptHeaderName = new System.Windows.Forms.ColumnHeader();
-            this.scriptEditor = new RaphaëlBardini.WinClean.Presentation.ScriptEditor();
             this.openFileDialogScripts = new System.Windows.Forms.OpenFileDialog();
-            tableLayoutPanelAll = new System.Windows.Forms.TableLayoutPanel();
-            toolStripContainerAll = new System.Windows.Forms.ToolStripContainer();
-            tableLayoutPanelButtons = new System.Windows.Forms.TableLayoutPanel();
-            mainMenuStrip = new System.Windows.Forms.MenuStrip();
-            MainMenuFile = new System.Windows.Forms.ToolStripMenuItem();
-            MainMenuClearLogs = new System.Windows.Forms.ToolStripMenuItem();
-            MainMenuQuit = new System.Windows.Forms.ToolStripMenuItem();
-            MainMenuSelect = new System.Windows.Forms.ToolStripMenuItem();
-            MainMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
-            MainMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
-            MainMenuShowHelp = new System.Windows.Forms.ToolStripMenuItem();
-            tableLayoutPanelAll.SuspendLayout();
-            toolStripContainerAll.ContentPanel.SuspendLayout();
-            toolStripContainerAll.TopToolStripPanel.SuspendLayout();
-            toolStripContainerAll.SuspendLayout();
-            tableLayoutPanelButtons.SuspendLayout();
-            mainMenuStrip.SuspendLayout();
+            this.toolStripContainerAll.ContentPanel.SuspendLayout();
+            this.toolStripContainerAll.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainerAll.SuspendLayout();
+            this.tableLayoutPanelAll.SuspendLayout();
+            this.tableLayoutPanelButtons.SuspendLayout();
+            this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tableLayoutPanelAll
-            // 
-            tableLayoutPanelAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            tableLayoutPanelAll.CausesValidation = false;
-            tableLayoutPanelAll.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
-            tableLayoutPanelAll.ColumnCount = 2;
-            tableLayoutPanelAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanelAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanelAll.Controls.Add(this.listViewScripts, 0, 0);
-            tableLayoutPanelAll.Controls.Add(this.scriptEditor, 1, 0);
-            tableLayoutPanelAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanelAll.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            tableLayoutPanelAll.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanelAll.Margin = new System.Windows.Forms.Padding(0);
-            tableLayoutPanelAll.Name = "tableLayoutPanelAll";
-            tableLayoutPanelAll.RowCount = 1;
-            tableLayoutPanelAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanelAll.Size = new System.Drawing.Size(762, 384);
-            tableLayoutPanelAll.TabIndex = 0;
             // 
             // toolStripContainerAll
             // 
             // 
             // toolStripContainerAll.BottomToolStripPanel
             // 
-            toolStripContainerAll.BottomToolStripPanel.CausesValidation = false;
-            toolStripContainerAll.BottomToolStripPanel.Enabled = false;
-            toolStripContainerAll.BottomToolStripPanelVisible = false;
+            this.toolStripContainerAll.BottomToolStripPanel.CausesValidation = false;
+            resources.ApplyResources(this.toolStripContainerAll.BottomToolStripPanel, "toolStripContainerAll.BottomToolStripPanel");
+            this.toolStripContainerAll.BottomToolStripPanelVisible = false;
             // 
             // toolStripContainerAll.ContentPanel
             // 
-            toolStripContainerAll.ContentPanel.AutoScroll = true;
-            toolStripContainerAll.ContentPanel.Controls.Add(tableLayoutPanelAll);
-            toolStripContainerAll.ContentPanel.Controls.Add(tableLayoutPanelButtons);
-            toolStripContainerAll.ContentPanel.Margin = new System.Windows.Forms.Padding(0);
-            toolStripContainerAll.ContentPanel.Size = new System.Drawing.Size(762, 420);
-            toolStripContainerAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.toolStripContainerAll.ContentPanel, "toolStripContainerAll.ContentPanel");
+            this.toolStripContainerAll.ContentPanel.Controls.Add(this.tableLayoutPanelAll);
+            this.toolStripContainerAll.ContentPanel.Controls.Add(this.tableLayoutPanelButtons);
+            resources.ApplyResources(this.toolStripContainerAll, "toolStripContainerAll");
             // 
             // toolStripContainerAll.LeftToolStripPanel
             // 
-            toolStripContainerAll.LeftToolStripPanel.CausesValidation = false;
-            toolStripContainerAll.LeftToolStripPanel.Enabled = false;
-            toolStripContainerAll.LeftToolStripPanelVisible = false;
-            toolStripContainerAll.Location = new System.Drawing.Point(11, 0);
-            toolStripContainerAll.Margin = new System.Windows.Forms.Padding(0);
-            toolStripContainerAll.Name = "toolStripContainerAll";
+            this.toolStripContainerAll.LeftToolStripPanel.CausesValidation = false;
+            resources.ApplyResources(this.toolStripContainerAll.LeftToolStripPanel, "toolStripContainerAll.LeftToolStripPanel");
+            this.toolStripContainerAll.LeftToolStripPanelVisible = false;
+            this.toolStripContainerAll.Name = "toolStripContainerAll";
             // 
             // toolStripContainerAll.RightToolStripPanel
             // 
-            toolStripContainerAll.RightToolStripPanel.CausesValidation = false;
-            toolStripContainerAll.RightToolStripPanel.Enabled = false;
-            toolStripContainerAll.RightToolStripPanelVisible = false;
-            toolStripContainerAll.Size = new System.Drawing.Size(762, 444);
-            toolStripContainerAll.TabIndex = 0;
-            toolStripContainerAll.TabStop = false;
+            this.toolStripContainerAll.RightToolStripPanel.CausesValidation = false;
+            resources.ApplyResources(this.toolStripContainerAll.RightToolStripPanel, "toolStripContainerAll.RightToolStripPanel");
+            this.toolStripContainerAll.RightToolStripPanelVisible = false;
+            this.toolStripContainerAll.TabStop = false;
             // 
             // toolStripContainerAll.TopToolStripPanel
             // 
-            toolStripContainerAll.TopToolStripPanel.CausesValidation = false;
-            toolStripContainerAll.TopToolStripPanel.Controls.Add(mainMenuStrip);
+            this.toolStripContainerAll.TopToolStripPanel.CausesValidation = false;
+            this.toolStripContainerAll.TopToolStripPanel.Controls.Add(this.mainMenuStrip);
             // 
-            // tableLayoutPanelButtons
+            // tableLayoutPanelAll
             // 
-            tableLayoutPanelButtons.AutoSize = true;
-            tableLayoutPanelButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            tableLayoutPanelButtons.CausesValidation = false;
-            tableLayoutPanelButtons.ColumnCount = 5;
-            tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanelButtons.Controls.Add(this.buttonExecuteScripts, 3, 0);
-            tableLayoutPanelButtons.Controls.Add(this.buttonQuit, 4, 0);
-            tableLayoutPanelButtons.Controls.Add(this.buttonAddScript, 1, 0);
-            tableLayoutPanelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            tableLayoutPanelButtons.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            tableLayoutPanelButtons.Location = new System.Drawing.Point(0, 384);
-            tableLayoutPanelButtons.Margin = new System.Windows.Forms.Padding(0);
-            tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
-            tableLayoutPanelButtons.Padding = new System.Windows.Forms.Padding(0, 11, 0, 0);
-            tableLayoutPanelButtons.RowCount = 1;
-            tableLayoutPanelButtons.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanelButtons.Size = new System.Drawing.Size(762, 36);
-            tableLayoutPanelButtons.TabIndex = 0;
-            // 
-            // buttonExecuteScripts
-            // 
-            this.buttonExecuteScripts.AccessibleDescription = "Execute the selected scripts.";
-            this.buttonExecuteScripts.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonExecuteScripts.AutoSize = true;
-            this.buttonExecuteScripts.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonExecuteScripts.CausesValidation = false;
-            this.buttonExecuteScripts.Enabled = false;
-            this.buttonExecuteScripts.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonExecuteScripts.Location = new System.Drawing.Point(595, 11);
-            this.buttonExecuteScripts.Margin = new System.Windows.Forms.Padding(0, 0, 7, 0);
-            this.buttonExecuteScripts.Name = "buttonExecuteScripts";
-            this.buttonExecuteScripts.Padding = new System.Windows.Forms.Padding(7, 0, 7, 0);
-            this.buttonExecuteScripts.Size = new System.Drawing.Size(109, 25);
-            this.buttonExecuteScripts.TabIndex = 4;
-            this.buttonExecuteScripts.Text = "Execute scripts";
-            this.buttonExecuteScripts.UseMnemonic = false;
-            this.buttonExecuteScripts.UseVisualStyleBackColor = true;
-            this.buttonExecuteScripts.Click += new System.EventHandler(this.ButtonExecuteScripts_Click);
-            // 
-            // buttonQuit
-            // 
-            this.buttonQuit.AccessibleName = "Exit the application.";
-            this.buttonQuit.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonQuit.AutoSize = true;
-            this.buttonQuit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonQuit.CausesValidation = false;
-            this.buttonQuit.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonQuit.Location = new System.Drawing.Point(711, 11);
-            this.buttonQuit.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonQuit.Name = "buttonQuit";
-            this.buttonQuit.Padding = new System.Windows.Forms.Padding(7, 0, 7, 0);
-            this.buttonQuit.Size = new System.Drawing.Size(50, 25);
-            this.buttonQuit.TabIndex = 5;
-            this.buttonQuit.Text = "Exit";
-            this.buttonQuit.UseMnemonic = false;
-            this.buttonQuit.UseVisualStyleBackColor = true;
-            this.buttonQuit.Click += new System.EventHandler(this.ButtonQuit_Click);
-            // 
-            // buttonAddScript
-            // 
-            this.buttonAddScript.AccessibleDescription = "Add a new script.";
-            this.buttonAddScript.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonAddScript.AutoSize = true;
-            this.buttonAddScript.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonAddScript.CausesValidation = false;
-            this.buttonAddScript.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonAddScript.Location = new System.Drawing.Point(153, 11);
-            this.buttonAddScript.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonAddScript.Name = "buttonAddScript";
-            this.buttonAddScript.Padding = new System.Windows.Forms.Padding(7, 0, 7, 0);
-            this.buttonAddScript.Size = new System.Drawing.Size(85, 25);
-            this.buttonAddScript.TabIndex = 3;
-            this.buttonAddScript.Text = "Add script";
-            this.buttonAddScript.UseMnemonic = false;
-            this.buttonAddScript.UseVisualStyleBackColor = true;
-            this.buttonAddScript.Click += new System.EventHandler(this.ButtonAddScript_Click);
-            // 
-            // mainMenuStrip
-            // 
-            mainMenuStrip.AllowMerge = false;
-            mainMenuStrip.BackColor = System.Drawing.SystemColors.Control;
-            mainMenuStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            mainMenuStrip.Dock = System.Windows.Forms.DockStyle.None;
-            mainMenuStrip.GripMargin = new System.Windows.Forms.Padding(2);
-            mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            MainMenuFile,
-            MainMenuSelect,
-            MainMenuSettings,
-            MainMenuHelp});
-            mainMenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            mainMenuStrip.Location = new System.Drawing.Point(0, 0);
-            mainMenuStrip.Name = "mainMenuStrip";
-            mainMenuStrip.Size = new System.Drawing.Size(762, 24);
-            mainMenuStrip.TabIndex = 1;
-            // 
-            // MainMenuFile
-            // 
-            MainMenuFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            MainMenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            MainMenuClearLogs,
-            MainMenuQuit});
-            MainMenuFile.Name = "MainMenuFile";
-            MainMenuFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
-            MainMenuFile.Size = new System.Drawing.Size(37, 20);
-            MainMenuFile.Text = "&File";
-            // 
-            // MainMenuClearLogs
-            // 
-            MainMenuClearLogs.AccessibleDescription = "Erase all application log files.";
-            MainMenuClearLogs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            MainMenuClearLogs.Name = "MainMenuClearLogs";
-            MainMenuClearLogs.Size = new System.Drawing.Size(126, 22);
-            MainMenuClearLogs.Text = "&Clear logs";
-            MainMenuClearLogs.Click += new System.EventHandler(this.MainMenuStripClearLogs_Click);
-            // 
-            // MainMenuQuit
-            // 
-            MainMenuQuit.Name = "MainMenuQuit";
-            MainMenuQuit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            MainMenuQuit.ShowShortcutKeys = false;
-            MainMenuQuit.Size = new System.Drawing.Size(126, 22);
-            MainMenuQuit.Text = "&Exit";
-            MainMenuQuit.Click += new System.EventHandler(this.MainMenuQuit_Click);
-            // 
-            // MainMenuSelect
-            // 
-            MainMenuSelect.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MainMenuSelectAll,
-            this.MainMenuSelectNothing,
-            this.MainMenuSelectMaintenance,
-            this.MainMenuSelectDebloat});
-            MainMenuSelect.Name = "MainMenuSelect";
-            MainMenuSelect.Size = new System.Drawing.Size(50, 20);
-            MainMenuSelect.Text = "&Select";
-            // 
-            // MainMenuSelectAll
-            // 
-            this.MainMenuSelectAll.Name = "MainMenuSelectAll";
-            this.MainMenuSelectAll.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.MainMenuSelectAll.Size = new System.Drawing.Size(143, 22);
-            this.MainMenuSelectAll.Text = "&All";
-            this.MainMenuSelectAll.Click += new System.EventHandler(this.MainMenuSelectAll_Click);
-            // 
-            // MainMenuSelectNothing
-            // 
-            this.MainMenuSelectNothing.Name = "MainMenuSelectNothing";
-            this.MainMenuSelectNothing.Size = new System.Drawing.Size(143, 22);
-            this.MainMenuSelectNothing.Text = "&None";
-            this.MainMenuSelectNothing.Click += new System.EventHandler(this.MainMenuSelectNothing_Click);
-            // 
-            // MainMenuSelectMaintenance
-            // 
-            this.MainMenuSelectMaintenance.Name = "MainMenuSelectMaintenance";
-            this.MainMenuSelectMaintenance.Size = new System.Drawing.Size(143, 22);
-            this.MainMenuSelectMaintenance.Text = "&Maintenance";
-            this.MainMenuSelectMaintenance.Click += new System.EventHandler(this.MainMenuSelectMaintenance_Click);
-            // 
-            // MainMenuSelectDebloat
-            // 
-            this.MainMenuSelectDebloat.Name = "MainMenuSelectDebloat";
-            this.MainMenuSelectDebloat.Size = new System.Drawing.Size(143, 22);
-            this.MainMenuSelectDebloat.Text = "&Debloat";
-            this.MainMenuSelectDebloat.Click += new System.EventHandler(this.MainMenuSelectDebloat_Click);
-            // 
-            // MainMenuSettings
-            // 
-            MainMenuSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            MainMenuSettings.Name = "MainMenuSettings";
-            MainMenuSettings.Size = new System.Drawing.Size(61, 20);
-            MainMenuSettings.Text = "&Settings";
-            MainMenuSettings.Click += new System.EventHandler(this.MainMenuStripSettings_Click);
-            // 
-            // MainMenuHelp
-            // 
-            MainMenuHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            MainMenuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            MainMenuShowHelp,
-            this.MainMenuAbout});
-            MainMenuHelp.Name = "MainMenuHelp";
-            MainMenuHelp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
-            MainMenuHelp.Size = new System.Drawing.Size(44, 20);
-            MainMenuHelp.Text = "&Help";
-            // 
-            // MainMenuShowHelp
-            // 
-            MainMenuShowHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            MainMenuShowHelp.Name = "MainMenuShowHelp";
-            MainMenuShowHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            MainMenuShowHelp.Size = new System.Drawing.Size(148, 22);
-            MainMenuShowHelp.Text = "Show help";
-            MainMenuShowHelp.Click += new System.EventHandler(this.MainMenuStripShowHelp_Click);
-            // 
-            // MainMenuAbout
-            // 
-            this.MainMenuAbout.Name = "MainMenuAbout";
-            this.MainMenuAbout.Size = new System.Drawing.Size(148, 22);
-            this.MainMenuAbout.Click += new System.EventHandler(this.MainMenuStripAbout_Click);
+            resources.ApplyResources(this.tableLayoutPanelAll, "tableLayoutPanelAll");
+            this.tableLayoutPanelAll.CausesValidation = false;
+            this.tableLayoutPanelAll.Controls.Add(this.listViewScripts, 0, 0);
+            this.tableLayoutPanelAll.Controls.Add(this.scriptEditor, 1, 0);
+            this.tableLayoutPanelAll.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tableLayoutPanelAll.Name = "tableLayoutPanelAll";
             // 
             // listViewScripts
             // 
-            this.listViewScripts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.listViewScripts, "listViewScripts");
             this.listViewScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewScripts.CausesValidation = false;
             this.listViewScripts.CheckBoxes = true;
@@ -353,10 +118,7 @@ partial class MainForm
             this.listViewScripts.FullRowSelect = true;
             this.listViewScripts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewScripts.HideSelection = false;
-            this.listViewScripts.Location = new System.Drawing.Point(5, 5);
             this.listViewScripts.Name = "listViewScripts";
-            this.listViewScripts.Size = new System.Drawing.Size(372, 374);
-            this.listViewScripts.TabIndex = 7;
             this.listViewScripts.UseCompatibleStateImageBehavior = false;
             this.listViewScripts.View = System.Windows.Forms.View.Details;
             this.listViewScripts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.ListViewScripts_ItemChecked);
@@ -365,65 +127,172 @@ partial class MainForm
             // 
             // scriptHeaderName
             // 
-            this.scriptHeaderName.Width = 409;
+            resources.ApplyResources(this.scriptHeaderName, "scriptHeaderName");
             // 
             // scriptEditor
             // 
-            this.scriptEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.scriptEditor.AutoScroll = true;
+            resources.ApplyResources(this.scriptEditor, "scriptEditor");
             this.scriptEditor.CausesValidation = false;
-            this.scriptEditor.Location = new System.Drawing.Point(385, 5);
-            this.scriptEditor.MinimumSize = new System.Drawing.Size(0, 325);
             this.scriptEditor.Name = "scriptEditor";
             this.scriptEditor.Selected = null;
-            this.scriptEditor.Size = new System.Drawing.Size(372, 374);
-            this.scriptEditor.TabIndex = 8;
+            // 
+            // tableLayoutPanelButtons
+            // 
+            resources.ApplyResources(this.tableLayoutPanelButtons, "tableLayoutPanelButtons");
+            this.tableLayoutPanelButtons.CausesValidation = false;
+            this.tableLayoutPanelButtons.Controls.Add(this.buttonExecuteScripts, 2, 0);
+            this.tableLayoutPanelButtons.Controls.Add(this.buttonAddScript, 0, 0);
+            this.tableLayoutPanelButtons.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
+            // 
+            // buttonExecuteScripts
+            // 
+            resources.ApplyResources(this.buttonExecuteScripts, "buttonExecuteScripts");
+            this.buttonExecuteScripts.CausesValidation = false;
+            this.buttonExecuteScripts.Name = "buttonExecuteScripts";
+            this.buttonExecuteScripts.UseMnemonic = false;
+            this.buttonExecuteScripts.UseVisualStyleBackColor = true;
+            this.buttonExecuteScripts.Click += new System.EventHandler(this.ButtonExecuteScripts_Click);
+            // 
+            // buttonAddScript
+            // 
+            resources.ApplyResources(this.buttonAddScript, "buttonAddScript");
+            this.buttonAddScript.CausesValidation = false;
+            this.buttonAddScript.Name = "buttonAddScript";
+            this.buttonAddScript.UseMnemonic = false;
+            this.buttonAddScript.UseVisualStyleBackColor = true;
+            this.buttonAddScript.Click += new System.EventHandler(this.ButtonAddScript_Click);
+            // 
+            // mainMenuStrip
+            // 
+            this.mainMenuStrip.AllowMerge = false;
+            this.mainMenuStrip.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(this.mainMenuStrip, "mainMenuStrip");
+            this.mainMenuStrip.GripMargin = new System.Windows.Forms.Padding(2);
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainMenuFile,
+            this.MainMenuSelect,
+            this.MainMenuSettings,
+            this.MainMenuHelp});
+            this.mainMenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            // 
+            // MainMenuFile
+            // 
+            resources.ApplyResources(this.MainMenuFile, "MainMenuFile");
+            this.MainMenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainMenuClearLogs,
+            this.MainMenuQuit});
+            this.MainMenuFile.Name = "MainMenuFile";
+            // 
+            // MainMenuClearLogs
+            // 
+            resources.ApplyResources(this.MainMenuClearLogs, "MainMenuClearLogs");
+            this.MainMenuClearLogs.Name = "MainMenuClearLogs";
+            this.MainMenuClearLogs.Click += new System.EventHandler(this.MainMenuStripClearLogs_Click);
+            // 
+            // MainMenuQuit
+            // 
+            this.MainMenuQuit.Name = "MainMenuQuit";
+            resources.ApplyResources(this.MainMenuQuit, "MainMenuQuit");
+            this.MainMenuQuit.Click += new System.EventHandler(this.MainMenuQuit_Click);
+            // 
+            // MainMenuSelect
+            // 
+            this.MainMenuSelect.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainMenuSelectAll,
+            this.MainMenuSelectNothing,
+            this.MainMenuSelectMaintenance,
+            this.MainMenuSelectDebloat});
+            this.MainMenuSelect.Name = "MainMenuSelect";
+            resources.ApplyResources(this.MainMenuSelect, "MainMenuSelect");
+            // 
+            // MainMenuSelectAll
+            // 
+            this.MainMenuSelectAll.Name = "MainMenuSelectAll";
+            resources.ApplyResources(this.MainMenuSelectAll, "MainMenuSelectAll");
+            this.MainMenuSelectAll.Click += new System.EventHandler(this.MainMenuSelectAll_Click);
+            // 
+            // MainMenuSelectNothing
+            // 
+            this.MainMenuSelectNothing.Name = "MainMenuSelectNothing";
+            resources.ApplyResources(this.MainMenuSelectNothing, "MainMenuSelectNothing");
+            this.MainMenuSelectNothing.Click += new System.EventHandler(this.MainMenuSelectNothing_Click);
+            // 
+            // MainMenuSelectMaintenance
+            // 
+            this.MainMenuSelectMaintenance.Name = "MainMenuSelectMaintenance";
+            resources.ApplyResources(this.MainMenuSelectMaintenance, "MainMenuSelectMaintenance");
+            this.MainMenuSelectMaintenance.Click += new System.EventHandler(this.MainMenuSelectMaintenance_Click);
+            // 
+            // MainMenuSelectDebloat
+            // 
+            this.MainMenuSelectDebloat.Name = "MainMenuSelectDebloat";
+            resources.ApplyResources(this.MainMenuSelectDebloat, "MainMenuSelectDebloat");
+            this.MainMenuSelectDebloat.Click += new System.EventHandler(this.MainMenuSelectDebloat_Click);
+            // 
+            // MainMenuSettings
+            // 
+            resources.ApplyResources(this.MainMenuSettings, "MainMenuSettings");
+            this.MainMenuSettings.Name = "MainMenuSettings";
+            this.MainMenuSettings.Click += new System.EventHandler(this.MainMenuStripSettings_Click);
+            // 
+            // MainMenuHelp
+            // 
+            resources.ApplyResources(this.MainMenuHelp, "MainMenuHelp");
+            this.MainMenuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainMenuShowHelp,
+            this.MainMenuAbout});
+            this.MainMenuHelp.Name = "MainMenuHelp";
+            // 
+            // MainMenuShowHelp
+            // 
+            resources.ApplyResources(this.MainMenuShowHelp, "MainMenuShowHelp");
+            this.MainMenuShowHelp.Name = "MainMenuShowHelp";
+            this.MainMenuShowHelp.Click += new System.EventHandler(this.MainMenuStripShowHelp_Click);
+            // 
+            // MainMenuAbout
+            // 
+            this.MainMenuAbout.Name = "MainMenuAbout";
+            resources.ApplyResources(this.MainMenuAbout, "MainMenuAbout");
+            this.MainMenuAbout.Click += new System.EventHandler(this.MainMenuStripAbout_Click);
             // 
             // openFileDialogScripts
             // 
             this.openFileDialogScripts.Multiselect = true;
-            this.openFileDialogScripts.Title = "Add script";
+            resources.ApplyResources(this.openFileDialogScripts, "openFileDialogScripts");
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CausesValidation = false;
-            this.ClientSize = new System.Drawing.Size(784, 455);
-            this.Controls.Add(toolStripContainerAll);
+            this.Controls.Add(this.toolStripContainerAll);
             this.DoubleBuffered = true;
-            this.MainMenuStrip = mainMenuStrip;
-            this.MinimumSize = new System.Drawing.Size(400, 247);
+            this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "MainForm";
             this.Opacity = 0.96D;
-            this.Padding = new System.Windows.Forms.Padding(11, 0, 11, 11);
             this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
-            tableLayoutPanelAll.ResumeLayout(false);
-            toolStripContainerAll.ContentPanel.ResumeLayout(false);
-            toolStripContainerAll.ContentPanel.PerformLayout();
-            toolStripContainerAll.TopToolStripPanel.ResumeLayout(false);
-            toolStripContainerAll.TopToolStripPanel.PerformLayout();
-            toolStripContainerAll.ResumeLayout(false);
-            toolStripContainerAll.PerformLayout();
-            tableLayoutPanelButtons.ResumeLayout(false);
-            tableLayoutPanelButtons.PerformLayout();
-            mainMenuStrip.ResumeLayout(false);
-            mainMenuStrip.PerformLayout();
+            this.toolStripContainerAll.ContentPanel.ResumeLayout(false);
+            this.toolStripContainerAll.ContentPanel.PerformLayout();
+            this.toolStripContainerAll.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainerAll.TopToolStripPanel.PerformLayout();
+            this.toolStripContainerAll.ResumeLayout(false);
+            this.toolStripContainerAll.PerformLayout();
+            this.tableLayoutPanelAll.ResumeLayout(false);
+            this.tableLayoutPanelButtons.ResumeLayout(false);
+            this.tableLayoutPanelButtons.PerformLayout();
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
 
     }
 
     #endregion
-    private System.Windows.Forms.Button buttonExecuteScripts;
-    private System.Windows.Forms.Button buttonQuit;
     private System.Windows.Forms.ListView listViewScripts;
     private System.Windows.Forms.ToolStripMenuItem MainMenuAbout;
-    private System.Windows.Forms.Button buttonAddScript;
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelectAll;
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelectNothing;
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelectMaintenance;
@@ -431,4 +300,17 @@ partial class MainForm
     private System.Windows.Forms.ColumnHeader scriptHeaderName;
     private System.Windows.Forms.OpenFileDialog openFileDialogScripts;
     private ScriptEditor scriptEditor;
+    private System.Windows.Forms.TableLayoutPanel tableLayoutPanelAll;
+    private System.Windows.Forms.ToolStripContainer toolStripContainerAll;
+    private System.Windows.Forms.MenuStrip mainMenuStrip;
+    private System.Windows.Forms.ToolStripMenuItem MainMenuFile;
+    private System.Windows.Forms.ToolStripMenuItem MainMenuClearLogs;
+    private System.Windows.Forms.ToolStripMenuItem MainMenuQuit;
+    private System.Windows.Forms.ToolStripMenuItem MainMenuSelect;
+    private System.Windows.Forms.ToolStripMenuItem MainMenuSettings;
+    private System.Windows.Forms.ToolStripMenuItem MainMenuHelp;
+    private System.Windows.Forms.ToolStripMenuItem MainMenuShowHelp;
+    private System.Windows.Forms.TableLayoutPanel tableLayoutPanelButtons;
+    private System.Windows.Forms.Button buttonExecuteScripts;
+    private System.Windows.Forms.Button buttonAddScript;
 }

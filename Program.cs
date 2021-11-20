@@ -57,24 +57,11 @@ public static class Program
         }
     }
 
-    /// <summary>Sets the culture of all the ResX files generated classes.</summary>
-    private static void InitResxCulture()
-        => Resources.ErrorStrings.Culture =
-           Resources.FileSystemElements.Culture =
-           Resources.FileSystemVerbs.Culture =
-           Resources.FormattableStrings.Culture =
-           Resources.Icons.Culture =
-           Resources.Images.Culture =
-           Resources.ImpactEffect.Culture =
-           Resources.ScriptAdvised.Culture = System.Globalization.CultureInfo.CurrentUICulture.GetNeutralCulture();
-
     [STAThread]
     private static void Main()
     {
         Application.SetCompatibleTextRenderingDefault(false);
         Application.EnableVisualStyles();
-
-        InitResxCulture();
 
         EnsureSingleInstance();
         EnsureStartupPath();

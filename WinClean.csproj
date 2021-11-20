@@ -17,7 +17,6 @@
 	<PackageIcon>main.png</PackageIcon>
 	<PackageIconUrl />
 	<RepositoryUrl>https://raphaelbardini.github.io/WinClean/</RepositoryUrl>
-	<NeutralLanguage>fr-FR</NeutralLanguage>
 	<Win32Resource />
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	<RepositoryType>GitHub</RepositoryType>
@@ -26,6 +25,7 @@
 	<DebugType>portable</DebugType>
 	<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	
   </PropertyGroup>
 
