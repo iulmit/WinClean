@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>RaphaëlBardini.WinClean.Program</StartupObject>
 	<LangVersion>preview</LangVersion>
@@ -26,13 +26,16 @@
 	<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	<SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<NeutralLanguage>en</NeutralLanguage>
 	
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <NoWarn></NoWarn>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>5</WarningLevel>
     <CodeAnalysisRuleSet />
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
@@ -40,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <NoWarn></NoWarn>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>5</WarningLevel>
     <CodeAnalysisRuleSet />
     <DocumentationFile>D:\Scover\Bureau\Programmation\Visual Studio\C#\WinClean\WinClean.xml</DocumentationFile>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -51,12 +54,14 @@
     <CodeAnalysisRuleSet />
     <NoWarn />
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet />
     <NoWarn />
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

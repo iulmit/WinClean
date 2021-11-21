@@ -117,7 +117,6 @@ partial class MainForm
             this.scriptHeaderName});
             this.listViewScripts.FullRowSelect = true;
             this.listViewScripts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewScripts.HideSelection = false;
             this.listViewScripts.Name = "listViewScripts";
             this.listViewScripts.UseCompatibleStateImageBehavior = false;
             this.listViewScripts.View = System.Windows.Forms.View.Details;

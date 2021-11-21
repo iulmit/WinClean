@@ -1,8 +1,5 @@
 ﻿using RaphaëlBardini.WinClean.Logic;
 
-using System.Linq;
-using System.Windows.Forms;
-
 using WinCopies.Collections;
 
 namespace RaphaëlBardini.WinClean.Presentation;

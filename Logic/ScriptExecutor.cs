@@ -3,11 +3,7 @@ using Microsoft.WindowsAPICodePack.Win32Native.Shell;
 
 using RaphaëlBardini.WinClean.ErrorHandling;
 
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 /* Steps :
  * Warning. Show a warning message. Force the user to read it using a verification checkbox.

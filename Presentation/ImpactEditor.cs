@@ -1,9 +1,5 @@
 ﻿using RaphaëlBardini.WinClean.Logic;
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-
 namespace RaphaëlBardini.WinClean.Presentation;
 
 public partial class ImpactEditor : UserControl

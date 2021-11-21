@@ -61,7 +61,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Directory.
+        ///   Recherche une chaîne localisée semblable à directory.
         /// </summary>
         internal static string Directory {
             get {
@@ -70,7 +70,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à File.
+        ///   Recherche une chaîne localisée semblable à file.
         /// </summary>
         internal static string File {
             get {

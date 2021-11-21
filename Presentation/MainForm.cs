@@ -3,9 +3,6 @@
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
 
-using System.Linq;
-using System.Windows.Forms;
-
 using WinCopies.Collections;
 
 using static System.Globalization.CultureInfo;
@@ -29,12 +26,12 @@ public partial class MainForm : Form
 
         /*ListViewGroup[] placeholderGroups = new[]
         {
-            new ListViewGroup("TestGroup1", "Groupe test 1"),
-            new ListViewGroup("TestGroup2", "Groupe test 2")
+            new ListViewGroup("Groupe test 1"),
+            new ListViewGroup("Groupe test 2")
         };
-        listViewScripts.Groups.AddRange(placeholderGroups);*/
+        listViewScripts.Groups.AddRange(placeholderGroups);
 
-        /*IScript[] placeholders = new[]
+        Script[] placeholders = new[]
         {
                 new Script
                 (

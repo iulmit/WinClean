@@ -4,8 +4,6 @@ using RaphaëlBardini.WinClean.ErrorHandling;
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Presentation;
 
-using System.Windows.Forms;
-
 namespace RaphaëlBardini.WinClean;
 
 /// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>

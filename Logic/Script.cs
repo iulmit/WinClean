@@ -3,9 +3,6 @@
 using RaphaëlBardini.WinClean.ErrorHandling;
 using RaphaëlBardini.WinClean.Operational;
 
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using System.Xml;
 
 namespace RaphaëlBardini.WinClean.Logic;
@@ -219,7 +216,16 @@ public class Script : ListViewItem, IScript
 
         void SaveToScriptsDir()
         {
-            MoveScriptFileInAppropriateGroupDir();
+            string correctPath = Path.Join(CreateGroupDirectory().FullName, $"{Name.ToFilename()}.xml");
+
+            if (_file.Exists)
+            {
+                MoveScriptFileInAppropriateGroupDir();
+            }
+            else
+            {
+                doc.Save(correctPath);
+            }
 
             void MoveScriptFileInAppropriateGroupDir()
             {
@@ -227,7 +233,7 @@ public class Script : ListViewItem, IScript
 
                 try
                 {
-                    _file.MoveTo(Path.Join(CreateGroupDirectory().FullName, $"{Name.ToFilename()}.xml"));
+                    _file.MoveTo(correctPath);
                 }
                 catch (Exception e) when (e.FileSystem())
                 {

@@ -1,4 +1,64 @@
-﻿<root>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -52,13 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="toolStripContainerAll.BottomToolStripPanel.Enabled" type="System.Boolean, mscorlib">
+  <assembly alias="System.Runtime" name="System.Runtime, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStripContainerAll.BottomToolStripPanel.Enabled" type="System.Boolean, System.Runtime">
     <value>False</value>
   </data>
   <data name="&gt;&gt;toolStripContainerAll.BottomToolStripPanel.Name" xml:space="preserve">
@@ -73,33 +133,33 @@
   <data name="&gt;&gt;toolStripContainerAll.BottomToolStripPanel.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="toolStripContainerAll.ContentPanel.AutoScroll" type="System.Boolean, mscorlib">
+  <data name="toolStripContainerAll.ContentPanel.AutoScroll" type="System.Boolean, System.Runtime">
     <value>True</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tableLayoutPanelAll.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
   <data name="tableLayoutPanelAll.CellBorderStyle" type="System.Windows.Forms.TableLayoutPanelCellBorderStyle, System.Windows.Forms">
     <value>Inset</value>
   </data>
-  <data name="tableLayoutPanelAll.ColumnCount" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanelAll.ColumnCount" type="System.Int32, System.Runtime">
     <value>2</value>
   </data>
   <data name="listViewScripts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="scriptHeaderName.Width" type="System.Int32, mscorlib">
+  <data name="scriptHeaderName.Width" type="System.Int32, System.Runtime">
     <value>409</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="listViewScripts.Location" type="System.Drawing.Point, System.Drawing">
+  <assembly alias="System.Drawing.Primitives" name="System.Drawing.Primitives, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="listViewScripts.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>5, 5</value>
   </data>
-  <data name="listViewScripts.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="listViewScripts.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>372, 374</value>
   </data>
-  <data name="listViewScripts.TabIndex" type="System.Int32, mscorlib">
+  <data name="listViewScripts.TabIndex" type="System.Int32, System.Runtime">
     <value>7</value>
   </data>
   <data name="&gt;&gt;listViewScripts.Name" xml:space="preserve">
@@ -117,19 +177,19 @@
   <data name="scriptEditor.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="scriptEditor.AutoScroll" type="System.Boolean, mscorlib">
+  <data name="scriptEditor.AutoScroll" type="System.Boolean, System.Runtime">
     <value>True</value>
   </data>
-  <data name="scriptEditor.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="scriptEditor.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>385, 5</value>
   </data>
-  <data name="scriptEditor.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="scriptEditor.MinimumSize" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>0, 325</value>
   </data>
-  <data name="scriptEditor.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="scriptEditor.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>372, 374</value>
   </data>
-  <data name="scriptEditor.TabIndex" type="System.Int32, mscorlib">
+  <data name="scriptEditor.TabIndex" type="System.Int32, System.Runtime">
     <value>8</value>
   </data>
   <data name="&gt;&gt;scriptEditor.Name" xml:space="preserve">
@@ -147,20 +207,20 @@
   <data name="tableLayoutPanelAll.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="tableLayoutPanelAll.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tableLayoutPanelAll.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>0, 0</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tableLayoutPanelAll.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <assembly alias="System.Windows.Forms.Primitives" name="System.Windows.Forms.Primitives, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tableLayoutPanelAll.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="tableLayoutPanelAll.RowCount" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanelAll.RowCount" type="System.Int32, System.Runtime">
     <value>1</value>
   </data>
-  <data name="tableLayoutPanelAll.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tableLayoutPanelAll.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>762, 384</value>
   </data>
-  <data name="tableLayoutPanelAll.TabIndex" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanelAll.TabIndex" type="System.Int32, System.Runtime">
     <value>0</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanelAll.Name" xml:space="preserve">
@@ -178,46 +238,43 @@
   <data name="tableLayoutPanelAll.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listViewScripts" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="scriptEditor" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="tableLayoutPanelButtons.AutoSize" type="System.Boolean, mscorlib">
+  <data name="tableLayoutPanelButtons.AutoSize" type="System.Boolean, System.Runtime">
     <value>True</value>
   </data>
   <data name="tableLayoutPanelButtons.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="tableLayoutPanelButtons.ColumnCount" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanelButtons.ColumnCount" type="System.Int32, System.Runtime">
     <value>3</value>
-  </data>
-  <data name="buttonExecuteScripts.AccessibleDescription" xml:space="preserve">
-    <value>Execute the selected scripts.</value>
   </data>
   <data name="buttonExecuteScripts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="buttonExecuteScripts.AutoSize" type="System.Boolean, mscorlib">
+  <data name="buttonExecuteScripts.AutoSize" type="System.Boolean, System.Runtime">
     <value>True</value>
   </data>
   <data name="buttonExecuteScripts.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="buttonExecuteScripts.Enabled" type="System.Boolean, mscorlib">
+  <data name="buttonExecuteScripts.Enabled" type="System.Boolean, System.Runtime">
     <value>False</value>
   </data>
   <data name="buttonExecuteScripts.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonExecuteScripts.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonExecuteScripts.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>653, 11</value>
   </data>
-  <data name="buttonExecuteScripts.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="buttonExecuteScripts.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="buttonExecuteScripts.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="buttonExecuteScripts.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>7, 0, 7, 0</value>
   </data>
-  <data name="buttonExecuteScripts.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonExecuteScripts.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>109, 25</value>
   </data>
-  <data name="buttonExecuteScripts.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonExecuteScripts.TabIndex" type="System.Int32, System.Runtime">
     <value>4</value>
   </data>
   <data name="buttonExecuteScripts.Text" xml:space="preserve">
@@ -235,13 +292,10 @@
   <data name="&gt;&gt;buttonExecuteScripts.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="buttonAddScript.AccessibleDescription" xml:space="preserve">
-    <value>Add a new script.</value>
-  </data>
   <data name="buttonAddScript.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="buttonAddScript.AutoSize" type="System.Boolean, mscorlib">
+  <data name="buttonAddScript.AutoSize" type="System.Boolean, System.Runtime">
     <value>True</value>
   </data>
   <data name="buttonAddScript.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
@@ -250,19 +304,19 @@
   <data name="buttonAddScript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonAddScript.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonAddScript.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>0, 11</value>
   </data>
-  <data name="buttonAddScript.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="buttonAddScript.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="buttonAddScript.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="buttonAddScript.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>7, 0, 7, 0</value>
   </data>
-  <data name="buttonAddScript.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonAddScript.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>85, 25</value>
   </data>
-  <data name="buttonAddScript.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonAddScript.TabIndex" type="System.Int32, System.Runtime">
     <value>3</value>
   </data>
   <data name="buttonAddScript.Text" xml:space="preserve">
@@ -283,22 +337,22 @@
   <data name="tableLayoutPanelButtons.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
-  <data name="tableLayoutPanelButtons.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tableLayoutPanelButtons.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>0, 384</value>
   </data>
-  <data name="tableLayoutPanelButtons.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tableLayoutPanelButtons.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="tableLayoutPanelButtons.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tableLayoutPanelButtons.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>0, 11, 0, 0</value>
   </data>
-  <data name="tableLayoutPanelButtons.RowCount" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanelButtons.RowCount" type="System.Int32, System.Runtime">
     <value>1</value>
   </data>
-  <data name="tableLayoutPanelButtons.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tableLayoutPanelButtons.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>762, 36</value>
   </data>
-  <data name="tableLayoutPanelButtons.TabIndex" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanelButtons.TabIndex" type="System.Int32, System.Runtime">
     <value>0</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanelButtons.Name" xml:space="preserve">
@@ -316,10 +370,10 @@
   <data name="tableLayoutPanelButtons.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonExecuteScripts" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="buttonAddScript" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100,AutoSize,0,Absolute,20" /&gt;&lt;Rows Styles="AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="toolStripContainerAll.ContentPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="toolStripContainerAll.ContentPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="toolStripContainerAll.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripContainerAll.ContentPanel.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>762, 420</value>
   </data>
   <data name="&gt;&gt;toolStripContainerAll.ContentPanel.Name" xml:space="preserve">
@@ -337,7 +391,7 @@
   <data name="toolStripContainerAll.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="toolStripContainerAll.LeftToolStripPanel.Enabled" type="System.Boolean, mscorlib">
+  <data name="toolStripContainerAll.LeftToolStripPanel.Enabled" type="System.Boolean, System.Runtime">
     <value>False</value>
   </data>
   <data name="&gt;&gt;toolStripContainerAll.LeftToolStripPanel.Name" xml:space="preserve">
@@ -352,13 +406,13 @@
   <data name="&gt;&gt;toolStripContainerAll.LeftToolStripPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="toolStripContainerAll.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="toolStripContainerAll.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>11, 0</value>
   </data>
-  <data name="toolStripContainerAll.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="toolStripContainerAll.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="toolStripContainerAll.RightToolStripPanel.Enabled" type="System.Boolean, mscorlib">
+  <data name="toolStripContainerAll.RightToolStripPanel.Enabled" type="System.Boolean, System.Runtime">
     <value>False</value>
   </data>
   <data name="&gt;&gt;toolStripContainerAll.RightToolStripPanel.Name" xml:space="preserve">
@@ -373,15 +427,15 @@
   <data name="&gt;&gt;toolStripContainerAll.RightToolStripPanel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="toolStripContainerAll.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripContainerAll.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>762, 444</value>
   </data>
-  <data name="toolStripContainerAll.TabIndex" type="System.Int32, mscorlib">
+  <data name="toolStripContainerAll.TabIndex" type="System.Int32, System.Runtime">
     <value>0</value>
   </data>
-  <metadata name="mainMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="mainMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>17, 17</value>
-  </metadata>
+  </data>
   <data name="mainMenuStrip.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -391,14 +445,11 @@
   <data name="MainMenuFile.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="MainMenuClearLogs.AccessibleDescription" xml:space="preserve">
-    <value>Erase all application log files.</value>
-  </data>
   <data name="MainMenuClearLogs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="MainMenuClearLogs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 22</value>
+  <data name="MainMenuClearLogs.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
   <data name="MainMenuClearLogs.Text" xml:space="preserve">
     <value>&amp;Clear logs</value>
@@ -406,11 +457,11 @@
   <data name="MainMenuQuit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+F4</value>
   </data>
-  <data name="MainMenuQuit.ShowShortcutKeys" type="System.Boolean, mscorlib">
+  <data name="MainMenuQuit.ShowShortcutKeys" type="System.Boolean, System.Runtime">
     <value>False</value>
   </data>
-  <data name="MainMenuQuit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 22</value>
+  <data name="MainMenuQuit.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
   <data name="MainMenuQuit.Text" xml:space="preserve">
     <value>&amp;Exit</value>
@@ -418,7 +469,7 @@
   <data name="MainMenuFile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+F</value>
   </data>
-  <data name="MainMenuFile.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainMenuFile.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>37, 20</value>
   </data>
   <data name="MainMenuFile.Text" xml:space="preserve">
@@ -427,31 +478,31 @@
   <data name="MainMenuSelectAll.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+A</value>
   </data>
-  <data name="MainMenuSelectAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+  <data name="MainMenuSelectAll.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
   <data name="MainMenuSelectAll.Text" xml:space="preserve">
     <value>&amp;All</value>
   </data>
-  <data name="MainMenuSelectNothing.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+  <data name="MainMenuSelectNothing.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
   <data name="MainMenuSelectNothing.Text" xml:space="preserve">
     <value>&amp;None</value>
   </data>
-  <data name="MainMenuSelectMaintenance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+  <data name="MainMenuSelectMaintenance.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
   <data name="MainMenuSelectMaintenance.Text" xml:space="preserve">
     <value>&amp;Maintenance</value>
   </data>
-  <data name="MainMenuSelectDebloat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
+  <data name="MainMenuSelectDebloat.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
   <data name="MainMenuSelectDebloat.Text" xml:space="preserve">
     <value>&amp;Debloat</value>
   </data>
-  <data name="MainMenuSelect.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainMenuSelect.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>50, 20</value>
   </data>
   <data name="MainMenuSelect.Text" xml:space="preserve">
@@ -460,7 +511,7 @@
   <data name="MainMenuSettings.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="MainMenuSettings.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainMenuSettings.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>61, 20</value>
   </data>
   <data name="MainMenuSettings.Text" xml:space="preserve">
@@ -475,31 +526,31 @@
   <data name="MainMenuShowHelp.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>F1</value>
   </data>
-  <data name="MainMenuShowHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
+  <data name="MainMenuShowHelp.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
   <data name="MainMenuShowHelp.Text" xml:space="preserve">
     <value>Show help</value>
   </data>
-  <data name="MainMenuAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
+  <data name="MainMenuAbout.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
   <data name="MainMenuHelp.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+A</value>
   </data>
-  <data name="MainMenuHelp.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MainMenuHelp.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>44, 20</value>
   </data>
   <data name="MainMenuHelp.Text" xml:space="preserve">
     <value>&amp;Help</value>
   </data>
-  <data name="mainMenuStrip.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="mainMenuStrip.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>0, 0</value>
   </data>
-  <data name="mainMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="mainMenuStrip.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>762, 24</value>
   </data>
-  <data name="mainMenuStrip.TabIndex" type="System.Int32, mscorlib">
+  <data name="mainMenuStrip.TabIndex" type="System.Int32, System.Runtime">
     <value>1</value>
   </data>
   <data name="&gt;&gt;mainMenuStrip.Name" xml:space="preserve">
@@ -538,28 +589,28 @@
   <data name="&gt;&gt;toolStripContainerAll.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="openFileDialogScripts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="openFileDialogScripts.TrayLocation" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>152, 17</value>
-  </metadata>
+  </data>
   <data name="openFileDialogScripts.Title" xml:space="preserve">
     <value>Add script</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, System.Runtime">
     <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing.Primitives">
     <value>96, 96</value>
   </data>
   <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>784, 455</value>
   </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>400, 247</value>
   </data>
-  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms.Primitives">
     <value>11, 0, 11, 11</value>
   </data>
   <data name="&gt;&gt;scriptHeaderName.Name" xml:space="preserve">

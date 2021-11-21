@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Directory" xml:space="preserve">
-    <value>Directory</value>
+    <value>directory</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>File</value>
+    <value>file</value>
   </data>
 </root>

@@ -2,10 +2,6 @@
 
 using RaphaëlBardini.WinClean.ErrorHandling;
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-
 namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>Represents the scripts dir of the application root directory.</summary>

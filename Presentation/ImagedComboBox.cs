@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace RaphaëlBardini.WinClean.Presentation;
+﻿namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>Represents a combo box with images instad of text for elements.</summary>
 public class ImagedComboBox : ComboBox
@@ -48,7 +45,7 @@ public class ImagedComboBox : ComboBox
         {
             if (!string.IsNullOrWhiteSpace(text))
             {
-                e.Graphics.DrawString(text, e.Font, eForeBrush, e.Bounds.Left, e.Bounds.Top);
+                e.Graphics.DrawString(text, e.Font ?? Font, eForeBrush, e.Bounds.Left, e.Bounds.Top);
             }
         }
     }

@@ -3,8 +3,6 @@
 using Microsoft.Win32;
 
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace RaphaëlBardini.WinClean;
 
