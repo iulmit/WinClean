@@ -26,7 +26,6 @@ public static class LogManager
         s_csvWriter = new(new StreamWriter(s_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = LogDelimiter });
         s_csvWriter.WriteHeader<LogEntry>();
         s_csvWriter.NextRecord();
-        s_csvWriter.Flush();
     }
 
     #endregion Public Constructors
@@ -91,7 +90,6 @@ public static class LogManager
             });
 
             s_csvWriter.NextRecord();
-            s_csvWriter.Flush();
         }
     }
 
