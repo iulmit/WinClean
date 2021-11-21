@@ -20,19 +20,17 @@ public class ConfirmationDialog : Dialog
 
     public static ConfirmationDialog AbortOperation { get; } = new()
     {
-        Heading = "Abandonner l'opération ?",
-        Text = "Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?",
+        Text = Resources.Dialog.ConfirmAbortOperation
     };
 
     public static ConfirmationDialog ProgramExit { get; } = new()
     {
-        Heading = $"Quitter {Application.ProductName} ?",
+        Text = string.Format(CurrentCulture, Resources.Dialog.ConfirmProgramExit, Application.ProductName)
     };
 
     public static ConfirmationDialog ScriptDeletion { get; } = new()
     {
-        Heading = "Supprimer le script ?",
-        Text = $"Êtes-vous sûr de vouloir supprimer le script ? Cette action est irréversible."
+        Text = Resources.Dialog.ConfirmScriptDeletion
     };
 
     #endregion Public Properties

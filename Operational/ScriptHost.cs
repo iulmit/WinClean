@@ -3,7 +3,6 @@
 using RaphaëlBardini.WinClean.ErrorHandling;
 
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -62,7 +61,7 @@ public abstract class ScriptHost
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, tmpScript, FSOperation.Create, () => tmpScript = CreateTempFile(text, extension)).ShowErrorDialog();
+            new FSErrorDialog(e, tmpScript, FSVerb.Create, () => tmpScript = CreateTempFile(text, extension)).ShowErrorDialog();
         }
         return tmpScript;
     }
@@ -153,9 +152,10 @@ public abstract class ScriptHost
         /// <exception cref="ArgumentNullException"><paramref name="args"/> is <see langword="null"/>.</exception>
         public IncompleteArguments(string args)
         {
-            if (FormattableStringFactory.Create(args ?? throw new ArgumentNullException(nameof(args)), string.Empty).ArgumentCount != 1)
+            const int ExpectedFormatItemCount = 1;
+            if (FormattableStringFactory.Create(args ?? throw new ArgumentNullException(nameof(args)), string.Empty).ArgumentCount != ExpectedFormatItemCount)
             {
-                throw new ArgumentException($"Not exactly 1 formattable argument", nameof(args));
+                throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.WrongFormatItemCount, ExpectedFormatItemCount), nameof(args));
             }
             _args = args;
         }
@@ -167,7 +167,7 @@ public abstract class ScriptHost
         /// <summary>Completes the arguments with the specified script file.</summary>
         /// <param name="script">The file to complete the arguments with.</param>
         /// <returns>The completed arguments</returns>
-        public string Complete(FileInfo script) => string.Format(CultureInfo.InvariantCulture, _args, script);
+        public string Complete(FileInfo script) => string.Format(InvariantCulture, _args, script);
 
         #endregion Public Methods
     }

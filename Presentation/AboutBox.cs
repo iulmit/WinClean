@@ -2,8 +2,6 @@
 
 using System.Reflection;
 
-using static System.Globalization.CultureInfo;
-
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>Displays the traditional about box with application-related metadata</summary>

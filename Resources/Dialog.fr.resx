@@ -112,18 +112,39 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
+  <data name="ConfirmAbortOperation" xml:space="preserve">
+    <value>Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?</value>
   </data>
-  <data name="Info" xml:space="preserve">
-    <value>Information</value>
+  <data name="ConfirmProgramExit" xml:space="preserve">
+    <value>Quitter {0} ?</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+  <data name="ConfirmScriptDeletion" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer le script ? Cette action est irréversible.</value>
+  </data>
+  <data name="ExitButton" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
+  <data name="FSError" xml:space="preserve">
+    <value>Impossible de {0} le {1} "{2}". {3}</value>
+  </data>
+  <data name="HungScript" xml:space="preserve">
+    <value>Le script "{0}" est en cours d'exécution depuis {1} et ne s'arrêtera probablement jamais.</value>
+  </data>
+  <data name="KillScriptButton" xml:space="preserve">
+    <value>Forcer l'arrêt du script</value>
+  </data>
+  <data name="RestartScriptButton" xml:space="preserve">
+    <value>Redémarrer le script</value>
+  </data>
+  <data name="SingleInstanceOnly" xml:space="preserve">
+    <value>L'application est déjà en cours d'exécution.</value>
+  </data>
+  <data name="WrongStartupPath" xml:space="preserve">
+    <value>L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans "{0}".</value>
   </data>
 </root>

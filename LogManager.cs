@@ -23,7 +23,7 @@ public static class LogManager
         s_logDir = new(Path.Join(Program.AppDir.Info.FullName, "Logs"));
         s_currentLogFile = new(Path.Join(s_logDir.FullName, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
         CreateLogDir();
-        s_csvWriter = new(new StreamWriter(s_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = LogDelimiter });
+        s_csvWriter = new(new StreamWriter(s_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(InvariantCulture) { Delimiter = LogDelimiter });
         s_csvWriter.WriteHeader<LogEntry>();
         s_csvWriter.NextRecord();
     }
@@ -121,7 +121,7 @@ public static class LogManager
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, s_logDir, FSOperation.Create, CreateLogDir).ShowErrorDialog();
+            new FSErrorDialog(e, s_logDir, FSVerb.Create, CreateLogDir).ShowErrorDialog();
         }
     }
 
@@ -133,7 +133,7 @@ public static class LogManager
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, file, FSOperation.Delete, () => DeleteLogFile(file)).ShowErrorDialog();
+            new FSErrorDialog(e, file, FSVerb.Delete, () => DeleteLogFile(file)).ShowErrorDialog();
         }
     }
 

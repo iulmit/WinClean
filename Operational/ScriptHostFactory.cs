@@ -17,7 +17,7 @@ public static class ScriptHostFactory
                 ? new PowerShell()
                 : new Regedit().SupportedExtensions.Contains(extension)
                     ? new Regedit()
-                    : throw new BadFileExtensionException(extension, "Extension is not supported by any script host.");
+                    : throw new BadFileExtensionException(extension, $"Extension '{extension}' is not supported by any script host.");
 
     #endregion Public Methods
 }

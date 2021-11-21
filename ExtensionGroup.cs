@@ -22,7 +22,7 @@ public class ExtensionGroup : IReadOnlyCollection<string>
     public ExtensionGroup(IEnumerable<string> extensions) => _extensions = (extensions ?? throw new ArgumentNullException(nameof(extensions))).ToList();
 
     /// <inheritdoc cref="ExtensionGroup(IEnumerable{string})"/>
-    public ExtensionGroup(params string[] extensionsParam) : this(extensions: extensionsParam)
+    public ExtensionGroup(params string[] extensions) : this((IEnumerable<string>)extensions)
     {
     }
 

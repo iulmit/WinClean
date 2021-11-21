@@ -43,12 +43,9 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
 
     /// <summary>Storage read-write speed.</summary>
     public static ImpactEffect StorageSpeed { get; } = new(nameof(StorageSpeed), Resources.ImpactEffect.StorageSpeed);
-    /// <summary>System visuals.</summary>
-    public static ImpactEffect Visuals { get; } = new(nameof(Visuals), Resources.ImpactEffect.Visuals);
-
 
     /// <summary>Gets all the values.</summary>
-    public static IEnumerable<ImpactEffect> Values { get; } = new[]
+    public static IEnumerable<ImpactEffect> Values => new[]
     {
         Ergonomics,
         FreeStorageSpace,
@@ -62,6 +59,8 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
         Visuals
     };
 
+    /// <summary>System visuals.</summary>
+    public static ImpactEffect Visuals { get; } = new(nameof(Visuals), Resources.ImpactEffect.Visuals);
 
     public string? LocalizedName { get; }
 
@@ -80,7 +79,7 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
         => localizedName is null
             ? throw new ArgumentNullException(nameof(localizedName))
             : Values.FirstOrDefault(validValue => validValue.LocalizedName == localizedName)
-                ?? throw new ArgumentException($"Not a valid {nameof(ImpactEffect)} localized name.", nameof(localizedName));
+                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ImpactEffect), nameof(LocalizedName)), nameof(localizedName));
 
     /// <summary>Gets the <see cref="ImpactEffect"/> matching the specified name.</summary>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
@@ -89,7 +88,7 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
         => name is null
             ? throw new ArgumentNullException(nameof(name))
             : Values.FirstOrDefault(validValue => validValue.Name == name)
-                ?? throw new ArgumentException($"Not a valid {nameof(ImpactEffect)} name.", nameof(name));
+                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ImpactEffect), nameof(Name)), nameof(name));
 
     public override bool Equals(object? obj) => Equals(obj as ImpactEffect);
 

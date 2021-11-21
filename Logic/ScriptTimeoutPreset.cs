@@ -20,7 +20,7 @@ public class ScriptTimeoutPreset : IEquatable<ScriptTimeoutPreset?>
     public static ScriptTimeoutPreset LongTimeout { get; } = new(nameof(LongTimeout), Resources.ScriptTimeoutPreset.LongTimeout, TimeSpan.FromMinutes(90));
     public static ScriptTimeoutPreset MediumTimeout { get; } = new(nameof(MediumTimeout), Resources.ScriptTimeoutPreset.MediumTimeout, TimeSpan.FromMinutes(60));
     public static ScriptTimeoutPreset ShortTimeout { get; } = new(nameof(ShortTimeout), Resources.ScriptTimeoutPreset.ShortTimeout, TimeSpan.FromMinutes(30));
-    public static IEnumerable<ScriptTimeoutPreset> Values { get; } = new[] { LongTimeout, MediumTimeout, ShortTimeout };
+    public static IEnumerable<ScriptTimeoutPreset> Values => new[] { LongTimeout, MediumTimeout, ShortTimeout };
     public TimeSpan Duration { get; }
     public string LocalizedName { get; }
     public string Name { get; }
@@ -38,7 +38,7 @@ public class ScriptTimeoutPreset : IEquatable<ScriptTimeoutPreset?>
         => localizedName is null
             ? throw new ArgumentNullException(nameof(localizedName))
             : Values.FirstOrDefault(validValue => validValue.LocalizedName == localizedName)
-                ?? throw new ArgumentException($"Not a valid {nameof(ScriptTimeoutPreset)} localized name.", nameof(localizedName));
+                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptTimeoutPreset), nameof(LocalizedName)), nameof(localizedName));
 
     /// <summary>Gets the <see cref="ScriptTimeoutPreset"/> matching the specified name.</summary>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
@@ -49,7 +49,7 @@ public class ScriptTimeoutPreset : IEquatable<ScriptTimeoutPreset?>
         => name is null
             ? throw new ArgumentNullException(nameof(name))
             : Values.FirstOrDefault(validValue => validValue.Name == name)
-                ?? throw new ArgumentException($"Not a valid {nameof(ScriptTimeoutPreset)} name.", nameof(name));
+                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptTimeoutPreset), nameof(Name)), nameof(name));
 
     /// <summary>Gets the <see cref="ScriptTimeoutPreset"/> matching the specified name.</summary>
     /// <exception cref="ArgumentException">
@@ -57,7 +57,7 @@ public class ScriptTimeoutPreset : IEquatable<ScriptTimeoutPreset?>
     /// </exception>
     public static ScriptTimeoutPreset ParseTimeout(TimeSpan duration)
         => Values.FirstOrDefault(validValue => validValue.Duration == duration)
-             ?? throw new ArgumentException($"Not a valid {nameof(ScriptTimeoutPreset)} duration.", nameof(duration));
+             ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptTimeoutPreset), nameof(Duration)), nameof(duration));
 
     public override bool Equals(Object? obj) => Equals(obj as ScriptTimeoutPreset);
 

@@ -69,35 +69,5 @@ namespace RaphaëlBardini.WinClean.Resources {
                 return ((System.Drawing.Icon)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
-        /// </summary>
-        internal static System.Drawing.Icon Windows10 {
-            get {
-                object obj = ResourceManager.GetObject("Windows10", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
-        /// </summary>
-        internal static System.Drawing.Icon Windows11 {
-            get {
-                object obj = ResourceManager.GetObject("Windows11", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
-        /// </summary>
-        internal static System.Drawing.Icon Windows8 {
-            get {
-                object obj = ResourceManager.GetObject("Windows8", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
     }
 }

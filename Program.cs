@@ -1,5 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
+global using static System.Globalization.CultureInfo;
+
 using RaphaëlBardini.WinClean.ErrorHandling;
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Presentation;
@@ -11,8 +13,8 @@ public static class Program
 {
     #region Public Properties
 
-    public static Properties.Settings Settings { get; } = Properties.Settings.Default;
     public static AppDir AppDir => AppDir.Instance;
+    public static Properties.Settings Settings { get; } = Properties.Settings.Default;
 
     #endregion Public Properties
 
@@ -52,7 +54,7 @@ public static class Program
 
     private static void EnsureStartupPath()
     {
-        if (!Helpers.PathEquals(Application.StartupPath, AppDir.Info.FullName))
+        if (!PathEquals(Application.StartupPath, AppDir.Info.FullName))
         {
             Dialog.WrongStartupPath(EnsureStartupPath);
         }
@@ -69,8 +71,9 @@ public static class Program
 
         using MainForm mainForm = new();
         Application.Run(mainForm);
-
     }
+
+    private static bool PathEquals(string left, string right) => string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
 
     #endregion Private Methods
 }

@@ -54,7 +54,7 @@ partial class MainForm
             this.MainMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuShowHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialogScripts = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogScript = new System.Windows.Forms.OpenFileDialog();
             this.toolStripContainerAll.ContentPanel.SuspendLayout();
             this.toolStripContainerAll.TopToolStripPanel.SuspendLayout();
             this.toolStripContainerAll.SuspendLayout();
@@ -256,10 +256,9 @@ partial class MainForm
             resources.ApplyResources(this.MainMenuAbout, "MainMenuAbout");
             this.MainMenuAbout.Click += new System.EventHandler(this.MainMenuStripAbout_Click);
             // 
-            // openFileDialogScripts
+            // openFileDialogScript
             // 
-            this.openFileDialogScripts.Multiselect = true;
-            resources.ApplyResources(this.openFileDialogScripts, "openFileDialogScripts");
+            resources.ApplyResources(this.openFileDialogScript, "openFileDialogScript");
             // 
             // MainForm
             // 
@@ -297,7 +296,7 @@ partial class MainForm
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelectMaintenance;
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelectDebloat;
     private System.Windows.Forms.ColumnHeader scriptHeaderName;
-    private System.Windows.Forms.OpenFileDialog openFileDialogScripts;
+    private System.Windows.Forms.OpenFileDialog openFileDialogScript;
     private ScriptEditor scriptEditor;
     private System.Windows.Forms.TableLayoutPanel tableLayoutPanelAll;
     private System.Windows.Forms.ToolStripContainer toolStripContainerAll;

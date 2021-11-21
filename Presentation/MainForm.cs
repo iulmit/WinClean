@@ -5,8 +5,6 @@ using RaphaëlBardini.WinClean.Operational;
 
 using WinCopies.Collections;
 
-using static System.Globalization.CultureInfo;
-
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>
@@ -22,53 +20,10 @@ public partial class MainForm : Form
         InitializeComponent();
 
         Icon = Resources.Icons.Main;
-        openFileDialogScripts.MakeFilter(new Cmd().SupportedExtensions, new PowerShell().SupportedExtensions, new Regedit().SupportedExtensions);
-
-        /*ListViewGroup[] placeholderGroups = new[]
-        {
-            new ListViewGroup("Groupe test 1"),
-            new ListViewGroup("Groupe test 2")
-        };
-        listViewScripts.Groups.AddRange(placeholderGroups);
-
-        Script[] placeholders = new[]
-        {
-                new Script
-                (
-                    name: "CmdFoo",
-                    description: "Foo description 0",
-                    impact: new(ImpactLevel.Positive, ImpactEffect.Visuals),
-                    group: listViewScripts.Groups[0],
-                    advised: ScriptAdvised.Yes,
-                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\foo.cmd")
-                ),
-                new Script
-                (
-                    name: "RegDummy",
-                    description: "Dummy description 1",
-                    impact: new(ImpactLevel.Negative, ImpactEffect.ShutdownTime),
-                    group: listViewScripts.Groups[1],
-                    advised: ScriptAdvised.Limited,
-                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\dummy.reg")
-                ),
-                new Script
-                (
-                    name: "PowerShellSensass",
-                    description: "PowShe desc 3",
-                    impact: new(ImpactLevel.Positive, ImpactEffect.ResponseTime),
-                    group: listViewScripts.Groups[1],
-                    advised: ScriptAdvised.No,
-                    source: new FileInfo(@"D:\Scover\Bureau\wclea\SampleScripts\ps1script.ps1")
-                )
-            };
-        foreach (IScript placeholder in placeholders)
-        {
-            placeholder.Save();
-        }*/
+        openFileDialogScript.MakeFilter(new Cmd().SupportedExtensions, new PowerShell().SupportedExtensions, new Regedit().SupportedExtensions, new(".*"));
+        Text = $"{Application.ProductName} {Application.ProductVersion}";
 
         ScriptsDir.Instance.LoadScripts(listViewScripts);
-
-        Text = $"{Application.ProductName} {Application.ProductVersion}";
 
         MainMenuAbout.Text = string.Format(CurrentCulture, Resources.FormattableStrings.About, Application.ProductName);
     }
@@ -92,12 +47,12 @@ public partial class MainForm : Form
 
     private void ButtonAddScript_Click(object _, EventArgs __)
     {
-        if (openFileDialogScripts.ShowDialog(this) == DialogResult.OK)
+        if (openFileDialogScript.ShowDialog(this) == DialogResult.OK)
         {
-            foreach (string newScriptPath in openFileDialogScripts.FileNames)
-            {
-                _ = listViewScripts.Items.Add(new Script("Nouveau script", "Entrez les détails de fonctionnement du script...", ScriptAdvised.No, new(), listViewScripts.Groups.Add("Nouveau groupe", "Nouveau groupe"), new(newScriptPath)));
-            }
+            FileInfo file = new(openFileDialogScript.FileName);
+            ListViewGroup group = new(file.Directory!.Name); // ! : file will never be a root directory
+            _ = listViewScripts.Groups.Add(group);
+            _ = listViewScripts.Items.Add(new Script(file.Name, string.Empty, ScriptAdvised.No, new(), group, file));
         }
     }
 

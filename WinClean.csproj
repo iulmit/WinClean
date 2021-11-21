@@ -87,10 +87,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Update="Resources\ErrorStrings.Designer.cs">
+    <Compile Update="Resources\Dialog.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Dialog.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ErrorStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\DevException.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DevException.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\FileSystemElements.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -127,10 +137,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ScriptAdvised.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\ScriptTimeoutPreset.fr.Designer.cs">
-      <DependentUpon>ScriptTimeoutPreset.fr.resx</DependentUpon>
+    <Compile Update="Resources\ScriptExecutor.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DependentUpon>ScriptExecutor.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\ScriptTimeoutPreset.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -140,9 +150,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\ErrorStrings.resx">
+    <EmbeddedResource Update="Resources\Dialog.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>Dialog.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\DevException.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DevException.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\FileSystemElements.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -172,9 +186,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ScriptAdvised.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\ScriptTimeoutPreset.fr.resx">
-      <LastGenOutput>ScriptTimeoutPreset.fr.Designer.cs</LastGenOutput>
+    <EmbeddedResource Update="Resources\ScriptExecutor.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ScriptExecutor.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ScriptTimeoutPreset.fr.resx">
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ScriptTimeoutPreset.resx">
       <Generator>ResXFileCodeGenerator</Generator>

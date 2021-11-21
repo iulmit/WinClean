@@ -22,14 +22,14 @@ namespace RaphaëlBardini.WinClean.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ScriptTimeoutPreset___Copier {
+    internal class DevException {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ScriptTimeoutPreset___Copier() {
+        internal DevException() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RaphaëlBardini.WinClean.Resources.ScriptTimeoutPreset - Copier", typeof(ScriptTimeoutPreset___Copier).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RaphaëlBardini.WinClean.Resources.DevException", typeof(DevException).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,47 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Long.
+        ///   Recherche une chaîne localisée semblable à Collection contains null..
         /// </summary>
-        internal static string LongTimeout {
+        internal static string CollectionContainsNull {
             get {
-                return ResourceManager.GetString("LongTimeout", resourceCulture);
+                return ResourceManager.GetString("CollectionContainsNull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Medium.
+        ///   Recherche une chaîne localisée semblable à The string contains invalid filename chars..
         /// </summary>
-        internal static string MediumTimeout {
+        internal static string InvalidFilenameChars {
             get {
-                return ResourceManager.GetString("MediumTimeout", resourceCulture);
+                return ResourceManager.GetString("InvalidFilenameChars", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Short.
+        ///   Recherche une chaîne localisée semblable à Not a valid {0} {1}..
         /// </summary>
-        internal static string ShortTimeout {
+        internal static string InvalidTypeProp {
             get {
-                return ResourceManager.GetString("ShortTimeout", resourceCulture);
+                return ResourceManager.GetString("InvalidTypeProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The string can&apos;t be null or whitespace..
+        /// </summary>
+        internal static string NullOrWhitspace {
+            get {
+                return ResourceManager.GetString("NullOrWhitspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The composite format string doesn&apos;t contain exactly {0} format items..
+        /// </summary>
+        internal static string WrongFormatItemCount {
+            get {
+                return ResourceManager.GetString("WrongFormatItemCount", resourceCulture);
             }
         }
     }

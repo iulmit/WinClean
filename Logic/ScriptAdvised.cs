@@ -30,13 +30,13 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
     /// </summary>
     public static ScriptAdvised No { get; } = new(nameof(No), Resources.ScriptAdvised.No, Color.Red);
 
+    public static IEnumerable<ScriptAdvised> Values => new ScriptAdvised[] { Yes, Limited, No };
+
     /// <summary>
     /// The script is advised for any user. It has almost no side effects and won't hinder features the said user might want to
     /// use. It can be selected automatically.
     /// </summary>
     public static ScriptAdvised Yes { get; } = new(nameof(Yes), Resources.ScriptAdvised.Yes, Color.Green);
-
-    public static IEnumerable<ScriptAdvised> Values { get; } = new ScriptAdvised[] { Yes, Limited, No };
 
     public Color Color { get; }
 
@@ -56,7 +56,7 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
         => localizedName is null
             ? throw new ArgumentNullException(nameof(localizedName))
             : Values.FirstOrDefault(validValue => validValue.LocalizedName == localizedName)
-                ?? throw new ArgumentException($"Not a valid {nameof(ScriptAdvised)} localized name.", nameof(localizedName));
+                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptAdvised), nameof(LocalizedName)), nameof(localizedName));
 
     /// <summary>Gets the <see cref="ScriptAdvised"/> matching the specified name.</summary>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
@@ -65,7 +65,7 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
         => name is null
             ? throw new ArgumentNullException(nameof(name))
             : Values.FirstOrDefault(validValue => validValue.Name == name)
-                ?? throw new ArgumentException($"Not a valid {nameof(ScriptAdvised)} name.", nameof(name));
+                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptAdvised), nameof(Name)), nameof(name));
 
     public override bool Equals(object? obj) => Equals(obj as ScriptAdvised);
 

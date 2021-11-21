@@ -52,7 +52,7 @@ public class ScriptExecutor
         }
         if (scripts.Contains(null!))
         {
-            throw new ArgumentException("Contains null", nameof(scripts));
+            throw new ArgumentException(Resources.DevException.CollectionContainsNull, nameof(scripts));
         }
         _scripts = scripts;
     }
@@ -97,27 +97,21 @@ public class ScriptExecutor
 
     private TaskDialogPage CreateCompletedPage(int elapsedSeconds)
     {
-        TaskDialogButton restart = new("Redémarrer");
+        TaskDialogButton restart = new(Resources.ScriptExecutor.RestartVerb);
 
         TaskDialogPage p = new()
         {
             AllowCancel = true,
             AllowMinimize = true,
             Buttons = { TaskDialogButton.Close, restart },
-            Caption = "Redémarrage requis",
+            Caption = Resources.ScriptExecutor.CompletedPageCaption,
             Icon = TaskDialogIcon.ShieldSuccessGreenBar,
-            Expander = new($@"Un total de {_scripts.Count} scripts ont été exécutés avec succès en {TimeSpan.FromSeconds(elapsedSeconds):g}.
-
-Pour un nettoyage plus avancé :
-
-Winaero Tweaker - Personnalisation de l'apparence
-O&O ShutUp10 - Confidentialité et protection de la vie privée
-TCPOptimizer - Optimisations réseau")
+            Expander = new(string.Format(CurrentCulture, Resources.ScriptExecutor.CompletedPageExpander, _scripts.Count, TimeSpan.FromSeconds(elapsedSeconds)))
             {
                 Expanded = Program.Settings.ShowScriptExecutionCompletedDetails,
             },
-            Heading = "Nettoyage terminé",
-            Text = "Pour valider les changements, il est recommandé de redémarrer le système.",
+            Heading = Resources.ScriptExecutor.CompletedPageHeading,
+            Text = Resources.ScriptExecutor.CompletedPageText,
         };
 
         restart.Click += (s, e) => RebootForApplicationMaintenance();
@@ -137,15 +131,15 @@ TCPOptimizer - Optimisations réseau")
             AllowCancel = true,
             AllowMinimize = true,
             Buttons = { cancel },
-            Caption = $"{0:p} terminé",
-            Expander = new("Script actuel : \nTemps écoulé : ")
+            Caption = string.Format(CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, 0),
+            Expander = new(string.Format(CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, null, null))
             {
                 Expanded = Program.Settings.ShowScriptExecutionProgressDetails,
             },
             Icon = new TaskDialogIcon(software.Icon.ToBitmap()),// software.Icon alone causes ComException at ShowDialog
             ProgressBar = new() { Maximum = _scripts.Count },
-            Text = "Exécution des scripts. Il est possible que des fenêtres de console s'affichent. Cette opération peut prendre un certain temps.",
-            Verification = new("À la fin de l'opération, redémarrer automatiquement")
+            Text = Resources.ScriptExecutor.ProgressPageText,
+            Verification = new(Resources.ScriptExecutor.ProgressPageVerification)
         };
 
         bool autoRestart = false;
@@ -186,9 +180,9 @@ TCPOptimizer - Optimisations réseau")
         {
             if (_uiStep == UIStep.InProgress)
             {
-                page.Caption = $"{progress.ScriptIndex / (double)_scripts.Count:p0} terminé";
+                page.Caption = string.Format(CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, progress.ScriptIndex / (double)_scripts.Count);
 
-                page.Expander.Text = $"Script actuel : {_scripts[progress.ScriptIndex].Name}\nTemps écoulé : {TimeSpan.FromSeconds(progress.ElapsedSeconds)}";
+                page.Expander.Text = string.Format(CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, _scripts[progress.ScriptIndex].Name, TimeSpan.FromSeconds(progress.ElapsedSeconds));
 
                 page.ProgressBar.Value = progress.ScriptIndex;
             }
@@ -223,23 +217,16 @@ TCPOptimizer - Optimisations réseau")
     private void StartUISteps()
     {
         TaskDialogButton @continue = TaskDialogButton.Continue;
-        TaskDialogVerificationCheckBox verification = new("Je suis prêt à continuer.");
+        TaskDialogVerificationCheckBox verification = new(Resources.ScriptExecutor.WarningPageVerification);
 
         TaskDialogPage warningPage = new()
         {
             AllowCancel = true,
             AllowMinimize = true,
             Buttons = { @continue, TaskDialogButton.Cancel },
-            Caption = Resources.ErrorStrings.Warning,
-            Heading = "Avant de commencer l'opération, veuillez confirmer :",
-            Text = @"L'ordinateur est branché sur secteur
-- L'ordinateur doit resté branché sur secteur durant toute la durée de l'opération afin d'éviter un échec du système.
-
-J'ai sauvegardé tout travail non enregistré
-- L'opération aboutira par le redémarrage de l'ordinateur. Sauvegardez tout document non enregistré.
-
-J'ai fermé tout programme non essentiel
-- Afin d'éviter les conflits, quittez toute application non essentielle.",
+            Caption = Application.ProductName,
+            Heading = Resources.ScriptExecutor.WarningPageHeading,
+            Text = Resources.ScriptExecutor.WarningPageText,
             Icon = TaskDialogIcon.Warning,
             SizeToContent = true,
             Verification = verification,

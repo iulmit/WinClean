@@ -2,11 +2,11 @@
 
 namespace RaphaëlBardini.WinClean.ErrorHandling;
 
-public class FSOperation : IEquatable<FSOperation?>
+public class FSVerb : IEquatable<FSVerb?>
 {
     #region Private Constructors
 
-    private FSOperation(string name, string localizedVerb)
+    private FSVerb(string name, string localizedVerb)
     {
         Name = name;
         LocalizedVerb = localizedVerb;
@@ -17,18 +17,18 @@ public class FSOperation : IEquatable<FSOperation?>
     #region Public Properties
 
     /// <summary>Access of a file system element.</summary>
-    public static FSOperation Acess { get; } = new(nameof(Acess), Resources.FileSystemVerbs.Acess);
+    public static FSVerb Acess { get; } = new(nameof(Acess), Resources.FileSystemVerbs.Acess);
 
     /// <summary>Creation of a file system element.</summary>
-    public static FSOperation Create { get; } = new(nameof(Create), Resources.FileSystemVerbs.Create);
+    public static FSVerb Create { get; } = new(nameof(Create), Resources.FileSystemVerbs.Create);
 
     /// <summary>Deletion of a file system element.</summary>
-    public static FSOperation Delete { get; } = new(nameof(Delete), Resources.FileSystemVerbs.Delete);
+    public static FSVerb Delete { get; } = new(nameof(Delete), Resources.FileSystemVerbs.Delete);
 
     /// <summary>Move of a file system element.</summary>
-    public static FSOperation Move { get; } = new(nameof(Move), Resources.FileSystemVerbs.Move);
+    public static FSVerb Move { get; } = new(nameof(Move), Resources.FileSystemVerbs.Move);
 
-    public static IEnumerable<FSOperation> Values { get; } = new[] { Create, Delete, Move, Acess };
+    public static IEnumerable<FSVerb> Values => new[] { Create, Delete, Move, Acess };
     public string LocalizedVerb { get; }
     public string Name { get; }
 
@@ -36,18 +36,18 @@ public class FSOperation : IEquatable<FSOperation?>
 
     #region Public Methods
 
-    /// <summary>Gets the <see cref="FSOperation"/> matching the specified name.</summary>
+    /// <summary>Gets the <see cref="FSVerb"/> matching the specified name.</summary>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException"><paramref name="name"/> does not match to any <see cref="FSOperation"/> name.</exception>
-    public static FSOperation ParseName(string name)
+    /// <exception cref="ArgumentException"><paramref name="name"/> does not match to any <see cref="FSVerb"/> name.</exception>
+    public static FSVerb ParseName(string name)
         => name is null
             ? throw new ArgumentNullException(nameof(name))
             : Values.FirstOrDefault(validValue => validValue.Name == name)
-                ?? throw new ArgumentException($"Not a valid {nameof(FSOperation)} name.", nameof(name));
+                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(FSVerb), nameof(Name)), nameof(name));
 
-    public override bool Equals(object? obj) => Equals(obj as FSOperation);
+    public override bool Equals(object? obj) => Equals(obj as FSVerb);
 
-    public bool Equals(FSOperation? other) => other is not null && Name == other.Name;
+    public bool Equals(FSVerb? other) => other is not null && Name == other.Name;
 
     public override int GetHashCode() => HashCode.Combine(Name, LocalizedVerb);
 

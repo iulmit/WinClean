@@ -112,18 +112,28 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error" xml:space="preserve">
-    <value>Erreur</value>
+  <data name="CollectionContainsNull" xml:space="preserve">
+    <value>Collection contains null.</value>
   </data>
-  <data name="Info" xml:space="preserve">
-    <value>Information</value>
+  <data name="InvalidFilenameChars" xml:space="preserve">
+    <value>The string contains invalid filename chars.</value>
+    <comment>0 : stackframe : the caller information</comment>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Avertissement</value>
+  <data name="InvalidTypeProp" xml:space="preserve">
+    <value>Not a valid {0} {1}.</value>
+    <comment>0 : string : the type name
+1 : string : invalid property name</comment>
+  </data>
+  <data name="NullOrWhitspace" xml:space="preserve">
+    <value>The string can't be null or whitespace.</value>
+  </data>
+  <data name="WrongFormatItemCount" xml:space="preserve">
+    <value>The composite format string doesn't contain exactly {0} format items.</value>
+    <comment>0 : int : expected format item count</comment>
   </data>
 </root>

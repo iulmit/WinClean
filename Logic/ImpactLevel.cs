@@ -26,7 +26,7 @@ public class ImpactLevel : IEquatable<ImpactLevel?>
     /// <summary>Improvement.</summary>
     public static ImpactLevel Positive { get; } = new(nameof(Positive), Resources.Images.Positive);
 
-    public static IEnumerable<ImpactLevel> Values { get; } = new[] { Positive, Negative, Mixed };
+    public static IEnumerable<ImpactLevel> Values => new[] { Positive, Negative, Mixed };
     public Image Image { get; }
     public string Name { get; }
 
@@ -41,7 +41,7 @@ public class ImpactLevel : IEquatable<ImpactLevel?>
         => name is null
             ? throw new ArgumentNullException(nameof(name))
             : Values.FirstOrDefault(validValue => validValue.Name == name)
-                ?? throw new ArgumentException($"Not a valid {nameof(ImpactLevel)} name.", nameof(name));
+                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ImpactLevel), nameof(Name)), nameof(name));
 
     public override bool Equals(object? obj) => Equals(obj as ImpactLevel);
 

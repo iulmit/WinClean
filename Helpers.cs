@@ -2,7 +2,6 @@
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -37,17 +36,13 @@ public static class Helpers
     /// <exception cref="ArgumentNullException"><paramref name="ofd"/> is <see langword="null"/>.</exception>
     public static void MakeFilter(this OpenFileDialog ofd, IEnumerable<ExtensionGroup> exts)
         => (ofd ?? throw new ArgumentNullException(nameof(ofd))).Filter = new StringBuilder().AppendJoin('|', exts.SelectMany(group => new string[]
-                                                                               {
-                                                                                       $"{group.Name} ({string.Join(';', group.Select(ext => $"*{ext}"))})",
-                                                                                       string.Join(';', group.Select(ext => $"*{ext}"))
-                                                                               }
-                                                                           )
-                                                      ).ToString();
+                                                                              {
+                                                                                  $"{group.Name} ({string.Join(';', group.Select(ext => $"*{ext}"))})",
+                                                                                  string.Join(';', group.Select(ext => $"*{ext}"))
+                                                                              })).ToString();
 
     /// <inheritdoc cref="MakeFilter(OpenFileDialog, IEnumerable{ExtensionGroup})"/>
     public static void MakeFilter(this OpenFileDialog ofd, params ExtensionGroup[] exts) => MakeFilter(ofd, (IEnumerable<ExtensionGroup>)exts);
-
-    public static bool PathEquals(string left, string right) => string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
 
     /// <summary>Shows the dialog in foreground window</summary>
     /// <param name="page"></param>

@@ -41,7 +41,6 @@ public class Script : ListViewItem, IScript
     /// <param name="file">The XML file containing this script's metadata, located in a group subdirectory of the scripts dir.</param>
     /// <param name="owner">The list view in which the script will be displayed.</param>
     /// <exception cref="ArgumentNullException"><paramref name="file"/> or <paramref name="owner"/> are <see langword="null"/>.</exception>
-    /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="filename"/> cannot be accessed.</exception>
     public Script(FileInfo file, ListView owner)
     {
         _ = owner ?? throw new ArgumentNullException(nameof(owner));
@@ -74,7 +73,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, _file, FSOperation.Acess, () => d = CreateDoc()).ShowErrorDialog();
+                new FSErrorDialog(e, _file, FSVerb.Acess, () => d = CreateDoc()).ShowErrorDialog();
             }
             return d;
         }
@@ -88,7 +87,6 @@ public class Script : ListViewItem, IScript
     /// <param name="group">The list view group to contain the script in.</param>
     /// <param name="source">The source script file.</param>
     /// <exception cref="ArgumentNullException">One or more parameters are <see langword="null"/>.</exception>
-    /// <exception cref="Helpers.FileSystem(Exception)"><paramref name="source"/> cannot be accessed.</exception>
     public Script(string name, string description, ScriptAdvised advised, Impact impact, ListViewGroup group, FileInfo source)
     {
         _ = source ?? throw new ArgumentNullException(nameof(source));
@@ -112,7 +110,7 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, source, FSOperation.Acess, () => code = GetCode()).ShowErrorDialog();
+                new FSErrorDialog(e, source, FSVerb.Acess, () => code = GetCode()).ShowErrorDialog();
             }
             return code;
         }
@@ -157,7 +155,7 @@ public class Script : ListViewItem, IScript
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, _file, FSOperation.Delete, Delete).ShowErrorDialog();
+            new FSErrorDialog(e, _file, FSVerb.Delete, Delete).ShowErrorDialog();
         }
     }
 
@@ -238,7 +236,7 @@ public class Script : ListViewItem, IScript
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    new FSErrorDialog(e, _file, FSOperation.Move, MoveScriptFileInAppropriateGroupDir).ShowErrorDialog();
+                    new FSErrorDialog(e, _file, FSVerb.Move, MoveScriptFileInAppropriateGroupDir).ShowErrorDialog();
                 }
 
                 DeleteOldGroupDirIfEmpty();
@@ -253,7 +251,7 @@ public class Script : ListViewItem, IScript
                         }
                         catch (Exception e) when (e.FileSystem())
                         {
-                            new FSErrorDialog(e, oldGroupDir, FSOperation.Delete, DeleteOldGroupDirIfEmpty).ShowErrorDialog();
+                            new FSErrorDialog(e, oldGroupDir, FSVerb.Delete, DeleteOldGroupDirIfEmpty).ShowErrorDialog();
                         }
                     }
                 }
@@ -267,7 +265,7 @@ public class Script : ListViewItem, IScript
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    new FSErrorDialog(e, groupDir, FSOperation.Create, () => groupDir = CreateGroupDirectory()).ShowErrorDialog();
+                    new FSErrorDialog(e, groupDir, FSVerb.Create, () => groupDir = CreateGroupDirectory()).ShowErrorDialog();
                 }
                 return groupDir;
             }

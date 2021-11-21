@@ -6,26 +6,25 @@ namespace RaphaëlBardini.WinClean.ErrorHandling;
 
 public class Dialog : TaskDialogPage
 {
-    #region Protected Constructors
+    #region Public Constructors
 
-    protected Dialog()
+    public Dialog()
     {
         Caption = Application.ProductName;
         SizeToContent = true;
     }
 
-    #endregion Protected Constructors
+    #endregion Public Constructors
 
     #region Public Methods
 
     /// <summary>Hung script error.</summary>
-    /// <param name="filename">The hung script's filename.</param>
+    /// <param name="name">The hung script's name.</param>
     /// <inheritdoc cref="RestartKillIgnore(Action?, Action?, Action?)"/>
-    public static void HungScript(string filename, Action? restart = null, Action? kill = null, Action? ignore = null) => new Dialog()
+    public static void HungScript(string name, Action? restart = null, Action? kill = null, Action? ignore = null) => new Dialog()
     {
         Icon = TaskDialogIcon.Warning,
-        Heading = "Un script est bloqué",
-        Text = $"Le script (\"{filename}\") est en cours d'exécution depuis {Program.Settings.ScriptTimeout} et ne s'arrêtera probablement jamais.",
+        Text = string.Format(CurrentCulture, Resources.Dialog.HungScript, name, Program.Settings.ScriptTimeout),
     }.RestartKillIgnore(restart, kill, ignore);
 
     /// <summary>Single instance only error.</summary>
@@ -33,7 +32,7 @@ public class Dialog : TaskDialogPage
     public static void SingleInstanceOnly(Action? retry = null) => new Dialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = "L'application est déjà en cours d'exécution."
+        Text = Resources.Dialog.SingleInstanceOnly,
     }.RetryExit(retry);
 
     /// <summary>Wrong startup path error.</summary>
@@ -41,7 +40,7 @@ public class Dialog : TaskDialogPage
     public static void WrongStartupPath(Action? retry = null) => new Dialog()
     {
         Icon = TaskDialogIcon.Error,
-        Text = $"L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans \"{Program.AppDir}\"."
+        Text = string.Format(CurrentCulture, Resources.Dialog.WrongStartupPath, Program.AppDir.Info)
     }.RetryExit(retry);
 
     #endregion Public Methods
@@ -53,8 +52,8 @@ public class Dialog : TaskDialogPage
     /// <param name="ignore">Invoked when the Ignore button of the dialog is clicked.</param>
     protected void RestartKillIgnore(Action? restart, Action? kill, Action? ignore)
     {
-        Button killScript = new("Forcer l'arrêt du script");
-        Button restartScript = new("Redémarrer le script");
+        Button killScript = new(Resources.Dialog.KillScriptButton);
+        Button restartScript = new(Resources.Dialog.RestartScriptButton);
         Buttons = new() { Button.Ignore, killScript, restartScript };
 
         Button result = this.ShowPageInForegroundWindow();
@@ -77,7 +76,7 @@ public class Dialog : TaskDialogPage
     /// <remarks>Exits the program wh en Exit button clicked.</remarks>
     protected void RetryExit(Action? retry)
     {
-        Button exit = new("Quitter");
+        Button exit = new(Resources.Dialog.ExitButton);
         exit.Click += (_, _) => exit.AllowCloseDialog = ConfirmationDialog.ProgramExit.ShowDialog();
 
         Buttons = new() { exit, Button.Retry };
