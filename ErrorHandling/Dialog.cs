@@ -25,7 +25,7 @@ public class Dialog : TaskDialogPage
     {
         Icon = TaskDialogIcon.Warning,
         Heading = "Un script est bloqué",
-        Text = $"Le script (\"{filename}\") est en cours d'exécution depuis {Properties.Settings.Default.ScriptTimeout} et ne s'arrêtera probablement jamais.",
+        Text = $"Le script (\"{filename}\") est en cours d'exécution depuis {Program.Settings.ScriptTimeout} et ne s'arrêtera probablement jamais.",
     }.RestartKillIgnore(restart, kill, ignore);
 
     /// <summary>Single instance only error.</summary>

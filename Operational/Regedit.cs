@@ -7,15 +7,15 @@ public class Regedit : ScriptHost
 {
     #region Public Properties
 
-    public override ExtensionGroup SupportedExtensions => new(".reg");
+    public override ExtensionGroup SupportedExtensions { get; } = new(".reg");
 
     #endregion Public Properties
 
     #region Protected Properties
 
-    protected override IncompleteArguments Arguments => new("/s {0}");
+    protected override IncompleteArguments Arguments { get; } = new("/s {0}");
 
-    protected override FileInfo Executable => new(Path.Join(Environment.GetEnvironmentVariable("SystemRoot"), "regedit.exe"));
+    protected override FileInfo Executable { get; } = new(Path.Join(Environment.GetEnvironmentVariable("SystemRoot"), "regedit.exe"));
 
     #endregion Protected Properties
 }

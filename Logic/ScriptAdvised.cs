@@ -3,12 +3,11 @@
 namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>Wether a script is advised for general purpose</summary>
-// chaud : faire ça correctement avec les couleurs
 public class ScriptAdvised : IEquatable<ScriptAdvised?>
 {
     #region Private Constructors
 
-    private ScriptAdvised(string name, Color color, string localizedName)
+    private ScriptAdvised(string name, string localizedName, Color color)
     {
         Color = color;
         Name = name;
@@ -23,21 +22,21 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
     /// The script only advised for users who want advanced optimisation. It may hinder useful system features. It should be
     /// selected individually by the user.
     /// </summary>
-    public static ScriptAdvised Limited => new(nameof(Limited), Color.Orange, Resources.ScriptAdvised.Limited);
+    public static ScriptAdvised Limited { get; } = new(nameof(Limited), Resources.ScriptAdvised.Limited, Color.Orange);
 
     /// <summary>
     /// The script must be selected only by users who know what they are doing. It will almost certainly hinder useful system
     /// features. It should be selected by the user, only if specifically needed.
     /// </summary>
-    public static ScriptAdvised No => new(nameof(No), Color.Red, Resources.ScriptAdvised.No);
-
-    public static IEnumerable<ScriptAdvised> Values => new[] { Yes, Limited, No };
+    public static ScriptAdvised No { get; } = new(nameof(No), Resources.ScriptAdvised.No, Color.Red);
 
     /// <summary>
     /// The script is advised for any user. It has almost no side effects and won't hinder features the said user might want to
     /// use. It can be selected automatically.
     /// </summary>
-    public static ScriptAdvised Yes { get; } = new(nameof(Yes), Color.Green, Resources.ScriptAdvised.Yes);
+    public static ScriptAdvised Yes { get; } = new(nameof(Yes), Resources.ScriptAdvised.Yes, Color.Green);
+
+    public static IEnumerable<ScriptAdvised> Values { get; } = new ScriptAdvised[] { Yes, Limited, No };
 
     public Color Color { get; }
 
@@ -49,7 +48,6 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
     #region Public Methods
 
     /// <summary>Gets the <see cref="ScriptAdvised"/> matching the specified localized name.</summary>
-    /// <returns>A new <see cref="ScriptAdvised"/> object.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="localizedName"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">
     /// <paramref name="localizedName"/> does not match to any <see cref="ScriptAdvised"/> localized name.
@@ -61,7 +59,6 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
                 ?? throw new ArgumentException($"Not a valid {nameof(ScriptAdvised)} localized name.", nameof(localizedName));
 
     /// <summary>Gets the <see cref="ScriptAdvised"/> matching the specified name.</summary>
-    /// <returns>A new <see cref="ScriptAdvised"/> object.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> does not match to any <see cref="ScriptAdvised"/> name.</exception>
     public static ScriptAdvised ParseName(string name)

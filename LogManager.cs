@@ -31,12 +31,6 @@ public static class LogManager
 
     #endregion Public Constructors
 
-    #region Public Properties
-
-    public static LogLevel MinLogLevel { get; set; } = (LogLevel)Properties.Settings.Default.LogLevel;
-
-    #endregion Public Properties
-
     #region Private Fields
 
     #region Constants
@@ -83,7 +77,7 @@ public static class LogManager
                            [CallerLineNumber] int callLine = 0,
                            [CallerFilePath] string callFile = "Not Found")
     {
-        if (MinLogLevel <= lvl)
+        if ((LogLevel)Program.Settings.LogLevel <= lvl)
         {
             s_csvWriter.WriteRecord(new LogEntry()
             {
