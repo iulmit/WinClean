@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/raphaelbardini/winclean/badge)](https://www.codefactor.io/repository/github/raphaelbardini/winclean)
+
 # WinClean
 Windows optimization and debloating utility. 
 
