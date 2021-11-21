@@ -6,7 +6,7 @@ Allows the average Windows user to improve performance in a few clicks.
 ## Features
 
 - Run *Batch*, *PowerShell*, and *Registry Editor* debloating scripts directly from WinClean's ergonomic user interface.
-- Add custom scripts to futher improve performance.
+- Add custom scripts to futher debloat the system.
 - Access known system tools such as *Windows Features*, *Event logs*, ...
 - But if you don't have the time to do all of that, simply click on "Select all safe" and "Run Scripts"
 
