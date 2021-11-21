@@ -44,7 +44,6 @@ public static class Program
             Dialog.SingleInstanceOnly(EnsureSingleInstance);
             singleInstanceEnforcer.Dispose();
         }
-         
     }
 
     private static void EnsureStartupPath()

@@ -118,6 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing.Primitives" name="System.Drawing.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonAddScript.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>136, 11</value>
+  </data>
+  <data name="buttonAddScript.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>102, 25</value>
+  </data>
+  <data name="buttonAddScript.Text" xml:space="preserve">
+    <value>Ajouter script</value>
+  </data>
   <data name="buttonExecuteScripts.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>556, 11</value>
   </data>
@@ -133,14 +142,14 @@
   <data name="buttonQuit.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>68, 25</value>
   </data>
-  <data name="buttonAddScript.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>136, 11</value>
+  <data name="MainMenuAbout.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
-  <data name="buttonAddScript.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>102, 25</value>
+  <data name="MainMenuClearLogs.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
   </data>
-  <data name="buttonAddScript.Text" xml:space="preserve">
-    <value>Ajouter script</value>
+  <data name="MainMenuClearLogs.Text" xml:space="preserve">
+    <value>&amp;Effacer les logs</value>
   </data>
   <data name="MainMenuFile.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>54, 20</value>
@@ -148,11 +157,11 @@
   <data name="MainMenuFile.Text" xml:space="preserve">
     <value>&amp;Fichier</value>
   </data>
-  <data name="MainMenuClearLogs.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>180, 22</value>
+  <data name="MainMenuHelp.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>43, 20</value>
   </data>
-  <data name="MainMenuClearLogs.Text" xml:space="preserve">
-    <value>&amp;Effacer les logs</value>
+  <data name="MainMenuHelp.Text" xml:space="preserve">
+    <value>&amp;Aide</value>
   </data>
   <data name="MainMenuQuit.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>180, 22</value>
@@ -172,17 +181,17 @@
   <data name="MainMenuSelectAll.Text" xml:space="preserve">
     <value>&amp;Tout</value>
   </data>
+  <data name="MainMenuSelectDebloat.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
+  </data>
+  <data name="MainMenuSelectMaintenance.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>180, 22</value>
+  </data>
   <data name="MainMenuSelectNothing.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>180, 22</value>
   </data>
   <data name="MainMenuSelectNothing.Text" xml:space="preserve">
     <value>&amp;Rien</value>
-  </data>
-  <data name="MainMenuSelectMaintenance.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>180, 22</value>
-  </data>
-  <data name="MainMenuSelectDebloat.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>180, 22</value>
   </data>
   <data name="MainMenuSettings.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>78, 20</value>
@@ -190,20 +199,11 @@
   <data name="MainMenuSettings.Text" xml:space="preserve">
     <value>&amp;Paramètres</value>
   </data>
-  <data name="MainMenuHelp.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>43, 20</value>
-  </data>
-  <data name="MainMenuHelp.Text" xml:space="preserve">
-    <value>&amp;Aide</value>
-  </data>
   <data name="MainMenuShowHelp.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>180, 22</value>
   </data>
   <data name="MainMenuShowHelp.Text" xml:space="preserve">
     <value>Afficher l'aide</value>
-  </data>
-  <data name="MainMenuAbout.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>180, 22</value>
   </data>
   <data name="openFileDialogScripts.Title" xml:space="preserve">
     <value>Ajouter script</value>

@@ -117,17 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Privacy" xml:space="preserve">
-    <value>Privacy</value>
-  </data>
   <data name="Ergonomics" xml:space="preserve">
     <value>Ergonomics</value>
+  </data>
+  <data name="FreeStorageSpace" xml:space="preserve">
+    <value>Free storage space</value>
   </data>
   <data name="MemoryUsage" xml:space="preserve">
     <value>Memory usage</value>
   </data>
   <data name="NetworkUsage" xml:space="preserve">
     <value>Network usage</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy</value>
   </data>
   <data name="ResponseTime" xml:space="preserve">
     <value>System response time</value>
@@ -138,16 +141,13 @@
   <data name="StartupTime" xml:space="preserve">
     <value>System startup time</value>
   </data>
-  <data name="FreeStorageSpace" xml:space="preserve">
-    <value>Free storage space</value>
-  </data>
   <data name="StorageSpeed" xml:space="preserve">
     <value>Disk speed</value>
   </data>
-  <data name="Visuals" xml:space="preserve">
-    <value>Visuals</value>
-  </data>
   <data name="Undefined" xml:space="preserve">
     <value>Undefined</value>
+  </data>
+  <data name="Visuals" xml:space="preserve">
+    <value>Visuals</value>
   </data>
 </root>

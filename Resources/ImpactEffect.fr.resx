@@ -117,29 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Visuals" xml:space="preserve">
-    <value>Apparence</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>Confidentialité</value>
-  </data>
   <data name="Ergonomics" xml:space="preserve">
     <value>Ergonomie</value>
   </data>
   <data name="FreeStorageSpace" xml:space="preserve">
     <value>Espace de stockage libre</value>
-  </data>
-  <data name="Undefined" xml:space="preserve">
-    <value>Non défini</value>
-  </data>
-  <data name="ShutdownTime" xml:space="preserve">
-    <value>Temps d'arrêt système</value>
-  </data>
-  <data name="StartupTime" xml:space="preserve">
-    <value>Temps de démarrage système</value>
-  </data>
-  <data name="ResponseTime" xml:space="preserve">
-    <value>Temps de réponse système</value>
   </data>
   <data name="MemoryUsage" xml:space="preserve">
     <value>Utilisation mémoire</value>
@@ -147,7 +129,25 @@
   <data name="NetworkUsage" xml:space="preserve">
     <value>Utilisation réseau</value>
   </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Confidentialité</value>
+  </data>
+  <data name="ResponseTime" xml:space="preserve">
+    <value>Temps de réponse système</value>
+  </data>
+  <data name="ShutdownTime" xml:space="preserve">
+    <value>Temps d'arrêt système</value>
+  </data>
+  <data name="StartupTime" xml:space="preserve">
+    <value>Temps de démarrage système</value>
+  </data>
   <data name="StorageSpeed" xml:space="preserve">
     <value>Vitesse disque</value>
+  </data>
+  <data name="Undefined" xml:space="preserve">
+    <value>Non défini</value>
+  </data>
+  <data name="Visuals" xml:space="preserve">
+    <value>Apparence</value>
   </data>
 </root>

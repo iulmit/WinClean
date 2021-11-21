@@ -1051,7 +1051,7 @@ dotnet_diagnostic.CA1302.severity = warning
 
 dotnet_diagnostic.CA1303.severity = warning
 
-dotnet_diagnostic.CA1304.severity =silent
+dotnet_diagnostic.CA1304.severity =suggestion
 
 dotnet_diagnostic.CA1305.severity = warning
 
@@ -1133,7 +1133,7 @@ dotnet_diagnostic.CA1709.severity = warning
 
 dotnet_diagnostic.CA1710.severity = warning
 
-dotnet_diagnostic.CA1711.severity =silent
+dotnet_diagnostic.CA1711.severity =suggestion
 
 dotnet_diagnostic.CA1712.severity = warning
 
@@ -1586,7 +1586,7 @@ dotnet_diagnostic.CA2018.severity=suggestion
 dotnet_diagnostic.CA2017.severity=suggestion
 dotnet_diagnostic.CA2015.severity=suggestion
 dotnet_diagnostic.CA2012.severity=suggestion
-dotnet_diagnostic.CA2011.severity=suggestion
+dotnet_diagnostic.CA2011.severity=warning
 dotnet_diagnostic.CA2009.severity=suggestion
 dotnet_diagnostic.CA2245.severity=suggestion
 dotnet_diagnostic.CA2247.severity=suggestion
@@ -1599,6 +1599,15 @@ dotnet_diagnostic.CA2254.severity=suggestion
 dotnet_diagnostic.CA2256.severity=suggestion
 dotnet_diagnostic.CA2257.severity=suggestion
 dotnet_diagnostic.CA2258.severity=suggestion
+dotnet_style_require_accessibility_modifiers=for_non_interface_members:suggestion
+dotnet_style_allow_multiple_blank_lines_experimental=false:suggestion
+dotnet_style_predefined_type_for_locals_parameters_members=false:suggestion
+dotnet_style_predefined_type_for_member_access=false:suggestion
+dotnet_diagnostic.WFAC010.severity=suggestion
+dotnet_diagnostic.CA1067.severity=suggestion
+dotnet_diagnostic.CA1068.severity=suggestion
+dotnet_diagnostic.CA1069.severity=suggestion
+dotnet_diagnostic.CA2013.severity=suggestion
 
 [*.cs]
 csharp_style_expression_bodied_methods=true:suggestion
@@ -1609,10 +1618,10 @@ csharp_style_expression_bodied_indexers=true:suggestion
 csharp_style_expression_bodied_accessors=true:suggestion
 csharp_style_expression_bodied_lambdas=true:suggestion
 csharp_style_expression_bodied_local_functions=true:suggestion
-csharp_prefer_simple_using_statement=false:suggestion
+csharp_prefer_simple_using_statement=true:suggestion
 csharp_style_pattern_local_over_anonymous_function=false:suggestion
-csharp_style_prefer_index_operator=false:suggestion
-csharp_style_prefer_range_operator=false:suggestion
+csharp_style_prefer_index_operator=true:suggestion
+csharp_style_prefer_range_operator=true:suggestion
 csharp_style_var_when_type_is_apparent=false:none
 dotnet_diagnostic.CA1200.severity=suggestion
 dotnet_diagnostic.CA3077.severity=suggestion
@@ -1622,13 +1631,13 @@ dotnet_diagnostic.CA3076.severity=suggestion
 dotnet_diagnostic.IDE0002.severity = suggestion
 
 # IDE0073: L'en-tête du fichier ne correspond pas au texte nécessaire
-dotnet_diagnostic.IDE0073.severity =none
+dotnet_diagnostic.IDE0073.severity =suggestion
 dotnet_diagnostic.RemoveUnnecessaryImportsFixable.severity=suggestion
 dotnet_diagnostic.IDE0004.severity=suggestion
 dotnet_diagnostic.IDE0005.severity=suggestion
 dotnet_diagnostic.IDE0005_gen.severity=suggestion
-dotnet_diagnostic.IDE0007.severity=suggestion
-dotnet_diagnostic.IDE0008.severity=none
+dotnet_diagnostic.IDE0007.severity=silent
+dotnet_diagnostic.IDE0008.severity=suggestion
 dotnet_diagnostic.IDE0009.severity=suggestion
 dotnet_diagnostic.IDE0010.severity=suggestion
 dotnet_diagnostic.IDE0011.severity=suggestion
@@ -1660,7 +1669,7 @@ dotnet_diagnostic.IDE0042.severity=suggestion
 dotnet_diagnostic.IDE0045.severity=suggestion
 dotnet_diagnostic.IDE0046.severity=suggestion
 dotnet_diagnostic.IDE0047.severity=suggestion
-dotnet_diagnostic.IDE0048.severity=suggestion
+dotnet_diagnostic.IDE0048.severity=silent
 dotnet_diagnostic.IDE0050.severity=suggestion
 dotnet_diagnostic.IDE0054.severity=suggestion
 dotnet_diagnostic.IDE0055.severity=suggestion
@@ -1708,3 +1717,14 @@ dotnet_diagnostic.CA2244.severity=suggestion
 dotnet_diagnostic.CA2246.severity=suggestion
 dotnet_diagnostic.CA2255.severity=suggestion
 dotnet_diagnostic.CA2252.severity=suggestion
+csharp_style_namespace_declarations=file_scoped:suggestion
+csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental=false:suggestion
+dotnet_diagnostic.IDE0051.severity=suggestion
+dotnet_diagnostic.IDE0052.severity=suggestion
+dotnet_diagnostic.IDE0064.severity=suggestion
+dotnet_diagnostic.IDE0076.severity=suggestion
+dotnet_diagnostic.IDE0077.severity=suggestion
+dotnet_diagnostic.IDE0043.severity=suggestion
+dotnet_diagnostic.IDE0150.severity=suggestion
+dotnet_diagnostic.IDE0160.severity=silent
+dotnet_diagnostic.IDE0161.severity=suggestion
