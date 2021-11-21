@@ -43,47 +43,47 @@ partial class ScriptEditor
             // 
             this.textBoxCode.AcceptsReturn = true;
             this.textBoxCode.AcceptsTab = true;
-            resources.ApplyResources(this.textBoxCode, "textBoxCode");
             this.textBoxCode.CausesValidation = false;
+            resources.ApplyResources(this.textBoxCode, "textBoxCode");
             this.textBoxCode.Name = "textBoxCode";
             this.textBoxCode.TextChanged += new System.EventHandler(this.TextBoxCode_TextChanged);
             // 
             // buttonExecute
             // 
-            resources.ApplyResources(this.buttonExecute, "buttonExecute");
             this.buttonExecute.CausesValidation = false;
+            resources.ApplyResources(this.buttonExecute, "buttonExecute");
             this.buttonExecute.Name = "buttonExecute";
             this.buttonExecute.UseVisualStyleBackColor = true;
             this.buttonExecute.Click += new System.EventHandler(this.ButtonExecute_Click);
             // 
             // comboBoxAdvised
             // 
-            resources.ApplyResources(this.comboBoxAdvised, "comboBoxAdvised");
             this.comboBoxAdvised.CausesValidation = false;
             this.comboBoxAdvised.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAdvised.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxAdvised, "comboBoxAdvised");
             this.comboBoxAdvised.Name = "comboBoxAdvised";
             this.comboBoxAdvised.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAdvised_SelectedIndexChanged);
             // 
             // textBoxDescription
             // 
-            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
             this.textBoxDescription.CausesValidation = false;
+            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.TextChanged += new System.EventHandler(this.TextBoxDescription_TextChanged);
             // 
             // textBoxName
             // 
             this.textBoxName.AcceptsReturn = true;
-            resources.ApplyResources(this.textBoxName, "textBoxName");
             this.textBoxName.CausesValidation = false;
+            resources.ApplyResources(this.textBoxName, "textBoxName");
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxName_TextChanged);
             // 
             // buttonDelete
             // 
-            resources.ApplyResources(this.buttonDelete, "buttonDelete");
             this.buttonDelete.CausesValidation = false;
+            resources.ApplyResources(this.buttonDelete, "buttonDelete");
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
@@ -96,9 +96,9 @@ partial class ScriptEditor
             // 
             // textBoxGroup
             // 
-            resources.ApplyResources(this.textBoxGroup, "textBoxGroup");
             this.textBoxGroup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxGroup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            resources.ApplyResources(this.textBoxGroup, "textBoxGroup");
             this.textBoxGroup.Name = "textBoxGroup";
             this.textBoxGroup.TextChanged += new System.EventHandler(this.TextBoxGroup_TextChanged);
             // 

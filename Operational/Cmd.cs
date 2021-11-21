@@ -7,15 +7,15 @@ public class Cmd : ScriptHost
 {
     #region Public Properties
 
-    public override ExtensionGroup SupportedExtensions => new(".cmd", ".bat");
+    public override ExtensionGroup SupportedExtensions { get; } = new(".cmd", ".bat");
 
     #endregion Public Properties
 
     #region Protected Properties
 
-    protected override IncompleteArguments Arguments => new("/d /c \"\"{0}\"\"");
+    protected override IncompleteArguments Arguments { get; } = new("/d /c \"\"{0}\"\"");
 
-    protected override FileInfo Executable => new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)!);// ! : comspecs exists natively on windows
+    protected override FileInfo Executable { get; } = new(Environment.GetEnvironmentVariable("comspec", EnvironmentVariableTarget.Machine)!);// ! : comspecs exists natively on windows
 
     #endregion Protected Properties
 }

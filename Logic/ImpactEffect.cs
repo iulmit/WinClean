@@ -18,34 +18,37 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
     #region Public Properties
 
     /// <summary>System praticality.</summary>
-    public static ImpactEffect Ergonomics => new(nameof(Ergonomics), Resources.ImpactEffect.Ergonomics);
+    public static ImpactEffect Ergonomics { get; } = new(nameof(Ergonomics), Resources.ImpactEffect.Ergonomics);
 
     /// <summary>Free storage space.</summary>
-    public static ImpactEffect FreeStorageSpace => new(nameof(FreeStorageSpace), Resources.ImpactEffect.FreeStorageSpace);
+    public static ImpactEffect FreeStorageSpace { get; } = new(nameof(FreeStorageSpace), Resources.ImpactEffect.FreeStorageSpace);
 
     /// <summary>Idle system memory usage.</summary>
-    public static ImpactEffect MemoryUsage => new(nameof(MemoryUsage), Resources.ImpactEffect.MemoryUsage);
+    public static ImpactEffect MemoryUsage { get; } = new(nameof(MemoryUsage), Resources.ImpactEffect.MemoryUsage);
 
     /// <summary>Idle system network usage.</summary>
-    public static ImpactEffect NetworkUsage => new(nameof(NetworkUsage), Resources.ImpactEffect.NetworkUsage);
+    public static ImpactEffect NetworkUsage { get; } = new(nameof(NetworkUsage), Resources.ImpactEffect.NetworkUsage);
 
     /// <summary>System privacy invasion and spying.</summary>
-    public static ImpactEffect Privacy => new(nameof(Privacy), Resources.ImpactEffect.Privacy);
+    public static ImpactEffect Privacy { get; } = new(nameof(Privacy), Resources.ImpactEffect.Privacy);
 
     /// <summary>System rapidity of executing commands.</summary>
-    public static ImpactEffect ResponseTime => new(nameof(ResponseTime), Resources.ImpactEffect.ResponseTime);
+    public static ImpactEffect ResponseTime { get; } = new(nameof(ResponseTime), Resources.ImpactEffect.ResponseTime);
 
     /// <summary>System shutdown time.</summary>
-    public static ImpactEffect ShutdownTime => new(nameof(ShutdownTime), Resources.ImpactEffect.ShutdownTime);
+    public static ImpactEffect ShutdownTime { get; } = new(nameof(ShutdownTime), Resources.ImpactEffect.ShutdownTime);
 
     /// <summary>System startup time.</summary>
-    public static ImpactEffect StartupTime => new(nameof(StartupTime), Resources.ImpactEffect.StartupTime);
+    public static ImpactEffect StartupTime { get; } = new(nameof(StartupTime), Resources.ImpactEffect.StartupTime);
 
     /// <summary>Storage read-write speed.</summary>
-    public static ImpactEffect StorageSpeed => new(nameof(StorageSpeed), Resources.ImpactEffect.StorageSpeed);
+    public static ImpactEffect StorageSpeed { get; } = new(nameof(StorageSpeed), Resources.ImpactEffect.StorageSpeed);
+    /// <summary>System visuals.</summary>
+    public static ImpactEffect Visuals { get; } = new(nameof(Visuals), Resources.ImpactEffect.Visuals);
+
 
     /// <summary>Gets all the values.</summary>
-    public static IEnumerable<ImpactEffect> Values => new[]
+    public static IEnumerable<ImpactEffect> Values { get; } = new[]
     {
         Ergonomics,
         FreeStorageSpace,
@@ -59,8 +62,6 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
         Visuals
     };
 
-    /// <summary>System visuals.</summary>
-    public static ImpactEffect Visuals => new(nameof(Visuals), Resources.ImpactEffect.Visuals);
 
     public string? LocalizedName { get; }
 
@@ -71,7 +72,6 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
     #region Public Methods
 
     /// <summary>Gets the <see cref="ImpactEffect"/> matching the specified localized name.</summary>
-    /// <returns>A new <see cref="ImpactEffect"/> object.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="localizedName"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">
     /// <paramref name="localizedName"/> does not match to any <see cref="ImpactEffect"/> localizedName.
@@ -83,7 +83,6 @@ public class ImpactEffect : IEquatable<ImpactEffect?>
                 ?? throw new ArgumentException($"Not a valid {nameof(ImpactEffect)} localized name.", nameof(localizedName));
 
     /// <summary>Gets the <see cref="ImpactEffect"/> matching the specified name.</summary>
-    /// <returns>A new <see cref="ImpactEffect"/> object.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> does not match to any <see cref="ImpactEffect"/> name.</exception>
     public static ImpactEffect ParseName(string name)

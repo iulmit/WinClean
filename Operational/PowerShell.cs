@@ -13,15 +13,15 @@ public class PowerShell : ScriptHost
 
     #region Public Properties
 
-    public override ExtensionGroup SupportedExtensions => new(".ps1");
+    public override ExtensionGroup SupportedExtensions { get; } = new(".ps1");
 
     #endregion Public Properties
 
     #region Protected Properties
 
-    protected override IncompleteArguments Arguments => new("-WindowStyle Hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\"");
+    protected override IncompleteArguments Arguments { get; } = new("-WindowStyle Hidden -NoLogo -NoProfile -NonInteractive -File & \"{0}\"");
 
-    protected override FileInfo Executable => new(_path);
+    protected override FileInfo Executable { get; } = new(_path);
 
     #endregion Protected Properties
 

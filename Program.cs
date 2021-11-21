@@ -11,6 +11,7 @@ public static class Program
 {
     #region Public Properties
 
+    public static Properties.Settings Settings { get; } = Properties.Settings.Default;
     public static AppDir AppDir => AppDir.Instance;
 
     #endregion Public Properties
@@ -22,6 +23,9 @@ public static class Program
     public static void Exit()
     {
         "Exiting the application.".Log("Exit");
+
+        Settings.Save();
+
         Application.Exit();
         // If we didnt exit at this stage, we must be out of the message loop. Exit from the environment.
         Environment.Exit(0);
@@ -65,6 +69,7 @@ public static class Program
 
         using MainForm mainForm = new();
         Application.Run(mainForm);
+
     }
 
     #endregion Private Methods

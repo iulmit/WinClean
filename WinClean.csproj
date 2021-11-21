@@ -5,7 +5,7 @@
     <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>RaphaëlBardini.WinClean.Program</StartupObject>
-	<LangVersion>preview</LangVersion>
+	<LangVersion>latest</LangVersion>
 	<RootNamespace>RaphaëlBardini.WinClean</RootNamespace>
 	<ApplicationIcon>Resources\mainIcon.ico</ApplicationIcon>
 	<Platforms>AnyCPU;x64</Platforms>
@@ -28,7 +28,8 @@
 	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	<SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
 	<ImplicitUsings>enable</ImplicitUsings>
-	<NeutralLanguage>en</NeutralLanguage>
+	<NeutralLanguage>en-US</NeutralLanguage>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
 	
   </PropertyGroup>
 
@@ -126,6 +127,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ScriptAdvised.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\ScriptTimeoutPreset.fr.Designer.cs">
+      <DependentUpon>ScriptTimeoutPreset.fr.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\ScriptTimeoutPreset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ScriptTimeoutPreset.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -161,12 +172,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ScriptAdvised.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ScriptTimeoutPreset.fr.resx">
+      <LastGenOutput>ScriptTimeoutPreset.fr.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ScriptTimeoutPreset.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ScriptTimeoutPreset.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 

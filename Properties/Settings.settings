@@ -6,7 +6,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="ScriptTimeout" Type="System.TimeSpan" Scope="User">
-      <Value Profile="(Default)">00:30:00</Value>
+      <Value Profile="(Default)">01:00:00</Value>
     </Setting>
     <Setting Name="ShowScriptExecutionProgressDetails" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

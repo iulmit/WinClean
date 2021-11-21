@@ -18,18 +18,18 @@ public class ConfirmationDialog : Dialog
 
     #region Public Properties
 
-    public static ConfirmationDialog AbortOperation => new()
+    public static ConfirmationDialog AbortOperation { get; } = new()
     {
         Heading = "Abandonner l'opération ?",
         Text = "Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?",
     };
 
-    public static ConfirmationDialog ProgramExit => new()
+    public static ConfirmationDialog ProgramExit { get; } = new()
     {
         Heading = $"Quitter {Application.ProductName} ?",
     };
 
-    public static ConfirmationDialog ScriptDeletion => new()
+    public static ConfirmationDialog ScriptDeletion { get; } = new()
     {
         Heading = "Supprimer le script ?",
         Text = $"Êtes-vous sûr de vouloir supprimer le script ? Cette action est irréversible."

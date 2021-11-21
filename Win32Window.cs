@@ -2,7 +2,10 @@
 
 namespace RaphaëlBardini.WinClean;
 
-/// <summary>Simple container for a handle which implements <see cref="IWin32Window"/>.</summary>
+/// <summary>
+/// Simple container for a handle which implements <see cref="IWin32Window"/>. Useful for passing window handles across threads
+/// without referencing the actual window.
+/// </summary>
 public record struct Win32Window : IWin32Window
 {
     #region Public Constructors

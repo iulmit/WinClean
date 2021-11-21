@@ -3,6 +3,7 @@
 using RaphaëlBardini.WinClean.ErrorHandling;
 using RaphaëlBardini.WinClean.Operational;
 
+using System.Diagnostics;
 using System.Xml;
 
 namespace RaphaëlBardini.WinClean.Logic;
@@ -15,7 +16,7 @@ public class Script : ListViewItem, IScript
 
     private FileInfo GetFile(string groupHeader)
     {
-        Assert(groupHeader.IsValidFilename());
+        Debug.Assert(groupHeader.IsValidFilename());
         return new(Program.AppDir.ScriptsDir.Join(groupHeader, $"{Name.ToFilename()}.xml"));
     }
 

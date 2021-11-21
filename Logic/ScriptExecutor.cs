@@ -114,7 +114,7 @@ Winaero Tweaker - Personnalisation de l'apparence
 O&O ShutUp10 - Confidentialité et protection de la vie privée
 TCPOptimizer - Optimisations réseau")
             {
-                Expanded = Properties.Settings.Default.ShowScriptExecutionCompletedDetails,
+                Expanded = Program.Settings.ShowScriptExecutionCompletedDetails,
             },
             Heading = "Nettoyage terminé",
             Text = "Pour valider les changements, il est recommandé de redémarrer le système.",
@@ -122,7 +122,7 @@ TCPOptimizer - Optimisations réseau")
 
         restart.Click += (s, e) => RebootForApplicationMaintenance();
 
-        p.Expander.ExpandedChanged += (sender, e) => Properties.Settings.Default.ShowScriptExecutionCompletedDetails = p.Expander.Expanded;
+        p.Expander.ExpandedChanged += (sender, e) => Program.Settings.ShowScriptExecutionCompletedDetails = p.Expander.Expanded;
 
         return p;
     }
@@ -140,7 +140,7 @@ TCPOptimizer - Optimisations réseau")
             Caption = $"{0:p} terminé",
             Expander = new("Script actuel : \nTemps écoulé : ")
             {
-                Expanded = Properties.Settings.Default.ShowScriptExecutionProgressDetails,
+                Expanded = Program.Settings.ShowScriptExecutionProgressDetails,
             },
             Icon = new TaskDialogIcon(software.Icon.ToBitmap()),// software.Icon alone causes ComException at ShowDialog
             ProgressBar = new() { Maximum = _scripts.Count },
@@ -162,7 +162,7 @@ TCPOptimizer - Optimisations réseau")
         _progress.ProgressChanged += ProgressChanged;
 
         page.Expander.ExpandedChanged += (_, _)
-            => Properties.Settings.Default.ShowScriptExecutionProgressDetails = page.Expander.Expanded;
+            => Program.Settings.ShowScriptExecutionProgressDetails = page.Expander.Expanded;
 
         page.Created += async (_, _) =>
         {

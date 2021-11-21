@@ -17,18 +17,18 @@ public class FSOperation : IEquatable<FSOperation?>
     #region Public Properties
 
     /// <summary>Access of a file system element.</summary>
-    public static FSOperation Acess => new(nameof(Acess), Resources.FileSystemVerbs.Acess);
+    public static FSOperation Acess { get; } = new(nameof(Acess), Resources.FileSystemVerbs.Acess);
 
     /// <summary>Creation of a file system element.</summary>
-    public static FSOperation Create => new(nameof(Create), Resources.FileSystemVerbs.Create);
+    public static FSOperation Create { get; } = new(nameof(Create), Resources.FileSystemVerbs.Create);
 
     /// <summary>Deletion of a file system element.</summary>
-    public static FSOperation Delete => new(nameof(Delete), Resources.FileSystemVerbs.Delete);
+    public static FSOperation Delete { get; } = new(nameof(Delete), Resources.FileSystemVerbs.Delete);
 
     /// <summary>Move of a file system element.</summary>
-    public static FSOperation Move => new(nameof(Move), Resources.FileSystemVerbs.Move);
+    public static FSOperation Move { get; } = new(nameof(Move), Resources.FileSystemVerbs.Move);
 
-    public static IEnumerable<FSOperation> Values => new[] { Create, Delete, Move, Acess };
+    public static IEnumerable<FSOperation> Values { get; } = new[] { Create, Delete, Move, Acess };
     public string LocalizedVerb { get; }
     public string Name { get; }
 
@@ -37,7 +37,6 @@ public class FSOperation : IEquatable<FSOperation?>
     #region Public Methods
 
     /// <summary>Gets the <see cref="FSOperation"/> matching the specified name.</summary>
-    /// <returns>A new <see cref="FSOperation"/> object.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> does not match to any <see cref="FSOperation"/> name.</exception>
     public static FSOperation ParseName(string name)

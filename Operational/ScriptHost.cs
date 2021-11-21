@@ -115,11 +115,11 @@ public abstract class ScriptHost
     protected (string stderr, string stdout) WaitForHostExit(Process p, string scriptName)
     {
         // placeholder for the time a script would take to run
-        System.Threading.Thread.Sleep(2000);
+        Thread.Sleep(2000);
         _ = p ?? throw new ArgumentNullException(nameof(p));
         _ = scriptName ?? throw new ArgumentNullException(nameof(scriptName));
 
-        if (!p.WaitForExit(Convert.ToInt32(Properties.Settings.Default.ScriptTimeout.TotalMilliseconds)))
+        if (!p.WaitForExit(Convert.ToInt32(Program.Settings.ScriptTimeout.TotalMilliseconds)))
         {
             Dialog.HungScript(scriptName,
             restart: () =>

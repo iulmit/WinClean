@@ -18,15 +18,15 @@ public class ImpactLevel : IEquatable<ImpactLevel?>
     #region Public Properties
 
     /// <summary>Variable, uncertain.</summary>
-    public static ImpactLevel Mixed => new(nameof(Mixed), Resources.Images.Mixed);
+    public static ImpactLevel Mixed { get; } = new(nameof(Mixed), Resources.Images.Mixed);
 
     /// <summary>Worsening.</summary>
-    public static ImpactLevel Negative => new(nameof(Negative), Resources.Images.Negative);
+    public static ImpactLevel Negative { get; } = new(nameof(Negative), Resources.Images.Negative);
 
     /// <summary>Improvement.</summary>
-    public static ImpactLevel Positive => new(nameof(Positive), Resources.Images.Positive);
+    public static ImpactLevel Positive { get; } = new(nameof(Positive), Resources.Images.Positive);
 
-    public static IEnumerable<ImpactLevel> Values => new[] { Positive, Negative, Mixed };
+    public static IEnumerable<ImpactLevel> Values { get; } = new[] { Positive, Negative, Mixed };
     public Image Image { get; }
     public string Name { get; }
 
@@ -35,7 +35,6 @@ public class ImpactLevel : IEquatable<ImpactLevel?>
     #region Public Methods
 
     /// <summary>Gets the <see cref="ImpactLevel"/> matching the specified name.</summary>
-    /// <returns>A new <see cref="ImpactLevel"/> object.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> does not match to any <see cref="ImpactLevel"/> name.</exception>
     public static ImpactLevel ParseName(string name)
