@@ -18,7 +18,7 @@ Behaviors are documented.
 
 ## Specs
 
-- .NET 5
+- .NET 6
 - Windows Forms
 - Created with Visual Studio
 
