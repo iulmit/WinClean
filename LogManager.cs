@@ -121,7 +121,8 @@ public static class LogManager
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, s_logDir, FSVerb.Create, CreateLogDir).ShowErrorDialog();
+            new FSErrorDialog(e, s_logDir, FSVerb.Create).ShowDialogAssertExit();
+            CreateLogDir();
         }
     }
 
@@ -133,7 +134,8 @@ public static class LogManager
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, file, FSVerb.Delete, () => DeleteLogFile(file)).ShowErrorDialog();
+            new FSErrorDialog(e, file, FSVerb.Delete).ShowDialogAssertExit();
+            DeleteLogFile(file);
         }
     }
 

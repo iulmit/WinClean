@@ -127,6 +127,9 @@
   <data name="ConfirmScriptDeletion" xml:space="preserve">
     <value>Are you sure you want to delete the script ? This action is irreversible.</value>
   </data>
+  <data name="EditCodeButton" xml:space="preserve">
+    <value>Edit code</value>
+  </data>
   <data name="ExitButton" xml:space="preserve">
     <value>Exit</value>
   </data>
@@ -144,9 +147,6 @@
   </data>
   <data name="KillScriptButton" xml:space="preserve">
     <value>Kill script</value>
-  </data>
-  <data name="RestartScriptButton" xml:space="preserve">
-    <value>Restart script</value>
   </data>
   <data name="SingleInstanceOnly" xml:space="preserve">
     <value>The application is already running.</value>

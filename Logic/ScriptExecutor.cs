@@ -147,7 +147,7 @@ public class ScriptExecutor
 
         cancel.Click += (s, e) =>
         {
-            if (ConfirmationDialog.AbortOperation.ShowDialog())
+            if (YesNoDialog.AbortOperation.ShowDialog())
             {
                 _canceler.Cancel();
             }
@@ -244,7 +244,7 @@ public class ScriptExecutor
 
         _uiStep = UIStep.Warning;
 
-        _ = warningPage.ShowPageInForegroundWindow();
+        _ = warningPage.ShowPage();
     }
 
     #endregion Private Methods

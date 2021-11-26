@@ -3,8 +3,6 @@
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
 
-using WinCopies.Collections;
-
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>
@@ -66,7 +64,7 @@ public partial class MainForm : Form
 
     private void MainMenuQuit_Click(object _, EventArgs __) => Program.Exit();
 
-    private void MainMenuSelectAll_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);
+    private void MainMenuSelectAll_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items.Cast<Script>().Where(script => script.Advised.Equals(ScriptAdvised.Yes)), true);
 
     private void MainMenuSelectDebloat_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);// placeholder
 
@@ -111,13 +109,15 @@ public partial class MainForm : Form
 
     #endregion Event Handlers
 
-    private static void SetAllChecked(ListView.ListViewItemCollection items, bool @checked)
+    private static void SetAllChecked(IEnumerable<ListViewItem> items, bool @checked)
     {
         foreach (ListViewItem lvi in items)
         {
             lvi.Checked = @checked;
         }
     }
+    private static void SetAllChecked(ListView.ListViewItemCollection items, bool @checked)
+        => SetAllChecked((IEnumerable<ListViewItem>)items, @checked);
 
     #endregion Private Methods
 }

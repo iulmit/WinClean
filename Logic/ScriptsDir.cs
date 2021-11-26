@@ -13,7 +13,7 @@ public class ScriptsDir
     {
         Info = GetOrCreate();
 
-        DirectoryInfo GetOrCreate()
+        static DirectoryInfo GetOrCreate()
         {
             DirectoryInfo info = new(Path.Join(Program.AppDir.Info.FullName, "Scripts"));
             try
@@ -22,7 +22,8 @@ public class ScriptsDir
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, info, FSVerb.Create, () => info = GetOrCreate()).ShowErrorDialog();
+                new FSErrorDialog(e, info, FSVerb.Create).ShowDialogAssertExit();
+                info = GetOrCreate();
             }
             return info;
         }

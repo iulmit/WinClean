@@ -46,7 +46,7 @@ partial class MainForm
             this.MainMenuClearLogs = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelect = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainMenuSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuSelectAllAdvised = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectNothing = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectMaintenance = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSelectDebloat = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,11 +65,12 @@ partial class MainForm
             // 
             // toolStripContainerAll
             // 
+            resources.ApplyResources(this.toolStripContainerAll, "toolStripContainerAll");
             // 
             // toolStripContainerAll.BottomToolStripPanel
             // 
-            this.toolStripContainerAll.BottomToolStripPanel.CausesValidation = false;
             resources.ApplyResources(this.toolStripContainerAll.BottomToolStripPanel, "toolStripContainerAll.BottomToolStripPanel");
+            this.toolStripContainerAll.BottomToolStripPanel.CausesValidation = false;
             this.toolStripContainerAll.BottomToolStripPanelVisible = false;
             // 
             // toolStripContainerAll.ContentPanel
@@ -77,24 +78,24 @@ partial class MainForm
             resources.ApplyResources(this.toolStripContainerAll.ContentPanel, "toolStripContainerAll.ContentPanel");
             this.toolStripContainerAll.ContentPanel.Controls.Add(this.tableLayoutPanelAll);
             this.toolStripContainerAll.ContentPanel.Controls.Add(this.tableLayoutPanelButtons);
-            resources.ApplyResources(this.toolStripContainerAll, "toolStripContainerAll");
             // 
             // toolStripContainerAll.LeftToolStripPanel
             // 
-            this.toolStripContainerAll.LeftToolStripPanel.CausesValidation = false;
             resources.ApplyResources(this.toolStripContainerAll.LeftToolStripPanel, "toolStripContainerAll.LeftToolStripPanel");
+            this.toolStripContainerAll.LeftToolStripPanel.CausesValidation = false;
             this.toolStripContainerAll.LeftToolStripPanelVisible = false;
             this.toolStripContainerAll.Name = "toolStripContainerAll";
             // 
             // toolStripContainerAll.RightToolStripPanel
             // 
-            this.toolStripContainerAll.RightToolStripPanel.CausesValidation = false;
             resources.ApplyResources(this.toolStripContainerAll.RightToolStripPanel, "toolStripContainerAll.RightToolStripPanel");
+            this.toolStripContainerAll.RightToolStripPanel.CausesValidation = false;
             this.toolStripContainerAll.RightToolStripPanelVisible = false;
             this.toolStripContainerAll.TabStop = false;
             // 
             // toolStripContainerAll.TopToolStripPanel
             // 
+            resources.ApplyResources(this.toolStripContainerAll.TopToolStripPanel, "toolStripContainerAll.TopToolStripPanel");
             this.toolStripContainerAll.TopToolStripPanel.CausesValidation = false;
             this.toolStripContainerAll.TopToolStripPanel.Controls.Add(this.mainMenuStrip);
             // 
@@ -164,9 +165,9 @@ partial class MainForm
             // 
             // mainMenuStrip
             // 
+            resources.ApplyResources(this.mainMenuStrip, "mainMenuStrip");
             this.mainMenuStrip.AllowMerge = false;
             this.mainMenuStrip.BackColor = System.Drawing.SystemColors.Control;
-            resources.ApplyResources(this.mainMenuStrip, "mainMenuStrip");
             this.mainMenuStrip.GripMargin = new System.Windows.Forms.Padding(2);
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MainMenuFile,
@@ -192,42 +193,42 @@ partial class MainForm
             // 
             // MainMenuQuit
             // 
-            this.MainMenuQuit.Name = "MainMenuQuit";
             resources.ApplyResources(this.MainMenuQuit, "MainMenuQuit");
+            this.MainMenuQuit.Name = "MainMenuQuit";
             this.MainMenuQuit.Click += new System.EventHandler(this.MainMenuQuit_Click);
             // 
             // MainMenuSelect
             // 
+            resources.ApplyResources(this.MainMenuSelect, "MainMenuSelect");
             this.MainMenuSelect.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MainMenuSelectAll,
+            this.MainMenuSelectAllAdvised,
             this.MainMenuSelectNothing,
             this.MainMenuSelectMaintenance,
             this.MainMenuSelectDebloat});
             this.MainMenuSelect.Name = "MainMenuSelect";
-            resources.ApplyResources(this.MainMenuSelect, "MainMenuSelect");
             // 
-            // MainMenuSelectAll
+            // MainMenuSelectAllAdvised
             // 
-            this.MainMenuSelectAll.Name = "MainMenuSelectAll";
-            resources.ApplyResources(this.MainMenuSelectAll, "MainMenuSelectAll");
-            this.MainMenuSelectAll.Click += new System.EventHandler(this.MainMenuSelectAll_Click);
+            resources.ApplyResources(this.MainMenuSelectAllAdvised, "MainMenuSelectAllAdvised");
+            this.MainMenuSelectAllAdvised.Name = "MainMenuSelectAllAdvised";
+            this.MainMenuSelectAllAdvised.Click += new System.EventHandler(this.MainMenuSelectAll_Click);
             // 
             // MainMenuSelectNothing
             // 
-            this.MainMenuSelectNothing.Name = "MainMenuSelectNothing";
             resources.ApplyResources(this.MainMenuSelectNothing, "MainMenuSelectNothing");
+            this.MainMenuSelectNothing.Name = "MainMenuSelectNothing";
             this.MainMenuSelectNothing.Click += new System.EventHandler(this.MainMenuSelectNothing_Click);
             // 
             // MainMenuSelectMaintenance
             // 
-            this.MainMenuSelectMaintenance.Name = "MainMenuSelectMaintenance";
             resources.ApplyResources(this.MainMenuSelectMaintenance, "MainMenuSelectMaintenance");
+            this.MainMenuSelectMaintenance.Name = "MainMenuSelectMaintenance";
             this.MainMenuSelectMaintenance.Click += new System.EventHandler(this.MainMenuSelectMaintenance_Click);
             // 
             // MainMenuSelectDebloat
             // 
-            this.MainMenuSelectDebloat.Name = "MainMenuSelectDebloat";
             resources.ApplyResources(this.MainMenuSelectDebloat, "MainMenuSelectDebloat");
+            this.MainMenuSelectDebloat.Name = "MainMenuSelectDebloat";
             this.MainMenuSelectDebloat.Click += new System.EventHandler(this.MainMenuSelectDebloat_Click);
             // 
             // MainMenuSettings
@@ -252,8 +253,8 @@ partial class MainForm
             // 
             // MainMenuAbout
             // 
-            this.MainMenuAbout.Name = "MainMenuAbout";
             resources.ApplyResources(this.MainMenuAbout, "MainMenuAbout");
+            this.MainMenuAbout.Name = "MainMenuAbout";
             this.MainMenuAbout.Click += new System.EventHandler(this.MainMenuStripAbout_Click);
             // 
             // openFileDialogScript
@@ -291,7 +292,7 @@ partial class MainForm
     #endregion
     private System.Windows.Forms.ListView listViewScripts;
     private System.Windows.Forms.ToolStripMenuItem MainMenuAbout;
-    private System.Windows.Forms.ToolStripMenuItem MainMenuSelectAll;
+    private System.Windows.Forms.ToolStripMenuItem MainMenuSelectAllAdvised;
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelectNothing;
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelectMaintenance;
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelectDebloat;

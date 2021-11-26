@@ -48,7 +48,7 @@ public abstract class ScriptHost
 
     /// <summary>Creates a temporary file with the specified text and the specified extension.</summary>
     /// <returns>The new temporary file.</returns>
-    protected FileInfo CreateTempFile(string? text, string? extension)
+    protected FileInfo CreateTempFile(string text, string extension)
     {
         FileInfo tmpScript = new(Path.Join(Path.GetTempPath(), $"WinCleanScript{DateTime.Now.ToBinary()}{extension}"));
         try
@@ -61,7 +61,8 @@ public abstract class ScriptHost
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, tmpScript, FSVerb.Create, () => tmpScript = CreateTempFile(text, extension)).ShowErrorDialog();
+            new FSErrorDialog(e, tmpScript, FSVerb.Create).ShowDialogAssertExit();
+            tmpScript = CreateTempFile(text, extension);
         }
         return tmpScript;
     }
@@ -120,14 +121,17 @@ public abstract class ScriptHost
 
         if (!p.WaitForExit(Convert.ToInt32(Program.Settings.ScriptTimeout.TotalMilliseconds)))
         {
-            Dialog.HungScript(scriptName,
-            restart: () =>
+            KillScriptEditCodeIgnoreDialog.Result result = KillScriptEditCodeIgnoreDialog.HungScript(scriptName).ShowDialog();
+            switch (result)
             {
-                p.Kill(true);
-                _ = p.Start();
-            },
-            kill: () => p.Kill(true),
-            ignore: () => WaitForHostExit(p, scriptName));
+                case KillScriptEditCodeIgnoreDialog.Result.KillScript:
+                    p.Kill(true);
+                    break;
+                case KillScriptEditCodeIgnoreDialog.Result.EditCode:
+                    break;
+                default:
+                    return WaitForHostExit(p, scriptName);
+            }
         }
         return (p.StandardError.ReadToEnd(), p.StandardOutput.ReadToEnd());
     }

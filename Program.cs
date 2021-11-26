@@ -21,7 +21,7 @@ public static class Program
     #region Public Methods
 
     /// <summary>Exits the program.</summary>
-    /// <remarks>Doesn't return.</remarks>
+    [System.Diagnostics.CodeAnalysis.DoesNotReturn()]
     public static void Exit()
     {
         "Exiting the application.".Log("Exit");
@@ -31,6 +31,13 @@ public static class Program
         Application.Exit();
         // If we didnt exit at this stage, we must be out of the message loop. Exit from the environment.
         Environment.Exit(0);
+    }
+
+    public static void ShowEmergencyScriptCodeEditor(IWin32Window? owner, IScript script)
+    {
+        using EmergencyScriptCodeEditor emergencyScriptCodeEditor = new();
+        emergencyScriptCodeEditor.Selected = script;
+        _ = emergencyScriptCodeEditor.ShowDialog(owner);
     }
 
     #endregion Public Methods
@@ -47,8 +54,8 @@ public static class Program
         }
         else
         {
-            Dialog.SingleInstanceOnly(EnsureSingleInstance);
-            singleInstanceEnforcer.Dispose();
+            RetryExitDialog.SingleInstanceOnly.ShowDialogAssertExit();
+            EnsureSingleInstance();
         }
     }
 
@@ -56,7 +63,8 @@ public static class Program
     {
         if (!PathEquals(Application.StartupPath, AppDir.Info.FullName))
         {
-            Dialog.WrongStartupPath(EnsureStartupPath);
+            RetryExitDialog.WrongStartupPath.ShowDialogAssertExit();
+            EnsureStartupPath();
         }
     }
 

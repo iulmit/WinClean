@@ -2,7 +2,6 @@
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace RaphaëlBardini.WinClean;
@@ -44,19 +43,13 @@ public static class Helpers
     /// <inheritdoc cref="MakeFilter(OpenFileDialog, IEnumerable{ExtensionGroup})"/>
     public static void MakeFilter(this OpenFileDialog ofd, params ExtensionGroup[] exts) => MakeFilter(ofd, (IEnumerable<ExtensionGroup>)exts);
 
-    /// <summary>Shows the dialog in foreground window</summary>
-    /// <param name="page"></param>
-    /// <returns></returns>
-    public static TaskDialogButton ShowPageInForegroundWindow(this TaskDialogPage page)
+    public static TaskDialogButton ShowPage(this TaskDialogPage page)
     {
-        IntPtr ownerHandle = GetForegroundWindow();
-        IWin32Window? owner = (ownerHandle == IntPtr.Zero) ? null : new Win32Window(ownerHandle);
+        IWin32Window? owner = GetApplicationActiveWindow();
         return owner is null ? TaskDialog.ShowDialog(page) : TaskDialog.ShowDialog(owner, page);
-
-        [DllImport("user32")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
-        static extern IntPtr GetForegroundWindow();
     }
 
+    public static IWin32Window? GetApplicationActiveWindow()
+        => (IWin32Window?)System.Windows.Application.Current.Windows.OfType<System.Windows.Window>().FirstOrDefault((window) => window.IsActive);
     #endregion Public Methods
 }

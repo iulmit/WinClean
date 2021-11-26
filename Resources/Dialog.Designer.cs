@@ -88,6 +88,15 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Edit code.
+        /// </summary>
+        internal static string EditCodeButton {
+            get {
+                return ResourceManager.GetString("EditCodeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Exit.
         /// </summary>
         internal static string ExitButton {
@@ -120,15 +129,6 @@ namespace RaphaëlBardini.WinClean.Resources {
         internal static string KillScriptButton {
             get {
                 return ResourceManager.GetString("KillScriptButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Restart script.
-        /// </summary>
-        internal static string RestartScriptButton {
-            get {
-                return ResourceManager.GetString("RestartScriptButton", resourceCulture);
             }
         }
         

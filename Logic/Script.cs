@@ -73,7 +73,8 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, _file, FSVerb.Acess, () => d = CreateDoc()).ShowErrorDialog();
+                new FSErrorDialog(e, _file, FSVerb.Acess).ShowDialogAssertExit();
+                d = CreateDoc();
             }
             return d;
         }
@@ -110,7 +111,8 @@ public class Script : ListViewItem, IScript
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, source, FSVerb.Acess, () => code = GetCode()).ShowErrorDialog();
+                new FSErrorDialog(e, source, FSVerb.Acess).ShowDialogAssertExit();
+                code = GetCode();
             }
             return code;
         }
@@ -155,7 +157,8 @@ public class Script : ListViewItem, IScript
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, _file, FSVerb.Delete, Delete).ShowErrorDialog();
+            new FSErrorDialog(e, _file, FSVerb.Delete).ShowDialogAssertExit();
+            Delete();
         }
     }
 
@@ -236,7 +239,8 @@ public class Script : ListViewItem, IScript
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    new FSErrorDialog(e, _file, FSVerb.Move, MoveScriptFileInAppropriateGroupDir).ShowErrorDialog();
+                    new FSErrorDialog(e, _file, FSVerb.Move).ShowDialogAssertExit();
+                    MoveScriptFileInAppropriateGroupDir();
                 }
 
                 DeleteOldGroupDirIfEmpty();
@@ -251,7 +255,8 @@ public class Script : ListViewItem, IScript
                         }
                         catch (Exception e) when (e.FileSystem())
                         {
-                            new FSErrorDialog(e, oldGroupDir, FSVerb.Delete, DeleteOldGroupDirIfEmpty).ShowErrorDialog();
+                            new FSErrorDialog(e, oldGroupDir, FSVerb.Delete).ShowDialogAssertExit();
+                            DeleteOldGroupDirIfEmpty();
                         }
                     }
                 }
@@ -265,7 +270,8 @@ public class Script : ListViewItem, IScript
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    new FSErrorDialog(e, groupDir, FSVerb.Create, () => groupDir = CreateGroupDirectory()).ShowErrorDialog();
+                    new FSErrorDialog(e, groupDir, FSVerb.Create).ShowDialogAssertExit();
+                    groupDir = CreateGroupDirectory();
                 }
                 return groupDir;
             }
