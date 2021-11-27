@@ -102,7 +102,7 @@ public class Script : ListViewItem, IScript
 
         string GetCode()
         {
-            string code = null!;
+            string code = string.Empty;
             try
             {
                 code = File.ReadAllText(source.FullName).Trim();

@@ -88,15 +88,6 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Edit code.
-        /// </summary>
-        internal static string EditCodeButton {
-            get {
-                return ResourceManager.GetString("EditCodeButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Exit.
         /// </summary>
         internal static string ExitButton {

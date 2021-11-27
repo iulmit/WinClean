@@ -127,9 +127,6 @@
   <data name="ConfirmScriptDeletion" xml:space="preserve">
     <value>Are you sure you want to delete the script ? This action is irreversible.</value>
   </data>
-  <data name="EditCodeButton" xml:space="preserve">
-    <value>Edit code</value>
-  </data>
   <data name="ExitButton" xml:space="preserve">
     <value>Exit</value>
   </data>
