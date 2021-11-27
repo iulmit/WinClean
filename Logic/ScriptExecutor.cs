@@ -67,22 +67,6 @@ public class ScriptExecutor
 
     #region Public Methods
 
-    /// <summary>Runs the specified scripts.</summary>
-    /// <remarks>If there is more than 1 script to run, shows a GUI.</remarks>
-    /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
-    public static void ConfirmAndExecute(IList<IScript> scripts)
-    {
-        ScriptExecutor executor = new(scripts ?? throw new ArgumentNullException(nameof(scripts)));
-        if (scripts.Count > 1)
-        {
-            executor.ExecuteUI();
-        }
-        else
-        {
-            executor.ExecuteNoUI();
-        }
-    }
-
     /// <summary>Executes the scripts without displaying a dialog.</summary>
     public async void ExecuteNoUI() => _ = await ExecuteScriptsAsync().ConfigureAwait(false);
 

@@ -1,7 +1,5 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
-using RaphaëlBardini.WinClean.ErrorHandling;
-
 namespace RaphaëlBardini.WinClean.Logic;
 
 public class GroupDir
@@ -22,8 +20,7 @@ public class GroupDir
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, dir, FSVerb.Create).ShowDialogAssertExit();
-                CreateDir();
+                new ErrorHandling.FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(CreateDir);
             }
         }
     }

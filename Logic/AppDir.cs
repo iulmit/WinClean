@@ -11,7 +11,7 @@ public class AppDir
     // chaud : read install dir from registry program entry. Needs an installer.
     public DirectoryInfo Info { get; } = new(Application.StartupPath);
 
-    public ScriptsDir ScriptsDir => ScriptsDir.Instance;
+    public static ScriptsDir ScriptsDir => ScriptsDir.Instance;
 
     #endregion Public Properties
 }

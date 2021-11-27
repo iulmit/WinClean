@@ -120,6 +120,9 @@
   <data name="CollectionContainsNull" xml:space="preserve">
     <value>Collection contains null.</value>
   </data>
+  <data name="FileSystemException" xml:space="preserve">
+    <value>A file system exception was thrown.</value>
+  </data>
   <data name="InvalidFilenameChars" xml:space="preserve">
     <value>The string contains invalid filename chars.</value>
     <comment>0 : stackframe : the caller information</comment>

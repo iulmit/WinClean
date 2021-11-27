@@ -36,7 +36,6 @@ public interface IScript
     void Delete();
 
     /// <summary>Executes the script in a new process.</summary>
-    /// <inheritdoc cref="Operational.ScriptHost.Execute(IScript)" path="/exception"/>
     void Execute();
 
     /// <summary>Saves this script to the disk.</summary>

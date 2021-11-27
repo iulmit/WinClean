@@ -2,9 +2,9 @@
 
 global using static System.Globalization.CultureInfo;
 
-using RaphaëlBardini.WinClean.ErrorHandling;
-using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Presentation;
+using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.ErrorHandling;
 
 namespace RaphaëlBardini.WinClean;
 
@@ -14,7 +14,7 @@ public static class Program
     #region Public Properties
 
     public static AppDir AppDir => AppDir.Instance;
-    public static Properties.Settings Settings { get; } = Properties.Settings.Default;
+    public static Properties.Settings Settings => Properties.Settings.Default;
 
     #endregion Public Properties
 
@@ -48,23 +48,23 @@ public static class Program
     private static void EnsureSingleInstance()
     {
         System.Threading.Mutex singleInstanceEnforcer = new(true, $"Global\\{Application.ProductName}", out bool firstInstance);
+
         if (firstInstance)
         {
             GC.KeepAlive(singleInstanceEnforcer);
         }
         else
         {
-            RetryExitDialog.SingleInstanceOnly.ShowDialogAssertExit();
-            EnsureSingleInstance();
+            RetryExitDialog.SingleInstanceOnly.ShowDialog(EnsureSingleInstance);
+            singleInstanceEnforcer.Dispose();
         }
     }
 
-    private static void EnsureStartupPath()
+    private static void EnsureStartupPathCorrect()
     {
         if (!PathEquals(Application.StartupPath, AppDir.Info.FullName))
         {
-            RetryExitDialog.WrongStartupPath.ShowDialogAssertExit();
-            EnsureStartupPath();
+            RetryExitDialog.WrongStartupPath.ShowDialog(EnsureStartupPathCorrect);
         }
     }
 
@@ -75,7 +75,7 @@ public static class Program
         Application.EnableVisualStyles();
 
         EnsureSingleInstance();
-        EnsureStartupPath();
+        EnsureStartupPathCorrect();
 
         using MainForm mainForm = new();
         Application.Run(mainForm);

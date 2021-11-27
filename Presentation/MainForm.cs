@@ -54,9 +54,21 @@ public partial class MainForm : Form
         }
     }
 
-    private void ButtonExecuteScripts_Click(object _, EventArgs __) => ScriptExecutor.ConfirmAndExecute(listViewScripts.CheckedItems.Cast<IScript>().ToList());
+    private void ButtonExecuteScripts_Click(object _, EventArgs __)
+    {
+        IList<IScript> scripts = listViewScripts.CheckedItems.Cast<IScript>().ToList();
 
-    private void ButtonQuit_Click(object _, EventArgs __) => Program.Exit();
+        ScriptExecutor executor = new(scripts);
+
+        if (scripts.Count > 1)
+        {
+            executor.ExecuteUI();
+        }
+        else
+        {
+            executor.ExecuteNoUI();
+        }
+    }
 
     #endregion Buttons
 
@@ -74,11 +86,12 @@ public partial class MainForm : Form
 
     private void MainMenuStripAbout_Click(object _, EventArgs __)
     {
+        new ErrorHandling.FSErrorDialog(new System.Security.SecurityException(), FSVerb.Delete, new DirectoryInfo("foo.txt")).ShowDialog(null);
         using AboutBox about = new();
         _ = about.ShowDialog(this);
     }
 
-    private void MainMenuStripClearLogs_Click(object _, EventArgs __) => LogManager.ClearLogsFolderAsync();
+    private void MainMenuStripClearLogs_Click(object _, EventArgs __) => LogManager.Instance.ClearLogsFolderAsync();
 
     private void MainMenuStripSettings_Click(object _, EventArgs __)
     {

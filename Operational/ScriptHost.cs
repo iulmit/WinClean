@@ -1,7 +1,5 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
-using RaphaëlBardini.WinClean.ErrorHandling;
-
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -26,10 +24,12 @@ public abstract class ScriptHost
     /// <summary>Executes the specified script.</summary>
     /// <param name="script">The script to execute.</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
-    public virtual void Execute(Logic.IScript script)
+    /// <exception cref="BadFileExtensionException">The script's extension is not supported by this script host.</exception>
+    /// <inheritdoc cref="ExecuteCode(string, string, string, TimeSpan)"/>
+    public virtual void Execute(Logic.IScript script, TimeSpan timeout)
     {
         _ = script ?? throw new ArgumentNullException(nameof(script));
-        ExecuteCode(script.Code, script.Name, script.Extension);
+        ExecuteCode(script.Code, script.Name, script.Extension, timeout);
     }
 
     #endregion Public Methods
@@ -48,7 +48,7 @@ public abstract class ScriptHost
 
     /// <summary>Creates a temporary file with the specified text and the specified extension.</summary>
     /// <returns>The new temporary file.</returns>
-    protected FileInfo CreateTempFile(string text, string extension)
+    protected static FileInfo CreateTempFile(string text, string extension)
     {
         FileInfo tmpScript = new(Path.Join(Path.GetTempPath(), $"WinCleanScript{DateTime.Now.ToBinary()}{extension}"));
         try
@@ -57,41 +57,38 @@ public abstract class ScriptHost
             {
                 s.Write(text);
             }
-            return tmpScript;
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, tmpScript, FSVerb.Create).ShowDialogAssertExit();
-            tmpScript = CreateTempFile(text, extension);
+            new ErrorHandling.FSErrorDialog(e, FSVerb.Create, tmpScript).ShowDialog(() => tmpScript = CreateTempFile(text, extension));
         }
         return tmpScript;
     }
 
     /// <summary>Executes the specified code.</summary>
     /// <param name="code">The code to execute.</param>
-    /// <param name="scriptName">The name to give the the code.</param>
-    /// <param name="extensionIfCodeWasInsideAFile">If <paramref name="code"/> was the content of a file, the file's extension.</param>
+    /// <param name="extension">If <paramref name="code"/> was the content of a file, the file's extension.</param>
     /// <exception cref="ArgumentNullException"><paramref name="code"/> is <see langword="null"/>.</exception>
-    protected void ExecuteCode(string code, string scriptName, string extensionIfCodeWasInsideAFile)
+    /// <exception cref="BadFileExtensionException"><paramref name="extension"/> is not a valid file extension for this script host.</exception>
+    /// <inheritdoc cref="CreateTempFile(string, string)" path="/exception"/>
+    /// <inheritdoc cref="WaitForHostExit(Process, string, TimeSpan)"/>
+    protected void ExecuteCode(string code, string scriptName, string extension, TimeSpan timeout)
     {
         if (code is null)
         {
             throw new ArgumentNullException(nameof(code));
         }
-        if (!SupportedExtensions.Contains(extensionIfCodeWasInsideAFile))
+        if (!SupportedExtensions.Contains(extension))
         {
-            throw new BadFileExtensionException(extensionIfCodeWasInsideAFile);
+            throw new BadFileExtensionException(extension);
         }
 
-        FileInfo tmpScriptFile = CreateTempFile(code, extensionIfCodeWasInsideAFile);
+        FileInfo tmpScriptFile = CreateTempFile(code, extension);
 
         using Process host = ExecuteHost(tmpScriptFile);
-        (string stderr, string stdout) = WaitForHostExit(host, scriptName);
+        WaitForHostExit(host, scriptName, timeout);
 
         tmpScriptFile.Delete();
-
-        stderr.Log("Standard error");
-        stdout.Log("Standard output");
     }
 
     /// <summary>Executes the script host program with the specified script.</summary>
@@ -101,8 +98,6 @@ public abstract class ScriptHost
         => Process.Start(new ProcessStartInfo(Executable.FullName, Arguments.Complete(script ?? throw new ArgumentNullException(nameof(script))))
         {
             WindowStyle = ProcessWindowStyle.Hidden,
-            RedirectStandardError = true,
-            RedirectStandardOutput = true,
             StandardErrorEncoding = Encoding.Unicode,
             StandardOutputEncoding = Encoding.Unicode,
         })!; // ! : it wont return null
@@ -110,30 +105,17 @@ public abstract class ScriptHost
     /// <summary>Waits for the end of the specified script host process</summary>
     /// <param name="p">The process which to wait for exit.</param>
     /// <param name="scriptName">The name of the script being executed.</param>
+    /// <param name="timeout">How long to wait for the script to exit before throwing an exception.</param>
     /// <exception cref="ArgumentNullException"><paramref name="p"/> or <paramref name="scriptName"/> are <see langword="null"/>.</exception>
-    /// <returns>The standard error and standard output streams of the script host process, read to end.</returns>
-    protected (string stderr, string stdout) WaitForHostExit(Process p, string scriptName)
+    protected static void WaitForHostExit(Process p, string scriptName, TimeSpan timeout)
     {
-        // placeholder for the time a script would take to run
-        Thread.Sleep(2000);
         _ = p ?? throw new ArgumentNullException(nameof(p));
         _ = scriptName ?? throw new ArgumentNullException(nameof(scriptName));
 
-        if (!p.WaitForExit(Convert.ToInt32(Program.Settings.ScriptTimeout.TotalMilliseconds)))
+        if (!p.WaitForExit(Convert.ToInt32(timeout.TotalMilliseconds)))
         {
-            KillScriptEditCodeIgnoreDialog.Result result = KillScriptEditCodeIgnoreDialog.HungScript(scriptName).ShowDialog();
-            switch (result)
-            {
-                case KillScriptEditCodeIgnoreDialog.Result.KillScript:
-                    p.Kill(true);
-                    break;
-                case KillScriptEditCodeIgnoreDialog.Result.EditCode:
-                    break;
-                default:
-                    return WaitForHostExit(p, scriptName);
-            }
+            ErrorHandling.KillEditIgnoreDialog.HungScript(scriptName, timeout).ShowDialog(p.Kill, null/*chaud*/, () => WaitForHostExit(p, scriptName, timeout));
         }
-        return (p.StandardError.ReadToEnd(), p.StandardOutput.ReadToEnd());
     }
 
     #endregion Protected Methods

@@ -70,6 +70,15 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à A file system exception was thrown..
+        /// </summary>
+        internal static string FileSystemException {
+            get {
+                return ResourceManager.GetString("FileSystemException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à The string contains invalid filename chars..
         /// </summary>
         internal static string InvalidFilenameChars {

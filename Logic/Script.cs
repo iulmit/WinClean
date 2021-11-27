@@ -1,6 +1,5 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
-using RaphaëlBardini.WinClean.ErrorHandling;
 using RaphaëlBardini.WinClean.Operational;
 
 using System.Diagnostics;
@@ -17,7 +16,7 @@ public class Script : ListViewItem, IScript
     private FileInfo GetFile(string groupHeader)
     {
         Debug.Assert(groupHeader.IsValidFilename());
-        return new(Program.AppDir.ScriptsDir.Join(groupHeader, $"{Name.ToFilename()}.xml"));
+        return new(AppDir.ScriptsDir.Join(groupHeader, $"{Name.ToFilename()}.xml"));
     }
 
     #endregion Private Methods
@@ -69,12 +68,11 @@ public class Script : ListViewItem, IScript
             XmlDocument d = new();
             try
             {
-                d.Load(_file.FullName);
+                d.Load(file.FullName);
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, _file, FSVerb.Acess).ShowDialogAssertExit();
-                d = CreateDoc();
+                new ErrorHandling.FSErrorDialog(e, FSVerb.Acess, file).ShowDialog(() => d = CreateDoc());
             }
             return d;
         }
@@ -94,25 +92,24 @@ public class Script : ListViewItem, IScript
         _ = group ?? throw new ArgumentNullException(nameof(group));
 
         Name = name?.Trim() ?? throw new ArgumentNullException(nameof(name));
-        _file = new(Program.AppDir.ScriptsDir.Join(group.Header, $"{Name.ToFilename()}.xml"));
+        _file = new(AppDir.ScriptsDir.Join(group.Header, $"{Name.ToFilename()}.xml"));
         Description = description?.Trim() ?? throw new ArgumentNullException(nameof(description));
         Advised = advised;
         Impact = impact ?? throw new ArgumentNullException(nameof(impact));
         Group = group;
         Extension = source.Extension.Trim();
-        Code = GetCode().Trim();
+        Code = GetCode();
 
         string GetCode()
         {
-            string code = string.Empty;
+            string code = null!;
             try
             {
-                code = File.ReadAllText(source.FullName);
+                code = File.ReadAllText(source.FullName).Trim();
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, source, FSVerb.Acess).ShowDialogAssertExit();
-                code = GetCode();
+                new ErrorHandling.FSErrorDialog(e, FSVerb.Acess, source).ShowDialog(() => code = GetCode());
             }
             return code;
         }
@@ -157,12 +154,11 @@ public class Script : ListViewItem, IScript
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new FSErrorDialog(e, _file, FSVerb.Delete).ShowDialogAssertExit();
-            Delete();
+            new ErrorHandling.FSErrorDialog(e, FSVerb.Delete, _file).ShowDialog(Delete);
         }
     }
 
-    public void Execute() => ScriptHostFactory.FromFileExtension(Extension).Execute(this);
+    public void Execute() => ScriptHostFactory.FromFileExtension(Extension).Execute(this, Program.Settings.ScriptTimeout);
 
     public void Save()
     {
@@ -239,8 +235,7 @@ public class Script : ListViewItem, IScript
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    new FSErrorDialog(e, _file, FSVerb.Move).ShowDialogAssertExit();
-                    MoveScriptFileInAppropriateGroupDir();
+                    new ErrorHandling.FSErrorDialog(e, FSVerb.Move, _file).ShowDialog(MoveScriptFileInAppropriateGroupDir);
                 }
 
                 DeleteOldGroupDirIfEmpty();
@@ -255,23 +250,21 @@ public class Script : ListViewItem, IScript
                         }
                         catch (Exception e) when (e.FileSystem())
                         {
-                            new FSErrorDialog(e, oldGroupDir, FSVerb.Delete).ShowDialogAssertExit();
-                            DeleteOldGroupDirIfEmpty();
+                            new ErrorHandling.FSErrorDialog(e, FSVerb.Delete, oldGroupDir).ShowDialog(DeleteOldGroupDirIfEmpty);
                         }
                     }
                 }
             }
             DirectoryInfo CreateGroupDirectory()
             {
-                DirectoryInfo groupDir = new(Program.AppDir.ScriptsDir.Join(Group.Header));
+                DirectoryInfo groupDir = new(AppDir.ScriptsDir.Join(Group.Header));
                 try
                 {
                     groupDir.Create();
                 }
                 catch (Exception e) when (e.FileSystem())
                 {
-                    new FSErrorDialog(e, groupDir, FSVerb.Create).ShowDialogAssertExit();
-                    groupDir = CreateGroupDirectory();
+                    new ErrorHandling.FSErrorDialog(e, FSVerb.Create, groupDir).ShowDialog(() => groupDir = CreateGroupDirectory());
                 }
                 return groupDir;
             }

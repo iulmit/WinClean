@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace RaphaëlBardini.WinClean;
@@ -45,11 +46,24 @@ public static class Helpers
 
     public static TaskDialogButton ShowPage(this TaskDialogPage page)
     {
-        IWin32Window? owner = GetApplicationActiveWindow();
-        return owner is null ? TaskDialog.ShowDialog(page) : TaskDialog.ShowDialog(owner, page);
-    }
+        // Get the system-wide foreground window. This window may be anything
+        IntPtr hwndOwner = GetForegroundWindow();
 
-    public static IWin32Window? GetApplicationActiveWindow()
-        => (IWin32Window?)System.Windows.Application.Current.Windows.OfType<System.Windows.Window>().FirstOrDefault((window) => window.IsActive);
+        // Get the ID of the process that owns hwndOwner
+        _ = GetWindowThreadProcessId(hwndOwner, out int processId);
+
+
+        // If the ID is equals to the ID of the current process, then the foreground window is ours.
+        return processId == Environment.ProcessId ? TaskDialog.ShowDialog(hwndOwner, page) : TaskDialog.ShowDialog(page);
+
+        [DllImport("user32")]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+        static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32")]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+        static extern int GetWindowThreadProcessId(IntPtr hWnd, out int ProcessId);
+
+    }
     #endregion Public Methods
 }

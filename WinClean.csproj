@@ -78,10 +78,6 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="27.2.0" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="WinCopies.WindowsAPICodePack.Shell" Version="3.8.2-preview" />
   </ItemGroup>
 

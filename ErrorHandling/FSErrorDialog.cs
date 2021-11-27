@@ -6,20 +6,20 @@ public class FSErrorDialog : RetryExitDialog
 {
     #region Public Constructors
 
-    /// <inheritdoc cref="FSErrorDialog(Exception, FileSystemInfo, FSVerb, bool)"/>
-    public FSErrorDialog(Exception e, FileInfo file, FSVerb verb)
-        : this(e, file, verb, true) { }
+    /// <inheritdoc cref="FSErrorDialog(Exception, FSVerb, FileSystemInfo, bool)"/>
+    public FSErrorDialog(Exception e, FSVerb verb, FileInfo file)
+        : this(e, verb, file, true) { }
 
-    /// <inheritdoc cref="FSErrorDialog(Exception, FileSystemInfo, FSVerb, bool)"/>
-    public FSErrorDialog(Exception e, DirectoryInfo directory, FSVerb verb)
-        : this(e, directory, verb, false) { }
+    /// <inheritdoc cref="FSErrorDialog(Exception, FSVerb, FileSystemInfo, bool)"/>
+    public FSErrorDialog(Exception e, FSVerb verb, DirectoryInfo directory)
+        : this(e, verb, directory, false) { }
 
     #endregion Public Constructors
 
     #region Private Constructors
 
     /// <exception cref="ArgumentNullException">One or more of the parameters are <see langword="null"/>.</exception>
-    private FSErrorDialog(Exception e, FileSystemInfo info, FSVerb verb, bool isFileElseDir)
+    private FSErrorDialog(Exception e, FSVerb verb, FileSystemInfo info, bool isFileElseDir)
     {
         Icon = TaskDialogIcon.Error;
         Text = string.Format(CurrentCulture,

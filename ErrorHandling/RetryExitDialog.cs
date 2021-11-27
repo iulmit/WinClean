@@ -6,15 +6,19 @@ public class RetryExitDialog : Dialog
 {
     private static readonly TaskDialogButtonCollection s_buttons = new() { TaskDialogButton.Retry, Resources.Dialog.ExitButton };
 
-    static RetryExitDialog()
-        => s_buttons[0].Click += (_, _) => s_buttons[0].AllowCloseDialog = YesNoDialog.ProgramExit.ShowDialog();
-
-    /// <summary>
-    /// Shows the dialog and exits the program if the users clicks on the Exit button.
-    /// </summary>
-    public void ShowDialogAssertExit()
+    public RetryExitDialog()
     {
-        if (this.ShowPage() == s_buttons[1])
+        s_buttons[1].Click += (_, _) => s_buttons[1].AllowCloseDialog = YesNoDialog.ProgramExit.ShowDialog();
+        Buttons = s_buttons;
+    }
+
+    public void ShowDialog(Action? retry)
+    {
+        if (this.ShowPage() == TaskDialogButton.Retry)
+        {
+            retry?.Invoke();
+        }
+        else
         {
             Program.Exit();
         }

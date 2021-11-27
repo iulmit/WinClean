@@ -1,7 +1,5 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
 
-using RaphaëlBardini.WinClean.ErrorHandling;
-
 namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>Represents the scripts dir of the application root directory.</summary>
@@ -15,17 +13,16 @@ public class ScriptsDir
 
         static DirectoryInfo GetOrCreate()
         {
-            DirectoryInfo info = new(Path.Join(Program.AppDir.Info.FullName, "Scripts"));
+            DirectoryInfo dir = new(Path.Join(Program.AppDir.Info.FullName, "Scripts"));
             try
             {
-                info.Create();
+                dir.Create();
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, info, FSVerb.Create).ShowDialogAssertExit();
-                info = GetOrCreate();
+                new ErrorHandling.FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(() => dir = GetOrCreate());
             }
-            return info;
+            return dir;
         }
     }
 

@@ -27,14 +27,10 @@ public class PowerShell : ScriptHost
 
     #region Public Methods
 
-    public override void Execute(Logic.IScript script)
+    public override void Execute(Logic.IScript script, TimeSpan timeout)
     {
-        if (script is null)
-        {
-            throw new ArgumentNullException(nameof(script));
-        }
-
-        ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{script.Code}", script.Name, script.Extension);
+        _ = script ?? throw new ArgumentNullException(nameof(script));
+        ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{script.Code}", script.Name, script.Extension, timeout);
     }
 
     #endregion Public Methods
