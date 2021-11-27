@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
-
+﻿
 using Button = System.Windows.Forms.TaskDialogButton;
 
 namespace RaphaëlBardini.WinClean.Dialogs;

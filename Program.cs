@@ -1,5 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license.
-
+﻿
 global using static System.Globalization.CultureInfo;
 
 using RaphaëlBardini.WinClean.Dialogs;
@@ -31,13 +30,6 @@ public static class Program
         Application.Exit();
         // If we didnt exit at this stage, we must be out of the message loop. Exit from the environment.
         Environment.Exit(0);
-    }
-
-    public static void ShowEmergencyScriptCodeEditor(IWin32Window? owner, IScript script)
-    {
-        using EmergencyScriptCodeEditor emergencyScriptCodeEditor = new();
-        emergencyScriptCodeEditor.Selected = script;
-        _ = emergencyScriptCodeEditor.ShowDialog(owner);
     }
 
     #endregion Public Methods
