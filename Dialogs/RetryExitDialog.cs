@@ -1,4 +1,6 @@
 ﻿
+using RaphaëlBardini.WinClean.Logic;
+
 namespace RaphaëlBardini.WinClean.Dialogs;
 
 public class RetryExitDialog : Dialog
@@ -30,7 +32,7 @@ public class RetryExitDialog : Dialog
     public static RetryExitDialog WrongStartupPath => new()
     {
         Icon = TaskDialogIcon.Error,
-        Text = string.Format(CurrentCulture, Resources.Dialog.WrongStartupPath, Program.AppDir.Info)
+        Text = string.Format(CurrentCulture, Resources.Dialog.WrongStartupPath, AppDir.Instance.Info)
     };
 
     #endregion Public Properties

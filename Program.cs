@@ -12,7 +12,6 @@ public static class Program
 {
     #region Public Properties
 
-    public static AppDir AppDir => AppDir.Instance;
     public static Properties.Settings Settings => Properties.Settings.Default;
 
     #endregion Public Properties
@@ -54,7 +53,7 @@ public static class Program
 
     private static void EnsureStartupPathCorrect()
     {
-        if (!PathEquals(Application.StartupPath, AppDir.Info.FullName))
+        if (!PathEquals(Application.StartupPath, AppDir.Instance.Info.FullName))
         {
             RetryExitDialog.WrongStartupPath.ShowDialog(EnsureStartupPathCorrect);
         }

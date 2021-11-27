@@ -33,11 +33,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ShowErrorsInErrorList = False
-		RESX_ResXSortingComparison = InvariantCulture
-		RESX_SortFileContentOnSave = True
-		RESX_ConfirmAddLanguageFile = True
-		RESX_ExcelExportMode = MultipleSheets
 		SolutionGuid = {18863374-F854-4201-A4DA-96ECC144140D}
+		RESX_ExcelExportMode = MultipleSheets
+		RESX_ConfirmAddLanguageFile = True
+		RESX_SortFileContentOnSave = True
+		RESX_ResXSortingComparison = InvariantCulture
+		RESX_ShowErrorsInErrorList = False
 	EndGlobalSection
 EndGlobal

@@ -12,7 +12,7 @@ public class ScriptsDir
 
         static DirectoryInfo GetOrCreate()
         {
-            DirectoryInfo dir = new(Path.Join(Program.AppDir.Info.FullName, "Scripts"));
+            DirectoryInfo dir = new(Path.Join(AppDir.Instance.Info.FullName, "Scripts"));
             try
             {
                 dir.Create();
