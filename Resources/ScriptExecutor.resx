@@ -157,6 +157,10 @@ Time elapsed : {1:g}</value>
   <data name="RestartVerb" xml:space="preserve">
     <value>Restart</value>
   </data>
+  <data name="ScriptExecution" xml:space="preserve">
+    <value>{0} - Scripts execution</value>
+    <comment>0 : string : program name</comment>
+  </data>
   <data name="WarningPageHeading" xml:space="preserve">
     <value>Before starting the operation, please confirm :</value>
   </data>

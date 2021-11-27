@@ -2,7 +2,7 @@
 
 using Button = System.Windows.Forms.TaskDialogButton;
 
-namespace RaphaëlBardini.WinClean.ErrorHandling;
+namespace RaphaëlBardini.WinClean.Dialogs;
 
 public class YesNoDialog : Dialog
 {
@@ -30,6 +30,12 @@ public class YesNoDialog : Dialog
     {
         Icon = TaskDialogIcon.Warning,
         Text = Resources.Dialog.ConfirmScriptDeletion
+    };
+
+    public static YesNoDialog SystemRestorePoint => new()
+    {
+        Icon = TaskDialogIcon.Warning,
+        Text = Resources.Dialog.SystemRestorePoint
     };
 
     #endregion Public Properties

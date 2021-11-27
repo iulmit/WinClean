@@ -151,6 +151,9 @@ Temps écoulé : {1:g}</value>
   <data name="RestartVerb" xml:space="preserve">
     <value>Redémarrer</value>
   </data>
+  <data name="ScriptExecution" xml:space="preserve">
+    <value>{0} - Exécution des scripts</value>
+  </data>
   <data name="WarningPageHeading" xml:space="preserve">
     <value>Avant de commencer l'opération, veuillez confirmer :</value>
   </data>

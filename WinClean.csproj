@@ -82,6 +82,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="System.Management">
+      <HintPath>D:\Programmes\Visual Studio 2022\IDE\Common7\IDE\CommonExtensions\Microsoft\ManagedLanguages\VBCSharp\LanguageServices\Core\System.Management.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

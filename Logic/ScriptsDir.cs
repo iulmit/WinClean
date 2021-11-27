@@ -20,7 +20,7 @@ public class ScriptsDir
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new ErrorHandling.FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(() => dir = GetOrCreate());
+                new Dialogs.FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(() => dir = GetOrCreate());
             }
             return dir;
         }

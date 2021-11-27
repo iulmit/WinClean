@@ -20,7 +20,7 @@ public class GroupDir
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new ErrorHandling.FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(CreateDir);
+                new Dialogs.FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(CreateDir);
             }
         }
     }

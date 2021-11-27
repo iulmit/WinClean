@@ -141,6 +141,11 @@
   <data name="SingleInstanceOnly" xml:space="preserve">
     <value>L'application est déjà en cours d'exécution.</value>
   </data>
+  <data name="SystemRestorePoint" xml:space="preserve">
+    <value>Afin de pouvoir annuler les changements allant être apportés aux système, il est recommandé de créer un point de restauration système.
+
+Créer un point de restauration système ?</value>
+  </data>
   <data name="WrongStartupPath" xml:space="preserve">
     <value>L'exécutable de l'application se trouve dans un répertoire incorrect. Déplacez-le dans "{0}".</value>
   </data>

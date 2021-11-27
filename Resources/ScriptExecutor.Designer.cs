@@ -149,6 +149,15 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} - Scripts execution.
+        /// </summary>
+        internal static string ScriptExecution {
+            get {
+                return ResourceManager.GetString("ScriptExecution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Before starting the operation, please confirm :.
         /// </summary>
         internal static string WarningPageHeading {

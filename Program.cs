@@ -2,7 +2,7 @@
 
 global using static System.Globalization.CultureInfo;
 
-using RaphaëlBardini.WinClean.ErrorHandling;
+using RaphaëlBardini.WinClean.Dialogs;
 using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Presentation;
 

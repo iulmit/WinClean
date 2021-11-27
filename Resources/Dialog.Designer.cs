@@ -133,6 +133,17 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à In order to be able to revert the changes to the system, it is strongly recommended that you create a system restore point.
+        ///
+        ///Create a system restore point ?.
+        /// </summary>
+        internal static string SystemRestorePoint {
+            get {
+                return ResourceManager.GetString("SystemRestorePoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à The application&apos;s executable is in the wrong directory. Move it in &quot;{0}&quot;..
         /// </summary>
         internal static string WrongStartupPath {

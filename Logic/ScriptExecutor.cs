@@ -1,7 +1,8 @@
 ﻿using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Win32Native.Shell;
 
-using RaphaëlBardini.WinClean.ErrorHandling;
+using RaphaëlBardini.WinClean.Dialogs;
+using RaphaëlBardini.WinClean.Operational;
 
 using System.Diagnostics;
 
@@ -222,6 +223,11 @@ public class ScriptExecutor
 
         @continue.Click += (_, _) =>
         {
+            if (YesNoDialog.SystemRestorePoint.ShowDialog())
+            {
+                new RestorePoint(string.Format(CurrentCulture, Resources.ScriptExecutor.ScriptExecution, Application.ProductName), EventType.BeginSystemChange, RestorePointType.ModifySettings).Create();
+            }
+
             _uiStep = UIStep.InProgress;
             warningPage.Navigate(CreateProgressPageAndExecuteScriptsAsync());
         };

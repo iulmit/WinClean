@@ -148,6 +148,11 @@
   <data name="SingleInstanceOnly" xml:space="preserve">
     <value>The application is already running.</value>
   </data>
+  <data name="SystemRestorePoint" xml:space="preserve">
+    <value>In order to be able to revert the changes to the system, it is strongly recommended that you create a system restore point.
+
+Create a system restore point ?</value>
+  </data>
   <data name="WrongStartupPath" xml:space="preserve">
     <value>The application's executable is in the wrong directory. Move it in "{0}".</value>
     <comment>0 : the application install directory</comment>

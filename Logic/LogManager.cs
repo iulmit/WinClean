@@ -72,7 +72,7 @@ public class LogManager
                     }
                     catch (Exception e) when (e.FileSystem())
                     {
-                        new ErrorHandling.FSErrorDialog(e, FSVerb.Delete, logFile).ShowDialog(DeleteLogFile);
+                        new Dialogs.FSErrorDialog(e, FSVerb.Delete, logFile).ShowDialog(DeleteLogFile);
                     }
                 }
             }
@@ -122,7 +122,7 @@ public class LogManager
         }
         catch (Exception e) when (e.FileSystem())
         {
-            new ErrorHandling.FSErrorDialog(e, FSVerb.Create, _logDir).ShowDialog(CreateLogDir);
+            new Dialogs.FSErrorDialog(e, FSVerb.Create, _logDir).ShowDialog(CreateLogDir);
         }
     }
 

@@ -86,7 +86,7 @@ public partial class MainForm : Form
 
     private void MainMenuStripAbout_Click(object _, EventArgs __)
     {
-        new ErrorHandling.FSErrorDialog(new System.Security.SecurityException(), FSVerb.Delete, new DirectoryInfo("foo.txt")).ShowDialog(null);
+        new Dialogs.FSErrorDialog(new System.Security.SecurityException(), FSVerb.Delete, new DirectoryInfo("foo.txt")).ShowDialog(null);
         using AboutBox about = new();
         _ = about.ShowDialog(this);
     }
