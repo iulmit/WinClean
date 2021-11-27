@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RaphaëlBardini.WinClean.Presentation.AboutBox" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAQAAACAgQAQAQACCAAACAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Presentation\AboutBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Presentation.MainForm" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBAAwIAAgPQIgCQACBjgZAACAAAEwAAkBEgpAAEBAIA=</HashCode>
+      <FileName>Presentation\MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Presentation.Settings" Collapsed="true">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAIAAAAACABAACAAAAAAAAAAAACAECAAA=</HashCode>
+      <FileName>Presentation\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Presentation.ImagedComboBox" Collapsed="true">
+    <Position X="8.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Presentation\ImagedComboBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Presentation.ImpactEditor" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEIAAACAAAAAIAACAAAACAAAAAAEAQIAAAQAAAAI=</HashCode>
+      <FileName>Presentation\ImpactEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Presentation.ScriptEditor" Collapsed="true">
+    <Position X="10.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACUAAAAIQGAQCAEAAACAAAACAFAAAAFAKAAISAAgACI=</HashCode>
+      <FileName>Presentation\ScriptEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Dialogs.Dialog" Collapsed="true">
+    <Position X="3.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dialogs\Dialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Dialogs.FSErrorDialog" Collapsed="true">
+    <Position X="2.75" Y="9.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dialogs\FSErrorDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Dialogs.KillIgnoreDialog" Collapsed="true">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAABAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dialogs\KillIgnoreDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Dialogs.RetryExitDialog" Collapsed="true">
+    <Position X="3" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAACAAAAAAAAAAEAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Dialogs\RetryExitDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Dialogs.YesNoDialog" Collapsed="true">
+    <Position X="5.75" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAABAEAAAAEAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Dialogs\YesNoDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.ExtensionGroup" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABBAAAAAAAAQABAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>ExtensionGroup.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.FilenameHelpers" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAEAAAAAAAAABAAA=</HashCode>
+      <FileName>FilenameHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.FSVerb" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAgAAIABAAAEgAAAAAQAAAEAAMAAAAAgAAAAAAA=</HashCode>
+      <FileName>FSVerb.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Helpers" Collapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAIAAAAAAAAAAIAQAAAA=</HashCode>
+      <FileName>Helpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Program" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAQAAAAAEAAAAAAAAAAAAAAAAgAoAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.AppDir" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAEAAAAA=</HashCode>
+      <FileName>Logic\AppDir.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.GroupDir" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Logic\GroupDir.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.Impact" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAEgAAAAAAAAAAAAIABAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Impact.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.ImpactEffect" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIIkAAEAAAEQEgAAAIAQAoAAAAYAAAAAgAAAAAIA=</HashCode>
+      <FileName>Logic\ImpactEffect.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.ImpactLevel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAgAAAAAACAEgAAAAAQAAAAAAJAAAAAgAACAAAA=</HashCode>
+      <FileName>Logic\ImpactLevel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.LogExtensions" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\LogManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.LogManager" Collapsed="true">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CgAAAAABAQAAAAEAAAAAAAAAAAgAAIAAQDAAAAAAAAA=</HashCode>
+      <FileName>Logic\LogManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.Script" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAgCEQACAAgEAQAAAGAAQAAAAAEAAAAEAA=</HashCode>
+      <FileName>Logic\Script.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.216" Collapsed="true" />
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.ScriptAdvised" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAgAAAAQAAAEgAAAIAQAICAAAIAAAAAggAAAAAA=</HashCode>
+      <FileName>Logic\ScriptAdvised.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.ScriptExecutor" Collapsed="true">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="RaphaëlBardini.WinClean.Logic.ScriptExecutor.ProgressReport" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Logic\ScriptExecutor.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Enum Name="RaphaëlBardini.WinClean.Logic.ScriptExecutor.UIStep" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Logic\ScriptExecutor.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAwAAAAAgAAAIAAAAAIAQAAAABBIAAAAABAAA=</HashCode>
+      <FileName>Logic\ScriptExecutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.ScriptsDir" Collapsed="true">
+    <Position X="17.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAEAAAAA=</HashCode>
+      <FileName>Logic\ScriptsDir.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Logic.ScriptTimeoutPreset" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAACAAAkgAAAIAQAIAAAAIAACAAgAgIAAAA=</HashCode>
+      <FileName>Logic\ScriptTimeoutPreset.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Operational.BadFileExtensionException" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Operational\BadFileExtensionException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Operational.Cmd" Collapsed="true">
+    <Position X="5.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAIAIAAAAAAAA=</HashCode>
+      <FileName>Operational\Cmd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Operational.PowerShell" Collapsed="true">
+    <Position X="3" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAAAAAgAAAAAAAAAAIAIAAAAAAAA=</HashCode>
+      <FileName>Operational\PowerShell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Operational.Regedit" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAIAIAAAAAAAA=</HashCode>
+      <FileName>Operational\Regedit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Operational.RestorePoint" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAQEAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Operational\RestorePoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Operational.ScriptHost">
+    <Position X="2.75" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="RaphaëlBardini.WinClean.Operational.ScriptHost.IncompleteArguments" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Operational\ScriptHost.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAACAQAQAAAEAAwAAAAAAAAAAIAIAAAAAAAA=</HashCode>
+      <FileName>Operational\ScriptHost.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Operational.ScriptHostFactory" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Operational\ScriptHostFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Operational.ShellFile" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Operational\ShellFile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Properties.Settings" Collapsed="true">
+    <Position X="12" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAIAAAAACBBAIAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.DevException" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAABEAAAIQEAAQAAACACAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.Dialog" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAiAAAAFACBEAAAAYAAAAAAAAgAAAgAAMA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.FileSystemElements" Collapsed="true">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAABEAAAAQAEAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.FileSystemVerbs" Collapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIABAAAAAAABEAAAAQEAAEAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.FormattableStrings" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAEAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.Icons" Collapsed="true">
+    <Position X="19" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAABAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.Images" Collapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAIAAAACAAAAABEAAAAQAAAAAAAAAAAACAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.ImpactEffect" Collapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIIEAAEAAAEQAAAABEAAAgQAAAQAAAAAgAAAAAKA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.ScriptAdvised" Collapsed="true">
+    <Position X="19" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAQAAAAAAABEAAAASAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.ScriptExecutor" Collapsed="true">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAAAgQAAAAFBBMIIAAQAQAAAAgAACAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RaphaëlBardini.WinClean.Resources.ScriptTimeoutPreset" Collapsed="true">
+    <Position X="8.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAACAAAAgIAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RaphaëlBardini.WinClean.Logic.IScript" Collapsed="true">
+    <Position X="8.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAMAAAAAgAAQACAAgEAQAAAEAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\IScript.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="RaphaëlBardini.WinClean.LogLevel" Collapsed="true">
+    <Position X="10.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAIAAAQAAAAAAABAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>LogLevel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RaphaëlBardini.WinClean.Operational.EventType" Collapsed="true">
+    <Position X="8.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEQAAAAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Operational\RestorePoint.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
