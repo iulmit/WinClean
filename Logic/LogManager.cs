@@ -151,6 +151,8 @@ public class LogManager
 
 public static class LogExtensions
 {
+    #region Public Methods
+
     /// <inheritdoc cref="LogManager.Log(string, string, LogLevel, string, int, string)"/>
     public static void Log(this string str, string happening, LogLevel lvl = LogLevel.Verbose,
                            [CallerMemberName] string caller = "Not Found",
@@ -170,4 +172,6 @@ public static class LogExtensions
                            [CallerLineNumber] int callLine = 0,
                            [CallerFilePath] string callFile = "Not Found")
         => Log((e ?? throw new ArgumentNullException(nameof(e))).ToString(), "Exception", lvl, caller, callLine, callFile);
+
+    #endregion Public Methods
 }

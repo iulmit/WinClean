@@ -2,9 +2,9 @@
 
 global using static System.Globalization.CultureInfo;
 
-using RaphaëlBardini.WinClean.Presentation;
-using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.ErrorHandling;
+using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.Presentation;
 
 namespace RaphaëlBardini.WinClean;
 

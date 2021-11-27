@@ -3,9 +3,24 @@
 using RaphaëlBardini.WinClean.Logic;
 
 namespace RaphaëlBardini.WinClean.Presentation;
+
 public partial class EmergencyScriptCodeEditor : Form
 {
+    #region Private Fields
+
     private IScript? _selected;
+
+    #endregion Private Fields
+
+    #region Public Constructors
+
+    public EmergencyScriptCodeEditor() => InitializeComponent();
+
+    public EmergencyScriptCodeEditor(IScript? selected) : this() => Selected = selected;
+
+    #endregion Public Constructors
+
+    #region Public Properties
 
     public IScript? Selected
     {
@@ -16,9 +31,13 @@ public partial class EmergencyScriptCodeEditor : Form
             _selected = value;
         }
     }
-    public EmergencyScriptCodeEditor() => InitializeComponent();
 
-    public EmergencyScriptCodeEditor(IScript? selected) : this() => Selected = selected;
+    #endregion Public Properties
+
+    #region Private Methods
+
+    private void ButtonCancel_Click(object sender, EventArgs e) => DialogResult = DialogResult.Cancel;
+
     private void ButtonOk_Click(object sender, EventArgs e)
     {
         if (_selected is not null)
@@ -28,5 +47,5 @@ public partial class EmergencyScriptCodeEditor : Form
         DialogResult = DialogResult.OK;
     }
 
-    private void ButtonCancel_Click(object sender, EventArgs e) => DialogResult = DialogResult.Cancel;
+    #endregion Private Methods
 }

@@ -8,10 +8,10 @@ public class AppDir
 
     public static AppDir Instance { get; } = new();
 
+    public static ScriptsDir ScriptsDir => ScriptsDir.Instance;
+
     // chaud : read install dir from registry program entry. Needs an installer.
     public DirectoryInfo Info { get; } = new(Application.StartupPath);
-
-    public static ScriptsDir ScriptsDir => ScriptsDir.Instance;
 
     #endregion Public Properties
 }

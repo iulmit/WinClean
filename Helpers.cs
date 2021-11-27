@@ -52,7 +52,6 @@ public static class Helpers
         // Get the ID of the process that owns hwndOwner
         _ = GetWindowThreadProcessId(hwndOwner, out int processId);
 
-
         // If the ID is equals to the ID of the current process, then the foreground window is ours.
         return processId == Environment.ProcessId ? TaskDialog.ShowDialog(hwndOwner, page) : TaskDialog.ShowDialog(page);
 
@@ -63,7 +62,7 @@ public static class Helpers
         [DllImport("user32")]
         [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         static extern int GetWindowThreadProcessId(IntPtr hWnd, out int ProcessId);
-
     }
+
     #endregion Public Methods
 }

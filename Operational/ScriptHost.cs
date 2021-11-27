@@ -65,11 +65,29 @@ public abstract class ScriptHost
         return tmpScript;
     }
 
+    /// <summary>Waits for the end of the specified script host process</summary>
+    /// <param name="p">The process which to wait for exit.</param>
+    /// <param name="scriptName">The name of the script being executed.</param>
+    /// <param name="timeout">How long to wait for the script to exit before throwing an exception.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="p"/> or <paramref name="scriptName"/> are <see langword="null"/>.</exception>
+    protected static void WaitForHostExit(Process p, string scriptName, TimeSpan timeout)
+    {
+        _ = p ?? throw new ArgumentNullException(nameof(p));
+        _ = scriptName ?? throw new ArgumentNullException(nameof(scriptName));
+
+        if (!p.WaitForExit(Convert.ToInt32(timeout.TotalMilliseconds)))
+        {
+            ErrorHandling.KillIgnoreDialog.HungScript(scriptName, timeout).ShowDialog(p.Kill, () => WaitForHostExit(p, scriptName, timeout));
+        }
+    }
+
     /// <summary>Executes the specified code.</summary>
     /// <param name="code">The code to execute.</param>
     /// <param name="extension">If <paramref name="code"/> was the content of a file, the file's extension.</param>
     /// <exception cref="ArgumentNullException"><paramref name="code"/> is <see langword="null"/>.</exception>
-    /// <exception cref="BadFileExtensionException"><paramref name="extension"/> is not a valid file extension for this script host.</exception>
+    /// <exception cref="BadFileExtensionException">
+    /// <paramref name="extension"/> is not a valid file extension for this script host.
+    /// </exception>
     /// <inheritdoc cref="CreateTempFile(string, string)" path="/exception"/>
     /// <inheritdoc cref="WaitForHostExit(Process, string, TimeSpan)"/>
     protected void ExecuteCode(string code, string scriptName, string extension, TimeSpan timeout)
@@ -101,22 +119,6 @@ public abstract class ScriptHost
             StandardErrorEncoding = Encoding.Unicode,
             StandardOutputEncoding = Encoding.Unicode,
         })!; // ! : it wont return null
-
-    /// <summary>Waits for the end of the specified script host process</summary>
-    /// <param name="p">The process which to wait for exit.</param>
-    /// <param name="scriptName">The name of the script being executed.</param>
-    /// <param name="timeout">How long to wait for the script to exit before throwing an exception.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="p"/> or <paramref name="scriptName"/> are <see langword="null"/>.</exception>
-    protected static void WaitForHostExit(Process p, string scriptName, TimeSpan timeout)
-    {
-        _ = p ?? throw new ArgumentNullException(nameof(p));
-        _ = scriptName ?? throw new ArgumentNullException(nameof(scriptName));
-
-        if (!p.WaitForExit(Convert.ToInt32(timeout.TotalMilliseconds)))
-        {
-            ErrorHandling.KillEditIgnoreDialog.HungScript(scriptName, timeout).ShowDialog(p.Kill, null/*chaud*/, () => WaitForHostExit(p, scriptName, timeout));
-        }
-    }
 
     #endregion Protected Methods
 

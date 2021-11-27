@@ -129,6 +129,7 @@ public partial class MainForm : Form
             lvi.Checked = @checked;
         }
     }
+
     private static void SetAllChecked(ListView.ListViewItemCollection items, bool @checked)
         => SetAllChecked((IEnumerable<ListViewItem>)items, @checked);
 

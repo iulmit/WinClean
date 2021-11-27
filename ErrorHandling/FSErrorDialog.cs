@@ -16,10 +16,10 @@ public class FSErrorDialog : RetryExitDialog
 
     #endregion Public Constructors
 
-    #region Private Constructors
+    #region Protected Constructors
 
     /// <exception cref="ArgumentNullException">One or more of the parameters are <see langword="null"/>.</exception>
-    private FSErrorDialog(Exception e, FSVerb verb, FileSystemInfo info, bool isFileElseDir)
+    protected FSErrorDialog(Exception e, FSVerb verb, FileSystemInfo info, bool isFileElseDir)
     {
         Icon = TaskDialogIcon.Error;
         Text = string.Format(CurrentCulture,
@@ -30,5 +30,5 @@ public class FSErrorDialog : RetryExitDialog
                              (e ?? throw new ArgumentNullException(nameof(e))).Message);
     }
 
-    #endregion Private Constructors
+    #endregion Protected Constructors
 }
