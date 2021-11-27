@@ -130,7 +130,7 @@
     <value>Quitter</value>
   </data>
   <data name="FSError" xml:space="preserve">
-    <value>Impossible de {0} le {1} "{2}". {3}</value>
+    <value>Impossible {0} {1} "{2}". {3}</value>
   </data>
   <data name="HungScript" xml:space="preserve">
     <value>Le script "{0}" est en cours d'exécution depuis {1} et ne s'arrêtera probablement jamais.</value>

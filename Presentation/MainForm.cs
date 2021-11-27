@@ -63,7 +63,7 @@ public partial class MainForm : Form
         {
             executor.ExecuteUI();
         }
-        else
+        else if (scripts.Count > 0)
         {
             executor.ExecuteNoUI();
         }
@@ -85,7 +85,6 @@ public partial class MainForm : Form
 
     private void MainMenuStripAbout_Click(object _, EventArgs __)
     {
-        new Dialogs.FSErrorDialog(new System.Security.SecurityException(), FSVerb.Delete, new DirectoryInfo("foo.txt")).ShowDialog(null);
         using AboutBox about = new();
         _ = about.ShowDialog(this);
     }
