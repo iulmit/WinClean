@@ -265,30 +265,6 @@
   <data name="&gt;&gt;buttonDelete.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="impactEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 125</value>
-  </data>
-  <data name="impactEditor.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 11, 0, 0</value>
-  </data>
-  <data name="impactEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 23</value>
-  </data>
-  <data name="impactEditor.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;impactEditor.Name" xml:space="preserve">
-    <value>impactEditor</value>
-  </data>
-  <data name="&gt;&gt;impactEditor.Type" xml:space="preserve">
-    <value>RaphaëlBardini.WinClean.Presentation.ImpactEditor, WinClean, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;impactEditor.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;impactEditor.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="textBoxGroup.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 91</value>
   </data>
@@ -314,6 +290,33 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxGroup.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxImpact.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 125</value>
+  </data>
+  <data name="comboBoxImpact.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>11, 11, 0, 0</value>
+  </data>
+  <data name="comboBoxImpact.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>80, 0</value>
+  </data>
+  <data name="comboBoxImpact.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 23</value>
+  </data>
+  <data name="comboBoxImpact.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;comboBoxImpact.Name" xml:space="preserve">
+    <value>comboBoxImpact</value>
+  </data>
+  <data name="&gt;&gt;comboBoxImpact.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxImpact.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxImpact.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

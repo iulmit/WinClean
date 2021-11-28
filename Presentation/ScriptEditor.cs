@@ -19,6 +19,7 @@ public partial class ScriptEditor : UserControl
     {
         InitializeComponent();
         comboBoxAdvised.DataSource = ScriptAdvised.Values.Select((val) => val.LocalizedName).ToList();
+        comboBoxImpact.DataSource = Impact.Values.Select(val => val.LocalizedName).ToList();
     }
 
     #endregion Public Constructors
@@ -45,7 +46,7 @@ public partial class ScriptEditor : UserControl
             textBoxGroup.Text = value?.Group.Header;
 
             textBoxCode.Text = value?.Code;
-            impactEditor.Selected = value?.Impact;
+            comboBoxImpact.SelectedItem = value?.Impact.LocalizedName;
         }
     }
 
@@ -90,7 +91,7 @@ public partial class ScriptEditor : UserControl
         ChangeWidth(textBoxName, Width);
         ChangeWidth(textBoxDescription, Width);
         ChangeWidth(textBoxCode, Width);
-        ChangeWidth(impactEditor, Width);
+        ChangeWidth(comboBoxImpact, Width);
 
         // Advised and group
         const int ComboBoxSpacing = 11;
@@ -107,9 +108,17 @@ public partial class ScriptEditor : UserControl
         ResumeLayout();
     }
 
+    private void ComboBoxImpact_SelectedIndexChanged(object _, EventArgs __)
+    {
+        if (_selected is not null)
+        {
+            _selected.Impact = Impact.ParseLocalizedName((string)comboBoxImpact.SelectedItem);
+        }
+    }
+
     private void TextBoxCode_TextChanged(object _, EventArgs __)
     {
-        if (_selected is not null && _selected.Code != textBoxCode.Text)
+        if (_selected is not null)
         {
             _selected.Code = textBoxCode.Text;
         }
@@ -117,7 +126,7 @@ public partial class ScriptEditor : UserControl
 
     private void TextBoxDescription_TextChanged(object _, EventArgs __)
     {
-        if (_selected is not null && _selected.Description != textBoxDescription.Text)
+        if (_selected is not null)
         {
             _selected.Description = textBoxDescription.Text;
         }

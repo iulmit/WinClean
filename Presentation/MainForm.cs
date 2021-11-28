@@ -49,7 +49,7 @@ public partial class MainForm : Form
             FileInfo file = new(openFileDialogScript.FileName);
             ListViewGroup group = new(file.Directory!.Name); // ! : file will never be a root directory
             _ = listViewScripts.Groups.Add(group);
-            _ = listViewScripts.Items.Add(new Script(file.Name, string.Empty, ScriptAdvised.No, new(), group, file));
+            _ = listViewScripts.Items.Add(new Script(file.Name, string.Empty, ScriptAdvised.No, Impact.Ergonomics, group, file));
         }
     }
 

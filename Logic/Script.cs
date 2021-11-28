@@ -46,9 +46,7 @@ public class Script : ListViewItem, IScript
 
         Code = doc.GetElementsByTagName(nameof(Code))[0].AssertNotNull().InnerXml.Trim();
 
-        XmlElement impactElement = (XmlElement)doc.GetElementsByTagName(nameof(Impact))[0].AssertNotNull();
-        Impact = new(ImpactLevel.ParseName(impactElement.GetAttribute(nameof(Impact.Level)).Trim()),
-                     ImpactEffect.ParseName(impactElement.GetAttribute(nameof(Impact.Effect)).Trim()));
+        Impact = Impact.ParseName(doc.GetElementsByTagName(nameof(Impact))[0].AssertNotNull().InnerText);
 
         XmlDocument CreateDoc()
         {
@@ -138,7 +136,7 @@ public class Script : ListViewItem, IScript
 
     public string Extension { get; }
 
-    public Impact Impact { get; init; }
+    public Impact Impact { get; set; }
 
     public new string Name { get => Text; set => Text = value; }
 
@@ -189,13 +187,7 @@ public class Script : ListViewItem, IScript
 
             CreateAppend(root, nameof(Advised), Advised.ToString());
             CreateAppend(root, nameof(Extension), Extension);
-
-            {
-                XmlElement impact = doc.CreateElement(nameof(Impact));
-                impact.SetAttribute(nameof(Impact.Level), Impact.Level.ToString());
-                impact.SetAttribute(nameof(Impact.Effect), Impact.Effect.ToString());
-                _ = root.AppendChild(impact);
-            }
+            CreateAppend(root, nameof(Impact), Impact.ToString());
 
             CreateAppend(root, nameof(Code), Code);
 

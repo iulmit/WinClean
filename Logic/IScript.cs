@@ -22,7 +22,7 @@ public interface IScript
     ListViewGroup Group { get; set; }
 
     /// <summary>System impact of running this script.</summary>
-    Impact Impact { get; }
+    Impact Impact { get; set; }
 
     /// <summary>A brief infinitive sentence that describes the functionnality of this script.</summary>
     string Name { get; set; }

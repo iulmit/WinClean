@@ -1,15 +1,20 @@
-﻿
-namespace RaphaëlBardini.WinClean.Logic;
+﻿namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>Wether a script is advised for general purpose</summary>
 public class ScriptAdvised : IEquatable<ScriptAdvised?>
 {
+    #region Private Fields
+
+    private readonly string _name;
+
+    #endregion Private Fields
+
     #region Private Constructors
 
     private ScriptAdvised(string name, string localizedName, Color color)
     {
         Color = color;
-        Name = name;
+        _name = name;
         LocalizedName = localizedName;
     }
 
@@ -40,7 +45,6 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
     public Color Color { get; }
 
     public string LocalizedName { get; }
-    public string Name { get; }
 
     #endregion Public Properties
 
@@ -63,16 +67,16 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
     public static ScriptAdvised ParseName(string name)
         => name is null
             ? throw new ArgumentNullException(nameof(name))
-            : Values.FirstOrDefault(validValue => validValue.Name == name)
-                ?? throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptAdvised), nameof(Name)), nameof(name));
+            : Values.FirstOrDefault(validValue => validValue._name == name)
+                ?? throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptAdvised), nameof(_name)), nameof(name));
 
     public override bool Equals(object? obj) => Equals(obj as ScriptAdvised);
 
-    public bool Equals(ScriptAdvised? other) => other is not null && Name == other.Name;
+    public bool Equals(ScriptAdvised? other) => other is not null && _name == other._name;
 
-    public override int GetHashCode() => HashCode.Combine(Name);
+    public override int GetHashCode() => HashCode.Combine(_name);
 
-    public override string ToString() => Name;
+    public override string ToString() => _name;
 
     #endregion Public Methods
 }

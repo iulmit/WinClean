@@ -35,8 +35,8 @@ partial class ScriptEditor
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonDelete = new System.Windows.Forms.Button();
-            this.impactEditor = new RaphaëlBardini.WinClean.Presentation.ImpactEditor();
             this.textBoxGroup = new System.Windows.Forms.TextBox();
+            this.comboBoxImpact = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // textBoxCode
@@ -88,12 +88,6 @@ partial class ScriptEditor
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
-            // impactEditor
-            // 
-            resources.ApplyResources(this.impactEditor, "impactEditor");
-            this.impactEditor.Name = "impactEditor";
-            this.impactEditor.Selected = null;
-            // 
             // textBoxGroup
             // 
             this.textBoxGroup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -102,11 +96,19 @@ partial class ScriptEditor
             this.textBoxGroup.Name = "textBoxGroup";
             this.textBoxGroup.TextChanged += new System.EventHandler(this.TextBoxGroup_TextChanged);
             // 
+            // comboBoxImpact
+            // 
+            this.comboBoxImpact.CausesValidation = false;
+            this.comboBoxImpact.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxImpact, "comboBoxImpact");
+            this.comboBoxImpact.Name = "comboBoxImpact";
+            this.comboBoxImpact.SelectedIndexChanged += new System.EventHandler(this.ComboBoxImpact_SelectedIndexChanged);
+            // 
             // ScriptEditor
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.comboBoxImpact);
             this.Controls.Add(this.textBoxGroup);
-            this.Controls.Add(this.impactEditor);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.buttonExecute);
             this.Controls.Add(this.textBoxCode);
@@ -130,6 +132,6 @@ partial class ScriptEditor
     private System.Windows.Forms.TextBox textBoxDescription;
     private System.Windows.Forms.TextBox textBoxName;
     private System.Windows.Forms.Button buttonDelete;
-    private ImpactEditor impactEditor;
     private System.Windows.Forms.TextBox textBoxGroup;
+    private ComboBox comboBoxImpact;
 }
