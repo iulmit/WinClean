@@ -32,7 +32,7 @@ public class RetryExitDialog : Dialog
     public static RetryExitDialog WrongStartupPath => new()
     {
         Icon = TaskDialogIcon.Error,
-        Text = string.Format(CurrentCulture, Resources.Dialog.WrongStartupPath, AppDir.Instance.Info)
+        Text = string.Format(CultureInfo.CurrentCulture, Resources.Dialog.WrongStartupPath, AppDir.Instance.Info)
     };
 
     #endregion Public Properties

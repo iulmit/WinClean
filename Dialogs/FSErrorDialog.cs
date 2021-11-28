@@ -21,7 +21,7 @@ public class FSErrorDialog : RetryExitDialog
     protected FSErrorDialog(Exception e, FSVerb verb, FileSystemInfo info, bool isFileElseDir)
     {
         Icon = TaskDialogIcon.Error;
-        Text = string.Format(CurrentCulture,
+        Text = string.Format(CultureInfo.CurrentCulture,
                              Resources.Dialog.FSError,
                              (verb ?? throw new ArgumentNullException(nameof(verb))).LocalizedVerb,
                              isFileElseDir ? Resources.FileSystemElements.File : Resources.FileSystemElements.Directory,

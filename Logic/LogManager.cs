@@ -20,7 +20,7 @@ public class LogManager
         _logDir = new(Path.Join(AppDir.Instance.Info.FullName, "Logs"));
         CreateLogDir();
         _currentLogFile = new(Path.Join(_logDir.FullName, $"{Process.GetCurrentProcess().StartTime.ToString(DateTimeFilenameFormat, DateTimeFormatInfo.InvariantInfo)}.csv"));
-        _csvWriter = new(new StreamWriter(_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(InvariantCulture) { Delimiter = LogDelimiter });
+        _csvWriter = new(new StreamWriter(_currentLogFile.FullName, true, System.Text.Encoding.Unicode), new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = LogDelimiter });
         _csvWriter.WriteHeader<LogEntry>();
     }
 

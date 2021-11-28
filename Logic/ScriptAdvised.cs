@@ -55,7 +55,7 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
         => localizedName is null
             ? throw new ArgumentNullException(nameof(localizedName))
             : Values.FirstOrDefault(validValue => validValue.LocalizedName == localizedName)
-                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptAdvised), nameof(LocalizedName)), nameof(localizedName));
+                ?? throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptAdvised), nameof(LocalizedName)), nameof(localizedName));
 
     /// <summary>Gets the <see cref="ScriptAdvised"/> matching the specified name.</summary>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
@@ -64,7 +64,7 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
         => name is null
             ? throw new ArgumentNullException(nameof(name))
             : Values.FirstOrDefault(validValue => validValue.Name == name)
-                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptAdvised), nameof(Name)), nameof(name));
+                ?? throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptAdvised), nameof(Name)), nameof(name));
 
     public override bool Equals(object? obj) => Equals(obj as ScriptAdvised);
 

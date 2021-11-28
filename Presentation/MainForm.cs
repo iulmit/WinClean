@@ -22,7 +22,7 @@ public partial class MainForm : Form
 
         ScriptsDir.Instance.LoadScripts(listViewScripts);
 
-        MainMenuAbout.Text = string.Format(CurrentCulture, Resources.FormattableStrings.About, Application.ProductName);
+        MainMenuAbout.Text = string.Format(CultureInfo.CurrentCulture, Resources.FormattableStrings.About, Application.ProductName);
     }
 
     #endregion Public Constructors

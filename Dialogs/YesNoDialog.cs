@@ -22,7 +22,7 @@ public class YesNoDialog : Dialog
     public static YesNoDialog ProgramExit => new()
     {
         Icon = TaskDialogIcon.Warning,
-        Text = string.Format(CurrentCulture, Resources.Dialog.ConfirmProgramExit, Application.ProductName)
+        Text = string.Format(CultureInfo.CurrentCulture, Resources.Dialog.ConfirmProgramExit, Application.ProductName)
     };
 
     public static YesNoDialog ScriptDeletion => new()

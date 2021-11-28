@@ -40,7 +40,7 @@ public class ImpactLevel : IEquatable<ImpactLevel?>
         => name is null
             ? throw new ArgumentNullException(nameof(name))
             : Values.FirstOrDefault(validValue => validValue.Name == name)
-                ?? throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ImpactLevel), nameof(Name)), nameof(name));
+                ?? throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ImpactLevel), nameof(Name)), nameof(name));
 
     public override bool Equals(object? obj) => Equals(obj as ImpactLevel);
 

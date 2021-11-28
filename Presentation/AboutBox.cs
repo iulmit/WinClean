@@ -12,8 +12,8 @@ public partial class AboutBox : Form
     {
         InitializeComponent();
 
-        Text = string.Format(CurrentCulture, Resources.FormattableStrings.About, Application.ProductName);
-        labelVersion.Text = string.Format(CurrentCulture, Resources.FormattableStrings.Version, Application.ProductVersion);
+        Text = string.Format(CultureInfo.CurrentCulture, Resources.FormattableStrings.About, Application.ProductName);
+        labelVersion.Text = string.Format(CultureInfo.CurrentCulture, Resources.FormattableStrings.Version, Application.ProductVersion);
         labelProductName.Text = Application.ProductName;
 
         AddAssemblyAttributes();

@@ -20,7 +20,7 @@ public class KillIgnoreDialog : Dialog
     public static KillIgnoreDialog HungScript(string name, TimeSpan timeout) => new()
     {
         Icon = TaskDialogIcon.Warning,
-        Text = string.Format(CurrentCulture, Resources.Dialog.HungScript, name, timeout)
+        Text = string.Format(CultureInfo.CurrentCulture, Resources.Dialog.HungScript, name, timeout)
     };
 
     public void ShowDialog(Action? killScript, Action? ignore)

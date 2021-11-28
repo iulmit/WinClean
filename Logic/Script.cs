@@ -1,7 +1,5 @@
-﻿
-using RaphaëlBardini.WinClean.Operational;
+﻿using RaphaëlBardini.WinClean.Operational;
 
-using System.Diagnostics;
 using System.Xml;
 
 namespace RaphaëlBardini.WinClean.Logic;
@@ -10,21 +8,12 @@ namespace RaphaëlBardini.WinClean.Logic;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237", Justification = "Binary serialization is not supported")]
 public class Script : ListViewItem, IScript
 {
-    #region Private Methods
-
-    private FileInfo GetFile(string groupHeader)
-    {
-        Debug.Assert(groupHeader.IsValidFilename());
-        return new(AppDir.ScriptsDir.Join(groupHeader, $"{Name.ToFilename()}.xml"));
-    }
-
-    #endregion Private Methods
-
     #region Private Fields
 
     #region Constants
 
     private const byte AdvisedColorAlpha = 48;
+    private const string LCIDTagNamePrefix = "lcid";
 
     #endregion Constants
 
@@ -45,9 +34,8 @@ public class Script : ListViewItem, IScript
         _file = file ?? throw new ArgumentNullException(nameof(file));
         XmlDocument doc = CreateDoc();
 
-        Name = doc.GetElementsByTagName(nameof(Name))[0].AssertNotNull().InnerText.Trim();
-
-        Description = doc.GetElementsByTagName(nameof(Description))[0].AssertNotNull().InnerText.Trim();
+        Name = GetLocalized(nameof(Name));
+        Description = GetLocalized(nameof(Description));
 
         Advised = ScriptAdvised.ParseName(doc.GetElementsByTagName(nameof(Advised))[0].AssertNotNull().InnerText.Trim());
 
@@ -74,6 +62,20 @@ public class Script : ListViewItem, IScript
                 new Dialogs.FSErrorDialog(e, FSVerb.Acess, file).ShowDialog(() => d = CreateDoc());
             }
             return d;
+        }
+        string GetLocalized(string rootTagName)
+        {
+            IEnumerable<XmlElement> available = doc.GetElementsByTagName(rootTagName)[0].AssertNotNull().ChildNodes.OfType<XmlElement>();
+            string? localized = null;
+            for (CultureInfo culture = CultureInfo.CurrentUICulture; localized is null; culture = culture.Parent)
+            {
+                localized = available.FirstOrDefault(element => element.Name == LCIDTagNamePrefix + culture.LCID.ToString(CultureInfo.InvariantCulture))?.InnerText;
+                if (culture.Equals(CultureInfo.InvariantCulture))
+                {
+                    break;
+                }
+            }
+            return localized?.Trim() ?? string.Empty;
         }
     }
 
@@ -173,42 +175,41 @@ public class Script : ListViewItem, IScript
         {
             XmlElement root = doc.CreateElement(nameof(Script));
 
-            XmlElement current;
+            {
+                XmlElement name = doc.CreateElement(nameof(Name));
+                CreateAppend(name, GetLCIDTagName(), Name);
+                _ = root.AppendChild(name);
+            }
 
-            // Name
-            current = doc.CreateElement(nameof(Name)); // Creation
-            current.InnerText = Name; // Assignment
-            _ = root.AppendChild(current); // Addition
+            {
+                XmlElement description = doc.CreateElement(nameof(Description));
+                CreateAppend(description, GetLCIDTagName(), Name);
+                _ = root.AppendChild(description);
+            }
 
-            // Description
-            current = doc.CreateElement(nameof(Description));
-            current.InnerText = Description;
-            _ = root.AppendChild(current);
+            CreateAppend(root, nameof(Advised), Advised.ToString());
+            CreateAppend(root, nameof(Extension), Extension);
 
-            // Advised
-            current = doc.CreateElement(nameof(Advised));
-            current.InnerText = _advised.ToString();
-            _ = root.AppendChild(current);
+            {
+                XmlElement impact = doc.CreateElement(nameof(Impact));
+                impact.SetAttribute(nameof(Impact.Level), Impact.Level.ToString());
+                impact.SetAttribute(nameof(Impact.Effect), Impact.Effect.ToString());
+                _ = root.AppendChild(impact);
+            }
 
-            // Host
-            current = doc.CreateElement(nameof(Extension));
-            current.InnerText = Extension;
-            _ = root.AppendChild(current);
-
-            // Impacts
-            current = doc.CreateElement(nameof(Impact));
-
-            current.SetAttribute(nameof(Impact.Level), Impact.Level.ToString());
-            current.SetAttribute(nameof(Impact.Effect), Impact.Effect.ToString());
-
-            _ = root.AppendChild(current);
-
-            // Code
-            current = doc.CreateElement(nameof(Code));
-            current.InnerText = Code;
-            _ = root.AppendChild(current);
+            CreateAppend(root, nameof(Code), Code);
 
             _ = doc.AppendChild(root);
+
+            void CreateAppend(XmlElement parent, string name, string innerText)
+            {
+                XmlElement e = doc.CreateElement(name);
+                e.InnerText = innerText;
+                _ = parent.AppendChild(e);
+            }
+
+            string GetLCIDTagName()
+                => LCIDTagNamePrefix + CultureInfo.CurrentUICulture.LCID.ToString(CultureInfo.InvariantCulture);
         }
 
         void SaveToScriptsDir()

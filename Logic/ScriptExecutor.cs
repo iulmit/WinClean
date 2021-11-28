@@ -91,7 +91,7 @@ public class ScriptExecutor
             Buttons = { TaskDialogButton.Close, restart },
             Caption = Resources.ScriptExecutor.CompletedPageCaption,
             Icon = TaskDialogIcon.ShieldSuccessGreenBar,
-            Expander = new(string.Format(CurrentCulture, Resources.ScriptExecutor.CompletedPageExpander, _scripts.Count, TimeSpan.FromSeconds(elapsedSeconds)))
+            Expander = new(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.CompletedPageExpander, _scripts.Count, TimeSpan.FromSeconds(elapsedSeconds)))
             {
                 Expanded = Program.Settings.ShowScriptExecutionCompletedDetails,
             },
@@ -116,8 +116,8 @@ public class ScriptExecutor
             AllowCancel = true,
             AllowMinimize = true,
             Buttons = { cancel },
-            Caption = string.Format(CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, 0),
-            Expander = new(string.Format(CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, null, null))
+            Caption = string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, 0),
+            Expander = new(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, null, null))
             {
                 Expanded = Program.Settings.ShowScriptExecutionProgressDetails,
             },
@@ -165,9 +165,9 @@ public class ScriptExecutor
         {
             if (_uiStep == UIStep.InProgress)
             {
-                page.Caption = string.Format(CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, progress.ScriptIndex / (double)_scripts.Count);
+                page.Caption = string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, progress.ScriptIndex / (double)_scripts.Count);
 
-                page.Expander.Text = string.Format(CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, _scripts[progress.ScriptIndex].Name, TimeSpan.FromSeconds(progress.ElapsedSeconds));
+                page.Expander.Text = string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, _scripts[progress.ScriptIndex].Name, TimeSpan.FromSeconds(progress.ElapsedSeconds));
 
                 page.ProgressBar.Value = progress.ScriptIndex;
             }
@@ -225,7 +225,7 @@ public class ScriptExecutor
         {
             if (YesNoDialog.SystemRestorePoint.ShowDialog())
             {
-                new RestorePoint(string.Format(CurrentCulture, Resources.ScriptExecutor.ScriptExecution, Application.ProductName), EventType.BeginSystemChange, RestorePointType.ModifySettings).Create();
+                new RestorePoint(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ScriptExecution, Application.ProductName), EventType.BeginSystemChange, RestorePointType.ModifySettings).Create();
             }
 
             _uiStep = UIStep.InProgress;

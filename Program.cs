@@ -1,5 +1,5 @@
 ﻿
-global using static System.Globalization.CultureInfo;
+global using System.Globalization;
 
 using RaphaëlBardini.WinClean.Dialogs;
 using RaphaëlBardini.WinClean.Logic;

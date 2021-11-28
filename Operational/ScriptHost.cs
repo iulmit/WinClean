@@ -142,7 +142,7 @@ public abstract class ScriptHost
             const int ExpectedFormatItemCount = 1;
             if (FormattableStringFactory.Create(args ?? throw new ArgumentNullException(nameof(args)), string.Empty).ArgumentCount != ExpectedFormatItemCount)
             {
-                throw new ArgumentException(string.Format(InvariantCulture, Resources.DevException.WrongFormatItemCount, ExpectedFormatItemCount), nameof(args));
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.DevException.WrongFormatItemCount, ExpectedFormatItemCount), nameof(args));
             }
             _args = args;
         }
@@ -154,7 +154,7 @@ public abstract class ScriptHost
         /// <summary>Completes the arguments with the specified script file.</summary>
         /// <param name="script">The file to complete the arguments with.</param>
         /// <returns>The completed arguments</returns>
-        public string Complete(FileInfo script) => string.Format(InvariantCulture, _args, script);
+        public string Complete(FileInfo script) => string.Format(CultureInfo.InvariantCulture, _args, script);
 
         #endregion Public Methods
     }
