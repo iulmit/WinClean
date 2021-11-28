@@ -178,6 +178,9 @@
   <data name="textBoxDescription.PlaceholderText" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="textBoxDescription.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
   <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 46</value>
   </data>

@@ -181,7 +181,7 @@ public class Script : ListViewItem, IScript
 
             {
                 XmlElement description = doc.CreateElement(nameof(Description));
-                CreateAppend(description, GetLCIDTagName(), Name);
+                CreateAppend(description, GetLCIDTagName(), Description);
                 _ = root.AppendChild(description);
             }
 
@@ -201,7 +201,7 @@ public class Script : ListViewItem, IScript
             }
 
             string GetLCIDTagName()
-                => LCIDTagNamePrefix + CultureInfo.CurrentUICulture.LCID.ToString(CultureInfo.InvariantCulture);
+                => LCIDTagNamePrefix + CultureInfo.InvariantCulture.LCID.ToString(CultureInfo.InvariantCulture);
         }
 
         void SaveToScriptsDir()

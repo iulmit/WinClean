@@ -46,10 +46,10 @@ public partial class MainForm : Form
     {
         if (openFileDialogScript.ShowDialog(this) == DialogResult.OK)
         {
-            FileInfo file = new(openFileDialogScript.FileName);
-            ListViewGroup group = new(file.Directory!.Name); // ! : file will never be a root directory
+            string path = openFileDialogScript.FileName;
+            ListViewGroup group = new(Path.GetDirectoryName(path));
             _ = listViewScripts.Groups.Add(group);
-            _ = listViewScripts.Items.Add(new Script(file.Name, string.Empty, ScriptAdvised.No, Impact.Ergonomics, group, file));
+            _ = listViewScripts.Items.Add(new Script(Path.GetFileNameWithoutExtension(path), string.Empty, ScriptAdvised.No, Impact.Ergonomics, group, new(path)));
         }
     }
 
