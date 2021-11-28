@@ -37,7 +37,7 @@ public class Impact : IEquatable<Impact?>
     public static Impact Privacy { get; } = new(nameof(Privacy), Resources.ImpactEffect.Privacy);
 
     /// <summary>System rapidity of executing commands.</summary>
-    public static Impact ResponseTime { get; } = new(nameof(ResponseTime), Resources.ImpactEffect.ResponseTime);
+    public static Impact Performance { get; } = new(nameof(Performance), Resources.ImpactEffect.Performance);
 
     /// <summary>System shutdown time.</summary>
     public static Impact ShutdownTime { get; } = new(nameof(ShutdownTime), Resources.ImpactEffect.ShutdownTime);
@@ -56,7 +56,7 @@ public class Impact : IEquatable<Impact?>
         MemoryUsage,
         NetworkUsage,
         Privacy,
-        ResponseTime,
+        Performance,
         ShutdownTime,
         StartupTime,
         StorageSpeed,
