@@ -115,8 +115,6 @@ public abstract class ScriptHost
         => Process.Start(new ProcessStartInfo(Executable.FullName, Arguments.Complete(script ?? throw new ArgumentNullException(nameof(script))))
         {
             WindowStyle = ProcessWindowStyle.Hidden,
-            StandardErrorEncoding = Encoding.Unicode,
-            StandardOutputEncoding = Encoding.Unicode,
         })!; // ! : it wont return null
 
     #endregion Protected Methods

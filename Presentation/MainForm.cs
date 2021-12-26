@@ -47,7 +47,7 @@ public partial class MainForm : Form
         if (openFileDialogScript.ShowDialog(this) == DialogResult.OK)
         {
             string path = openFileDialogScript.FileName;
-            ListViewGroup group = new(Path.GetDirectoryName(path));
+            ListViewGroup group = new(path.GetDirectoryNameOnly());
             _ = listViewScripts.Groups.Add(group);
             _ = listViewScripts.Items.Add(new Script(Path.GetFileNameWithoutExtension(path), string.Empty, ScriptAdvised.No, Impact.Ergonomics, group, new(path)));
         }

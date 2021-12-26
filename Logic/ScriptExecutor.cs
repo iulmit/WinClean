@@ -225,7 +225,7 @@ public class ScriptExecutor
         {
             if (YesNoDialog.SystemRestorePoint.ShowDialog())
             {
-                new RestorePoint(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ScriptExecution, Application.ProductName), EventType.BeginSystemChange, RestorePointType.ModifySettings).Create();
+                //new RestorePoint(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ScriptExecution, Application.ProductName), EventType.BeginSystemChange, RestorePointType.ModifySettings).Create();
             }
 
             _uiStep = UIStep.InProgress;

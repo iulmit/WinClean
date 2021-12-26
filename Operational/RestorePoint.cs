@@ -1,13 +1,13 @@
-﻿using System.Management;
+﻿/*using System.Management;
 
 namespace RaphaëlBardini.WinClean.Operational;
 
 /// <seealso href="https://stackoverflow.com/a/42733327/11718061"/>
 public class RestorePoint
 {
-    string _description;
-    EventType _eventType;
-    RestorePointType _type;
+    private readonly string _description;
+    private readonly EventType _eventType;
+    private readonly RestorePointType _type;
 
     /// <param name="description">The description to be displayed so the user can easily identify a restore point.</param>
     /// <param name="eventType">The type of event.</param>
@@ -78,4 +78,4 @@ public enum RestorePointType
 
     /// <summary>An application has had features added or removed.</summary>
     ModifySettings = 0xc
-}
+}*/

@@ -27,8 +27,6 @@ public static class Program
         Settings.Save();
 
         Application.Exit();
-        // If we didnt exit at this stage, we must be out of the message loop. Exit from the environment.
-        Environment.Exit(0);
     }
 
     #endregion Public Methods

@@ -63,5 +63,8 @@ public static class Helpers
         static extern int GetWindowThreadProcessId(IntPtr hWnd, out int ProcessId);
     }
 
+    public static string? GetDirectoryNameOnly(this string? s)
+        => Path.GetFileName(Path.GetDirectoryName(s));
+
     #endregion Public Methods
 }
