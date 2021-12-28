@@ -1,4 +1,4 @@
-﻿
+﻿using RaphaëlBardini.WinClean.Operational;
 using RaphaëlBardini.WinClean.Presentation;
 
 namespace RaphaëlBardini.WinClean.Dialogs;
@@ -35,7 +35,7 @@ public class RetryExitDialog : Dialog
         Text = string.Format(CultureInfo.CurrentCulture, Resources.Dialog.WrongStartupPath, AppDir.Instance.Info)
     };
 
-    #endregion Public Properties
+    #endregion Private Properties
 
     #region Public Methods
 

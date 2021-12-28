@@ -1,11 +1,12 @@
-﻿
-global using System.Globalization;
+﻿global using System.Globalization;
 
 using RaphaëlBardini.WinClean.Dialogs;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>
+/// <summary>
+/// Holds the <see cref="Main"/> method and application-wide data.
+/// </summary>
 public static class Program
 {
     #region Public Properties
@@ -16,7 +17,9 @@ public static class Program
 
     #region Public Methods
 
-    /// <summary>Exits the program.</summary>
+    /// <summary>
+    /// Exits the program.
+    /// </summary>
     public static void Exit()
     {
         "Exiting the application.".Log("Exit");

@@ -1,9 +1,10 @@
-﻿
-using Microsoft.WindowsAPICodePack.PropertySystem;
+﻿using Microsoft.WindowsAPICodePack.PropertySystem;
 
 namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>Wrapper for <see cref="Microsoft.WindowsAPICodePack.Shell.ShellFile"/>.</summary>
+/// <summary>
+/// Wrapper for <see cref="Microsoft.WindowsAPICodePack.Shell.ShellFile"/>.
+/// </summary>
 public class ShellFile : IDisposable
 {
     #region Private Fields
@@ -28,7 +29,9 @@ public class ShellFile : IDisposable
 
     #region Public Properties
 
-    /// <summary>Gets the "File Description" property of the object</summary>
+    /// <summary>
+    /// Gets the "File Description" property of the object
+    /// </summary>
     public string FileDescription
     {
         get

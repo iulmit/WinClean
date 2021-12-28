@@ -1,4 +1,4 @@
-﻿
+﻿using RaphaëlBardini.WinClean.Operational;
 using Button = System.Windows.Forms.TaskDialogButton;
 
 namespace RaphaëlBardini.WinClean.Dialogs;

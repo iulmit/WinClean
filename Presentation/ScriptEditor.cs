@@ -4,7 +4,9 @@ using WinCopies.Collections;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>Control used to display and edit a script.</summary>
+/// <summary>
+/// Control used to display and edit a script.
+/// </summary>
 public partial class ScriptEditor : UserControl
 {
     #region Private Fields
@@ -26,7 +28,9 @@ public partial class ScriptEditor : UserControl
 
     #region Public Properties
 
-    /// <summary>The script the user is currently able to see and edit.</summary>
+    /// <summary>
+    /// The script the user is currently able to see and edit.
+    /// </summary>
     public ScriptListViewItem? Selected
     {
         get => _selected;
@@ -81,6 +85,14 @@ public partial class ScriptEditor : UserControl
         }
     }
 
+    private void ComboBoxImpact_SelectedIndexChanged(object _, EventArgs __)
+    {
+        if (_selected is not null)
+        {
+            _selected.Impact = Impact.ParseLocalizedName((string)comboBoxImpact.SelectedItem);
+        }
+    }
+
     private void ScriptEditor_Leave(object _, EventArgs __) => PrepareForAnother();
 
     private void ScriptEditor_Resize(object _, EventArgs __)
@@ -106,14 +118,6 @@ public partial class ScriptEditor : UserControl
         buttonDelete.Location = new((int)(Width / 2D + ButtonSpacing / 2D), buttonDelete.Location.Y);
 
         ResumeLayout();
-    }
-
-    private void ComboBoxImpact_SelectedIndexChanged(object _, EventArgs __)
-    {
-        if (_selected is not null)
-        {
-            _selected.Impact = Impact.ParseLocalizedName((string)comboBoxImpact.SelectedItem);
-        }
     }
 
     private void TextBoxCode_TextChanged(object _, EventArgs __)

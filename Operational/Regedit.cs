@@ -1,7 +1,8 @@
-﻿
-namespace RaphaëlBardini.WinClean.Operational;
+﻿namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>Windows Registry Editor</summary>
+/// <summary>
+/// Windows Registry Editor
+/// </summary>
 public class Regedit : ScriptHost
 {
     #region Public Properties

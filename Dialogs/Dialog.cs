@@ -1,5 +1,4 @@
-﻿
-namespace RaphaëlBardini.WinClean.Dialogs;
+﻿namespace RaphaëlBardini.WinClean.Dialogs;
 
 public abstract class Dialog : TaskDialogPage
 {

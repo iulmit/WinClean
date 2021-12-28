@@ -1,5 +1,4 @@
-﻿
-namespace RaphaëlBardini.WinClean.Presentation;
+﻿namespace RaphaëlBardini.WinClean.Presentation;
 
 public class AppDir
 {

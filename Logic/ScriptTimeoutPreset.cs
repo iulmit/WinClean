@@ -1,5 +1,4 @@
-﻿
-namespace RaphaëlBardini.WinClean.Logic;
+﻿namespace RaphaëlBardini.WinClean.Logic;
 
 public class ScriptTimeoutPreset : IEquatable<ScriptTimeoutPreset?>
 {
@@ -28,10 +27,13 @@ public class ScriptTimeoutPreset : IEquatable<ScriptTimeoutPreset?>
 
     #region Public Methods
 
-    /// <summary>Gets the <see cref="ScriptTimeoutPreset"/> matching the specified localized name.</summary>
+    /// <summary>
+    /// Gets the <see cref="ScriptTimeoutPreset"/> matching the specified localized name.
+    /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="localizedName"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">
-    /// <paramref name="localizedName"/> does not match to any <see cref="ScriptTimeoutPreset"/> localized name.
+    /// <paramref name="localizedName"/> does not match to any <see cref="ScriptTimeoutPreset"/>
+    /// localized name.
     /// </exception>
     public static ScriptTimeoutPreset ParseLocalizedName(string localizedName)
         => localizedName is null
@@ -39,7 +41,9 @@ public class ScriptTimeoutPreset : IEquatable<ScriptTimeoutPreset?>
             : Values.FirstOrDefault(validValue => validValue.LocalizedName == localizedName)
                 ?? throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptTimeoutPreset), nameof(LocalizedName)), nameof(localizedName));
 
-    /// <summary>Gets the <see cref="ScriptTimeoutPreset"/> matching the specified name.</summary>
+    /// <summary>
+    /// Gets the <see cref="ScriptTimeoutPreset"/> matching the specified name.
+    /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">
     /// <paramref name="name"/> does not match to any <see cref="ScriptTimeoutPreset"/> name.
@@ -50,7 +54,9 @@ public class ScriptTimeoutPreset : IEquatable<ScriptTimeoutPreset?>
             : Values.FirstOrDefault(validValue => validValue.Name == name)
                 ?? throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(ScriptTimeoutPreset), nameof(Name)), nameof(name));
 
-    /// <summary>Gets the <see cref="ScriptTimeoutPreset"/> matching the specified name.</summary>
+    /// <summary>
+    /// Gets the <see cref="ScriptTimeoutPreset"/> matching the specified name.
+    /// </summary>
     /// <exception cref="ArgumentException">
     /// <paramref name="duration"/> does not match to any <see cref="ScriptTimeoutPreset"/> duration.
     /// </exception>

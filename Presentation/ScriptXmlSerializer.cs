@@ -1,4 +1,5 @@
 ﻿using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.Operational;
 using System.Xml;
 
 namespace RaphaëlBardini.WinClean.Presentation;
@@ -11,10 +12,20 @@ public class ScriptXmlSerializer : IScriptSerializer
 
     #endregion Constants
 
+    #region Private Fields
+
     private readonly DirectoryInfo _scriptsDir;
     private string? lastSerializationPath;
 
+    #endregion Private Fields
+
+    #region Public Constructors
+
     public ScriptXmlSerializer(DirectoryInfo scriptsDir) => _scriptsDir = scriptsDir ?? throw new ArgumentNullException(nameof(scriptsDir));
+
+    #endregion Public Constructors
+
+    #region Public Methods
 
     public IScript Deserialize(FileInfo source)
     {
@@ -61,6 +72,7 @@ public class ScriptXmlSerializer : IScriptSerializer
             return localized?.Trim() ?? string.Empty;
         }
     }
+
     public void Serialize(IScript s)
     {
         _ = s ?? throw new ArgumentNullException(nameof(s));
@@ -100,7 +112,6 @@ public class ScriptXmlSerializer : IScriptSerializer
         string GetLCIDTagName()
             => LCIDTagNamePrefix + CultureInfo.InvariantCulture.LCID.ToString(CultureInfo.InvariantCulture);
 
-
         /*
         - Supprimer lastSerializationPath
         - Creer le dossier de groupe s'il n'existe pas deja
@@ -111,7 +122,6 @@ public class ScriptXmlSerializer : IScriptSerializer
         {
             File.Delete(lastSerializationPath);
         }
-        
         string groupDirPath = Path.Join(_scriptsDir.FullName, s.Group);
 
         _ = Directory.CreateDirectory(groupDirPath);
@@ -122,4 +132,6 @@ public class ScriptXmlSerializer : IScriptSerializer
 
         lastSerializationPath = serializationPath;
     }
+
+    #endregion Public Methods
 }

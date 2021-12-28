@@ -1,9 +1,10 @@
-﻿
-using RaphaëlBardini.WinClean.Logic;
+﻿using RaphaëlBardini.WinClean.Logic;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>Form to acess and modify application settings.</summary>
+/// <summary>
+/// Form to acess and modify application settings.
+/// </summary>
 public partial class Settings : Form
 {
     #region Public Constructors

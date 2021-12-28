@@ -1,7 +1,8 @@
-﻿
-namespace RaphaëlBardini.WinClean.Operational;
+﻿namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>The Windows Command Line interpreter (cmd.exe) script host.</summary>
+/// <summary>
+/// The Windows Command Line interpreter (cmd.exe) script host.
+/// </summary>
 public class Cmd : ScriptHost
 {
     #region Public Properties

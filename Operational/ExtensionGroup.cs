@@ -1,11 +1,12 @@
-﻿
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
 using System.Collections;
 
-namespace RaphaëlBardini.WinClean;
+namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>A group of related extensions</summary>
+/// <summary>
+/// A group of related extensions
+/// </summary>
 public class ExtensionGroup : IReadOnlyCollection<string>
 {
     #region Private Fields

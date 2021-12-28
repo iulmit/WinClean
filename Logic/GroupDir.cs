@@ -1,4 +1,5 @@
-﻿
+﻿using RaphaëlBardini.WinClean.Operational;
+
 namespace RaphaëlBardini.WinClean.Logic;
 
 public class GroupDir

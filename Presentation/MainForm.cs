@@ -1,12 +1,11 @@
-﻿
-using RaphaëlBardini.WinClean.Logic;
+﻿using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>
-/// This is the application's main form. It regroups several features, including the main commit buttons, script selection, and
-/// provides UI acess to other forms.
+/// This is the application's main form. It regroups several features, including the main commit
+/// buttons, script selection, and provides UI acess to other forms.
 /// </summary>
 public partial class MainForm : Form
 {
@@ -112,8 +111,8 @@ public partial class MainForm : Form
     private void ListViewScripts_ItemChecked(object _, ItemCheckedEventArgs __) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
 
     /// <summary>
-    /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
-    /// cref="listViewScripts"/>'s new size.
+    /// Resizes <see cref="listViewScripts"/>'s main and only column, <see
+    /// cref="scriptHeaderName"/>, to match <see cref="listViewScripts"/>'s new size.
     /// </summary>
     private void ListViewScripts_Resize(object _, EventArgs __) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
 

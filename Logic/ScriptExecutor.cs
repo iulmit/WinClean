@@ -14,10 +14,16 @@ using System.Diagnostics;
 
 namespace RaphaëlBardini.WinClean.Logic;
 
-/// <summary>Executes scripts asynchronously and displays task dialogs tracking the progress.</summary>
+/// <summary>
+/// Executes scripts asynchronously and displays task dialogs tracking the progress.
+/// </summary>
 public class ScriptExecutor
 {
+    #region Public Properties
+
     public Properties.Settings Settings { get; set; }
+
+    #endregion Public Properties
 
     #region Private Fields
 
@@ -73,10 +79,14 @@ public class ScriptExecutor
 
     #region Public Methods
 
-    /// <summary>Executes the scripts without displaying a dialog.</summary>
+    /// <summary>
+    /// Executes the scripts without displaying a dialog.
+    /// </summary>
     public async void ExecuteNoUI() => _ = await ExecuteScriptsAsync().ConfigureAwait(false);
 
-    /// <summary>Executes the scripts and displays a dialog traking the progress.</summary>
+    /// <summary>
+    /// Executes the scripts and displays a dialog traking the progress.
+    /// </summary>
     public void ExecuteUI() => StartUISteps();
 
     #endregion Public Methods
