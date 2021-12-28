@@ -1,4 +1,4 @@
-﻿/*using System.Management;
+﻿//using System.Management; DISABLED FOR COMPILING UNDER WINDOWS 7
 
 namespace RaphaëlBardini.WinClean.Operational;
 
@@ -25,7 +25,7 @@ public class RestorePoint
     /// <exception cref="ManagementException">Access denied.</exception>
     public void Create()
     {
-        ManagementScope mScope = new("\\\\localhost\\root\\default");
+        /*ManagementScope mScope = new("\\\\localhost\\root\\default");
         ManagementPath mPath = new("SystemRestore");
         ObjectGetOptions options = new();
 
@@ -34,7 +34,7 @@ public class RestorePoint
         parameters["Description"] = _description;
         parameters["EventType"] = (int)_eventType;
         parameters["RestorePointType"] = (int)_type;
-        _ = mClass.InvokeMethod("CreateRestorePoint", parameters, null);
+        _ = mClass.InvokeMethod("CreateRestorePoint", parameters, null);*/
     }
 
     #endregion Public Methods
@@ -78,4 +78,4 @@ public enum RestorePointType
 
     /// <summary>An application has had features added or removed.</summary>
     ModifySettings = 0xc
-}*/
+}
