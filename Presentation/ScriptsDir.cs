@@ -1,5 +1,7 @@
 ﻿
-namespace RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.Logic;
+
+namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>Represents the scripts dir of the application root directory.</summary>
 public class ScriptsDir
@@ -54,7 +56,7 @@ public class ScriptsDir
         _ = owner ?? throw new ArgumentNullException(nameof(owner));
         foreach (FileInfo script in Info.EnumerateFiles("*.xml", SearchOption.AllDirectories))
         {
-            _ = owner.Items.Add(new Script(script, owner));
+            _ = owner.Items.Add(new ScriptListViewItem(new ScriptXmlSerializer(Info).Deserialize(script), owner));
         }
     }
 

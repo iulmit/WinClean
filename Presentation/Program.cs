@@ -2,10 +2,8 @@
 global using System.Globalization;
 
 using RaphaëlBardini.WinClean.Dialogs;
-using RaphaëlBardini.WinClean.Logic;
-using RaphaëlBardini.WinClean.Presentation;
 
-namespace RaphaëlBardini.WinClean;
+namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>
 public static class Program
@@ -19,7 +17,6 @@ public static class Program
     #region Public Methods
 
     /// <summary>Exits the program.</summary>
-    [System.Diagnostics.CodeAnalysis.DoesNotReturn()]
     public static void Exit()
     {
         "Exiting the application.".Log("Exit");

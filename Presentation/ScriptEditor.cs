@@ -9,7 +9,7 @@ public partial class ScriptEditor : UserControl
 {
     #region Private Fields
 
-    private IScript? _selected;
+    private ScriptListViewItem? _selected;
 
     #endregion Private Fields
 
@@ -27,7 +27,7 @@ public partial class ScriptEditor : UserControl
     #region Public Properties
 
     /// <summary>The script the user is currently able to see and edit.</summary>
-    public IScript? Selected
+    public ScriptListViewItem? Selected
     {
         get => _selected;
         set
@@ -43,7 +43,7 @@ public partial class ScriptEditor : UserControl
             comboBoxAdvised.SelectedItem = value?.Advised.LocalizedName;
 
             textBoxGroup.AutoCompleteCustomSource.AddRange(ScriptsDir.Instance.Groups.Select(group => group.Info.Name).ToArray());
-            textBoxGroup.Text = value?.Group.Header;
+            textBoxGroup.Text = value?.Group;
 
             textBoxCode.Text = value?.Code;
             comboBoxImpact.SelectedItem = value?.Impact.LocalizedName;
@@ -68,7 +68,7 @@ public partial class ScriptEditor : UserControl
     {
         if (_selected is not null)
         {
-            ScriptExecutor executor = new(_selected);
+            ScriptExecutor executor = new(_selected, Program.Settings);
             executor.ExecuteNoUI();
         }
     }
@@ -136,21 +136,7 @@ public partial class ScriptEditor : UserControl
     {
         if (_selected is not null && textBoxGroup.Text.IsValidFilename() && !textBoxGroup.Text.Contains('.', StringComparison.Ordinal))
         {
-            ListView owner = _selected.Group.ListView.AssertNotNull();
-
-            ListViewGroup? foundExistingGroup = owner.Groups[textBoxGroup.Text.Trim()];
-
-            if (foundExistingGroup is null)
-            {
-                ListViewGroup newGroup = new(textBoxGroup.Text.Trim());
-
-                _ = owner.Groups.Add(newGroup);
-                _selected.Group = newGroup;
-            }
-            else
-            {
-                _selected.Group = foundExistingGroup;
-            }
+            _selected.Group = textBoxGroup.Text.Trim();
         }
     }
 
@@ -167,7 +153,13 @@ public partial class ScriptEditor : UserControl
     private static void ChangeWidth(Control c, int newWitdth)
         => c.Width = newWitdth > c.MinimumSize.Width ? newWitdth : c.MinimumSize.Width;
 
-    private void PrepareForAnother() => _selected?.Save();
+    private void PrepareForAnother()
+    {
+        if (_selected is not null)
+        {
+            new ScriptXmlSerializer(ScriptsDir.Instance.Info).Serialize(_selected);
+        }
+    }
 
     #endregion Private Methods
 }

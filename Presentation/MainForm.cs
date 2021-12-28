@@ -47,9 +47,13 @@ public partial class MainForm : Form
         if (openFileDialogScript.ShowDialog(this) == DialogResult.OK)
         {
             string path = openFileDialogScript.FileName;
-            ListViewGroup group = new(path.GetDirectoryNameOnly());
-            _ = listViewScripts.Groups.Add(group);
-            _ = listViewScripts.Items.Add(new Script(Path.GetFileNameWithoutExtension(path), string.Empty, ScriptAdvised.No, Impact.Ergonomics, group, new(path)));
+            _ = listViewScripts.Items.Add(new ScriptListViewItem(new Script(Path.GetFileNameWithoutExtension(path),
+                                                                            string.Empty,
+                                                                            ScriptAdvised.No,
+                                                                            Impact.Ergonomics,
+                                                                            path.GetDirectoryNameOnly()!, // wont return null as path cannot be a root directory
+                                                                            Path.GetExtension(path),
+                                                                            File.ReadAllText(path)), listViewScripts));
         }
     }
 
@@ -57,7 +61,7 @@ public partial class MainForm : Form
     {
         IList<IScript> scripts = listViewScripts.CheckedItems.Cast<IScript>().ToList();
 
-        ScriptExecutor executor = new(scripts);
+        ScriptExecutor executor = new(scripts, Program.Settings);
 
         if (scripts.Count > 1)
         {
@@ -75,7 +79,7 @@ public partial class MainForm : Form
 
     private void MainMenuQuit_Click(object _, EventArgs __) => Program.Exit();
 
-    private void MainMenuSelectAll_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items.Cast<Script>().Where(script => script.Advised.Equals(ScriptAdvised.Yes)), true);
+    private void MainMenuSelectAll_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items.Cast<ScriptListViewItem>().Where(script => script.Advised.Equals(ScriptAdvised.Yes)), true);
 
     private void MainMenuSelectDebloat_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);// placeholder
 
@@ -114,7 +118,7 @@ public partial class MainForm : Form
     private void ListViewScripts_Resize(object _, EventArgs __) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
 
     private void ListViewScripts_SelectedIndexChanged(object _, EventArgs __)
-        => scriptEditor.Selected = listViewScripts.SelectedItems.Cast<IScript>().FirstOrDefault();
+        => scriptEditor.Selected = listViewScripts.SelectedItems.Cast<ScriptListViewItem>().FirstOrDefault();
 
     #endregion listViewScripts
 

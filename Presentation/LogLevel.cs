@@ -1,5 +1,5 @@
 ﻿
-namespace RaphaëlBardini.WinClean;
+namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>Specifies a minimum log level.</summary>
 public enum LogLevel

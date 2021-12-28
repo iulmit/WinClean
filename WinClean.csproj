@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <StartupObject>RaphaëlBardini.WinClean.Program</StartupObject>
+    <StartupObject>RaphaëlBardini.WinClean.Presentation.Program</StartupObject>
 	<LangVersion>latest</LangVersion>
 	<RootNamespace>RaphaëlBardini.WinClean</RootNamespace>
 	<ApplicationIcon>Resources\mainIcon.ico</ApplicationIcon>

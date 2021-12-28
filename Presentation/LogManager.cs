@@ -3,10 +3,9 @@ using CsvHelper;
 using CsvHelper.Configuration;
 
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.CompilerServices;
 
-namespace RaphaëlBardini.WinClean.Logic;
+namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>Provides CSV logging.</summary>
 public class LogManager

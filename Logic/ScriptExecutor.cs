@@ -17,6 +17,8 @@ namespace RaphaëlBardini.WinClean.Logic;
 /// <summary>Executes scripts asynchronously and displays task dialogs tracking the progress.</summary>
 public class ScriptExecutor
 {
+    public Properties.Settings Settings { get; set; }
+
     #region Private Fields
 
     private readonly CancellationTokenSource _canceler = new();
@@ -44,8 +46,9 @@ public class ScriptExecutor
     #region Public Constructors
 
     /// <param name="scripts">The scripts to execute.</param>
+    /// <param name="settings">The program settings to use.</param>
     /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
-    public ScriptExecutor(IList<IScript> scripts)
+    public ScriptExecutor(IList<IScript> scripts, Properties.Settings settings)
     {
         if (scripts is null)
         {
@@ -56,11 +59,13 @@ public class ScriptExecutor
             throw new ArgumentException(Resources.DevException.CollectionContainsNull, nameof(scripts));
         }
         _scripts = scripts;
+        Settings = settings;
     }
 
     /// <param name="script">The script to execute</param>
+    /// <param name="settings">The program settings to use.</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
-    public ScriptExecutor(IScript script) : this(new List<IScript> { script ?? throw new ArgumentNullException(nameof(script)) })
+    public ScriptExecutor(IScript script, Properties.Settings settings) : this(new List<IScript> { script ?? throw new ArgumentNullException(nameof(script)) }, settings)
     {
     }
 
@@ -93,7 +98,7 @@ public class ScriptExecutor
             Icon = TaskDialogIcon.ShieldSuccessGreenBar,
             Expander = new(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.CompletedPageExpander, _scripts.Count, TimeSpan.FromSeconds(elapsedSeconds)))
             {
-                Expanded = Program.Settings.ShowScriptExecutionCompletedDetails,
+                Expanded = Settings.ShowScriptExecutionCompletedDetails,
             },
             Heading = Resources.ScriptExecutor.CompletedPageHeading,
             Text = Resources.ScriptExecutor.CompletedPageText,
@@ -101,7 +106,7 @@ public class ScriptExecutor
 
         restart.Click += (s, e) => RebootForApplicationMaintenance();
 
-        p.Expander.ExpandedChanged += (sender, e) => Program.Settings.ShowScriptExecutionCompletedDetails = p.Expander.Expanded;
+        p.Expander.ExpandedChanged += (sender, e) => Settings.ShowScriptExecutionCompletedDetails = p.Expander.Expanded;
 
         return p;
     }
@@ -119,7 +124,7 @@ public class ScriptExecutor
             Caption = string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, 0),
             Expander = new(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, null, null))
             {
-                Expanded = Program.Settings.ShowScriptExecutionProgressDetails,
+                Expanded = Settings.ShowScriptExecutionProgressDetails,
             },
             Icon = new TaskDialogIcon(software.Icon.ToBitmap()),// software.Icon alone causes ComException at ShowDialog
             ProgressBar = new() { Maximum = _scripts.Count },
@@ -141,7 +146,7 @@ public class ScriptExecutor
         _progress.ProgressChanged += ProgressChanged;
 
         page.Expander.ExpandedChanged += (_, _)
-            => Program.Settings.ShowScriptExecutionProgressDetails = page.Expander.Expanded;
+            => Settings.ShowScriptExecutionProgressDetails = page.Expander.Expanded;
 
         page.Created += async (_, _) =>
         {
@@ -189,7 +194,7 @@ public class ScriptExecutor
             seconds.Start();
             for (; scriptIndex < _scripts.Count; ++scriptIndex)
             {
-                _scripts[scriptIndex].Execute();
+                _scripts[scriptIndex].Execute(Settings.ScriptTimeout);
                 ReportProgress();
             }
             seconds.Stop();

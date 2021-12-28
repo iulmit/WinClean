@@ -18,8 +18,8 @@ public interface IScript
     /// <summary>The file extension representing the script's type.</summary>
     string Extension { get; }
 
-    /// <summary>The group the script is assigned to.</summary>
-    ListViewGroup Group { get; set; }
+    /// <summary>The name of the script group this script is part of.</summary>
+    string Group { get; set; }
 
     /// <summary>System impact of running this script.</summary>
     Impact Impact { get; set; }
@@ -31,14 +31,8 @@ public interface IScript
 
     #region Public Methods
 
-    /// <summary>Deletes a script from the scripts dir.</summary>
-    void Delete();
-
     /// <summary>Executes the script in a new process.</summary>
-    void Execute();
-
-    /// <summary>Saves this script to the disk.</summary>
-    void Save();
+    void Execute(TimeSpan timeout);
 
     #endregion Public Methods
 }

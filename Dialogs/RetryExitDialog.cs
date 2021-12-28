@@ -1,5 +1,5 @@
 ﻿
-using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.Presentation;
 
 namespace RaphaëlBardini.WinClean.Dialogs;
 
