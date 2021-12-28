@@ -47,7 +47,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Remplace la propriété CultureInfo.CurrentUICulture du thread actuel pour toutes
+        ///   Remplace la propriété CurrentUICulture du thread actuel pour toutes
         ///   les recherches de ressources à l'aide de cette classe de ressource fortement typée.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]

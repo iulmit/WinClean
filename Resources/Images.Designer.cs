@@ -22,8 +22,7 @@ namespace RaphaëlBardini.WinClean.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    
-    class Images {
+    internal class Images {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -48,7 +47,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Remplace la propriété CultureInfo.CurrentUICulture du thread actuel pour toutes
+        ///   Remplace la propriété CurrentUICulture du thread actuel pour toutes
         ///   les recherches de ressources à l'aide de cette classe de ressource fortement typée.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -58,36 +57,6 @@ namespace RaphaëlBardini.WinClean.Resources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Mixed {
-            get {
-                object obj = ResourceManager.GetObject("Mixed", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Negative {
-            get {
-                object obj = ResourceManager.GetObject("Negative", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Positive {
-            get {
-                object obj = ResourceManager.GetObject("Positive", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
