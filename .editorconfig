@@ -1728,3 +1728,6 @@ dotnet_diagnostic.IDE0043.severity=suggestion
 dotnet_diagnostic.IDE0150.severity=suggestion
 dotnet_diagnostic.IDE0160.severity=silent
 dotnet_diagnostic.IDE0161.severity=suggestion
+
+# CS7064: Erreur lors de l'ouverture du fichier d'icône C:\Users\Scover\source\repos\RaphaelBardini\WinClean\Resources\mainIcon.ico -- Le fichier 'C:\Users\Scover\source\repos\RaphaelBardini\WinClean\Resources\mainIcon.ico' est introuvable.
+dotnet_diagnostic.CS7064.severity = error

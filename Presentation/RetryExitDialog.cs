@@ -1,7 +1,6 @@
 ﻿using RaphaëlBardini.WinClean.Operational;
-using RaphaëlBardini.WinClean.Presentation;
 
-namespace RaphaëlBardini.WinClean.Dialogs;
+namespace RaphaëlBardini.WinClean.Presentation;
 
 public class RetryExitDialog : Dialog
 {

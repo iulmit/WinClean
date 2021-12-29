@@ -29,14 +29,20 @@ public abstract class ScriptHost
     /// </summary>
     /// <param name="script">The script to execute.</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
-    /// <exception cref="BadFileExtensionException">
-    /// The script's extension is not supported by this script host.
-    /// </exception>
-    /// <inheritdoc cref="ExecuteCode(string, string, string, TimeSpan)"/>
+    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
+    /// <exception cref="IOException">The disk is read-only. -or- An I/O error occured.</exception>
+    /// <exception cref="HungScriptException">The script is still running after <paramref name="timeout"/> has elapsed and is probably hung.</exception>
     public virtual void Execute(Logic.IScript script, TimeSpan timeout)
     {
         _ = script ?? throw new ArgumentNullException(nameof(script));
-        ExecuteCode(script.Code, script.Name, script.Extension, timeout);
+        try
+        {
+            ExecuteCode(script.Code, timeout);
+        }
+        catch (TimeoutException e)
+        {
+            throw new HungScriptException(script, e);
+        }
     }
 
     #endregion Public Methods
@@ -58,43 +64,34 @@ public abstract class ScriptHost
     #region Protected Methods
 
     /// <summary>
-    /// Creates a temporary file with the specified text and the specified extension.
+    /// Creates a temporary file with the specified text.
     /// </summary>
     /// <returns>The new temporary file.</returns>
-    protected static FileInfo CreateTempFile(string text, string extension)
+    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
+    /// <exception cref="IOException">The disk is read-only. -or- An I/O error occured.</exception>
+    protected static FileInfo CreateTempFile(string text)
     {
-        FileInfo tmpScript = new(Path.Join(Path.GetTempPath(), $"WinCleanScript{DateTime.Now.ToBinary()}{extension}"));
-        try
+        FileInfo tmpScript = new(Path.GetTempFileName());
+        using StreamWriter s = tmpScript.CreateText();
         {
-            using StreamWriter s = tmpScript.CreateText();
-            {
-                s.Write(text);
-            }
-        }
-        catch (Exception e) when (e.FileSystem())
-        {
-            new Dialogs.FSErrorDialog(e, FSVerb.Create, tmpScript).ShowDialog(() => tmpScript = CreateTempFile(text, extension));
+            s.Write(text);
         }
         return tmpScript;
     }
 
     /// <summary>
-    /// Waits for the end of the specified script host process
+    /// Waits for the end of the specified process.
     /// </summary>
     /// <param name="p">The process which to wait for exit.</param>
-    /// <param name="scriptName">The name of the script being executed.</param>
-    /// <param name="timeout">How long to wait for the script to exit before throwing an exception.</param>
-    /// <exception cref="ArgumentNullException">
-    /// <paramref name="p"/> or <paramref name="scriptName"/> are <see langword="null"/>.
-    /// </exception>
-    protected static void WaitForHostExit(Process p, string scriptName, TimeSpan timeout)
+    /// <param name="timeout">How long to wait for the process to exit before throwing an exception.</param>
+    /// <exception cref="TimeoutException">The process didn't exit afer <paramref name="timeout"/>.</exception>
+    protected static void WaitForExit(Process p, TimeSpan timeout)
     {
         _ = p ?? throw new ArgumentNullException(nameof(p));
-        _ = scriptName ?? throw new ArgumentNullException(nameof(scriptName));
 
         if (!p.WaitForExit(Convert.ToInt32(timeout.TotalMilliseconds)))
         {
-            Dialogs.KillIgnoreDialog.HungScript(scriptName, timeout).ShowDialog(p.Kill, () => WaitForHostExit(p, scriptName, timeout));
+            throw new TimeoutException(timeout);
         }
     }
 
@@ -102,30 +99,20 @@ public abstract class ScriptHost
     /// Executes the specified code.
     /// </summary>
     /// <param name="code">The code to execute.</param>
-    /// <param name="extension">
-    /// If <paramref name="code"/> was the content of a file, the file's extension.
-    /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="code"/> is <see langword="null"/>.</exception>
-    /// <exception cref="BadFileExtensionException">
-    /// <paramref name="extension"/> is not a valid file extension for this script host.
-    /// </exception>
-    /// <inheritdoc cref="CreateTempFile(string, string)" path="/exception"/>
-    /// <inheritdoc cref="WaitForHostExit(Process, string, TimeSpan)"/>
-    protected void ExecuteCode(string code, string scriptName, string extension, TimeSpan timeout)
+    /// <inheritdoc cref="CreateTempFile(string)" path="/exception"/>
+    /// <inheritdoc cref="WaitForExit(Process, TimeSpan)" path="/exception"/>
+    protected void ExecuteCode(string code, TimeSpan timeout)
     {
         if (code is null)
         {
             throw new ArgumentNullException(nameof(code));
         }
-        if (!SupportedExtensions.Contains(extension))
-        {
-            throw new BadFileExtensionException(extension);
-        }
 
-        FileInfo tmpScriptFile = CreateTempFile(code, extension);
+        FileInfo tmpScriptFile = CreateTempFile(code);
 
         using Process host = ExecuteHost(tmpScriptFile);
-        WaitForHostExit(host, scriptName, timeout);
+        WaitForExit(host, timeout);
 
         tmpScriptFile.Delete();
     }

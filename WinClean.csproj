@@ -7,7 +7,7 @@
     <StartupObject>RaphaëlBardini.WinClean.Presentation.Program</StartupObject>
 	<LangVersion>latest</LangVersion>
 	<RootNamespace>RaphaëlBardini.WinClean</RootNamespace>
-	<ApplicationIcon>Resources\mainIcon.ico</ApplicationIcon>
+	<ApplicationIcon>Resources\Main.ico</ApplicationIcon>
 	<Platforms>AnyCPU;x64</Platforms>
 	<Authors>Raphaël Bardini</Authors>
 	<Description>Utilitaire d'optimisation et amélioration des performances Windows.
@@ -69,11 +69,6 @@
     <Compile Remove="Logic\obj\**" />
     <EmbeddedResource Remove="Logic\obj\**" />
     <None Remove="Logic\obj\**" />
-    <Content Include="Resources\mainIcon.ico" />
-    <None Include="Resources\main.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

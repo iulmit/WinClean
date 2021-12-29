@@ -28,8 +28,6 @@ public class Script : IScript
 
     #region Public Properties
 
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentNullException">The property was set to <see langword="null"/>.</exception>
     public ScriptAdvised Advised { get; set; }
 
     public string Code { get; set; }
@@ -44,10 +42,4 @@ public class Script : IScript
     public string Name { get; set; }
 
     #endregion Public Properties
-
-    #region Public Methods
-
-    public void Execute(TimeSpan timeout) => ScriptHostFactory.FromFileExtension(Extension).Execute(this, timeout);
-
-    #endregion Public Methods
 }

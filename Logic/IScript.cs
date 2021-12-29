@@ -1,4 +1,6 @@
-﻿namespace RaphaëlBardini.WinClean.Logic;
+﻿using RaphaëlBardini.WinClean.Operational;
+
+namespace RaphaëlBardini.WinClean.Logic;
 
 /// <summary>
 /// Represents an executable script associated to a script host program.
@@ -46,10 +48,12 @@ public interface IScript
 
     #region Public Methods
 
-    /// <summary>
-    /// Executes the script in a new process.
-    /// </summary>
-    void Execute(TimeSpan timeout);
+    /// <summary>Executes the script.</summary>
+    /// <param name="timeout">How long to wait for the script to end before throwing an <see cref="HungScriptException"/>.</param>
+    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
+    /// <exception cref="IOException">The disk is read-only. -or- An I/O error occured.</exception>
+    /// <exception cref="HungScriptException">The script is still running after <paramref name="timeout"/> has elapsed and is probably hung.</exception>
+    public void Execute(TimeSpan timeout) => ScriptHostFactory.FromFileExtension(Extension).Execute(this, timeout);
 
     #endregion Public Methods
 }

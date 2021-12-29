@@ -30,7 +30,7 @@ public class PowerShell : ScriptHost
     public override void Execute(Logic.IScript script, TimeSpan timeout)
     {
         _ = script ?? throw new ArgumentNullException(nameof(script));
-        ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{script.Code}", script.Name, script.Extension, timeout);
+        ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{script.Code}", timeout);
     }
 
     #endregion Public Methods

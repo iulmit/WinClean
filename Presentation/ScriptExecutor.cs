@@ -1,8 +1,8 @@
 ﻿using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Win32Native.Shell;
 
-using RaphaëlBardini.WinClean.Dialogs;
 using RaphaëlBardini.WinClean.Operational;
+using RaphaëlBardini.WinClean.Logic;
 
 using System.Diagnostics;
 
@@ -12,7 +12,7 @@ using System.Diagnostics;
  * Completed. Show results and prompt a reboot. Give advice on further optimizations.
 */
 
-namespace RaphaëlBardini.WinClean.Logic;
+namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>
 /// Executes scripts asynchronously and displays task dialogs tracking the progress.
@@ -197,13 +197,14 @@ public class ScriptExecutor
             System.Timers.Timer seconds = new(1000);
             seconds.Elapsed += (s, e) =>
             {
-                elapsedSeconds++;
+                ++elapsedSeconds;
                 ReportProgress();
             };
 
             seconds.Start();
             for (; scriptIndex < _scripts.Count; ++scriptIndex)
             {
+                // TODO : try catch
                 _scripts[scriptIndex].Execute(Settings.ScriptTimeout);
                 ReportProgress();
             }

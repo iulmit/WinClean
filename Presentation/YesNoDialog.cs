@@ -1,13 +1,12 @@
 ﻿using RaphaëlBardini.WinClean.Operational;
-using Button = System.Windows.Forms.TaskDialogButton;
 
-namespace RaphaëlBardini.WinClean.Dialogs;
+namespace RaphaëlBardini.WinClean.Presentation;
 
 public class YesNoDialog : Dialog
 {
     #region Protected Constructors
 
-    protected YesNoDialog() => Buttons = new() { Button.Yes, Button.No };
+    protected YesNoDialog() => Buttons = new() { TaskDialogButton.Yes, TaskDialogButton.No };
 
     #endregion Protected Constructors
 
@@ -41,7 +40,7 @@ public class YesNoDialog : Dialog
 
     #region Public Methods
 
-    public bool ShowDialog() => this.ShowPage() == Button.Yes;
+    public bool ShowDialog() => this.ShowPage() == TaskDialogButton.Yes;
 
     #endregion Public Methods
 }

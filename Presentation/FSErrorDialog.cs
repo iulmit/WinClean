@@ -1,6 +1,6 @@
 ﻿using RaphaëlBardini.WinClean.Operational;
 
-namespace RaphaëlBardini.WinClean.Dialogs;
+namespace RaphaëlBardini.WinClean.Presentation;
 
 public class FSErrorDialog : RetryExitDialog
 {

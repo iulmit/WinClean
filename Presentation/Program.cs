@@ -1,7 +1,5 @@
 ﻿global using System.Globalization;
 
-using RaphaëlBardini.WinClean.Dialogs;
-
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>

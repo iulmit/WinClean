@@ -1,6 +1,6 @@
 ﻿using RaphaëlBardini.WinClean.Operational;
 
-namespace RaphaëlBardini.WinClean.Logic;
+namespace RaphaëlBardini.WinClean.Presentation;
 
 public class GroupDir
 {
@@ -20,7 +20,7 @@ public class GroupDir
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new Dialogs.FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(CreateDir);
+                new FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(CreateDir);
             }
         }
     }
