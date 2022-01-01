@@ -38,9 +38,11 @@ public class RetryExitDialog : Dialog
 
     #region Public Methods
 
-    public void ShowDialog(Action? retry)
+    public bool ShowDialog() => this.ShowPage() == TaskDialogButton.Retry;
+
+    public void ShowDialog(Action retry)
     {
-        if (this.ShowPage() == TaskDialogButton.Retry)
+        if (ShowDialog())
         {
             retry?.Invoke();
         }

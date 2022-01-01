@@ -1,4 +1,5 @@
 ﻿using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
@@ -70,7 +71,8 @@ public class ScriptListViewItem : ListViewItem, IScript
 
     public void Delete() => Remove();
 
-    public void Execute(TimeSpan timeout) => _adaptee.Execute(timeout);
+    public void Execute(TimeSpan timeout, Func<string, TimeSpan, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+        => _adaptee.Execute(timeout, promptKillOnHung, promptRetryOnFSError, promptLimit);
 
     #endregion Public Methods
 

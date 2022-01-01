@@ -204,8 +204,7 @@ public class ScriptExecutor
             seconds.Start();
             for (; scriptIndex < _scripts.Count; ++scriptIndex)
             {
-                // TODO : try catch
-                _scripts[scriptIndex].Execute(Settings.ScriptTimeout);
+                _scripts[scriptIndex].Execute(Settings.ScriptTimeout, (name, timeout) => KillIgnoreDialog.HungScript(name, timeout).ShowDialog(), (e, fSInfo, verb) => new FSErrorDialog(e, verb, fSInfo).ShowDialog(), 100/*chaud : placeholder*/);
                 ReportProgress();
             }
             seconds.Stop();

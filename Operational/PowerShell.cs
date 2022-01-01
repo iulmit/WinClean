@@ -27,11 +27,8 @@ public class PowerShell : ScriptHost
 
     #region Public Methods
 
-    public override void Execute(Logic.IScript script, TimeSpan timeout)
-    {
-        _ = script ?? throw new ArgumentNullException(nameof(script));
-        ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{script.Code}", timeout);
-    }
+    public override void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, TimeSpan, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+        => ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{code}", scriptName, timeout, promptKillOnHung, promptRetryOnFSError, promptLimit);
 
     #endregion Public Methods
 }

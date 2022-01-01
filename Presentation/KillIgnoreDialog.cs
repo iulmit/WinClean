@@ -24,17 +24,11 @@ public class KillIgnoreDialog : Dialog
         Text = string.Format(CultureInfo.CurrentCulture, Resources.Dialog.HungScript, name, timeout)
     };
 
-    public void ShowDialog(Action? killScript, Action? ignore)
-    {
-        if (this.ShowPage() == s_buttons[0])
-        {
-            killScript?.Invoke();
-        }
-        else
-        {
-            ignore?.Invoke();
-        }
-    }
+    /// <summary>
+    /// Shows the dialog.
+    /// </summary>
+    /// <returns><see langword="true"/> if the users clicked on the Kill button, and <see langword="false"/> if the user clicked on the Ignore button.</returns>
+    public bool ShowDialog() => this.ShowPage() == s_buttons[0];
 
     #endregion Public Methods
 }

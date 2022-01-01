@@ -49,11 +49,9 @@ public interface IScript
     #region Public Methods
 
     /// <summary>Executes the script.</summary>
-    /// <param name="timeout">How long to wait for the script to end before throwing an <see cref="HungScriptException"/>.</param>
-    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
-    /// <exception cref="IOException">The disk is read-only. -or- An I/O error occured.</exception>
-    /// <exception cref="HungScriptException">The script is still running after <paramref name="timeout"/> has elapsed and is probably hung.</exception>
-    public void Execute(TimeSpan timeout) => ScriptHostFactory.FromFileExtension(Extension).Execute(this, timeout);
+    /// <inheritdoc cref="ScriptHost.ExecuteCode(string, string, TimeSpan, Func{string, TimeSpan, bool}, Func{Exception, FileSystemInfo, FSVerb, bool}, uint)" path="/param"/>
+    public void Execute(TimeSpan timeout, Func<string, TimeSpan, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+        => ScriptHostFactory.FromFileExtension(Extension).ExecuteCode(Code, Name, timeout, promptKillOnHung, promptRetryOnFSError, promptLimit);
 
     #endregion Public Methods
 }

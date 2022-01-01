@@ -25,24 +25,35 @@ public abstract class ScriptHost
     #region Public Methods
 
     /// <summary>
-    /// Executes the specified script.
+    /// Executes the specified code.
     /// </summary>
-    /// <param name="script">The script to execute.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
-    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
-    /// <exception cref="IOException">The disk is read-only. -or- An I/O error occured.</exception>
-    /// <exception cref="HungScriptException">The script is still running after <paramref name="timeout"/> has elapsed and is probably hung.</exception>
-    public virtual void Execute(Logic.IScript script, TimeSpan timeout)
+    /// <param name="code">The code to execute.</param>
+    /// <param name="scriptName">The name of the script.</param>
+    /// <param name="promptKillOnHung">Delegate invoked when the script is still running after <paramref name="timeout"/> has elapsed and is probably hung.</param>
+    /// <param name="timeout">How long to wait for the script to end before throwing an <see cref="HungScriptException"/>.</param>
+    /// <inheritdoc cref="CreateTempFile(string, Func{Exception, FileSystemInfo, FSVerb, bool}, uint)"/>
+    public virtual void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, TimeSpan, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
     {
-        _ = script ?? throw new ArgumentNullException(nameof(script));
-        try
+        FileInfo tmpScriptFile = CreateTempFile(code, promptRetryOnFSError, promptLimit);
+
+        using Process host = ExecuteHost(tmpScriptFile);
+
+        for (uint remainingPrompts = promptLimit; remainingPrompts > 0; remainingPrompts--)
         {
-            ExecuteCode(script.Code, timeout);
+            try
+            {
+                WaitForExit(host, timeout);
+                break;
+            }
+            catch (TimeoutException e)
+            {
+                if (!(promptKillOnHung?.Invoke(code, timeout) ?? false))
+                {
+                    throw new HungScriptException(scriptName, e);
+                }
+            }
         }
-        catch (TimeoutException e)
-        {
-            throw new HungScriptException(script, e);
-        }
+        tmpScriptFile.Delete();
     }
 
     #endregion Public Methods
@@ -67,16 +78,36 @@ public abstract class ScriptHost
     /// Creates a temporary file with the specified text.
     /// </summary>
     /// <returns>The new temporary file.</returns>
-    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
-    /// <exception cref="IOException">The disk is read-only. -or- An I/O error occured.</exception>
-    protected static FileInfo CreateTempFile(string text)
+    /// <param name="text">The text to write in the temporary file.</param>
+    /// <param name="promptRetryOnFSError">Delegate invoked when a filesystem error occurs.</param>
+    /// <param name="promptLimit">How many times <paramref name="promptRetryOnFSError"/> can return <see langword="false"/> before the method throws the exception.</param>
+    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission -and- <paramref name="promptRetryOnFSError"/> returned <see langword="false"/>.</exception>
+    /// <exception cref="IOException">An I/O error occured. -or- The disk is read-only. -and- <paramref name="promptRetryOnFSError"/> returned <see langword="false"/>.</exception>
+    protected static FileInfo CreateTempFile(string text, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
     {
-        FileInfo tmpScript = new(Path.GetTempFileName());
-        using StreamWriter s = tmpScript.CreateText();
+        // Not catching IOException here
+        FileInfo tmp = new(Path.GetTempFileName());
+
+        for (uint remainingPrompts = promptLimit; remainingPrompts > 0; --remainingPrompts)
         {
-            s.Write(text);
+            try
+            {
+                using StreamWriter s = tmp.CreateText();
+                {
+                    s.Write(text);
+                }
+                break;
+            }
+            catch (Exception e) when (e is System.Security.SecurityException or IOException)
+            {
+                if (!(promptRetryOnFSError?.Invoke(e, tmp, FSVerb.Create) ?? false))
+                {
+                    throw;
+                }
+            }
         }
-        return tmpScript;
+
+        return tmp;
     }
 
     /// <summary>
@@ -93,28 +124,6 @@ public abstract class ScriptHost
         {
             throw new TimeoutException(timeout);
         }
-    }
-
-    /// <summary>
-    /// Executes the specified code.
-    /// </summary>
-    /// <param name="code">The code to execute.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="code"/> is <see langword="null"/>.</exception>
-    /// <inheritdoc cref="CreateTempFile(string)" path="/exception"/>
-    /// <inheritdoc cref="WaitForExit(Process, TimeSpan)" path="/exception"/>
-    protected void ExecuteCode(string code, TimeSpan timeout)
-    {
-        if (code is null)
-        {
-            throw new ArgumentNullException(nameof(code));
-        }
-
-        FileInfo tmpScriptFile = CreateTempFile(code);
-
-        using Process host = ExecuteHost(tmpScriptFile);
-        WaitForExit(host, timeout);
-
-        tmpScriptFile.Delete();
     }
 
     /// <summary>

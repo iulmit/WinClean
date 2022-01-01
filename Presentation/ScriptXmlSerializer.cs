@@ -53,7 +53,7 @@ public class ScriptXmlSerializer : IScriptSerializer
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new Dialogs.FSErrorDialog(e, FSVerb.Acess, source).ShowDialog(() => d = CreateDoc());
+                new FSErrorDialog(e, FSVerb.Acess, source).ShowDialog(() => d = CreateDoc());
             }
             return d;
         }

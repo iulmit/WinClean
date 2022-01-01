@@ -1,5 +1,4 @@
-﻿using RaphaëlBardini.WinClean.Logic;
-using RaphaëlBardini.WinClean.Operational;
+﻿using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
@@ -23,7 +22,7 @@ public class ScriptsDir
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new Dialogs.FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(() => dir = GetOrCreate());
+                new FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(() => dir = GetOrCreate());
             }
             return dir;
         }
