@@ -2,9 +2,7 @@
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Displays the traditional about box with application-related metadata
-/// </summary>
+/// <summary>Displays the traditional about box with application-related metadata</summary>
 public partial class AboutBox : Form
 {
     #region Public Constructors

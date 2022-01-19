@@ -1,8 +1,8 @@
 ﻿using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Win32Native.Shell;
 
-using RaphaëlBardini.WinClean.Operational;
 using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.Operational;
 
 using System.Diagnostics;
 
@@ -14,26 +14,16 @@ using System.Diagnostics;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Executes scripts asynchronously and displays task dialogs tracking the progress.
-/// </summary>
-public class ScriptExecutor
+/// <summary>Walk the user through the asynchronous execution of scripts by displaying a task dialog tracking the progress.</summary>
+public class ScriptExecutionWizard
 {
-    #region Public Properties
-
-    public Properties.Settings Settings { get; set; }
-
-    #endregion Public Properties
-
     #region Private Fields
-
-    private readonly CancellationTokenSource _canceler = new();
-
-    private readonly Progress<ProgressReport> _progress = new();
 
     private readonly IList<IScript> _scripts;
 
     private UIStep _uiStep = UIStep.NotStarted;
+
+    private readonly ScriptExecutor _executor = new();
 
     #endregion Private Fields
 
@@ -52,9 +42,8 @@ public class ScriptExecutor
     #region Public Constructors
 
     /// <param name="scripts">The scripts to execute.</param>
-    /// <param name="settings">The program settings to use.</param>
     /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
-    public ScriptExecutor(IList<IScript> scripts, Properties.Settings settings)
+    public ScriptExecutionWizard(IList<IScript> scripts)
     {
         if (scripts is null)
         {
@@ -65,13 +54,11 @@ public class ScriptExecutor
             throw new ArgumentException(Resources.DevException.CollectionContainsNull, nameof(scripts));
         }
         _scripts = scripts;
-        Settings = settings;
     }
 
     /// <param name="script">The script to execute</param>
-    /// <param name="settings">The program settings to use.</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
-    public ScriptExecutor(IScript script, Properties.Settings settings) : this(new List<IScript> { script ?? throw new ArgumentNullException(nameof(script)) }, settings)
+    public ScriptExecutionWizard(IScript script) : this(new List<IScript> { script ?? throw new ArgumentNullException(nameof(script)) })
     {
     }
 
@@ -79,14 +66,10 @@ public class ScriptExecutor
 
     #region Public Methods
 
-    /// <summary>
-    /// Executes the scripts without displaying a dialog.
-    /// </summary>
-    public async void ExecuteNoUI() => _ = await ExecuteScriptsAsync().ConfigureAwait(false);
+    /// <summary>Executes the scripts without displaying a dialog.</summary>
+    public async void ExecuteNoUI() => await _executor.ExecuteScriptsAsync(_scripts, Program.Settings.ScriptTimeout, (name) => KillIgnoreDialog.HungScript(name, Program.Settings.ScriptTimeout).ShowDialog(), (e, fSInfo, verb) => new FSErrorDialog(e, verb, fSInfo).ShowDialog(), 100/*chaud : placeholder*/).ConfigureAwait(false);
 
-    /// <summary>
-    /// Executes the scripts and displays a dialog traking the progress.
-    /// </summary>
+    /// <summary>Executes the scripts and displays a dialog tracking the progress.</summary>
     public void ExecuteUI() => StartUISteps();
 
     #endregion Public Methods
@@ -95,7 +78,7 @@ public class ScriptExecutor
 
     private static void RebootForApplicationMaintenance() => Process.Start("shutdown", $"/g /t 0 /d p:4:1");
 
-    private TaskDialogPage CreateCompletedPage(int elapsedSeconds)
+    private TaskDialogPage CreateCompletedPage(TimeSpan elapsed)
     {
         TaskDialogButton restart = new(Resources.ScriptExecutor.RestartVerb);
 
@@ -106,9 +89,9 @@ public class ScriptExecutor
             Buttons = { TaskDialogButton.Close, restart },
             Caption = Resources.ScriptExecutor.CompletedPageCaption,
             Icon = TaskDialogIcon.ShieldSuccessGreenBar,
-            Expander = new(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.CompletedPageExpander, _scripts.Count, TimeSpan.FromSeconds(elapsedSeconds)))
+            Expander = new(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.CompletedPageExpander, _scripts.Count, elapsed))
             {
-                Expanded = Settings.ShowScriptExecutionCompletedDetails,
+                Expanded = Program.Settings.ShowScriptExecutionCompletedDetails,
             },
             Heading = Resources.ScriptExecutor.CompletedPageHeading,
             Text = Resources.ScriptExecutor.CompletedPageText,
@@ -116,7 +99,7 @@ public class ScriptExecutor
 
         restart.Click += (s, e) => RebootForApplicationMaintenance();
 
-        p.Expander.ExpandedChanged += (sender, e) => Settings.ShowScriptExecutionCompletedDetails = p.Expander.Expanded;
+        p.Expander.ExpandedChanged += (sender, e) => Program.Settings.ShowScriptExecutionCompletedDetails = p.Expander.Expanded;
 
         return p;
     }
@@ -134,9 +117,12 @@ public class ScriptExecutor
             Caption = string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, 0),
             Expander = new(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, null, null))
             {
-                Expanded = Settings.ShowScriptExecutionProgressDetails,
+                Expanded = Program.Settings.ShowScriptExecutionProgressDetails,
             },
-            Icon = new TaskDialogIcon(software.Icon.ToBitmap()),// software.Icon alone causes ComException at ShowDialog
+
+            // software.Icon alone causes ComException at ShowDialog, even though TaskDialogIcon's constructor accepts an Icon object.
+            Icon = new TaskDialogIcon(software.Icon.ToBitmap()),
+
             ProgressBar = new() { Maximum = _scripts.Count },
             Text = Resources.ScriptExecutor.ProgressPageText,
             Verification = new(Resources.ScriptExecutor.ProgressPageVerification)
@@ -149,18 +135,30 @@ public class ScriptExecutor
         {
             if (YesNoDialog.AbortOperation.ShowDialog())
             {
-                _canceler.Cancel();
+                _executor.CancelScriptExecution();
             }
         };
 
-        _progress.ProgressChanged += ProgressChanged;
-
         page.Expander.ExpandedChanged += (_, _)
-            => Settings.ShowScriptExecutionProgressDetails = page.Expander.Expanded;
+            => Program.Settings.ShowScriptExecutionProgressDetails = page.Expander.Expanded;
 
+        ProgressPageTextUpdater textUpdater = new(this, page, 0, TimeSpan.Zero);
+
+        _executor.ProgressChanged += ProgressChanged;
+        
         page.Created += async (_, _) =>
         {
-            int result = await ExecuteScriptsAsync().ConfigureAwait(true);
+            TimeSpan timerInterval = TimeSpan.FromMilliseconds(1000);
+            System.Timers.Timer timer = new(Convert.ToInt32(timerInterval.TotalMilliseconds));
+            SynchronizationContext context = SynchronizationContext.Current!;
+            timer.Elapsed += (s, e) =>
+            {
+                context.Send((_) => textUpdater.Elapsed += timerInterval, null);
+            };
+
+            timer.Start();
+            await _executor.ExecuteScriptsAsync(_scripts, Program.Settings.ScriptTimeout, (name) => KillIgnoreDialog.HungScript(name, Program.Settings.ScriptTimeout).ShowDialog(), (e, fSInfo, verb) => new FSErrorDialog(e, verb, fSInfo).ShowDialog(), 100/*chaud : placeholder*/).ConfigureAwait(true);
+            timer.Stop();
 
             _uiStep = UIStep.Completed;
 
@@ -170,49 +168,20 @@ public class ScriptExecutor
             }
             else
             {
-                page.Navigate(CreateCompletedPage(result));
+                page.Navigate(CreateCompletedPage(textUpdater.Elapsed));
             }
         };
 
         return page;
 
-        void ProgressChanged(object? _, ProgressReport progress)
+        void ProgressChanged(object? _, ScriptExecutionProgressChangedEventArgs args)
         {
             if (_uiStep == UIStep.InProgress)
             {
-                page.Caption = string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, progress.ScriptIndex / (double)_scripts.Count);
-
-                page.Expander.Text = string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, _scripts[progress.ScriptIndex].Name, TimeSpan.FromSeconds(progress.ElapsedSeconds));
-
-                page.ProgressBar.Value = progress.ScriptIndex;
+                textUpdater.ScriptIndex = args.ScriptIndex;
             }
         }
     }
-
-    private async Task<int> ExecuteScriptsAsync()
-        => await Task.Run(() =>
-        {
-            int elapsedSeconds = 0, scriptIndex = 0;
-
-            System.Timers.Timer seconds = new(1000);
-            seconds.Elapsed += (s, e) =>
-            {
-                ++elapsedSeconds;
-                ReportProgress();
-            };
-
-            seconds.Start();
-            for (; scriptIndex < _scripts.Count; ++scriptIndex)
-            {
-                _scripts[scriptIndex].Execute(Settings.ScriptTimeout, (name, timeout) => KillIgnoreDialog.HungScript(name, timeout).ShowDialog(), (e, fSInfo, verb) => new FSErrorDialog(e, verb, fSInfo).ShowDialog(), 100/*chaud : placeholder*/);
-                ReportProgress();
-            }
-            seconds.Stop();
-
-            void ReportProgress() => ((IProgress<ProgressReport>)_progress).Report(new(scriptIndex, elapsedSeconds));
-
-            return elapsedSeconds;
-        }).ConfigureAwait(false);
 
     private void StartUISteps()
     {
@@ -254,27 +223,65 @@ public class ScriptExecutor
 
     #endregion Private Methods
 
-    #region Private Structs
+    #region Private Classes
 
-    private readonly struct ProgressReport
+    private class ProgressPageTextUpdater
     {
+        private readonly ScriptExecutionWizard _parent;
+        private readonly TaskDialogPage _page;
+        private TimeSpan elapsed;
+        private int scriptIndex;
+
         #region Public Constructors
 
-        public ProgressReport(int scriptIndex, int elapsedSeconds)
+        public ProgressPageTextUpdater(ScriptExecutionWizard parent, TaskDialogPage page, int scriptIndex, TimeSpan elapsed)
         {
+            _page = page ?? throw new ArgumentNullException(nameof(page));
+            _parent = parent ?? throw new ArgumentNullException(nameof(page));
             ScriptIndex = scriptIndex;
-            ElapsedSeconds = elapsedSeconds;
+            Elapsed = elapsed;
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
-        public int ElapsedSeconds { get; }
-        public int ScriptIndex { get; }
+        public TimeSpan Elapsed
+        {
+            get => elapsed;
+            set
+            {
+                elapsed = value;
+                Update();
+            }
+        }
+        public int ScriptIndex
+        {
+            get => scriptIndex;
+            set
+            {
+                scriptIndex = value;
+                Update();
+            }
+        }
 
         #endregion Public Properties
+
+        private void Update()
+        {
+            _page.Caption = string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageCaption, ScriptIndex / (double)_parent._scripts.Count);
+
+            if (_page.Expander is not null)
+            {
+                _page.Expander.Text = string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutor.ProgressPageExpander, _parent._scripts[ScriptIndex].Name, Elapsed);
+            }
+
+            if (_page.ProgressBar is not null)
+            {
+                _page.ProgressBar.Value = ScriptIndex;
+            }
+        }
     }
 
-    #endregion Private Structs
+    #endregion Private Classes
 }

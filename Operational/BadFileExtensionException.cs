@@ -1,8 +1,6 @@
 ﻿namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>
-/// The exception is thrown when a file has the wrong extension.
-/// </summary>
+/// <summary>The exception is thrown when a file has the wrong extension.</summary>
 public class BadFileExtensionException : IOException
 {
     #region Public Constructors
@@ -27,9 +25,7 @@ public class BadFileExtensionException : IOException
 
     #region Public Properties
 
-    /// <summary>
-    /// The wrong file extension.
-    /// </summary>
+    /// <summary>The wrong file extension.</summary>
     public string? Extension { get; } = string.Empty;
 
     #endregion Public Properties

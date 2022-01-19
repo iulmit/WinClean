@@ -2,9 +2,7 @@
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Represents the scripts dir of the application root directory.
-/// </summary>
+/// <summary>Represents the scripts dir of the application root directory.</summary>
 public class ScriptsDir
 {
     #region Private Constructors
@@ -34,9 +32,7 @@ public class ScriptsDir
 
     public static ScriptsDir Instance { get; } = new();
 
-    /// <summary>
-    /// The group directories contained in the scripts dir.
-    /// </summary>
+    /// <summary>The group directories contained in the scripts dir.</summary>
     public IEnumerable<GroupDir> Groups => Info.EnumerateDirectories().Select((dir) => new GroupDir(dir));
 
     public DirectoryInfo Info { get; }
@@ -45,16 +41,12 @@ public class ScriptsDir
 
     #region Public Methods
 
-    /// <summary>
-    /// Joins the specified path components with the path of the scripts directory.
-    /// </summary>
+    /// <summary>Joins the specified path components with the path of the scripts directory.</summary>
     /// <param name="paths">The path components to join with the scripts dir.</param>
     /// <returns>The concatenated path.</returns>
     public string Join(params string[] paths) => Path.Join(paths.Prepend(Info.FullName).ToArray());
 
-    /// <summary>
-    /// Loads all the scripts present in the scripts directory.
-    /// </summary>
+    /// <summary>Loads all the scripts present in the scripts directory.</summary>
     /// <param name="owner">The listView to load the scripts into.</param>
     /// <returns>The scripts previously saved into the scripts dir.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="owner"/> is <see langword="null"/>.</exception>

@@ -1,8 +1,6 @@
 ﻿namespace RaphaëlBardini.WinClean.Logic;
 
-/// <summary>
-/// Effect of running a script.
-/// </summary>
+/// <summary>Effect of running a script.</summary>
 public class Impact : IEquatable<Impact?>
 {
     #region Private Fields
@@ -23,54 +21,34 @@ public class Impact : IEquatable<Impact?>
 
     #region Public Properties
 
-    /// <summary>
-    /// System praticality.
-    /// </summary>
+    /// <summary>System praticality.</summary>
     public static Impact Ergonomics { get; } = new(nameof(Ergonomics), Resources.ImpactEffect.Ergonomics);
 
-    /// <summary>
-    /// Free storage space.
-    /// </summary>
+    /// <summary>Free storage space.</summary>
     public static Impact FreeStorageSpace { get; } = new(nameof(FreeStorageSpace), Resources.ImpactEffect.FreeStorageSpace);
 
-    /// <summary>
-    /// Idle system memory usage.
-    /// </summary>
+    /// <summary>Idle system memory usage.</summary>
     public static Impact MemoryUsage { get; } = new(nameof(MemoryUsage), Resources.ImpactEffect.MemoryUsage);
 
-    /// <summary>
-    /// Idle system network usage.
-    /// </summary>
+    /// <summary>Idle system network usage.</summary>
     public static Impact NetworkUsage { get; } = new(nameof(NetworkUsage), Resources.ImpactEffect.NetworkUsage);
 
-    /// <summary>
-    /// System rapidity of executing commands.
-    /// </summary>
+    /// <summary>System rapidity of executing commands.</summary>
     public static Impact Performance { get; } = new(nameof(Performance), Resources.ImpactEffect.Performance);
 
-    /// <summary>
-    /// System privacy invasion and spying.
-    /// </summary>
+    /// <summary>System privacy invasion and spying.</summary>
     public static Impact Privacy { get; } = new(nameof(Privacy), Resources.ImpactEffect.Privacy);
 
-    /// <summary>
-    /// System shutdown time.
-    /// </summary>
+    /// <summary>System shutdown time.</summary>
     public static Impact ShutdownTime { get; } = new(nameof(ShutdownTime), Resources.ImpactEffect.ShutdownTime);
 
-    /// <summary>
-    /// System startup time.
-    /// </summary>
+    /// <summary>System startup time.</summary>
     public static Impact StartupTime { get; } = new(nameof(StartupTime), Resources.ImpactEffect.StartupTime);
 
-    /// <summary>
-    /// Storage read-write speed.
-    /// </summary>
+    /// <summary>Storage read-write speed.</summary>
     public static Impact StorageSpeed { get; } = new(nameof(StorageSpeed), Resources.ImpactEffect.StorageSpeed);
 
-    /// <summary>
-    /// Gets all the values.
-    /// </summary>
+    /// <summary>Gets all the values.</summary>
     public static IEnumerable<Impact> Values => new[]
     {
         Ergonomics,
@@ -85,9 +63,7 @@ public class Impact : IEquatable<Impact?>
         Visuals
     };
 
-    /// <summary>
-    /// System visuals.
-    /// </summary>
+    /// <summary>System visuals.</summary>
     public static Impact Visuals { get; } = new(nameof(Visuals), Resources.ImpactEffect.Visuals);
 
     public string? LocalizedName { get; }
@@ -96,9 +72,7 @@ public class Impact : IEquatable<Impact?>
 
     #region Public Methods
 
-    /// <summary>
-    /// Gets the <see cref="Impact"/> matching the specified localized name.
-    /// </summary>
+    /// <summary>Gets the <see cref="Impact"/> matching the specified localized name.</summary>
     /// <exception cref="ArgumentNullException"><paramref name="localizedName"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">
     /// <paramref name="localizedName"/> does not match to any <see cref="Impact"/> localizedName.
@@ -109,13 +83,9 @@ public class Impact : IEquatable<Impact?>
             : Values.FirstOrDefault(validValue => validValue.LocalizedName == localizedName)
                 ?? throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.DevException.InvalidTypeProp, nameof(Impact), nameof(LocalizedName)), nameof(localizedName));
 
-    /// <summary>
-    /// Gets the <see cref="Impact"/> matching the specified name.
-    /// </summary>
+    /// <summary>Gets the <see cref="Impact"/> matching the specified name.</summary>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="name"/> does not match to any <see cref="Impact"/> name.
-    /// </exception>
+    /// <exception cref="ArgumentException"><paramref name="name"/> does not match to any <see cref="Impact"/> name.</exception>
     public static Impact ParseName(string name)
         => name is null
             ? throw new ArgumentNullException(nameof(name))

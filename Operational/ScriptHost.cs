@@ -3,36 +3,30 @@ using System.Runtime.CompilerServices;
 
 namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>
-/// Represents a program that accepts a file in it's command-line arguments.
-/// </summary>
+/// <summary>Represents a program that accepts a file in it's command-line arguments.</summary>
 public abstract class ScriptHost
 {
     #region Public Properties
 
-    /// <summary>
-    /// User friendly name for the script host.
-    /// </summary>
+    /// <summary>User friendly name for the script host.</summary>
     public virtual string DisplayName => new ShellFile(Executable).FileDescription;
 
-    /// <summary>
-    /// Extensions of the scripts the script host program can run.
-    /// </summary>
+    /// <summary>Extensions of the scripts the script host program can run.</summary>
     public abstract ExtensionGroup SupportedExtensions { get; }
 
     #endregion Public Properties
 
     #region Public Methods
 
-    /// <summary>
-    /// Executes the specified code.
-    /// </summary>
+    /// <summary>Executes the specified code.</summary>
     /// <param name="code">The code to execute.</param>
     /// <param name="scriptName">The name of the script.</param>
-    /// <param name="promptKillOnHung">Delegate invoked when the script is still running after <paramref name="timeout"/> has elapsed and is probably hung.</param>
+    /// <param name="promptKillOnHung">
+    /// Delegate invoked when the script is still running after <paramref name="timeout"/> has elapsed and is probably hung.
+    /// </param>
     /// <param name="timeout">How long to wait for the script to end before throwing an <see cref="HungScriptException"/>.</param>
     /// <inheritdoc cref="CreateTempFile(string, Func{Exception, FileSystemInfo, FSVerb, bool}, uint)"/>
-    public virtual void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, TimeSpan, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+    public virtual void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
     {
         FileInfo tmpScriptFile = CreateTempFile(code, promptRetryOnFSError, promptLimit);
 
@@ -47,7 +41,7 @@ public abstract class ScriptHost
             }
             catch (TimeoutException e)
             {
-                if (!(promptKillOnHung?.Invoke(code, timeout) ?? false))
+                if (!(promptKillOnHung?.Invoke(code) ?? false))
                 {
                     throw new HungScriptException(scriptName, e);
                 }
@@ -60,29 +54,29 @@ public abstract class ScriptHost
 
     #region Protected Properties
 
-    /// <summary>
-    /// Arguments passed along <see cref="Executable"/> when executing.
-    /// </summary>
+    /// <summary>Arguments passed along <see cref="Executable"/> when executing.</summary>
     protected abstract IncompleteArguments Arguments { get; }
 
-    /// <summary>
-    /// The executable of the script host program.
-    /// </summary>
+    /// <summary>The executable of the script host program.</summary>
     protected abstract FileInfo Executable { get; }
 
     #endregion Protected Properties
 
     #region Protected Methods
 
-    /// <summary>
-    /// Creates a temporary file with the specified text.
-    /// </summary>
+    /// <summary>Creates a temporary file with the specified text.</summary>
     /// <returns>The new temporary file.</returns>
     /// <param name="text">The text to write in the temporary file.</param>
     /// <param name="promptRetryOnFSError">Delegate invoked when a filesystem error occurs.</param>
-    /// <param name="promptLimit">How many times <paramref name="promptRetryOnFSError"/> can return <see langword="false"/> before the method throws the exception.</param>
-    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission -and- <paramref name="promptRetryOnFSError"/> returned <see langword="false"/>.</exception>
-    /// <exception cref="IOException">An I/O error occured. -or- The disk is read-only. -and- <paramref name="promptRetryOnFSError"/> returned <see langword="false"/>.</exception>
+    /// <param name="promptLimit">
+    /// How many times <paramref name="promptRetryOnFSError"/> can return <see langword="false"/> before the method throws the exception.
+    /// </param>
+    /// <exception cref="System.Security.SecurityException">
+    /// The caller does not have the required permission -and- <paramref name="promptRetryOnFSError"/> returned <see langword="false"/>.
+    /// </exception>
+    /// <exception cref="IOException">
+    /// An I/O error occured. -or- The disk is read-only. -and- <paramref name="promptRetryOnFSError"/> returned <see langword="false"/>.
+    /// </exception>
     protected static FileInfo CreateTempFile(string text, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
     {
         // Not catching IOException here
@@ -110,9 +104,7 @@ public abstract class ScriptHost
         return tmp;
     }
 
-    /// <summary>
-    /// Waits for the end of the specified process.
-    /// </summary>
+    /// <summary>Waits for the end of the specified process.</summary>
     /// <param name="p">The process which to wait for exit.</param>
     /// <param name="timeout">How long to wait for the process to exit before throwing an exception.</param>
     /// <exception cref="TimeoutException">The process didn't exit afer <paramref name="timeout"/>.</exception>
@@ -126,9 +118,7 @@ public abstract class ScriptHost
         }
     }
 
-    /// <summary>
-    /// Executes the script host program with the specified script.
-    /// </summary>
+    /// <summary>Executes the script host program with the specified script.</summary>
     /// <param name="script">The script to execute.</param>
     /// <exception cref="ArgumentNullException"><paramref name="script"/> is <see langword="null"/>.</exception>
     protected Process ExecuteHost(FileInfo script)
@@ -141,9 +131,7 @@ public abstract class ScriptHost
 
     #region Protected Classes
 
-    /// <summary>
-    /// Formattable executable arguments with a single file path argument.
-    /// </summary>
+    /// <summary>Formattable executable arguments with a single file path argument.</summary>
     protected class IncompleteArguments
     {
         #region Private Fields
@@ -155,9 +143,7 @@ public abstract class ScriptHost
         #region Public Constructors
 
         /// <param name="args">Formattable string with 1 argument, the path of the script file.</param>
-        /// <exception cref="ArgumentException">
-        /// <paramref name="args"/> does not contain exactly one formattable argument.
-        /// </exception>
+        /// <exception cref="ArgumentException"><paramref name="args"/> does not contain exactly one formattable argument.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="args"/> is <see langword="null"/>.</exception>
         public IncompleteArguments(string args)
         {
@@ -173,9 +159,7 @@ public abstract class ScriptHost
 
         #region Public Methods
 
-        /// <summary>
-        /// Completes the arguments with the specified script file.
-        /// </summary>
+        /// <summary>Completes the arguments with the specified script file.</summary>
         /// <param name="script">The file to complete the arguments with.</param>
         /// <returns>The completed arguments</returns>
         public string Complete(FileInfo script) => string.Format(CultureInfo.InvariantCulture, _args, script);

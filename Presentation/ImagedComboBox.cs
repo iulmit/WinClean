@@ -1,8 +1,6 @@
 ﻿namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Represents a combo box with images instad of text for elements.
-/// </summary>
+/// <summary>Represents a combo box with images instad of text for elements.</summary>
 public class ImagedComboBox : ComboBox
 {
     #region Public Constructors

@@ -4,8 +4,8 @@ using RaphaëlBardini.WinClean.Operational;
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>
-/// This is the application's main form. It regroups several features, including the main commit
-/// buttons, script selection, and provides UI acess to other forms.
+/// This is the application's main form. It regroups several features, including the main commit buttons, script selection, and
+/// provides UI acess to other forms.
 /// </summary>
 public partial class MainForm : Form
 {
@@ -60,7 +60,7 @@ public partial class MainForm : Form
     {
         IList<IScript> scripts = listViewScripts.CheckedItems.Cast<IScript>().ToList();
 
-        ScriptExecutor executor = new(scripts, Program.Settings);
+        ScriptExecutionWizard executor = new(scripts);
 
         if (scripts.Count > 1)
         {
@@ -111,8 +111,8 @@ public partial class MainForm : Form
     private void ListViewScripts_ItemChecked(object _, ItemCheckedEventArgs __) => buttonExecuteScripts.Enabled = listViewScripts.CheckedItems.Count > 0;
 
     /// <summary>
-    /// Resizes <see cref="listViewScripts"/>'s main and only column, <see
-    /// cref="scriptHeaderName"/>, to match <see cref="listViewScripts"/>'s new size.
+    /// Resizes <see cref="listViewScripts"/>'s main and only column, <see cref="scriptHeaderName"/>, to match <see
+    /// cref="listViewScripts"/>'s new size.
     /// </summary>
     private void ListViewScripts_Resize(object _, EventArgs __) => scriptHeaderName.Width = listViewScripts.Size.Width - listViewScripts.Margin.Horizontal;
 
@@ -132,7 +132,7 @@ public partial class MainForm : Form
     }
 
     private static void SetAllChecked(ListView.ListViewItemCollection items, bool @checked)
-        => SetAllChecked((IEnumerable<ListViewItem>)items, @checked);
+        => SetAllChecked(((System.Collections.IEnumerable)items).Cast<ListViewItem>(), @checked);
 
     #endregion Private Methods
 }

@@ -3,8 +3,8 @@ using RaphaëlBardini.WinClean.Operational;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-// Implementation of the Adapter pattern between IScript and ListViewItem Hosts policies for
-// displaying scripts as ListViewItems
+// Implementation of the Adapter pattern between IScript and ListViewItem Hosts policies for displaying scripts as ListViewItems
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2237:Marquer les types ISerializable avec serializable", Justification = "Nah")]
 public class ScriptListViewItem : ListViewItem, IScript
 {
     #region Constants
@@ -71,7 +71,7 @@ public class ScriptListViewItem : ListViewItem, IScript
 
     public void Delete() => Remove();
 
-    public void Execute(TimeSpan timeout, Func<string, TimeSpan, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+    public void Execute(TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
         => _adaptee.Execute(timeout, promptKillOnHung, promptRetryOnFSError, promptLimit);
 
     #endregion Public Methods
@@ -90,8 +90,7 @@ public class ScriptListViewItem : ListViewItem, IScript
     }
 
     private ListViewGroup GetOrCreateScriptGroup(string header)
-        // search for the group in the owner list view, if not found, add a new group to the owner
-        // list view with the specified header.
+        // search for the group in the owner list view, if not found, add a new group to the owner list view with the specified header.
         => _owner.Groups.OfType<ListViewGroup>().FirstOrDefault(group => group.Header == header) ?? _owner.Groups.Add(null, header);
 
     #endregion Private Methods

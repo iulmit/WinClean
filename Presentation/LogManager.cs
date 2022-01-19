@@ -1,14 +1,14 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+
 using RaphaëlBardini.WinClean.Operational;
+
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Provides CSV logging.
-/// </summary>
+/// <summary>Provides CSV logging.</summary>
 public class LogManager
 {
     #region Private Constructors
@@ -51,9 +51,7 @@ public class LogManager
 
     #region Public Methods
 
-    /// <summary>
-    /// Empties the log folder, except for the current log file.
-    /// </summary>
+    /// <summary>Empties the log folder, except for the current log file.</summary>
     public async void ClearLogsFolderAsync()
         => await Task.Run(() =>
         {
@@ -79,9 +77,7 @@ public class LogManager
             }
         }).ConfigureAwait(false);
 
-    /// <summary>
-    /// Logs a string.
-    /// </summary>
+    /// <summary>Logs a string.</summary>
     /// <param name="happening">What's happening right now.</param>
     /// <param name="message">The string to log.</param>
     /// <param name="lvl">The level of the log entry.</param>
@@ -163,9 +159,7 @@ public static class LogExtensions
                            [CallerFilePath] string callFile = "Not Found")
         => LogManager.Instance.Log(happening, str, lvl, caller, callLine, callFile);
 
-    /// <summary>
-    /// Logs an exception and it's details.
-    /// </summary>
+    /// <summary>Logs an exception and it's details.</summary>
     /// <param name="e">The exception to log.</param>
     /// <param name="lvl">The level of the entry.</param>
     /// <param name="caller"><see cref="CallerMemberNameAttribute"/> - Don't specify</param>

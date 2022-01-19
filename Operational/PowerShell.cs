@@ -1,8 +1,6 @@
 ﻿namespace RaphaëlBardini.WinClean.Operational;
 
-/// <summary>
-/// The Windows PowerShell script host.
-/// </summary>
+/// <summary>The Windows PowerShell script host.</summary>
 public class PowerShell : ScriptHost
 {
     #region Private Fields
@@ -27,8 +25,8 @@ public class PowerShell : ScriptHost
 
     #region Public Methods
 
-    public override void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, TimeSpan, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
-        => ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{code}", scriptName, timeout, promptKillOnHung, promptRetryOnFSError, promptLimit);
+    public override void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+        => base.ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{code}", scriptName, timeout, promptKillOnHung, promptRetryOnFSError, promptLimit);
 
     #endregion Public Methods
 }

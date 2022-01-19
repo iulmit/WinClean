@@ -4,9 +4,7 @@ using WinCopies.Collections;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Control used to display and edit a script.
-/// </summary>
+/// <summary>Control used to display and edit a script.</summary>
 public partial class ScriptEditor : UserControl
 {
     #region Private Fields
@@ -28,9 +26,7 @@ public partial class ScriptEditor : UserControl
 
     #region Public Properties
 
-    /// <summary>
-    /// The script the user is currently able to see and edit.
-    /// </summary>
+    /// <summary>The script the user is currently able to see and edit.</summary>
     public ScriptListViewItem? Selected
     {
         get => _selected;
@@ -72,7 +68,7 @@ public partial class ScriptEditor : UserControl
     {
         if (_selected is not null)
         {
-            ScriptExecutor executor = new(_selected, Program.Settings);
+            ScriptExecutionWizard executor = new(_selected);
             executor.ExecuteNoUI();
         }
     }

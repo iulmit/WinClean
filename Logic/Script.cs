@@ -1,17 +1,11 @@
-﻿using RaphaëlBardini.WinClean.Operational;
+﻿namespace RaphaëlBardini.WinClean.Logic;
 
-namespace RaphaëlBardini.WinClean.Logic;
-
-/// <summary>
-/// A script that can be executed from a script host program.
-/// </summary>
+/// <summary>A script that can be executed from a script host program.</summary>
 public class Script : IScript
 {
     #region Public Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Script"/> class with the specified data.
-    /// </summary>
+    /// <summary>Initializes a new instance of the <see cref="Script"/> class with the specified data.</summary>
     /// <exception cref="ArgumentNullException">One or more parameters are <see langword="null"/>.</exception>
     public Script(string name, string description, ScriptAdvised advised, Impact impact, string group, string extension, string code)
     {

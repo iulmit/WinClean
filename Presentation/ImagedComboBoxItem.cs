@@ -1,8 +1,6 @@
 ﻿namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>
-/// Represents an item of an <see cref="ImagedComboBox"/>
-/// </summary>
+/// <summary>Represents an item of an <see cref="ImagedComboBox"/></summary>
 public record class ImagedComboBoxItem
 {
     #region Public Constructors
@@ -18,19 +16,13 @@ public record class ImagedComboBoxItem
 
     #region Public Properties
 
-    /// <summary>
-    /// Gets or sets the index of the image to display.
-    /// </summary>
+    /// <summary>Gets or sets the index of the image to display.</summary>
     public Image? Image { get; set; }
 
-    /// <summary>
-    /// Additional informations about the control
-    /// </summary>
+    /// <summary>Additional informations about the control</summary>
     public object? Tag { get; set; }
 
-    /// <summary>
-    /// Text associated with this instance.
-    /// </summary>
+    /// <summary>Text associated with this instance.</summary>
     public string? Text { get; set; }
 
     #endregion Public Properties

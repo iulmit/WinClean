@@ -18,5 +18,6 @@ public class FSErrorDialog : RetryExitDialog
                              (info ?? throw new ArgumentNullException(nameof(info))).FullName,
                              (e ?? throw new ArgumentNullException(nameof(e))).Message);
     }
+
     #endregion Public Constructors
 }
