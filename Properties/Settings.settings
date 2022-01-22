@@ -14,7 +14,7 @@
     <Setting Name="ShowScriptExecutionCompletedDetails" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="MaxPrompt" Type="System.UInt32" Scope="User">
+    <Setting Name="MaxPrompts" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
   </Settings>

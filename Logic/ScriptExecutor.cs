@@ -23,7 +23,7 @@ public class ScriptExecutor
     /// <param name="scripts">The scripts to execute.</param>
     /// <returns>An awaitable task.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
-    public async Task ExecuteScriptsAsync(IReadOnlyList<IScript> scripts, TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, Operational.FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+    public async Task ExecuteScriptsAsync(IReadOnlyList<IScript> scripts, TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, Operational.FSVerb, bool> promptRetryOnFSError, int promptLimit)
     {
         _ = scripts ?? throw new ArgumentNullException(nameof(scripts));
         await Task.Run(() =>

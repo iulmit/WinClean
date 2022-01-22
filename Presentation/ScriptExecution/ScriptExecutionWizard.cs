@@ -55,7 +55,7 @@ public class ScriptExecutionWizard
                                                                            Program.Settings.ScriptTimeout,
                                                                            name => KillIgnoreDialog.HungScript(name, Program.Settings.ScriptTimeout).ShowDialog(),
                                                                            (e, fSInfo, verb) => new FSErrorDialog(e, verb, fSInfo).ShowDialog(),
-                                                                           100/*chaud : placeholder*/).ConfigureAwait(false);
+                                                                           Program.Settings.MaxPrompts).ConfigureAwait(false);
 
     /// <summary>Executes the scripts and displays a dialog tracking the progress.</summary>
     // STEP 1 : Warning
@@ -139,7 +139,7 @@ public class ScriptExecutionWizard
                                                 Program.Settings.ScriptTimeout,
                                                 name => KillIgnoreDialog.HungScript(name, Program.Settings.ScriptTimeout).ShowDialog(),
                                                 (e, fSInfo, verb) => new FSErrorDialog(e, verb, fSInfo).ShowDialog(),
-                                                100/*chaud : placeholder*/).ConfigureAwait(true);
+                                                Program.Settings.MaxPrompts).ConfigureAwait(true);
             timer.Stop();
 
             if (progress.AutoRestart)

@@ -25,7 +25,7 @@ public class PowerShell : ScriptHost
 
     #region Public Methods
 
-    public override void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+    public override void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, int promptLimit)
         => base.ExecuteCode($"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process\r\n{code}", scriptName, timeout, promptKillOnHung, promptRetryOnFSError, promptLimit);
 
     #endregion Public Methods

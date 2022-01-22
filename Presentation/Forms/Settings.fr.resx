@@ -63,6 +63,9 @@
   <data name="labelLogLevel.Text" xml:space="preserve">
     <value>Niveau de journalisation :</value>
   </data>
+  <data name="labelPrompts.Text" xml:space="preserve">
+    <value>Réessais maximums :</value>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Annuler</value>
   </data>

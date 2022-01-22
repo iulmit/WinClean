@@ -33,9 +33,9 @@ public interface IScript
     #region Public Methods
 
     /// <summary>Executes the script.</summary>
-    /// <inheritdoc cref="ScriptHost.ExecuteCode(string, string, TimeSpan, Func{string, bool}, Func{Exception, FileSystemInfo, FSVerb, bool}, uint)" path="/param"/>
-    /// <inheritdoc cref="ScriptHost.ExecuteCode(string, string, TimeSpan, Func{string, bool}, Func{Exception, FileSystemInfo, FSVerb, bool}, uint)" path="/exception"/>
-    public void Execute(TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+    /// <inheritdoc cref="ScriptHost.ExecuteCode(string, string, TimeSpan, Func{string, bool}, Func{Exception, FileSystemInfo, FSVerb, bool}, int)" path="/param"/>
+    /// <inheritdoc cref="ScriptHost.ExecuteCode(string, string, TimeSpan, Func{string, bool}, Func{Exception, FileSystemInfo, FSVerb, bool}, int)" path="/exception"/>
+    public void Execute(TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, int promptLimit)
         => ScriptHostFactory.FromFileExtension(Extension).ExecuteCode(Code, Name, timeout, promptKillOnHung, promptRetryOnFSError, promptLimit);
 
     #endregion Public Methods

@@ -25,14 +25,14 @@ public abstract class ScriptHost
     /// Delegate invoked when the script is still running after <paramref name="timeout"/> has elapsed and is probably hung.
     /// </param>
     /// <param name="timeout">How long to wait for the script to end before throwing an <see cref="HungScriptException"/>.</param>
-    /// <inheritdoc cref="CreateTempFile(string, Func{Exception, FileSystemInfo, FSVerb, bool}, uint)"/>
-    public virtual void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+    /// <inheritdoc cref="CreateTempFile(string, Func{Exception, FileSystemInfo, FSVerb, bool}, int)"/>
+    public virtual void ExecuteCode(string code, string scriptName, TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, int promptLimit)
     {
         FileInfo tmpScriptFile = CreateTempFile(code, promptRetryOnFSError, promptLimit);
 
         using Process host = ExecuteHost(tmpScriptFile);
 
-        for (uint remainingPrompts = promptLimit; remainingPrompts > 0; remainingPrompts--)
+        for (int remainingPrompts = promptLimit; remainingPrompts > 0; remainingPrompts--)
         {
             try
             {
@@ -77,12 +77,12 @@ public abstract class ScriptHost
     /// <exception cref="IOException">
     /// An I/O error occured. -or- The disk is read-only. -and- <paramref name="promptRetryOnFSError"/> returned <see langword="false"/>.
     /// </exception>
-    protected static FileInfo CreateTempFile(string text, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+    protected static FileInfo CreateTempFile(string text, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, int promptLimit)
     {
         // Not catching IOException here
         FileInfo tmp = new(Path.GetTempFileName());
 
-        for (uint remainingPrompts = promptLimit; remainingPrompts > 0; --remainingPrompts)
+        for (int remainingPrompts = promptLimit; remainingPrompts > 0; --remainingPrompts)
         {
             try
             {

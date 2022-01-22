@@ -71,7 +71,7 @@ public class ScriptListViewItem : ListViewItem, IScript
 
     public void Delete() => Remove();
 
-    public void Execute(TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, uint promptLimit)
+    public void Execute(TimeSpan timeout, Func<string, bool> promptKillOnHung, Func<Exception, FileSystemInfo, FSVerb, bool> promptRetryOnFSError, int promptLimit)
         => _adaptee.Execute(timeout, promptKillOnHung, promptRetryOnFSError, promptLimit);
 
     #endregion Public Methods

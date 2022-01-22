@@ -36,14 +36,18 @@ partial class Settings
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             System.Windows.Forms.Label labelLogLevel;
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+            System.Windows.Forms.Label labelPrompts;
             this.comboBoxLogLevel = new System.Windows.Forms.ComboBox();
             this.comboBoxScriptTimeout = new System.Windows.Forms.ComboBox();
+            this.numericUpDownPrompts = new System.Windows.Forms.NumericUpDown();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             labelScriptTimeout = new System.Windows.Forms.Label();
             labelLogLevel = new System.Windows.Forms.Label();
             tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            labelPrompts = new System.Windows.Forms.Label();
             tableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrompts)).BeginInit();
             this.SuspendLayout();
             // 
             // labelScriptTimeout
@@ -61,23 +65,53 @@ partial class Settings
             // tableLayoutPanel
             // 
             resources.ApplyResources(tableLayoutPanel, "tableLayoutPanel");
+            tableLayoutPanel.CausesValidation = false;
             tableLayoutPanel.Controls.Add(this.comboBoxLogLevel, 1, 1);
             tableLayoutPanel.Controls.Add(labelScriptTimeout, 0, 0);
             tableLayoutPanel.Controls.Add(labelLogLevel, 0, 1);
             tableLayoutPanel.Controls.Add(this.comboBoxScriptTimeout, 1, 0);
+            tableLayoutPanel.Controls.Add(labelPrompts, 0, 2);
+            tableLayoutPanel.Controls.Add(this.numericUpDownPrompts, 1, 2);
             tableLayoutPanel.Name = "tableLayoutPanel";
             // 
             // comboBoxLogLevel
             // 
-            this.comboBoxLogLevel.CausesValidation = false;
             resources.ApplyResources(this.comboBoxLogLevel, "comboBoxLogLevel");
+            this.comboBoxLogLevel.CausesValidation = false;
             this.comboBoxLogLevel.Name = "comboBoxLogLevel";
             // 
             // comboBoxScriptTimeout
             // 
-            this.comboBoxScriptTimeout.CausesValidation = false;
             resources.ApplyResources(this.comboBoxScriptTimeout, "comboBoxScriptTimeout");
+            this.comboBoxScriptTimeout.CausesValidation = false;
             this.comboBoxScriptTimeout.Name = "comboBoxScriptTimeout";
+            // 
+            // labelPrompts
+            // 
+            resources.ApplyResources(labelPrompts, "labelPrompts");
+            labelPrompts.CausesValidation = false;
+            labelPrompts.Name = "labelPrompts";
+            // 
+            // numericUpDownPrompts
+            // 
+            resources.ApplyResources(this.numericUpDownPrompts, "numericUpDownPrompts");
+            this.numericUpDownPrompts.CausesValidation = false;
+            this.numericUpDownPrompts.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownPrompts.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownPrompts.Name = "numericUpDownPrompts";
+            this.numericUpDownPrompts.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // buttonCancel
             // 
@@ -112,6 +146,7 @@ partial class Settings
             this.Name = "Settings";
             this.Opacity = 0.96D;
             tableLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrompts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,4 +158,5 @@ partial class Settings
     private ComboBox comboBoxScriptTimeout;
     private Button buttonCancel;
     private Button buttonOK;
+    private NumericUpDown numericUpDownPrompts;
 }

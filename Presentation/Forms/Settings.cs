@@ -28,6 +28,7 @@ public partial class Settings : Form
     {
         Program.Settings.ScriptTimeout = ScriptTimeoutPreset.ParseLocalizedName((string)comboBoxScriptTimeout.SelectedItem).Duration;
         Program.Settings.LogLevel = (int)comboBoxLogLevel.SelectedItem;
+        Program.Settings.MaxPrompts = Convert.ToInt32(numericUpDownPrompts.Value);
         DialogResult = DialogResult.OK;
     }
 
