@@ -4,7 +4,7 @@ public class TimeoutException : Exception
 {
     #region Public Constructors
 
-    public TimeoutException() : base("A timeout was reached.")
+    public TimeoutException() : base(Resources.DevException.Timeout)
     {
     }
 
@@ -18,7 +18,7 @@ public class TimeoutException : Exception
 
     public TimeoutException(TimeSpan timeout, string message) : base(message) => Timeout = timeout;
 
-    public TimeoutException(TimeSpan timeout) : base($"A timeout of {timeout} was reached.") => Timeout = timeout;
+    public TimeoutException(TimeSpan timeout) : base(string.Format(CultureInfo.CurrentCulture, Resources.DevException.TimeoutSpecified, timeout)) => Timeout = timeout;
 
     #endregion Public Constructors
 

@@ -47,7 +47,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Remplace la propriété CultureInfo.CurrentUICulture du thread actuel pour toutes
+        ///   Remplace la propriété CurrentUICulture du thread actuel pour toutes
         ///   les recherches de ressources à l'aide de cette classe de ressource fortement typée.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -57,6 +57,24 @@ namespace RaphaëlBardini.WinClean.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à A bad file extension was specified..
+        /// </summary>
+        internal static string BadFileExtension {
+            get {
+                return ResourceManager.GetString("BadFileExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bad file extension for the operation : &apos;{0}&apos;..
+        /// </summary>
+        internal static string BadFileExtensionSpecified {
+            get {
+                return ResourceManager.GetString("BadFileExtensionSpecified", resourceCulture);
             }
         }
         
@@ -75,6 +93,24 @@ namespace RaphaëlBardini.WinClean.Resources {
         internal static string FileSystemException {
             get {
                 return ResourceManager.GetString("FileSystemException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à A script is probably hung..
+        /// </summary>
+        internal static string HungScript {
+            get {
+                return ResourceManager.GetString("HungScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The script &apos;{0}&apos; is probably hung..
+        /// </summary>
+        internal static string HungScriptSpecified {
+            get {
+                return ResourceManager.GetString("HungScriptSpecified", resourceCulture);
             }
         }
         
@@ -102,6 +138,33 @@ namespace RaphaëlBardini.WinClean.Resources {
         internal static string NullOrWhitspace {
             get {
                 return ResourceManager.GetString("NullOrWhitspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cannot create system restore point because system protection is disabled..
+        /// </summary>
+        internal static string SystemProtectionDisabled {
+            get {
+                return ResourceManager.GetString("SystemProtectionDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à A timeout was reached.
+        /// </summary>
+        internal static string Timeout {
+            get {
+                return ResourceManager.GetString("Timeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à A timeout of {0} was reached..
+        /// </summary>
+        internal static string TimeoutSpecified {
+            get {
+                return ResourceManager.GetString("TimeoutSpecified", resourceCulture);
             }
         }
         

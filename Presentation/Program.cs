@@ -1,5 +1,7 @@
 ﻿global using System.Globalization;
 
+using RaphaëlBardini.WinClean.Presentation.Dialogs;
+
 namespace RaphaëlBardini.WinClean.Presentation;
 
 /// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>

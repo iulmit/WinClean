@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConfirmAbortOperation" xml:space="preserve">
     <value>Abandonner l'opération risque de rendre le système instable. Voulez-vous vraiment continuer ?</value>
@@ -136,10 +136,27 @@
     <value>Le script "{0}" est en cours d'exécution depuis {1} et ne s'arrêtera probablement jamais.</value>
   </data>
   <data name="KillScriptButton" xml:space="preserve">
-    <value>Forcer l'arrêt du script</value>
+    <value>Forcer l'arrêt</value>
   </data>
   <data name="SingleInstanceOnly" xml:space="preserve">
     <value>L'application est déjà en cours d'exécution.</value>
+  </data>
+  <data name="SystemProtectionDisabledExpander" xml:space="preserve">
+    <value>Pour activer la protection du système :
+Allez dans "Propriétés système" ;
+Sélectionnez l'onglet "Protection du système" ;
+Sélectionnez le lecteur système ;
+Cliquez sur "Configurer" ;
+Cliquez sur "Activer la protection du système"</value>
+  </data>
+  <data name="SystemProtectionDisabledExpanderCollapsedButton" xml:space="preserve">
+    <value>Afficher les étapes de dépannage</value>
+  </data>
+  <data name="SystemProtectionDisabledExpanderExpandedButton" xml:space="preserve">
+    <value>Masquer les étapes de dépannage</value>
+  </data>
+  <data name="SystemProtectionDisabledHeading" xml:space="preserve">
+    <value>Impossible de créer le point de restauration système car la protection du système est désactivée.</value>
   </data>
   <data name="SystemRestorePoint" xml:space="preserve">
     <value>Afin de pouvoir annuler les changements allant être apportés aux système, il est recommandé de créer un point de restauration système.

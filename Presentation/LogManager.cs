@@ -2,6 +2,7 @@
 using CsvHelper.Configuration;
 
 using RaphaëlBardini.WinClean.Operational;
+using RaphaëlBardini.WinClean.Presentation.Dialogs;
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;

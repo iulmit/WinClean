@@ -8,9 +8,10 @@ public class HungScriptException : Exception
     {
     }
 
-    public HungScriptException(string? scriptName, Exception? innerException) : base($"The script '{scriptName}' is probably hung.", innerException) => ScriptName = scriptName;
+    public HungScriptException(string? scriptName, Exception? innerException) : base(string.Format(CultureInfo.CurrentCulture, Resources.DevException.HungScriptSpecified, scriptName), innerException)
+        => ScriptName = scriptName;
 
-    public HungScriptException() : base("A script is probably hung.")
+    public HungScriptException() : base(Resources.DevException.HungScript)
     {
     }
 

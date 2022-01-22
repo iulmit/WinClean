@@ -1,5 +1,6 @@
 ﻿using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
+using RaphaëlBardini.WinClean.Presentation.Dialogs;
 
 using System.Diagnostics;
 
@@ -11,7 +12,7 @@ using System.Diagnostics;
 
 namespace RaphaëlBardini.WinClean.Presentation.ScriptExecution;
 
-/// <summary>Walk the user through the asynchronous execution of scripts by displaying a task dialog tracking the progress.</summary>
+/// <summary>Walks the user through the multistep high-level operation of the execution of multiple scripts asynchronously by displaying a task dialog tracking the progress.</summary>
 public class ScriptExecutionWizard
 {
     #region Private Fields
@@ -66,16 +67,30 @@ public class ScriptExecutionWizard
         {
             if (YesNoDialog.SystemRestorePoint.ShowDialog())
             {
-                try
+                bool @continue = true;
+                do
                 {
-                    new RestorePoint(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutionWizard.ScriptExecution, Application.ProductName),
-                                     EventType.BeginSystemChange,
-                                     RestorePointType.ModifySettings).Create();
-                }
-                catch (SystemRestoreDisabledException e)
-                {
-                    _ = MessageBox.Show(warning.BoundDialog, e.Message, "Restore point", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                }
+                    try
+                    {
+                        new RestorePoint(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutionWizard.ScriptExecution, Application.ProductName),
+                                         EventType.BeginSystemChange,
+                                         RestorePointType.ModifySettings).Create();
+                        @continue = true;
+                    }
+                    catch (SystemProtectionDisabledException)
+                    {
+                        TaskDialogButton result = ContinueRetryAbortDialog.SystemRestoreDisabled.ShowPage();
+                        if (result == TaskDialogButton.Retry)
+                        {
+                            @continue = false;
+                        }
+                        else if (result == TaskDialogButton.Abort)
+                        {
+                            warning.Buttons.First(b => b == TaskDialogButton.Cancel).PerformClick();
+                            return;
+                        }
+                    }
+                } while (!@continue);
             }
 
             warning.Navigate(CreateProgressPage());

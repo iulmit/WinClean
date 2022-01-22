@@ -47,7 +47,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Remplace la propriété CultureInfo.CurrentUICulture du thread actuel pour toutes
+        ///   Remplace la propriété CurrentUICulture du thread actuel pour toutes
         ///   les recherches de ressources à l'aide de cette classe de ressource fortement typée.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -97,7 +97,7 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Can&apos;t {0} {1} &quot;{2}&quot;. {3}.
+        ///   Recherche une chaîne localisée semblable à Cannot {0} {1} &quot;{2}&quot;. {3}.
         /// </summary>
         internal static string FSError {
             get {
@@ -129,6 +129,47 @@ namespace RaphaëlBardini.WinClean.Resources {
         internal static string SingleInstanceOnly {
             get {
                 return ResourceManager.GetString("SingleInstanceOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à To enable system protection  :
+        ///Go to &quot;System properties&quot; ;
+        ///Select the &quot;System restore&quot; tab ;
+        ///Select the system drive ;
+        ///Click on &quot;Configure&quot; ;
+        ///Select &quot;Turn on system protection&quot;..
+        /// </summary>
+        internal static string SystemProtectionDisabledExpander {
+            get {
+                return ResourceManager.GetString("SystemProtectionDisabledExpander", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Show troubleshooting steps.
+        /// </summary>
+        internal static string SystemProtectionDisabledExpanderCollapsedButton {
+            get {
+                return ResourceManager.GetString("SystemProtectionDisabledExpanderCollapsedButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Hide troubleshooting steps.
+        /// </summary>
+        internal static string SystemProtectionDisabledExpanderExpandedButton {
+            get {
+                return ResourceManager.GetString("SystemProtectionDisabledExpanderExpandedButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cannot create system restore point because system protection is disabled..
+        /// </summary>
+        internal static string SystemProtectionDisabledHeading {
+            get {
+                return ResourceManager.GetString("SystemProtectionDisabledHeading", resourceCulture);
             }
         }
         

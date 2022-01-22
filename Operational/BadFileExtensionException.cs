@@ -5,12 +5,12 @@ public class BadFileExtensionException : IOException
 {
     #region Public Constructors
 
-    public BadFileExtensionException() : base("A bad file extension has been specified.")
+    public BadFileExtensionException() : base(Resources.DevException.BadFileExtension)
     {
     }
 
     /// <param name="extension">The wrong extension.</param>
-    public BadFileExtensionException(string? extension) : base($"Bad file extension for the operation : '{extension}'.") => Extension = extension;
+    public BadFileExtensionException(string? extension) : base(string.Format(CultureInfo.CurrentCulture, Resources.DevException.BadFileExtensionSpecified, extension)) => Extension = extension;
 
     /// <param name="extension">The wrong extension.</param>
     /// <param name="message">The exception's message.</param>

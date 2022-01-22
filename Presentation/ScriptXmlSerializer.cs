@@ -1,5 +1,6 @@
 ﻿using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
+using RaphaëlBardini.WinClean.Presentation.Dialogs;
 
 using System.Xml;
 

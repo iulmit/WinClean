@@ -1,6 +1,6 @@
 ﻿using RaphaëlBardini.WinClean.Operational;
 
-namespace RaphaëlBardini.WinClean.Presentation;
+namespace RaphaëlBardini.WinClean.Presentation.Dialogs;
 
 public class RetryExitDialog : Dialog
 {
@@ -20,7 +20,7 @@ public class RetryExitDialog : Dialog
 
     #endregion Protected Constructors
 
-    #region Private Properties
+    #region Public Properties
 
     public static RetryExitDialog SingleInstanceOnly => new()
     {
@@ -34,7 +34,7 @@ public class RetryExitDialog : Dialog
         Text = string.Format(CultureInfo.CurrentCulture, Resources.Dialog.WrongStartupPath, AppDir.Instance.Info)
     };
 
-    #endregion Private Properties
+    #endregion Public Properties
 
     #region Public Methods
 

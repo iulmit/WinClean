@@ -112,16 +112,30 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BadFileExtension" xml:space="preserve">
+    <value>A bad file extension was specified.</value>
+  </data>
+  <data name="BadFileExtensionSpecified" xml:space="preserve">
+    <value>Bad file extension for the operation : '{0}'.</value>
+    <comment>0 : string : the bad file extension</comment>
+  </data>
   <data name="CollectionContainsNull" xml:space="preserve">
     <value>Collection contains null.</value>
   </data>
   <data name="FileSystemException" xml:space="preserve">
     <value>A file system exception was thrown.</value>
+  </data>
+  <data name="HungScript" xml:space="preserve">
+    <value>A script is probably hung.</value>
+  </data>
+  <data name="HungScriptSpecified" xml:space="preserve">
+    <value>The script '{0}' is probably hung.</value>
+    <comment>0 : string : the name of the hung script</comment>
   </data>
   <data name="InvalidFilenameChars" xml:space="preserve">
     <value>The string contains invalid filename chars.</value>
@@ -134,6 +148,16 @@
   </data>
   <data name="NullOrWhitspace" xml:space="preserve">
     <value>The string can't be null or whitespace.</value>
+  </data>
+  <data name="SystemProtectionDisabled" xml:space="preserve">
+    <value>Cannot create system restore point because system protection is disabled.</value>
+  </data>
+  <data name="Timeout" xml:space="preserve">
+    <value>A timeout was reached</value>
+  </data>
+  <data name="TimeoutSpecified" xml:space="preserve">
+    <value>A timeout of {0} was reached.</value>
+    <comment>0 : TimeSpan : the timeout</comment>
   </data>
   <data name="WrongFormatItemCount" xml:space="preserve">
     <value>The composite format string doesn't contain exactly {0} format items.</value>

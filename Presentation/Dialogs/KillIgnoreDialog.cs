@@ -1,6 +1,6 @@
 ﻿using RaphaëlBardini.WinClean.Operational;
 
-namespace RaphaëlBardini.WinClean.Presentation;
+namespace RaphaëlBardini.WinClean.Presentation.Dialogs;
 
 public class KillIgnoreDialog : Dialog
 {
