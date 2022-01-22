@@ -1,5 +1,6 @@
 ﻿using RaphaëlBardini.WinClean.Logic;
 using RaphaëlBardini.WinClean.Operational;
+using RaphaëlBardini.WinClean.Presentation.ScriptExecution;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
@@ -60,7 +61,7 @@ public partial class MainForm : Form
     {
         IList<IScript> scripts = listViewScripts.CheckedItems.Cast<IScript>().ToList();
 
-        ScriptExecutionWizard executor = new(scripts);
+        ScriptExecutionWizard executor = new(scripts.ToList());
 
         if (scripts.Count > 1)
         {

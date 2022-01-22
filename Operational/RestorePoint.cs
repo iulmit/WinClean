@@ -1,4 +1,5 @@
 ﻿using System.Management;
+using System.Runtime.InteropServices;
 
 namespace RaphaëlBardini.WinClean.Operational;
 
@@ -51,6 +52,7 @@ public class RestorePoint
 
     /// <summary>Creates a restore point on the local system.</summary>
     /// <exception cref="ManagementException">Access denied.</exception>
+    /// <exception cref="SystemRestoreDisabledException">System restore is disabled.</exception>
     public void Create()
     {
         ManagementScope mScope = new("\\\\localhost\\root\\default");
@@ -62,7 +64,16 @@ public class RestorePoint
         parameters["Description"] = _description;
         parameters["EventType"] = (int)_eventType;
         parameters["RestorePointType"] = (int)_type;
-        _ = mClass.InvokeMethod("CreateRestorePoint", parameters, null);
+
+        try
+        {
+            _ = mClass.InvokeMethod("CreateRestorePoint", parameters, null);
+        }
+        // HRESULT -2147023838 = 0x80070422 : system restore is disabled
+        catch (COMException e) when (e.HResult == -2147023838)
+        {
+            throw new SystemRestoreDisabledException();
+        }
     }
 
     #endregion Public Methods

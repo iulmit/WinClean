@@ -73,13 +73,8 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="27.2.0" />
+    <PackageReference Include="System.Management" Version="6.0.2-mauipre.1.22054.8" />
     <PackageReference Include="WinCopies.WindowsAPICodePack.Shell" Version="3.8.2-preview" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Management">
-      <HintPath>D:\Programmes\Visual Studio 2022\IDE\Common7\IDE\CommonExtensions\Microsoft\ManagedLanguages\VBCSharp\LanguageServices\Core\System.Management.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
