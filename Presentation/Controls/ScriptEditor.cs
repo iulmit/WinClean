@@ -3,7 +3,7 @@ using RaphaëlBardini.WinClean.Presentation.ScriptExecution;
 
 using WinCopies.Collections;
 
-namespace RaphaëlBardini.WinClean.Presentation;
+namespace RaphaëlBardini.WinClean.Presentation.Controls;
 
 /// <summary>Control used to display and edit a script.</summary>
 public partial class ScriptEditor : UserControl

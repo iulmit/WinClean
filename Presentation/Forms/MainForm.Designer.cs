@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 
-namespace RaphaëlBardini.WinClean.Presentation;
+namespace RaphaëlBardini.WinClean.Presentation.Forms;
 
 partial class MainForm
 {
@@ -37,7 +37,7 @@ partial class MainForm
             this.tableLayoutPanelAll = new System.Windows.Forms.TableLayoutPanel();
             this.listViewScripts = new System.Windows.Forms.ListView();
             this.scriptHeaderName = new System.Windows.Forms.ColumnHeader();
-            this.scriptEditor = new RaphaëlBardini.WinClean.Presentation.ScriptEditor();
+            this.scriptEditor = new RaphaëlBardini.WinClean.Presentation.Controls.ScriptEditor();
             this.tableLayoutPanelButtons = new System.Windows.Forms.TableLayoutPanel();
             this.buttonExecuteScripts = new System.Windows.Forms.Button();
             this.buttonAddScript = new System.Windows.Forms.Button();
@@ -298,7 +298,7 @@ partial class MainForm
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelectDebloat;
     private System.Windows.Forms.ColumnHeader scriptHeaderName;
     private System.Windows.Forms.OpenFileDialog openFileDialogScript;
-    private ScriptEditor scriptEditor;
+    private Controls.ScriptEditor scriptEditor;
     private System.Windows.Forms.TableLayoutPanel tableLayoutPanelAll;
     private System.Windows.Forms.ToolStripContainer toolStripContainerAll;
     private System.Windows.Forms.MenuStrip mainMenuStrip;

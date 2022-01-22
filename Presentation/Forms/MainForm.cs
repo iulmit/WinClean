@@ -2,7 +2,7 @@
 using RaphaëlBardini.WinClean.Operational;
 using RaphaëlBardini.WinClean.Presentation.ScriptExecution;
 
-namespace RaphaëlBardini.WinClean.Presentation;
+namespace RaphaëlBardini.WinClean.Presentation.Forms;
 
 /// <summary>
 /// This is the application's main form. It regroups several features, including the main commit buttons, script selection, and

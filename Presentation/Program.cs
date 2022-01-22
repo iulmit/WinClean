@@ -60,7 +60,7 @@ public static class Program
         EnsureSingleInstance();
         EnsureStartupPathCorrect();
 
-        using MainForm mainForm = new();
+        using Forms.MainForm mainForm = new();
         Application.Run(mainForm);
     }
 

@@ -1,4 +1,4 @@
-﻿namespace RaphaëlBardini.WinClean.Presentation;
+﻿namespace RaphaëlBardini.WinClean.Presentation.Controls;
 
 /// <summary>Represents a combo box with images instad of text for elements.</summary>
 public class ImagedComboBox : ComboBox

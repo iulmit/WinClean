@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace RaphaëlBardini.WinClean.Presentation;
+namespace RaphaëlBardini.WinClean.Presentation.Forms;
 
 /// <summary>Displays the traditional about box with application-related metadata</summary>
 public partial class AboutBox : Form

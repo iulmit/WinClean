@@ -1,4 +1,4 @@
-﻿namespace RaphaëlBardini.WinClean.Presentation;
+﻿namespace RaphaëlBardini.WinClean.Presentation.Controls;
 
 /// <summary>Represents an item of an <see cref="ImagedComboBox"/></summary>
 public record class ImagedComboBoxItem
