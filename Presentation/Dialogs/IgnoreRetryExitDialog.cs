@@ -4,13 +4,23 @@ namespace RaphaëlBardini.WinClean.Presentation.Dialogs;
 
 public class IgnoreRetryExitDialog : Dialog
 {
+    #region Private Fields
+
     private static readonly TaskDialogButtonCollection s_buttons = new() { TaskDialogButton.Ignore, TaskDialogButton.Retry, Resources.Dialog.ExitButton };
+
+    #endregion Private Fields
+
+    #region Public Constructors
 
     public IgnoreRetryExitDialog()
     {
         s_buttons[2].Click += (_, _) => s_buttons[2].AllowCloseDialog = YesNoDialog.ProgramExit.ShowDialog();
         Buttons = s_buttons;
     }
+
+    #endregion Public Constructors
+
+    #region Public Methods
 
     public DialogResult ShowDialog()
     {
@@ -30,4 +40,6 @@ public class IgnoreRetryExitDialog : Dialog
             return DialogResult.None;
         }
     }
+
+    #endregion Public Methods
 }

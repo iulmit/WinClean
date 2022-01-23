@@ -2,7 +2,14 @@
 
 public class CompletedPage : TaskDialogPage
 {
+    #region Private Fields
+
     private readonly TaskDialogButton _restart = new(Resources.ScriptExecutionWizard.RestartVerb);
+
+    #endregion Private Fields
+
+    #region Public Constructors
+
     public CompletedPage(int scriptsCount, TimeSpan elapsed)
     {
         AllowCancel = AllowMinimize = true;
@@ -15,8 +22,13 @@ public class CompletedPage : TaskDialogPage
         };
         Heading = Resources.ScriptExecutionWizard.CompletedPageHeading;
         Text = Resources.ScriptExecutionWizard.CompletedPageText;
-
     }
 
+    #endregion Public Constructors
+
+    #region Public Events
+
     public event EventHandler RestartClicked { add => _restart.Click += value; remove => _restart.Click -= value; }
+
+    #endregion Public Events
 }

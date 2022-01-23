@@ -2,6 +2,8 @@
 
 public class SystemProtectionDisabledException : Exception
 {
+    #region Public Constructors
+
     public SystemProtectionDisabledException(string message) : base(message)
     {
     }
@@ -13,4 +15,6 @@ public class SystemProtectionDisabledException : Exception
     public SystemProtectionDisabledException() : base(Resources.DevException.SystemProtectionDisabled)
     {
     }
+
+    #endregion Public Constructors
 }

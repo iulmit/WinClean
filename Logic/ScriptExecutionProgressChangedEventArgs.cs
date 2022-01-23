@@ -2,7 +2,15 @@
 
 public class ScriptExecutionProgressChangedEventArgs : EventArgs
 {
-    public ScriptExecutionProgressChangedEventArgs(int scriptIndex) => ScriptIndex = scriptIndex;
-    public int ScriptIndex { get; }
-}
+    #region Public Constructors
 
+    public ScriptExecutionProgressChangedEventArgs(int scriptIndex) => ScriptIndex = scriptIndex;
+
+    #endregion Public Constructors
+
+    #region Public Properties
+
+    public int ScriptIndex { get; }
+
+    #endregion Public Properties
+}

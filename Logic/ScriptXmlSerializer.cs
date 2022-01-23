@@ -27,16 +27,18 @@ public class ScriptXmlSerializer : IScriptSerializer
 
     #region Public Methods
 
-    /// <summary>
-    /// Deserializes a script from an XML file.
-    /// </summary>
+    /// <summary>Deserializes a script from an XML file.</summary>
     /// <param name="source">The XML file.</param>
     /// <returns>A new <see cref="IScript"/> object.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>
     /// <exception cref="XmlException"><paramref name="source"/> is not a valid XML document.</exception>
-    /// <exception cref="DirectoryNotFoundException"><paramref name="source"/> is invalid (for example, it is on an unmapped drive).</exception>
+    /// <exception cref="DirectoryNotFoundException">
+    /// <paramref name="source"/> is invalid (for example, it is on an unmapped drive).
+    /// </exception>
     /// <exception cref="IOException">An I/O error occurred while opening <paramref name="source"/>.</exception>
-    /// <exception cref="UnauthorizedAccessException"><paramref name="source"/> is readonly. -or- The caller does not have the required permission.</exception>
+    /// <exception cref="UnauthorizedAccessException">
+    /// <paramref name="source"/> is readonly. -or- The caller does not have the required permission.
+    /// </exception>
     /// <exception cref="FileNotFoundException"><paramref name="source"/> was not found.</exception>
     /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
     public IScript Deserialize(FileInfo source)

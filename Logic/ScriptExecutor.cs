@@ -2,12 +2,17 @@
 
 public class ScriptExecutor
 {
-    public event EventHandler<ScriptExecutionProgressChangedEventArgs> ProgressChanged { add => _progress.ProgressChanged += value; remove => _progress.ProgressChanged -= value; }
+    #region Private Fields
 
     private readonly Progress<ScriptExecutionProgressChangedEventArgs> _progress = new();
 
-    private readonly CancellationTokenSource cts;
     private readonly CancellationToken ct;
+
+    private readonly CancellationTokenSource cts;
+
+    #endregion Private Fields
+
+    #region Public Constructors
 
     public ScriptExecutor()
     {
@@ -15,11 +20,19 @@ public class ScriptExecutor
         ct = cts.Token;
     }
 
+    #endregion Public Constructors
+
+    #region Public Events
+
+    public event EventHandler<ScriptExecutionProgressChangedEventArgs> ProgressChanged { add => _progress.ProgressChanged += value; remove => _progress.ProgressChanged -= value; }
+
+    #endregion Public Events
+
+    #region Public Methods
+
     public void CancelScriptExecution() => cts.Cancel(true);
 
-    /// <summary>
-    /// Executes asynchronously a list of scripts. Raises the <see cref="ProgressChanged"/> event.
-    /// </summary>
+    /// <summary>Executes asynchronously a list of scripts. Raises the <see cref="ProgressChanged"/> event.</summary>
     /// <param name="scripts">The scripts to execute.</param>
     /// <returns>An awaitable task.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
@@ -40,4 +53,6 @@ public class ScriptExecutor
             void ReportProgress() => ((IProgress<ScriptExecutionProgressChangedEventArgs>)_progress).Report(new(scriptIndex));
         }, ct).ConfigureAwait(false);
     }
+
+    #endregion Public Methods
 }

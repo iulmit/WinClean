@@ -7,10 +7,16 @@ namespace RaphaëlBardini.WinClean.Presentation.ScriptExecution;
 
 public class ProgressPage : TaskDialogPage
 {
+    #region Private Fields
+
+    private readonly TaskDialogButton _cancel = TaskDialogButton.Cancel;
+    private readonly IReadOnlyList<IScript> _scripts;
     private TimeSpan _elapsed;
     private int _scriptIndex;
-    private readonly IReadOnlyList<IScript> _scripts;
-    private readonly TaskDialogButton _cancel = TaskDialogButton.Cancel;
+
+    #endregion Private Fields
+
+    #region Public Constructors
 
     /// <exception cref="ArgumentNullException"><paramref name="scripts"/> is <see langword="null"/>.</exception>
     public ProgressPage(IReadOnlyList<IScript> scripts)
@@ -39,9 +45,27 @@ public class ProgressPage : TaskDialogPage
             => Program.Settings.ShowScriptExecutionProgressDetails = Expander.Expanded;
     }
 
+    #endregion Public Constructors
+
+    #region Public Events
+
     public event EventHandler CancelClicked { add => _cancel.Click += value; remove => _cancel.Click -= value; }
 
+    #endregion Public Events
+
+    #region Public Properties
+
     public bool AutoRestart { get; private set; }
+
+    public int CurrentScriptIndex
+    {
+        get => _scriptIndex;
+        set
+        {
+            _scriptIndex = value;
+            Update();
+        }
+    }
 
     public TimeSpan Elapsed
     {
@@ -52,15 +76,10 @@ public class ProgressPage : TaskDialogPage
             Update();
         }
     }
-    public int CurrentScriptIndex
-    {
-        get => _scriptIndex;
-        set
-        {
-            _scriptIndex = value;
-            Update();
-        }
-    }
+
+    #endregion Public Properties
+
+    #region Private Methods
 
     private void Update()
     {
@@ -76,5 +95,6 @@ public class ProgressPage : TaskDialogPage
             ProgressBar.Value = CurrentScriptIndex;
         }
     }
-}
 
+    #endregion Private Methods
+}

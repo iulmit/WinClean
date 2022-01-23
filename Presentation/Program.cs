@@ -4,7 +4,6 @@ using RaphaëlBardini.WinClean.Presentation.Dialogs;
 
 namespace RaphaëlBardini.WinClean.Presentation;
 
-/// <summary>Holds the <see cref="Main"/> method and application-wide data.</summary>
 public static class Program
 {
     #region Public Properties
@@ -56,14 +55,23 @@ public static class Program
     [STAThread]
     private static void Main()
     {
+        "The application started.".Log("Start", LogLevel.Info);
+
         Application.SetCompatibleTextRenderingDefault(false);
         Application.EnableVisualStyles();
 
+        "Ensuring single instance...".Log("Single instance");
         EnsureSingleInstance();
+        "Single instance OK.".Log("Single instance");
+
+        "Ensuring startup path correct...".Log("Startup path");
         EnsureStartupPathCorrect();
+        "Startup path OK.".Log("Startup path");
 
         using Forms.MainForm mainForm = new();
         Application.Run(mainForm);
+
+        Exit();
     }
 
     private static bool PathEquals(string left, string right) => string.Equals(left, right, StringComparison.OrdinalIgnoreCase);

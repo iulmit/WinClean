@@ -14,6 +14,8 @@ public partial class MainForm : Form
 
     public MainForm()
     {
+        "Loading MainForm...".Log("MainForm");
+
         InitializeComponent();
 
         Icon = Resources.Icons.Main;
@@ -23,6 +25,8 @@ public partial class MainForm : Form
         ScriptsDir.Instance.LoadScripts(listViewScripts);
 
         MainMenuAbout.Text = string.Format(CultureInfo.CurrentCulture, Resources.FormattableStrings.About, Application.ProductName);
+
+        "MainForm loaded.".Log("MainForm");
     }
 
     #endregion Public Constructors
@@ -44,6 +48,7 @@ public partial class MainForm : Form
 
     private void ButtonAddScript_Click(object _, EventArgs __)
     {
+        "Add script button clicked.".Log("MainForm");
         if (openFileDialogScript.ShowDialog(this) == DialogResult.OK)
         {
             string path = openFileDialogScript.FileName;
@@ -59,6 +64,8 @@ public partial class MainForm : Form
 
     private void ButtonExecuteScripts_Click(object _, EventArgs __)
     {
+        "Execute scripts button clicked.".Log("MainForm");
+
         IList<IScript> scripts = listViewScripts.CheckedItems.Cast<IScript>().ToList();
 
         ScriptExecutionWizard executor = new(scripts.ToList());
