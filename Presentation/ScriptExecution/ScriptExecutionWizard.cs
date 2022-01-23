@@ -2,6 +2,9 @@
 using RaphaëlBardini.WinClean.Operational;
 using RaphaëlBardini.WinClean.Presentation.Dialogs;
 
+using static RaphaëlBardini.WinClean.Resources.LogStrings;
+using static RaphaëlBardini.WinClean.Resources.Happenings;
+
 using System.Diagnostics;
 
 /* Steps :
@@ -55,7 +58,7 @@ public class ScriptExecutionWizard
     /// <summary>Executes the scripts without displaying a dialog.</summary>
     public async void ExecuteNoUI()
     {
-        "Executing scripts without UI...".Log("Script execution", LogLevel.Verbose);
+        Resources.LogStrings.ExecuteNoUI.Log(Resources.Happenings.ScriptExecution, LogLevel.Verbose);
         await _executor.ExecuteScriptsAsync(_scripts,
                                             Program.Settings.ScriptTimeout,
                                             name => KillIgnoreDialog.HungScript(name, Program.Settings.ScriptTimeout).ShowDialog(),
@@ -67,7 +70,7 @@ public class ScriptExecutionWizard
     // STEP 1 : Warning
     public void ExecuteUI()
     {
-        "Executing scripts with UI...".Log("Script execution");
+        Resources.LogStrings.ExecuteUI.Log(Resources.Happenings.ScriptExecution);
 
         ScriptExecution.WarningPage warning = new();
 
@@ -80,42 +83,42 @@ public class ScriptExecutionWizard
                 {
                     try
                     {
-                        "Creating restore point...".Log("Script execution restore point");
+                        CreatingRestorePoint.Log(ScriptExecutionRestorePoint);
                         new RestorePoint(string.Format(CultureInfo.CurrentCulture, Resources.ScriptExecutionWizard.ScriptExecution, Application.ProductName),
                                          EventType.BeginSystemChange,
                                          RestorePointType.ModifySettings).Create();
-                        "Restore point created successfully.".Log("Script execution restore point");
+                        RestorePointCreated.Log(ScriptExecutionRestorePoint);
                         @continue = true;
                     }
                     catch (SystemProtectionDisabledException e)
                     {
-                        $"Error during restore point creation : {e.Message}\nPrompting user to take action.".Log("Script execution restore point", LogLevel.Error);
+                        string.Format(CultureInfo.CurrentCulture, RestorePointCreationError, e.Message).Log(ScriptExecutionRestorePoint, LogLevel.Error);
                         TaskDialogButton result = ContinueRetryAbortDialog.SystemRestoreDisabled.ShowPage();
                         if (result == TaskDialogButton.Retry)
                         {
-                            "User chose to retry creating a restore point.".Log("Script execution restore point");
+                            UserChoseRetryCreatingRestorePoint.Log(ScriptExecutionRestorePoint);
                             @continue = false;
                         }
                         else if (result == TaskDialogButton.Abort)
                         {
-                            "User chose to abort the script execution.".Log("Script execution restore point");
+                            UserChoseAbortScriptExecution.Log(ScriptExecutionRestorePoint);
                             warning.Buttons.First(b => b == TaskDialogButton.Cancel).PerformClick();
                             return;
                         }
                         else
                         {
-                            "User chose to continue script execution anyway.".Log("Script execution restore point");
+                            UserChoseContinueScriptExecution.Log(ScriptExecutionRestorePoint);
                             @continue = true;
                         }
                     }
                 } while (!@continue);
             }
 
-            $"Showing progress page...".Log("Script execution", LogLevel.Verbose);
+            ShowingProgressPage.Log(Resources.Happenings.ScriptExecution, LogLevel.Verbose);
             warning.Navigate(CreateProgressPage());
         };
 
-        $"Showing warning page...".Log("Script execution", LogLevel.Verbose);
+        ShowingWarningPage.Log(Resources.Happenings.ScriptExecution, LogLevel.Verbose);
         _ = warning.ShowPage();
     }
 
@@ -125,7 +128,7 @@ public class ScriptExecutionWizard
 
     private static void RebootForApplicationMaintenance()
     {
-        $"Rebooting for application maintenance...".Log("Script execution");
+        RebootingForAppMaintenance.Log(Resources.Happenings.ScriptExecution);
         _ = Process.Start("shutdown", $"/g /t 0 /d p:4:1");
     }
 
@@ -136,12 +139,12 @@ public class ScriptExecutionWizard
 
         progress.CancelClicked += (s, e) =>
         {
-            "Canceled button clicked. Asking user for confirmation...".Log("Script execution cancelation");
+            CancelClickedPromptingUserConfirmation.Log(ScriptExecutionCancelation);
             if (YesNoDialog.AbortOperation.ShowDialog())
             {
-                "User confirmed cancelation. Canceling script execution...".Log("Script execution cancelation");
+                UserConfirmedCancelationCanceling.Log(ScriptExecutionCancelation);
                 _executor.CancelScriptExecution();
-                "Script execution canceled.".Log("Script execution cancelation");
+                ScriptExecutionCanceled.Log(ScriptExecutionCancelation);
             }
         };
 
@@ -162,13 +165,13 @@ public class ScriptExecutionWizard
             };
 
             timer.Start();
-            $"Starting the execution of {_scripts.Count} script(s)...".Log("Script execution");
+            string.Format(CultureInfo.CurrentCulture, StartingExecutionOfScripts, _scripts.Count).Log(Resources.Happenings.ScriptExecution);
             await _executor.ExecuteScriptsAsync(_scripts,
                                                 Program.Settings.ScriptTimeout,
                                                 name => KillIgnoreDialog.HungScript(name, Program.Settings.ScriptTimeout).ShowDialog(),
                                                 (e, fSInfo, verb) => FSErrorFactory.MakeFSError<RetryExitDialog>(e, verb, fSInfo).ShowDialog(),
                                                 Program.Settings.MaxPrompts).ConfigureAwait(true);
-            $"Script(s) executed successfully.".Log("Script execution");
+            ScriptsExecutedSuccessfully.Log(Resources.Happenings.ScriptExecution);
             timer.Stop();
 
             if (progress.AutoRestart)
@@ -179,7 +182,7 @@ public class ScriptExecutionWizard
             {
                 CompletedPage completed = new(_scripts.Count, progress.Elapsed);
                 completed.RestartClicked += (_, _) => RebootForApplicationMaintenance();
-                $"Showing completed page...".Log("Script execution");
+                ShowingCompletedPage.Log(Resources.Happenings.ScriptExecution);
                 progress.Navigate(completed);
             }
         };

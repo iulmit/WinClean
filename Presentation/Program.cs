@@ -2,6 +2,9 @@
 
 using RaphaëlBardini.WinClean.Presentation.Dialogs;
 
+using static RaphaëlBardini.WinClean.Resources.LogStrings;
+using static RaphaëlBardini.WinClean.Resources.Happenings;
+
 namespace RaphaëlBardini.WinClean.Presentation;
 
 public static class Program
@@ -17,7 +20,7 @@ public static class Program
     /// <summary>Exits the program.</summary>
     public static void Exit()
     {
-        "Exiting the application.".Log("Exit");
+        Exiting.Log(Resources.Happenings.Exit);
 
         Settings.Save();
 
@@ -55,18 +58,18 @@ public static class Program
     [STAThread]
     private static void Main()
     {
-        "The application started.".Log("Start", LogLevel.Info);
+        Starting.Log(Start, LogLevel.Info);
 
         Application.SetCompatibleTextRenderingDefault(false);
         Application.EnableVisualStyles();
 
-        "Ensuring single instance...".Log("Single instance");
+        EnsuringSingleInstance.Log(SingleInstance);
         EnsureSingleInstance();
-        "Single instance OK.".Log("Single instance");
+        SingleInstanceOk.Log(SingleInstance);
 
-        "Ensuring startup path correct...".Log("Startup path");
+        EnsuringStartupPathCorrect.Log(StartupPath);
         EnsureStartupPathCorrect();
-        "Startup path OK.".Log("Startup path");
+        StartupPathOk.Log(StartupPath);
 
         using Forms.MainForm mainForm = new();
         Application.Run(mainForm);

@@ -113,6 +113,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FormattableStrings.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Happenings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Happenings.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Icons.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -127,6 +132,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ImpactEffect.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\LogStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LogStrings.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\ScriptAdvised.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -166,6 +176,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>FormattableStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Happenings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Happenings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Icons.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
@@ -177,6 +191,10 @@
     <EmbeddedResource Update="Resources\ImpactEffect.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ImpactEffect.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\LogStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ScriptAdvised.resx">
       <Generator>ResXFileCodeGenerator</Generator>

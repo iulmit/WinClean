@@ -2,6 +2,8 @@
 using RaphaëlBardini.WinClean.Operational;
 using RaphaëlBardini.WinClean.Presentation.ScriptExecution;
 
+using static RaphaëlBardini.WinClean.Resources.LogStrings;
+
 namespace RaphaëlBardini.WinClean.Presentation.Forms;
 
 /// <summary>
@@ -14,7 +16,7 @@ public partial class MainForm : Form
 
     public MainForm()
     {
-        "Loading MainForm...".Log("MainForm");
+        LoadingMainForm.Log(Resources.Happenings.MainForm);
 
         InitializeComponent();
 
@@ -26,7 +28,7 @@ public partial class MainForm : Form
 
         MainMenuAbout.Text = string.Format(CultureInfo.CurrentCulture, Resources.FormattableStrings.About, Application.ProductName);
 
-        "MainForm loaded.".Log("MainForm");
+        MainFormLoaded.Log(Resources.Happenings.MainForm);
     }
 
     #endregion Public Constructors
@@ -48,7 +50,7 @@ public partial class MainForm : Form
 
     private void ButtonAddScript_Click(object _, EventArgs __)
     {
-        "Add script button clicked.".Log("MainForm");
+        AddScriptClicked.Log(Resources.Happenings.MainForm);
         if (openFileDialogScript.ShowDialog(this) == DialogResult.OK)
         {
             string path = openFileDialogScript.FileName;
@@ -64,7 +66,7 @@ public partial class MainForm : Form
 
     private void ButtonExecuteScripts_Click(object _, EventArgs __)
     {
-        "Execute scripts button clicked.".Log("MainForm");
+        ExecuteScriptsClicked.Log(Resources.Happenings.MainForm);
 
         IList<IScript> scripts = listViewScripts.CheckedItems.Cast<IScript>().ToList();
 
