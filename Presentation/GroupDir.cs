@@ -21,7 +21,7 @@ public class GroupDir
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(CreateDir);
+                FSErrorFactory.MakeFSError<RetryExitDialog>(e, FSVerb.Create, dir).ShowDialog(CreateDir);
             }
         }
     }

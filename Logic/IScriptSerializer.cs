@@ -1,6 +1,4 @@
-﻿using RaphaëlBardini.WinClean.Logic;
-
-namespace RaphaëlBardini.WinClean.Presentation;
+﻿namespace RaphaëlBardini.WinClean.Logic;
 
 // Creator interface for Factory Method pattern implementation.
 public interface IScriptSerializer

@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace RaphaëlBardini.WinClean.Presentation;
+namespace RaphaëlBardini.WinClean.Logic;
 
 public static class FilenameHelpers
 {

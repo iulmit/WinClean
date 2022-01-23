@@ -1,10 +1,8 @@
-﻿using RaphaëlBardini.WinClean.Logic;
-using RaphaëlBardini.WinClean.Operational;
-using RaphaëlBardini.WinClean.Presentation.Dialogs;
+﻿using RaphaëlBardini.WinClean.Operational;
 
 using System.Xml;
 
-namespace RaphaëlBardini.WinClean.Presentation;
+namespace RaphaëlBardini.WinClean.Logic;
 
 public class ScriptXmlSerializer : IScriptSerializer
 {
@@ -29,11 +27,24 @@ public class ScriptXmlSerializer : IScriptSerializer
 
     #region Public Methods
 
+    /// <summary>
+    /// Deserializes a script from an XML file.
+    /// </summary>
+    /// <param name="source">The XML file.</param>
+    /// <returns>A new <see cref="IScript"/> object.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="source"/> is <see langword="null"/>.</exception>
+    /// <exception cref="XmlException"><paramref name="source"/> is not a valid XML document.</exception>
+    /// <exception cref="DirectoryNotFoundException"><paramref name="source"/> is invalid (for example, it is on an unmapped drive).</exception>
+    /// <exception cref="IOException">An I/O error occurred while opening <paramref name="source"/>.</exception>
+    /// <exception cref="UnauthorizedAccessException"><paramref name="source"/> is readonly. -or- The caller does not have the required permission.</exception>
+    /// <exception cref="FileNotFoundException"><paramref name="source"/> was not found.</exception>
+    /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
     public IScript Deserialize(FileInfo source)
     {
         string groupDirName = (source ?? throw new ArgumentNullException(nameof(source))).Directory!.Name; // ! : wont return null as _file will never be a root directory
 
-        XmlDocument doc = CreateDoc();
+        XmlDocument doc = new();
+        doc.Load(source.FullName);
 
         return new Script
         (
@@ -45,20 +56,6 @@ public class ScriptXmlSerializer : IScriptSerializer
             doc.GetElementsByTagName("Extension")[0].AssertNotNull().InnerText.Trim(),
             doc.GetElementsByTagName("Code")[0].AssertNotNull().InnerXml.Trim()
         );
-
-        XmlDocument CreateDoc()
-        {
-            XmlDocument d = new();
-            try
-            {
-                d.Load(source.FullName);
-            }
-            catch (Exception e) when (e.FileSystem())
-            {
-                new FSErrorDialog(e, FSVerb.Acess, source).ShowDialog(() => d = CreateDoc());
-            }
-            return d;
-        }
         string GetLocalized(string rootTagName)
         {
             IEnumerable<XmlElement> available = doc.GetElementsByTagName(rootTagName)[0].AssertNotNull().ChildNodes.OfType<XmlElement>();

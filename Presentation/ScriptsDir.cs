@@ -1,4 +1,5 @@
-﻿using RaphaëlBardini.WinClean.Operational;
+﻿using RaphaëlBardini.WinClean.Logic;
+using RaphaëlBardini.WinClean.Operational;
 using RaphaëlBardini.WinClean.Presentation.Dialogs;
 
 namespace RaphaëlBardini.WinClean.Presentation;
@@ -21,7 +22,7 @@ public class ScriptsDir
             }
             catch (Exception e) when (e.FileSystem())
             {
-                new FSErrorDialog(e, FSVerb.Create, dir).ShowDialog(() => dir = GetOrCreate());
+                FSErrorFactory.MakeFSError<RetryExitDialog>(e, FSVerb.Create, dir).ShowDialog(() => dir = GetOrCreate());
             }
             return dir;
         }
@@ -56,7 +57,22 @@ public class ScriptsDir
         _ = owner ?? throw new ArgumentNullException(nameof(owner));
         foreach (FileInfo script in Info.EnumerateFiles("*.xml", SearchOption.AllDirectories))
         {
-            _ = owner.Items.Add(new ScriptListViewItem(new ScriptXmlSerializer(Info).Deserialize(script), owner));
+            for (int remainingPrompts = Program.Settings.MaxPrompts; remainingPrompts > 0; --remainingPrompts)
+            {
+                try
+                {
+                    _ = owner.Items.Add(new ScriptListViewItem(new ScriptXmlSerializer(Info).Deserialize(script), owner));
+                    break;
+                }
+                catch (Exception e) when (e.FileSystem())
+                {
+                    if (FSErrorFactory.MakeFSError<IgnoreRetryExitDialog>(e, FSVerb.Acess, script).ShowDialog() == DialogResult.Ignore)
+                    {
+                        break;
+                    }
+                }
+            }
+
         }
     }
 

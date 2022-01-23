@@ -32,7 +32,7 @@ public abstract class ScriptHost
 
         using Process host = ExecuteHost(tmpScriptFile);
 
-        for (int remainingPrompts = promptLimit; remainingPrompts > 0; remainingPrompts--)
+        for (int remainingPrompts = promptLimit; remainingPrompts > 0; --remainingPrompts)
         {
             try
             {

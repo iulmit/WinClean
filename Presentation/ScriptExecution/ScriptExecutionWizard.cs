@@ -54,7 +54,7 @@ public class ScriptExecutionWizard
     public async void ExecuteNoUI() => await _executor.ExecuteScriptsAsync(_scripts,
                                                                            Program.Settings.ScriptTimeout,
                                                                            name => KillIgnoreDialog.HungScript(name, Program.Settings.ScriptTimeout).ShowDialog(),
-                                                                           (e, fSInfo, verb) => new FSErrorDialog(e, verb, fSInfo).ShowDialog(),
+                                                                           (e, fSInfo, verb) => FSErrorFactory.MakeFSError<RetryExitDialog>(e, verb, fSInfo).ShowDialog(),
                                                                            Program.Settings.MaxPrompts).ConfigureAwait(false);
 
     /// <summary>Executes the scripts and displays a dialog tracking the progress.</summary>
@@ -138,7 +138,7 @@ public class ScriptExecutionWizard
             await _executor.ExecuteScriptsAsync(_scripts,
                                                 Program.Settings.ScriptTimeout,
                                                 name => KillIgnoreDialog.HungScript(name, Program.Settings.ScriptTimeout).ShowDialog(),
-                                                (e, fSInfo, verb) => new FSErrorDialog(e, verb, fSInfo).ShowDialog(),
+                                                (e, fSInfo, verb) => FSErrorFactory.MakeFSError<RetryExitDialog>(e, verb, fSInfo).ShowDialog(),
                                                 Program.Settings.MaxPrompts).ConfigureAwait(true);
             timer.Stop();
 

@@ -12,7 +12,7 @@ public class RetryExitDialog : Dialog
 
     #region Protected Constructors
 
-    protected RetryExitDialog()
+    public RetryExitDialog()
     {
         s_buttons[1].Click += (_, _) => s_buttons[1].AllowCloseDialog = YesNoDialog.ProgramExit.ShowDialog();
         Buttons = s_buttons;

@@ -16,6 +16,8 @@ public partial class Settings : Form
 
         comboBoxLogLevel.DataSource = Enum.GetValues<LogLevel>();
         comboBoxLogLevel.SelectedItem = (LogLevel)Program.Settings.LogLevel;
+
+        numericUpDownPrompts.Value = Program.Settings.MaxPrompts;
     }
 
     #endregion Public Constructors
