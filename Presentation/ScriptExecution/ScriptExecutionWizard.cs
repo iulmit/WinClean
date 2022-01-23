@@ -105,6 +105,7 @@ public class ScriptExecutionWizard
                         else
                         {
                             "User chose to continue script execution anyway.".Log("Script execution restore point");
+                            @continue = true;
                         }
                     }
                 } while (!@continue);
