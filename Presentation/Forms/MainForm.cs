@@ -88,7 +88,9 @@ public partial class MainForm : Form
 
     private void MainMenuQuit_Click(object _, EventArgs __) => Program.Exit();
 
-    private void MainMenuSelectAll_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items.Cast<ScriptListViewItem>().Where(script => script.Advised.Equals(ScriptAdvised.Yes)), true);
+    private void MainMenuSelectAll_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);
+
+    private void MainMenuSelectAllAdvised_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items.Cast<ScriptListViewItem>().Where(script => script.Advised.Equals(ScriptAdvised.Yes)), true);
 
     private void MainMenuSelectDebloat_Click(object _, EventArgs __) => SetAllChecked(listViewScripts.Items, true);// placeholder
 

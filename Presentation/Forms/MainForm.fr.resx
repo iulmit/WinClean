@@ -95,7 +95,10 @@
     <value>188, 22</value>
   </data>
   <data name="MainMenuSelectAllAdvised.Text" xml:space="preserve">
-    <value>&amp;Tout conseillé</value>
+    <value>Tout conseillé</value>
+  </data>
+  <data name="MainMenuSelectAll.Text" xml:space="preserve">
+    <value>&amp;Tout</value>
   </data>
   <data name="MainMenuSelectNothing.Size" type="System.Drawing.Size, System.Drawing">
     <value>188, 22</value>
