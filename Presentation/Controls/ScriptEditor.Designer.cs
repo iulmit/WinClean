@@ -28,6 +28,7 @@ partial class ScriptEditor
     /// </summary>
     private void InitializeComponent()
     {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScriptEditor));
             this.textBoxCode = new System.Windows.Forms.TextBox();
             this.buttonExecute = new System.Windows.Forms.Button();
@@ -37,76 +38,96 @@ partial class ScriptEditor
             this.buttonDelete = new System.Windows.Forms.Button();
             this.textBoxGroup = new System.Windows.Forms.TextBox();
             this.comboBoxImpact = new System.Windows.Forms.ComboBox();
+            this.linkLabelMoreInfo = new System.Windows.Forms.LinkLabel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // textBoxCode
             // 
             this.textBoxCode.AcceptsReturn = true;
             this.textBoxCode.AcceptsTab = true;
-            this.textBoxCode.CausesValidation = false;
             resources.ApplyResources(this.textBoxCode, "textBoxCode");
+            this.textBoxCode.CausesValidation = false;
             this.textBoxCode.Name = "textBoxCode";
+            this.toolTip.SetToolTip(this.textBoxCode, resources.GetString("textBoxCode.ToolTip"));
             this.textBoxCode.TextChanged += new System.EventHandler(this.TextBoxCode_TextChanged);
             // 
             // buttonExecute
             // 
-            this.buttonExecute.CausesValidation = false;
             resources.ApplyResources(this.buttonExecute, "buttonExecute");
+            this.buttonExecute.CausesValidation = false;
             this.buttonExecute.Name = "buttonExecute";
+            this.toolTip.SetToolTip(this.buttonExecute, resources.GetString("buttonExecute.ToolTip"));
             this.buttonExecute.UseVisualStyleBackColor = true;
             this.buttonExecute.Click += new System.EventHandler(this.ButtonExecute_Click);
             // 
             // comboBoxAdvised
             // 
+            resources.ApplyResources(this.comboBoxAdvised, "comboBoxAdvised");
             this.comboBoxAdvised.CausesValidation = false;
             this.comboBoxAdvised.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAdvised.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxAdvised, "comboBoxAdvised");
             this.comboBoxAdvised.Name = "comboBoxAdvised";
+            this.toolTip.SetToolTip(this.comboBoxAdvised, resources.GetString("comboBoxAdvised.ToolTip"));
             this.comboBoxAdvised.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAdvised_SelectedIndexChanged);
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.CausesValidation = false;
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
+            this.textBoxDescription.CausesValidation = false;
             this.textBoxDescription.Name = "textBoxDescription";
+            this.toolTip.SetToolTip(this.textBoxDescription, resources.GetString("textBoxDescription.ToolTip"));
             this.textBoxDescription.TextChanged += new System.EventHandler(this.TextBoxDescription_TextChanged);
             // 
             // textBoxName
             // 
             this.textBoxName.AcceptsReturn = true;
-            this.textBoxName.CausesValidation = false;
             resources.ApplyResources(this.textBoxName, "textBoxName");
+            this.textBoxName.CausesValidation = false;
             this.textBoxName.Name = "textBoxName";
+            this.toolTip.SetToolTip(this.textBoxName, resources.GetString("textBoxName.ToolTip"));
             this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxName_TextChanged);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.CausesValidation = false;
             resources.ApplyResources(this.buttonDelete, "buttonDelete");
+            this.buttonDelete.CausesValidation = false;
             this.buttonDelete.Name = "buttonDelete";
+            this.toolTip.SetToolTip(this.buttonDelete, resources.GetString("buttonDelete.ToolTip"));
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // textBoxGroup
             // 
+            resources.ApplyResources(this.textBoxGroup, "textBoxGroup");
             this.textBoxGroup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxGroup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            resources.ApplyResources(this.textBoxGroup, "textBoxGroup");
             this.textBoxGroup.Name = "textBoxGroup";
+            this.toolTip.SetToolTip(this.textBoxGroup, resources.GetString("textBoxGroup.ToolTip"));
             this.textBoxGroup.TextChanged += new System.EventHandler(this.TextBoxGroup_TextChanged);
             // 
             // comboBoxImpact
             // 
+            resources.ApplyResources(this.comboBoxImpact, "comboBoxImpact");
             this.comboBoxImpact.CausesValidation = false;
             this.comboBoxImpact.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxImpact, "comboBoxImpact");
             this.comboBoxImpact.Name = "comboBoxImpact";
+            this.toolTip.SetToolTip(this.comboBoxImpact, resources.GetString("comboBoxImpact.ToolTip"));
             this.comboBoxImpact.SelectedIndexChanged += new System.EventHandler(this.ComboBoxImpact_SelectedIndexChanged);
+            // 
+            // linkLabelMoreInfo
+            // 
+            resources.ApplyResources(this.linkLabelMoreInfo, "linkLabelMoreInfo");
+            this.linkLabelMoreInfo.CausesValidation = false;
+            this.linkLabelMoreInfo.Name = "linkLabelMoreInfo";
+            this.linkLabelMoreInfo.TabStop = true;
+            this.toolTip.SetToolTip(this.linkLabelMoreInfo, resources.GetString("linkLabelMoreInfo.ToolTip"));
+            this.linkLabelMoreInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelMoreInfo_LinkClicked);
             // 
             // ScriptEditor
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.linkLabelMoreInfo);
             this.Controls.Add(this.comboBoxImpact);
             this.Controls.Add(this.textBoxGroup);
             this.Controls.Add(this.textBoxDescription);
@@ -117,6 +138,7 @@ partial class ScriptEditor
             this.Controls.Add(this.buttonDelete);
             this.DoubleBuffered = true;
             this.Name = "ScriptEditor";
+            this.toolTip.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Leave += new System.EventHandler(this.ScriptEditor_Leave);
             this.Resize += new System.EventHandler(this.ScriptEditor_Resize);
             this.ResumeLayout(false);
@@ -134,4 +156,6 @@ partial class ScriptEditor
     private System.Windows.Forms.Button buttonDelete;
     private System.Windows.Forms.TextBox textBoxGroup;
     private ComboBox comboBoxImpact;
+    private LinkLabel linkLabelMoreInfo;
+    private ToolTip toolTip;
 }

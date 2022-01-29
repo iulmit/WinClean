@@ -52,6 +52,7 @@ public class ScriptXmlSerializer : IScriptSerializer
         (
             GetLocalized("Name"),
             GetLocalized("Description"),
+            GetMoreInfoUrl(),
             ScriptAdvised.ParseName(doc.GetElementsByTagName("Advised")[0].AssertNotNull().InnerText.Trim()),
             Impact.ParseName(doc.GetElementsByTagName("Impact")[0].AssertNotNull().InnerText),
             groupDirName,
@@ -71,6 +72,11 @@ public class ScriptXmlSerializer : IScriptSerializer
                 }
             }
             return localized?.Trim() ?? string.Empty;
+        }
+        Uri? GetMoreInfoUrl()
+        {
+            string url = doc.GetElementsByTagName("MoreInfoUrl")[0].AssertNotNull().InnerText;
+            return string.IsNullOrEmpty(url) ? null : new Uri(url);
         }
     }
 
@@ -95,6 +101,7 @@ public class ScriptXmlSerializer : IScriptSerializer
             _ = root.AppendChild(description);
         }
 
+        CreateAppend(root, "MoreInfoUrl", s.MoreInfoUrl?.OriginalString);
         CreateAppend(root, "Advised", s.Advised.ToString());
         CreateAppend(root, "Extension", s.Extension);
         CreateAppend(root, "Impact", s.Impact.ToString());
@@ -103,10 +110,10 @@ public class ScriptXmlSerializer : IScriptSerializer
 
         _ = doc.AppendChild(root);
 
-        void CreateAppend(XmlElement parent, string name, string innerText)
+        void CreateAppend(XmlElement parent, string name, string? innerText)
         {
             XmlElement e = doc.CreateElement(name);
-            e.InnerText = innerText;
+            e.InnerText = innerText ?? string.Empty;
             _ = parent.AppendChild(e);
         }
 

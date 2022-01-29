@@ -16,6 +16,9 @@ public interface IScript
     /// <summary>Details on how this scripts work and what the effects of executing it would be.</summary>
     string Description { get; set; }
 
+    /// <summary>URL that leads to a webpage that gives more information on this script's behavior.</summary>
+    Uri? MoreInfoUrl { get; set; }
+
     /// <summary>The file extension representing the script's type.</summary>
     string Extension { get; }
 

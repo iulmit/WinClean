@@ -40,6 +40,10 @@ public partial class ScriptEditor : UserControl
 
             textBoxName.Text = value?.Name;
             textBoxDescription.Text = value?.Description;
+
+            linkLabelMoreInfo.Enabled = value?.MoreInfoUrl is not null;
+            toolTip.SetToolTip(linkLabelMoreInfo, value?.MoreInfoUrl?.AbsoluteUri);
+
             comboBoxAdvised.SelectedItem = value?.Advised.LocalizedName;
 
             textBoxGroup.AutoCompleteCustomSource.AddRange(ScriptsDir.Instance.Groups.Select(group => group.Info.Name).ToArray());
@@ -91,6 +95,14 @@ public partial class ScriptEditor : UserControl
             _selected.Impact = Impact.ParseLocalizedName((string)comboBoxImpact.SelectedItem);
         }
     }
+    private void LinkLabelMoreInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+        if (_selected?.MoreInfoUrl is not null)
+        {
+            linkLabelMoreInfo.LinkVisited = true;
+            _ = Windows.System.Launcher.LaunchUriAsync(_selected.MoreInfoUrl);
+        }
+    }
 
     private void ScriptEditor_Leave(object _, EventArgs __) => PrepareForAnother();
 
@@ -101,6 +113,7 @@ public partial class ScriptEditor : UserControl
         // Fullwidth controls
         ChangeWidth(textBoxName, Width);
         ChangeWidth(textBoxDescription, Width);
+        ChangeWidth(linkLabelMoreInfo, Width);
         ChangeWidth(textBoxCode, Width);
         ChangeWidth(comboBoxImpact, Width);
 
@@ -113,8 +126,8 @@ public partial class ScriptEditor : UserControl
 
         // Buttons
         const int ButtonSpacing = 7;
-        buttonExecute.Location = new((int)(Width / 2D - ButtonSpacing / 2D - buttonExecute.Width), buttonExecute.Location.Y);
-        buttonDelete.Location = new((int)(Width / 2D + ButtonSpacing / 2D), buttonDelete.Location.Y);
+        buttonExecute.Location = new(Convert.ToInt32(Width / 2D - ButtonSpacing / 2D - buttonExecute.Width), buttonExecute.Location.Y);
+        buttonDelete.Location = new(Convert.ToInt32(Width / 2D + ButtonSpacing / 2D), buttonDelete.Location.Y);
 
         ResumeLayout();
     }

@@ -36,7 +36,7 @@ public partial class AboutBox : Form
     private void LabelRepoURL_LinkClicked(object __, LinkLabelLinkClickedEventArgs e)
     {
         linkLabelRepoURL.LinkVisited = true;
-        using System.Diagnostics.Process _ = System.Diagnostics.Process.Start("explorer", (string)e.Link.LinkData);
+        _ = Windows.System.Launcher.LaunchUriAsync(new((string)e.Link.LinkData));
     }
 
     #endregion Private Methods

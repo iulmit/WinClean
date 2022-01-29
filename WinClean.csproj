@@ -26,7 +26,7 @@
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-	<SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
+	<SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<NeutralLanguage>en-US</NeutralLanguage>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
