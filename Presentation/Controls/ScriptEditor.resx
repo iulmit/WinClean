@@ -130,9 +130,6 @@
   <data name="comboBoxAdvised.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
-  <data name="textBoxCode.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="&gt;&gt;buttonExecute.Name" xml:space="preserve">
     <value>buttonExecute</value>
   </data>
@@ -148,9 +145,6 @@
   <data name="textBoxName.PlaceholderText" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="linkLabelMoreInfo.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -160,12 +154,6 @@
   </data>
   <data name="linkLabelMoreInfo.Text" xml:space="preserve">
     <value>More information...</value>
-  </data>
-  <data name="comboBoxImpact.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="textBoxDescription.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="&gt;&gt;textBoxName.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -257,9 +245,6 @@
   <data name="textBoxName.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="textBoxName.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="textBoxCode.WordWrap" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -277,9 +262,6 @@
   </data>
   <data name="&gt;&gt;textBoxCode.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="textBoxGroup.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="buttonExecute.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -331,9 +313,6 @@
   </data>
   <data name="&gt;&gt;textBoxCode.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonExecute.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="&gt;&gt;buttonExecute.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

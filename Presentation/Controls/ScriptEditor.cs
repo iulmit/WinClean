@@ -11,6 +11,7 @@ public partial class ScriptEditor : UserControl
     #region Private Fields
 
     private ScriptListViewItem? _selected;
+
     #endregion Private Fields
 
     #region Public Constructors
@@ -50,6 +51,7 @@ public partial class ScriptEditor : UserControl
             textBoxGroup.Text = value?.Group;
 
             textBoxCode.Text = value?.Code;
+
             // If the user changes the setting, the propery will change after a script change.
             textBoxCode.ReadOnly = !Program.Settings.AllowScriptCodeEdit;
 
@@ -95,6 +97,7 @@ public partial class ScriptEditor : UserControl
             _selected.Impact = Impact.ParseLocalizedName((string)comboBoxImpact.SelectedItem);
         }
     }
+
     private void LinkLabelMoreInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         if (_selected?.MoreInfoUrl is not null)

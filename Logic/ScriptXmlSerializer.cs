@@ -75,7 +75,7 @@ public class ScriptXmlSerializer : IScriptSerializer
         }
         Uri? GetMoreInfoUrl()
         {
-            string url = doc.GetElementsByTagName("MoreInfoUrl")[0].AssertNotNull().InnerText;
+            string url = GetLocalized("MoreInfoUrl");
             return string.IsNullOrEmpty(url) ? null : new Uri(url);
         }
     }
@@ -101,11 +101,15 @@ public class ScriptXmlSerializer : IScriptSerializer
             _ = root.AppendChild(description);
         }
 
-        CreateAppend(root, "MoreInfoUrl", s.MoreInfoUrl?.OriginalString);
+        {
+            XmlElement moreInfoUrl = doc.CreateElement("MoreInfoUrl");
+            CreateAppend(moreInfoUrl, GetLCIDTagName(), s.MoreInfoUrl?.OriginalString);
+            _ = root.AppendChild(moreInfoUrl);
+        }
+
         CreateAppend(root, "Advised", s.Advised.ToString());
         CreateAppend(root, "Extension", s.Extension);
         CreateAppend(root, "Impact", s.Impact.ToString());
-
         CreateAppend(root, "Code", s.Code);
 
         _ = doc.AppendChild(root);

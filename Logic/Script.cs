@@ -29,13 +29,10 @@ public class Script : IScript
 
     public string Description { get; set; }
 
-    public Uri? MoreInfoUrl { get; set; }
-    
     public string Extension { get; }
-
     public string Group { get; set; }
     public Impact Impact { get; set; }
-
+    public Uri? MoreInfoUrl { get; set; }
     public string Name { get; set; }
 
     #endregion Public Properties

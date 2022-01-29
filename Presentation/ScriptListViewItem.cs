@@ -49,7 +49,6 @@ public class ScriptListViewItem : ListViewItem, IScript
     public string Code { get => _adaptee.Code; set => _adaptee.Code = value; }
     public string Description { get => ToolTipText; set => _adaptee.Description = ToolTipText = value; }
 
-    public Uri? MoreInfoUrl { get => _adaptee.MoreInfoUrl; set => _adaptee.MoreInfoUrl = value; }
     public string Extension => _adaptee.Extension;
 
     public new string Group
@@ -63,7 +62,7 @@ public class ScriptListViewItem : ListViewItem, IScript
     }
 
     public Impact Impact { get => _adaptee.Impact; set => _adaptee.Impact = value; }
-
+    public Uri? MoreInfoUrl { get => _adaptee.MoreInfoUrl; set => _adaptee.MoreInfoUrl = value; }
     public new string Name { get => Text; set => Text = value; }
 
     #endregion Public Properties

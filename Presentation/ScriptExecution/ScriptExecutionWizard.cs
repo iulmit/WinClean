@@ -2,10 +2,10 @@
 using RaphaëlBardini.WinClean.Operational;
 using RaphaëlBardini.WinClean.Presentation.Dialogs;
 
-using static RaphaëlBardini.WinClean.Resources.LogStrings;
-using static RaphaëlBardini.WinClean.Resources.Happenings;
-
 using System.Diagnostics;
+
+using static RaphaëlBardini.WinClean.Resources.Happenings;
+using static RaphaëlBardini.WinClean.Resources.LogStrings;
 
 /* Steps :
  * Warning. Show a warning message. Force the user to read it using a verification checkbox.
