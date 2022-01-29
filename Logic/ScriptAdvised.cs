@@ -23,13 +23,12 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
     #region Public Properties
 
     /// <summary>
-    /// The script only advised for users who want advanced optimisation. It may hinder useful system features. It should be
-    /// selected individually by the user.
+    /// The script is generally safe, but it may hinder features that are useful for a minority of users.
     /// </summary>
-    public static ScriptAdvised Limited { get; } = new(nameof(Limited), Resources.ScriptAdvised.Limited, Color.Orange);
+    public static ScriptAdvised Limited { get; } = new(nameof(Limited), Resources.ScriptAdvised.Limited, Color.Yellow);
 
     /// <summary>
-    /// The script must be selected only by users who know what they are doing. It will almost certainly hinder useful system
+    /// The script is only advised to a minority of users who want advanced optimisation. It will almost certainly hinder useful system
     /// features. It should be selected by the user, only if specifically needed.
     /// </summary>
     public static ScriptAdvised No { get; } = new(nameof(No), Resources.ScriptAdvised.No, Color.Red);
