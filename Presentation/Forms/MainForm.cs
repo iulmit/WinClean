@@ -55,6 +55,7 @@ public partial class MainForm : Form
         {
             string path = openFileDialogScript.FileName;
             _ = listViewScripts.Items.Add(new ScriptListViewItem(new Script(Path.GetFileNameWithoutExtension(path),
+                                                                            Path.GetExtension(path),
                                                                             string.Empty,
                                                                             null,
                                                                             ScriptAdvised.No,

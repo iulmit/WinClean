@@ -31,6 +31,9 @@ public interface IScript
     /// <summary>A brief infinitive sentence that describes the functionnality of this script.</summary>
     string Name { get; set; }
 
+    /// <summary>The name of the file this script could be saved to / could have been loaded from. Does not include the extension.</summary>
+    string FileName { get; }
+
     #endregion Public Properties
 
     #region Public Methods

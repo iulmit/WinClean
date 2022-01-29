@@ -64,6 +64,7 @@ public class ScriptListViewItem : ListViewItem, IScript
     public Impact Impact { get => _adaptee.Impact; set => _adaptee.Impact = value; }
     public Uri? MoreInfoUrl { get => _adaptee.MoreInfoUrl; set => _adaptee.MoreInfoUrl = value; }
     public new string Name { get => Text; set => Text = value; }
+    public string FileName { get => _adaptee.FileName; }
 
     #endregion Public Properties
 

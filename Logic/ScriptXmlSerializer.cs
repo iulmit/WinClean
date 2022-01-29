@@ -51,6 +51,7 @@ public class ScriptXmlSerializer : IScriptSerializer
         return new Script
         (
             GetLocalized("Name"),
+            Path.GetFileNameWithoutExtension(source.Name),
             GetLocalized("Description"),
             GetMoreInfoUrl(),
             ScriptAdvised.ParseName(doc.GetElementsByTagName("Advised")[0].AssertNotNull().InnerText.Trim()),
@@ -59,6 +60,7 @@ public class ScriptXmlSerializer : IScriptSerializer
             doc.GetElementsByTagName("Extension")[0].AssertNotNull().InnerText.Trim(),
             doc.GetElementsByTagName("Code")[0].AssertNotNull().InnerXml.Trim()
         );
+
         string GetLocalized(string rootTagName)
         {
             IEnumerable<XmlElement> available = doc.GetElementsByTagName(rootTagName)[0].AssertNotNull().ChildNodes.OfType<XmlElement>();
@@ -138,7 +140,7 @@ public class ScriptXmlSerializer : IScriptSerializer
 
         _ = Directory.CreateDirectory(groupDirPath);
 
-        string serializationPath = Path.Join(groupDirPath, $"{s.Name.ToFilename()}.xml");
+        string serializationPath = Path.Join(groupDirPath, $"{s.FileName}.xml");
 
         doc.Save(serializationPath);
 

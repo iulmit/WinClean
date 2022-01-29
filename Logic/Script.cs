@@ -7,9 +7,10 @@ public class Script : IScript
 
     /// <summary>Initializes a new instance of the <see cref="Script"/> class with the specified data.</summary>
     /// <exception cref="ArgumentNullException">One or more parameters are <see langword="null"/>.</exception>
-    public Script(string name, string description, Uri? moreInfoUrl, ScriptAdvised advised, Impact impact, string group, string extension, string code)
+    public Script(string name, string fileName, string description, Uri? moreInfoUrl, ScriptAdvised advised, Impact impact, string group, string extension, string code)
     {
         Name = name?.Trim() ?? throw new ArgumentNullException(nameof(name));
+        FileName = fileName;
         Description = description?.Trim() ?? throw new ArgumentNullException(nameof(description));
         MoreInfoUrl = moreInfoUrl;
         Advised = advised;
@@ -34,6 +35,7 @@ public class Script : IScript
     public Impact Impact { get; set; }
     public Uri? MoreInfoUrl { get; set; }
     public string Name { get; set; }
+    public string FileName { get; }
 
     #endregion Public Properties
 }
