@@ -13,7 +13,6 @@ Permet à l'utilisateur moyen d'améliorer les performances de Windows en quelqu
 
 - Exécuter des scripts *Bactch*, *PowerShell* et *Éditeur du Registre* de nettoyage directement depuis l'interface ergonomique de WinClean.
 - Ajouter des scripts personnalisés pour aller plus loin dans le nettoyage et l'optimisation.
-- Accéder aux outils systèmes communs tels que les Fonctionnalités facultatives, l'Observateur d'évènements, ...
 - Si vous n'avez pas le temps, vous pouvez juste cliquer sur "Sélectionner scripts conseillés", et "Exécuter les scripts".
 
 ## ~~Encore une arnaque~~
