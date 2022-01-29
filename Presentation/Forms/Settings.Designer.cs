@@ -37,15 +37,18 @@ partial class Settings
             System.Windows.Forms.Label labelLogLevel;
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
             System.Windows.Forms.Label labelPrompts;
+            System.Windows.Forms.Label label1;
             this.comboBoxLogLevel = new System.Windows.Forms.ComboBox();
             this.comboBoxScriptTimeout = new System.Windows.Forms.ComboBox();
             this.numericUpDownPrompts = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxAllowScriptCodeEdit = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             labelScriptTimeout = new System.Windows.Forms.Label();
             labelLogLevel = new System.Windows.Forms.Label();
             tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             labelPrompts = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrompts)).BeginInit();
             this.SuspendLayout();
@@ -72,6 +75,8 @@ partial class Settings
             tableLayoutPanel.Controls.Add(this.comboBoxScriptTimeout, 1, 0);
             tableLayoutPanel.Controls.Add(labelPrompts, 0, 2);
             tableLayoutPanel.Controls.Add(this.numericUpDownPrompts, 1, 2);
+            tableLayoutPanel.Controls.Add(this.checkBoxAllowScriptCodeEdit, 1, 3);
+            tableLayoutPanel.Controls.Add(label1, 0, 3);
             tableLayoutPanel.Name = "tableLayoutPanel";
             // 
             // comboBoxLogLevel
@@ -112,6 +117,19 @@ partial class Settings
             0,
             0,
             0});
+            // 
+            // checkBoxAllowScriptCodeEdit
+            // 
+            resources.ApplyResources(this.checkBoxAllowScriptCodeEdit, "checkBoxAllowScriptCodeEdit");
+            this.checkBoxAllowScriptCodeEdit.CausesValidation = false;
+            this.checkBoxAllowScriptCodeEdit.Name = "checkBoxAllowScriptCodeEdit";
+            this.checkBoxAllowScriptCodeEdit.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(label1, "label1");
+            label1.CausesValidation = false;
+            label1.Name = "label1";
             // 
             // buttonCancel
             // 
@@ -159,4 +177,5 @@ partial class Settings
     private Button buttonCancel;
     private Button buttonOK;
     private NumericUpDown numericUpDownPrompts;
+    private CheckBox checkBoxAllowScriptCodeEdit;
 }

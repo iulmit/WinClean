@@ -17,6 +17,8 @@ public partial class Settings : Form
         comboBoxLogLevel.DataSource = Enum.GetValues<LogLevel>();
         comboBoxLogLevel.SelectedItem = (LogLevel)Program.Settings.LogLevel;
 
+        checkBoxAllowScriptCodeEdit.Checked = Program.Settings.AllowScriptCodeEdit;
+
         numericUpDownPrompts.Value = Program.Settings.MaxPrompts;
     }
 
@@ -31,6 +33,7 @@ public partial class Settings : Form
         Program.Settings.ScriptTimeout = ScriptTimeoutPreset.ParseLocalizedName((string)comboBoxScriptTimeout.SelectedItem).Duration;
         Program.Settings.LogLevel = (int)comboBoxLogLevel.SelectedItem;
         Program.Settings.MaxPrompts = Convert.ToInt32(numericUpDownPrompts.Value);
+        Program.Settings.AllowScriptCodeEdit = checkBoxAllowScriptCodeEdit.Checked;
         DialogResult = DialogResult.OK;
     }
 

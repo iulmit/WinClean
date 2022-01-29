@@ -66,6 +66,16 @@
   <data name="labelPrompts.Text" xml:space="preserve">
     <value>Réessais maximums :</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkBoxAllowScriptCodeEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 19</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 96</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Autoriser la modification du code des scripts :</value>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Annuler</value>
   </data>

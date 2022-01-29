@@ -11,7 +11,6 @@ public partial class ScriptEditor : UserControl
     #region Private Fields
 
     private ScriptListViewItem? _selected;
-
     #endregion Private Fields
 
     #region Public Constructors
@@ -47,6 +46,9 @@ public partial class ScriptEditor : UserControl
             textBoxGroup.Text = value?.Group;
 
             textBoxCode.Text = value?.Code;
+            // If the user changes the setting, the propery will change after a script change.
+            textBoxCode.ReadOnly = !Program.Settings.AllowScriptCodeEdit;
+
             comboBoxImpact.SelectedItem = value?.Impact.LocalizedName;
         }
     }
