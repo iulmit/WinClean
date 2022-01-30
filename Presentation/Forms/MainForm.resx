@@ -86,22 +86,6 @@
   <data name="tableLayoutPanelAll.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="listViewScripts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="scriptHeaderName.Width" type="System.Int32, mscorlib">
-    <value>409</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="listViewScripts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 5</value>
-  </data>
-  <data name="listViewScripts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 374</value>
-  </data>
-  <data name="listViewScripts.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="&gt;&gt;listViewScripts.Name" xml:space="preserve">
     <value>listViewScripts</value>
   </data>
@@ -113,24 +97,6 @@
   </data>
   <data name="&gt;&gt;listViewScripts.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="scriptEditor.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="scriptEditor.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="scriptEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>385, 5</value>
-  </data>
-  <data name="scriptEditor.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 325</value>
-  </data>
-  <data name="scriptEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 374</value>
-  </data>
-  <data name="scriptEditor.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
   </data>
   <data name="&gt;&gt;scriptEditor.Name" xml:space="preserve">
     <value>scriptEditor</value>
@@ -147,6 +113,7 @@
   <data name="tableLayoutPanelAll.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="tableLayoutPanelAll.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -187,39 +154,6 @@
   <data name="tableLayoutPanelButtons.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="buttonExecuteScripts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="buttonExecuteScripts.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonExecuteScripts.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="buttonExecuteScripts.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonExecuteScripts.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonExecuteScripts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>653, 11</value>
-  </data>
-  <data name="buttonExecuteScripts.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="buttonExecuteScripts.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>7, 0, 7, 0</value>
-  </data>
-  <data name="buttonExecuteScripts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 25</value>
-  </data>
-  <data name="buttonExecuteScripts.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="buttonExecuteScripts.Text" xml:space="preserve">
-    <value>Execute scripts</value>
-  </data>
   <data name="&gt;&gt;buttonExecuteScripts.Name" xml:space="preserve">
     <value>buttonExecuteScripts</value>
   </data>
@@ -231,36 +165,6 @@
   </data>
   <data name="&gt;&gt;buttonExecuteScripts.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="buttonAddScript.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="buttonAddScript.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonAddScript.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="buttonAddScript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonAddScript.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 11</value>
-  </data>
-  <data name="buttonAddScript.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="buttonAddScript.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>7, 0, 7, 0</value>
-  </data>
-  <data name="buttonAddScript.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 25</value>
-  </data>
-  <data name="buttonAddScript.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="buttonAddScript.Text" xml:space="preserve">
-    <value>Add script</value>
   </data>
   <data name="&gt;&gt;buttonAddScript.Name" xml:space="preserve">
     <value>buttonAddScript</value>
@@ -382,114 +286,6 @@
   <data name="mainMenuStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="MainMenuFile.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuClearLogs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuClearLogs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 22</value>
-  </data>
-  <data name="MainMenuClearLogs.Text" xml:space="preserve">
-    <value>&amp;Clear logs</value>
-  </data>
-  <data name="MainMenuQuit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F4</value>
-  </data>
-  <data name="MainMenuQuit.ShowShortcutKeys" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="MainMenuQuit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 22</value>
-  </data>
-  <data name="MainMenuQuit.Text" xml:space="preserve">
-    <value>&amp;Exit</value>
-  </data>
-  <data name="MainMenuFile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F</value>
-  </data>
-  <data name="MainMenuFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="MainMenuFile.Text" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
-  <data name="MainMenuSelectAllAdvised.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+A</value>
-  </data>
-  <data name="MainMenuSelectAllAdvised.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="MainMenuSelectAllAdvised.Text" xml:space="preserve">
-    <value>All advised</value>
-  </data>
-  <data name="MainMenuSelectAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="MainMenuSelectAll.Text" xml:space="preserve">
-    <value>&amp;All</value>
-  </data>
-  <data name="MainMenuSelectNothing.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="MainMenuSelectNothing.Text" xml:space="preserve">
-    <value>&amp;None</value>
-  </data>
-  <data name="MainMenuSelectMaintenance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="MainMenuSelectMaintenance.Text" xml:space="preserve">
-    <value>&amp;Maintenance</value>
-  </data>
-  <data name="MainMenuSelectDebloat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="MainMenuSelectDebloat.Text" xml:space="preserve">
-    <value>&amp;Debloat</value>
-  </data>
-  <data name="MainMenuSelect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="MainMenuSelect.Text" xml:space="preserve">
-    <value>&amp;Select</value>
-  </data>
-  <data name="MainMenuSettings.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 20</value>
-  </data>
-  <data name="MainMenuSettings.Text" xml:space="preserve">
-    <value>&amp;Settings</value>
-  </data>
-  <data name="MainMenuHelp.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuShowHelp.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="MainMenuShowHelp.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>F1</value>
-  </data>
-  <data name="MainMenuShowHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
-  </data>
-  <data name="MainMenuShowHelp.Text" xml:space="preserve">
-    <value>Show help</value>
-  </data>
-  <data name="MainMenuAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
-  </data>
-  <data name="MainMenuHelp.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+A</value>
-  </data>
-  <data name="MainMenuHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
-  </data>
-  <data name="MainMenuHelp.Text" xml:space="preserve">
-    <value>&amp;Help</value>
-  </data>
   <data name="mainMenuStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -535,12 +331,255 @@
   <data name="&gt;&gt;toolStripContainerAll.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="listViewScripts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="listViewScripts.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 5</value>
+  </data>
+  <data name="listViewScripts.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 374</value>
+  </data>
+  <data name="listViewScripts.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;listViewScripts.Name" xml:space="preserve">
+    <value>listViewScripts</value>
+  </data>
+  <data name="&gt;&gt;listViewScripts.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listViewScripts.Parent" xml:space="preserve">
+    <value>tableLayoutPanelAll</value>
+  </data>
+  <data name="&gt;&gt;listViewScripts.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="scriptHeaderName.Width" type="System.Int32, mscorlib">
+    <value>409</value>
+  </data>
+  <data name="scriptEditor.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="scriptEditor.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="scriptEditor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>385, 5</value>
+  </data>
+  <data name="scriptEditor.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 325</value>
+  </data>
+  <data name="scriptEditor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 374</value>
+  </data>
+  <data name="scriptEditor.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;scriptEditor.Name" xml:space="preserve">
+    <value>scriptEditor</value>
+  </data>
+  <data name="&gt;&gt;scriptEditor.Type" xml:space="preserve">
+    <value>RaphaëlBardini.WinClean.Presentation.Controls.ScriptEditor, WinClean, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;scriptEditor.Parent" xml:space="preserve">
+    <value>tableLayoutPanelAll</value>
+  </data>
+  <data name="&gt;&gt;scriptEditor.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonExecuteScripts.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="buttonExecuteScripts.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="buttonExecuteScripts.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="buttonExecuteScripts.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonExecuteScripts.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonExecuteScripts.Location" type="System.Drawing.Point, System.Drawing">
+    <value>653, 11</value>
+  </data>
+  <data name="buttonExecuteScripts.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="buttonExecuteScripts.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>7, 0, 7, 0</value>
+  </data>
+  <data name="buttonExecuteScripts.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 25</value>
+  </data>
+  <data name="buttonExecuteScripts.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="buttonExecuteScripts.Text" xml:space="preserve">
+    <value>Execute scripts</value>
+  </data>
+  <data name="&gt;&gt;buttonExecuteScripts.Name" xml:space="preserve">
+    <value>buttonExecuteScripts</value>
+  </data>
+  <data name="&gt;&gt;buttonExecuteScripts.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonExecuteScripts.Parent" xml:space="preserve">
+    <value>tableLayoutPanelButtons</value>
+  </data>
+  <data name="&gt;&gt;buttonExecuteScripts.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonAddScript.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="buttonAddScript.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="buttonAddScript.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="buttonAddScript.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonAddScript.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 11</value>
+  </data>
+  <data name="buttonAddScript.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="buttonAddScript.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>7, 0, 7, 0</value>
+  </data>
+  <data name="buttonAddScript.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 25</value>
+  </data>
+  <data name="buttonAddScript.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="buttonAddScript.Text" xml:space="preserve">
+    <value>Add script</value>
+  </data>
+  <data name="&gt;&gt;buttonAddScript.Name" xml:space="preserve">
+    <value>buttonAddScript</value>
+  </data>
+  <data name="&gt;&gt;buttonAddScript.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddScript.Parent" xml:space="preserve">
+    <value>tableLayoutPanelButtons</value>
+  </data>
+  <data name="&gt;&gt;buttonAddScript.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="MainMenuFile.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="MainMenuFile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F</value>
+  </data>
+  <data name="MainMenuFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="MainMenuFile.Text" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="MainMenuClearLogs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="MainMenuClearLogs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 22</value>
+  </data>
+  <data name="MainMenuClearLogs.Text" xml:space="preserve">
+    <value>&amp;Clear logs</value>
+  </data>
+  <data name="MainMenuQuit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F4</value>
+  </data>
+  <data name="MainMenuQuit.ShowShortcutKeys" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="MainMenuQuit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 22</value>
+  </data>
+  <data name="MainMenuQuit.Text" xml:space="preserve">
+    <value>&amp;Exit</value>
+  </data>
+  <data name="MainMenuSelect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="MainMenuSelect.Text" xml:space="preserve">
+    <value>&amp;Select</value>
+  </data>
+  <data name="MainMenuSelectAllAdvised.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+A</value>
+  </data>
+  <data name="MainMenuSelectAllAdvised.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 22</value>
+  </data>
+  <data name="MainMenuSelectAllAdvised.Text" xml:space="preserve">
+    <value>All advised</value>
+  </data>
+  <data name="MainMenuSelectAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 22</value>
+  </data>
+  <data name="MainMenuSelectAll.Text" xml:space="preserve">
+    <value>&amp;All</value>
+  </data>
+  <data name="MainMenuSelectNothing.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 22</value>
+  </data>
+  <data name="MainMenuSelectNothing.Text" xml:space="preserve">
+    <value>&amp;None</value>
+  </data>
+  <data name="MainMenuSelectMaintenance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 22</value>
+  </data>
+  <data name="MainMenuSelectMaintenance.Text" xml:space="preserve">
+    <value>&amp;Maintenance</value>
+  </data>
+  <data name="MainMenuSelectDebloat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 22</value>
+  </data>
+  <data name="MainMenuSelectDebloat.Text" xml:space="preserve">
+    <value>&amp;Debloat</value>
+  </data>
+  <data name="MainMenuSettings.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="MainMenuSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 20</value>
+  </data>
+  <data name="MainMenuSettings.Text" xml:space="preserve">
+    <value>&amp;Settings</value>
+  </data>
+  <data name="MainMenuHelp.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="MainMenuHelp.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+A</value>
+  </data>
+  <data name="MainMenuHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
+  </data>
+  <data name="MainMenuHelp.Text" xml:space="preserve">
+    <value>&amp;Help</value>
+  </data>
+  <data name="MainMenuAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 22</value>
+  </data>
   <metadata name="openFileDialogScript.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>152, 17</value>
   </metadata>
   <data name="openFileDialogScript.Title" xml:space="preserve">
     <value>Add script</value>
   </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>fr</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -629,12 +668,6 @@
     <value>MainMenuHelp</value>
   </data>
   <data name="&gt;&gt;MainMenuHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MainMenuShowHelp.Name" xml:space="preserve">
-    <value>MainMenuShowHelp</value>
-  </data>
-  <data name="&gt;&gt;MainMenuShowHelp.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;MainMenuAbout.Name" xml:space="preserve">

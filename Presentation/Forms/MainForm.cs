@@ -2,6 +2,8 @@
 using RaphaëlBardini.WinClean.Operational;
 using RaphaëlBardini.WinClean.Presentation.ScriptExecution;
 
+using System.Reflection;
+
 using static RaphaëlBardini.WinClean.Resources.LogStrings;
 
 namespace RaphaëlBardini.WinClean.Presentation.Forms;
@@ -112,10 +114,6 @@ public partial class MainForm : Form
     {
         using Settings settings = new();
         _ = settings.ShowDialog(this);
-    }
-
-    private void MainMenuStripShowHelp_Click(object _, EventArgs __)
-    {
     }
 
     #endregion mainMenuStrip

@@ -53,7 +53,6 @@ partial class MainForm
             this.MainMenuSelectDebloat = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainMenuShowHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogScript = new System.Windows.Forms.OpenFileDialog();
             this.toolStripContainerAll.ContentPanel.SuspendLayout();
@@ -248,15 +247,8 @@ partial class MainForm
             // 
             resources.ApplyResources(this.MainMenuHelp, "MainMenuHelp");
             this.MainMenuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MainMenuShowHelp,
             this.MainMenuAbout});
             this.MainMenuHelp.Name = "MainMenuHelp";
-            // 
-            // MainMenuShowHelp
-            // 
-            resources.ApplyResources(this.MainMenuShowHelp, "MainMenuShowHelp");
-            this.MainMenuShowHelp.Name = "MainMenuShowHelp";
-            this.MainMenuShowHelp.Click += new System.EventHandler(this.MainMenuStripShowHelp_Click);
             // 
             // MainMenuAbout
             // 
@@ -315,7 +307,6 @@ partial class MainForm
     private System.Windows.Forms.ToolStripMenuItem MainMenuSelect;
     private System.Windows.Forms.ToolStripMenuItem MainMenuSettings;
     private System.Windows.Forms.ToolStripMenuItem MainMenuHelp;
-    private System.Windows.Forms.ToolStripMenuItem MainMenuShowHelp;
     private System.Windows.Forms.TableLayoutPanel tableLayoutPanelButtons;
     private System.Windows.Forms.Button buttonExecuteScripts;
     private System.Windows.Forms.Button buttonAddScript;

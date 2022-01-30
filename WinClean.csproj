@@ -13,10 +13,10 @@
 	<Description>Utilitaire d'optimisation et amélioration des performances Windows.
 </Description>
 	<Copyright>Copyright Placeholder</Copyright>
-	<PackageProjectUrl>https://raphaelbardini.github.io/WinClean/</PackageProjectUrl>
+	<PackageProjectUrl>https://github.com/RaphaelBardini/WinClean/wiki</PackageProjectUrl>
 	<PackageIcon>main.png</PackageIcon>
 	<PackageIconUrl />
-	<RepositoryUrl>https://raphaelbardini.github.io/WinClean/</RepositoryUrl>
+	<RepositoryUrl>https://github.com/RaphaelBardini/WinClean</RepositoryUrl>
 	<Win32Resource />
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	<RepositoryType>GitHub</RepositoryType>
@@ -30,6 +30,8 @@
 	<ImplicitUsings>enable</ImplicitUsings>
 	<NeutralLanguage>en-US</NeutralLanguage>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseFile>C:\Users\Scover\source\repos\RaphaelBardini\WinClean\LICENSE</PackageLicenseFile>
+	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	
   </PropertyGroup>
 

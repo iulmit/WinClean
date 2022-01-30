@@ -29,7 +29,7 @@ public partial class AboutBox : Form
         labelDescription.Text = a.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
         labelCompanyName.Text = a.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company;
 
-        _ = linkLabelRepoURL.Links.Add(0, linkLabelRepoURL.Text.Length, a.GetCustomAttribute<AssemblyMetadataAttribute>()?.Value);
+        _ = linkLabelRepoURL.Links.Add(0, linkLabelRepoURL.Text.Length, a.GetCustomAttributes<AssemblyMetadataAttribute>().First(attr => attr.Key == "RepositoryUrl").Value);
         labelCopyright.Text = a.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright;
     }
 
