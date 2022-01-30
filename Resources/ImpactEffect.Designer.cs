@@ -97,15 +97,6 @@ namespace RaphaëlBardini.WinClean.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à System overall performance.
-        /// </summary>
-        internal static string Performance {
-            get {
-                return ResourceManager.GetString("Performance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Privacy.
         /// </summary>
         internal static string Privacy {
@@ -120,6 +111,15 @@ namespace RaphaëlBardini.WinClean.Resources {
         internal static string ShutdownTime {
             get {
                 return ResourceManager.GetString("ShutdownTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à System overall stability.
+        /// </summary>
+        internal static string Stability {
+            get {
+                return ResourceManager.GetString("Stability", resourceCulture);
             }
         }
         

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Ergonomics" xml:space="preserve">
     <value>Ergonomie</value>
@@ -129,14 +129,14 @@
   <data name="NetworkUsage" xml:space="preserve">
     <value>Utilisation réseau</value>
   </data>
-  <data name="Performance" xml:space="preserve">
-    <value>Performances globales du système</value>
-  </data>
   <data name="Privacy" xml:space="preserve">
     <value>Confidentialité</value>
   </data>
   <data name="ShutdownTime" xml:space="preserve">
     <value>Temps d'arrêt système</value>
+  </data>
+  <data name="Stability" xml:space="preserve">
+    <value>Stabilité globale du système</value>
   </data>
   <data name="StartupTime" xml:space="preserve">
     <value>Temps de démarrage système</value>

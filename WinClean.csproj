@@ -23,7 +23,7 @@
 	<PlatformTarget>x64</PlatformTarget>
 	<Nullable>enable</Nullable>
 	<DebugType>portable</DebugType>
-	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	<ImplicitUsings>enable</ImplicitUsings>

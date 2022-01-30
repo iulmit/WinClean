@@ -33,8 +33,8 @@ public class Impact : IEquatable<Impact?>
     /// <summary>Idle system network usage.</summary>
     public static Impact NetworkUsage { get; } = new(nameof(NetworkUsage), Resources.ImpactEffect.NetworkUsage);
 
-    /// <summary>System rapidity of executing commands.</summary>
-    public static Impact Performance { get; } = new(nameof(Performance), Resources.ImpactEffect.Performance);
+    /// <summary>System overall stability.</summary>
+    public static Impact Stability { get; } = new(nameof(Stability), Resources.ImpactEffect.Stability);
 
     /// <summary>System privacy invasion and spying.</summary>
     public static Impact Privacy { get; } = new(nameof(Privacy), Resources.ImpactEffect.Privacy);
@@ -56,7 +56,7 @@ public class Impact : IEquatable<Impact?>
         MemoryUsage,
         NetworkUsage,
         Privacy,
-        Performance,
+        Stability,
         ShutdownTime,
         StartupTime,
         StorageSpeed,
