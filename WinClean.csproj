@@ -149,11 +149,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ScriptExecutor.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\ScriptTimeoutPreset.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ScriptTimeoutPreset.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -204,13 +199,6 @@
     <EmbeddedResource Update="Resources\ScriptExecutor.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ScriptExecutor.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\ScriptTimeoutPreset.fr.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\ScriptTimeoutPreset.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ScriptTimeoutPreset.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

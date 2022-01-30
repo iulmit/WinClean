@@ -32,32 +32,33 @@ partial class Settings
     /// </summary>
     private void InitializeComponent()
     {
-            System.Windows.Forms.Label labelScriptTimeout;
+            System.Windows.Forms.Label labelScriptTimeoutHours;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             System.Windows.Forms.Label labelLogLevel;
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
             System.Windows.Forms.Label labelPrompts;
             System.Windows.Forms.Label label1;
             this.comboBoxLogLevel = new System.Windows.Forms.ComboBox();
-            this.comboBoxScriptTimeout = new System.Windows.Forms.ComboBox();
             this.numericUpDownPrompts = new System.Windows.Forms.NumericUpDown();
             this.checkBoxAllowScriptCodeEdit = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
-            labelScriptTimeout = new System.Windows.Forms.Label();
+            this.numericUpDownScriptTimeoutHours = new System.Windows.Forms.NumericUpDown();
+            labelScriptTimeoutHours = new System.Windows.Forms.Label();
             labelLogLevel = new System.Windows.Forms.Label();
             tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             labelPrompts = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrompts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScriptTimeoutHours)).BeginInit();
             this.SuspendLayout();
             // 
-            // labelScriptTimeout
+            // labelScriptTimeoutHours
             // 
-            resources.ApplyResources(labelScriptTimeout, "labelScriptTimeout");
-            labelScriptTimeout.CausesValidation = false;
-            labelScriptTimeout.Name = "labelScriptTimeout";
+            resources.ApplyResources(labelScriptTimeoutHours, "labelScriptTimeoutHours");
+            labelScriptTimeoutHours.CausesValidation = false;
+            labelScriptTimeoutHours.Name = "labelScriptTimeoutHours";
             // 
             // labelLogLevel
             // 
@@ -67,12 +68,12 @@ partial class Settings
             // 
             // tableLayoutPanel
             // 
-            resources.ApplyResources(tableLayoutPanel, "tableLayoutPanel");
             tableLayoutPanel.CausesValidation = false;
+            resources.ApplyResources(tableLayoutPanel, "tableLayoutPanel");
+            tableLayoutPanel.Controls.Add(this.numericUpDownScriptTimeoutHours, 1, 0);
             tableLayoutPanel.Controls.Add(this.comboBoxLogLevel, 1, 1);
-            tableLayoutPanel.Controls.Add(labelScriptTimeout, 0, 0);
+            tableLayoutPanel.Controls.Add(labelScriptTimeoutHours, 0, 0);
             tableLayoutPanel.Controls.Add(labelLogLevel, 0, 1);
-            tableLayoutPanel.Controls.Add(this.comboBoxScriptTimeout, 1, 0);
             tableLayoutPanel.Controls.Add(labelPrompts, 0, 2);
             tableLayoutPanel.Controls.Add(this.numericUpDownPrompts, 1, 2);
             tableLayoutPanel.Controls.Add(this.checkBoxAllowScriptCodeEdit, 1, 3);
@@ -81,15 +82,9 @@ partial class Settings
             // 
             // comboBoxLogLevel
             // 
-            resources.ApplyResources(this.comboBoxLogLevel, "comboBoxLogLevel");
             this.comboBoxLogLevel.CausesValidation = false;
+            resources.ApplyResources(this.comboBoxLogLevel, "comboBoxLogLevel");
             this.comboBoxLogLevel.Name = "comboBoxLogLevel";
-            // 
-            // comboBoxScriptTimeout
-            // 
-            resources.ApplyResources(this.comboBoxScriptTimeout, "comboBoxScriptTimeout");
-            this.comboBoxScriptTimeout.CausesValidation = false;
-            this.comboBoxScriptTimeout.Name = "comboBoxScriptTimeout";
             // 
             // labelPrompts
             // 
@@ -99,8 +94,8 @@ partial class Settings
             // 
             // numericUpDownPrompts
             // 
-            resources.ApplyResources(this.numericUpDownPrompts, "numericUpDownPrompts");
             this.numericUpDownPrompts.CausesValidation = false;
+            resources.ApplyResources(this.numericUpDownPrompts, "numericUpDownPrompts");
             this.numericUpDownPrompts.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -147,6 +142,22 @@ partial class Settings
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.ButtonOK_Click);
             // 
+            // numericUpDownScriptTimeoutHours
+            // 
+            this.numericUpDownScriptTimeoutHours.CausesValidation = false;
+            resources.ApplyResources(this.numericUpDownScriptTimeoutHours, "numericUpDownScriptTimeoutHours");
+            this.numericUpDownScriptTimeoutHours.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownScriptTimeoutHours.Name = "numericUpDownScriptTimeoutHours";
+            this.numericUpDownScriptTimeoutHours.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -165,6 +176,7 @@ partial class Settings
             this.Opacity = 0.96D;
             tableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrompts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScriptTimeoutHours)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,9 +185,9 @@ partial class Settings
     #endregion
 
     private ComboBox comboBoxLogLevel;
-    private ComboBox comboBoxScriptTimeout;
     private Button buttonCancel;
     private Button buttonOK;
     private NumericUpDown numericUpDownPrompts;
     private CheckBox checkBoxAllowScriptCodeEdit;
+    private NumericUpDown numericUpDownScriptTimeoutHours;
 }

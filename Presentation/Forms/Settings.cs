@@ -1,6 +1,4 @@
-﻿using RaphaëlBardini.WinClean.Logic;
-
-namespace RaphaëlBardini.WinClean.Presentation.Forms;
+﻿namespace RaphaëlBardini.WinClean.Presentation.Forms;
 
 /// <summary>Form to acess and modify application settings.</summary>
 public partial class Settings : Form
@@ -11,8 +9,7 @@ public partial class Settings : Form
     {
         InitializeComponent();
 
-        comboBoxScriptTimeout.DataSource = ScriptTimeoutPreset.Values.Select((val) => val.LocalizedName).ToList();
-        comboBoxScriptTimeout.SelectedItem = ScriptTimeoutPreset.ParseTimeout(Program.Settings.ScriptTimeout).LocalizedName;
+        numericUpDownScriptTimeoutHours.Value = Convert.ToInt32(Program.Settings.ScriptTimeout.TotalHours);
 
         comboBoxLogLevel.DataSource = Enum.GetValues<LogLevel>();
         comboBoxLogLevel.SelectedItem = (LogLevel)Program.Settings.LogLevel;
@@ -30,7 +27,7 @@ public partial class Settings : Form
 
     private void ButtonOK_Click(object sender, EventArgs e)
     {
-        Program.Settings.ScriptTimeout = ScriptTimeoutPreset.ParseLocalizedName((string)comboBoxScriptTimeout.SelectedItem).Duration;
+        Program.Settings.ScriptTimeout = TimeSpan.FromHours((int)numericUpDownScriptTimeoutHours.Value);
         Program.Settings.LogLevel = (int)comboBoxLogLevel.SelectedItem;
         Program.Settings.MaxPrompts = Convert.ToInt32(numericUpDownPrompts.Value);
         Program.Settings.AllowScriptCodeEdit = checkBoxAllowScriptCodeEdit.Checked;

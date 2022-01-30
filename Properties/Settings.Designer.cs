@@ -37,7 +37,7 @@ namespace RaphaëlBardini.WinClean.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("01:00:00")]
+        [global::System.Configuration.DefaultSettingValueAttribute("05:00:00")]
         public global::System.TimeSpan ScriptTimeout {
             get {
                 return ((global::System.TimeSpan)(this["ScriptTimeout"]));
