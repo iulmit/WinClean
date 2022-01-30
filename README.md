@@ -22,7 +22,7 @@ Basically, you know what's happening under the hood.
 
 ## Specs
 
-- .NET 6
+- .NET 5
 - Windows Forms
 - Created with Visual Studio 2019/2022
 

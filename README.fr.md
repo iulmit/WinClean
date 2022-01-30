@@ -21,7 +21,7 @@ WinClean a été conçu dans l'objectif de donner à l'utilisateur un contrôle 
 
 ## Spécifications
 
-- .NET 6
+- .NET 5
 - Windows Forms
 - Créé avec Visual Studio 2019/2022
 

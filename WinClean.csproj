@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
+    <TargetFramework>net5.0-windows10.0.22000.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>RaphaëlBardini.WinClean.Presentation.Program</StartupObject>
 	<LangVersion>latest</LangVersion>
@@ -26,7 +26,6 @@
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-	<SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<NeutralLanguage>en-US</NeutralLanguage>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -228,6 +227,10 @@
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Scripts\" />
   </ItemGroup>
 
 </Project>
