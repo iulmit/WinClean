@@ -30,4 +30,6 @@ WinClean a été conçu dans l'objectif de donner à l'utilisateur un contrôle 
 
 N'hésitez pas à signaler les bugs et à proposer de nouvelles fonctionnalités.
 
+Vous pouvez également soumettre des scripts à ajouter dans la section Issues.
+
 **Bientôt disponible**
