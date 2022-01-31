@@ -30,4 +30,6 @@ Basically, you know what's happening under the hood.
 Feel free to request new features and report bugs.
 Additionnaly, as I'm still a beginner and I must be writing terrible code, advice and tips are welcome !
 
+You can also submit scripts to add in the Issues section.
+
 **Coming Soon**
