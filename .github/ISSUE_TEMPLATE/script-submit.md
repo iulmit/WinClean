@@ -25,9 +25,6 @@ Script XML code :
   <Description>
     <lcid127>EnglishDescription</lcid127>
   </Description>
-  <MoreInfoUrl>
-    <lcid127>OptionalEnglishMoreInfoUrl</lcid127>
-  </MoreInfoUrl>
   <!-- Choose one -->
   <Advised>Yes/No/Limited</Advised>
   <!-- Choose one -->
