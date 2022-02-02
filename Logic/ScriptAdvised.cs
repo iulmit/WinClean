@@ -28,7 +28,7 @@ public class ScriptAdvised : IEquatable<ScriptAdvised?>
     public static ScriptAdvised Limited { get; } = new(nameof(Limited), Resources.ScriptAdvised.Limited, Color.Yellow);
 
     /// <summary>
-    /// The script is only advised to a minority of users who want advanced optimisation. It will almost certainly hinder useful system
+    /// The script is only advised to a minority of users who want advanced optimization. It will almost certainly hinder useful system
     /// features. It should be selected by the user, only if specifically needed.
     /// </summary>
     public static ScriptAdvised No { get; } = new(nameof(No), Resources.ScriptAdvised.No, Color.Red);

@@ -59,7 +59,6 @@ public partial class MainForm : Form
             _ = listViewScripts.Items.Add(new ScriptListViewItem(new Script(Path.GetFileNameWithoutExtension(path),
                                                                             Path.GetExtension(path),
                                                                             string.Empty,
-                                                                            null,
                                                                             ScriptAdvised.No,
                                                                             Impact.Ergonomics,
                                                                             path.GetDirectoryNameOnly()!, // wont return null as path cannot be a root directory

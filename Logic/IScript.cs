@@ -25,9 +25,6 @@ public interface IScript
     /// <summary>System impact of running this script.</summary>
     Impact Impact { get; set; }
 
-    /// <summary>URL that leads to a webpage that gives more information on this script's behavior.</summary>
-    Uri? MoreInfoUrl { get; set; }
-
     /// <summary>A brief infinitive sentence that describes the functionnality of this script.</summary>
     string Name { get; set; }
 

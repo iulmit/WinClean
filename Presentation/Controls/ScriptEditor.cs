@@ -42,9 +42,6 @@ public partial class ScriptEditor : UserControl
             textBoxName.Text = value?.Name;
             textBoxDescription.Text = value?.Description;
 
-            linkLabelMoreInfo.Enabled = value?.MoreInfoUrl is not null;
-            toolTip.SetToolTip(linkLabelMoreInfo, value?.MoreInfoUrl?.AbsoluteUri);
-
             comboBoxAdvised.SelectedItem = value?.Advised.LocalizedName;
 
             textBoxGroup.AutoCompleteCustomSource.AddRange(ScriptsDir.Instance.Groups.Select(group => group.Info.Name).ToArray());
@@ -100,11 +97,8 @@ public partial class ScriptEditor : UserControl
 
     private void LinkLabelMoreInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-        if (_selected?.MoreInfoUrl is not null)
-        {
-            linkLabelMoreInfo.LinkVisited = true;
-            _ = Windows.System.Launcher.LaunchUriAsync(_selected.MoreInfoUrl);
-        }
+        _ = Windows.System.Launcher.LaunchUriAsync(GetWikiPageUrl());
+        linkLabelMoreInfo.LinkVisited = true;
     }
 
     private void ScriptEditor_Leave(object _, EventArgs __) => PrepareForAnother();
@@ -170,10 +164,14 @@ public partial class ScriptEditor : UserControl
     #endregion Event Handlers
 
     private static void ChangeWidth(Control c, int newWitdth)
-        => c.Width = newWitdth > c.MinimumSize.Width ? newWitdth : c.MinimumSize.Width;
+            => c.Width = newWitdth > c.MinimumSize.Width ? newWitdth : c.MinimumSize.Width;
+
+    // chaud : this is bad
+    private Uri GetWikiPageUrl() => new("https://github.com/RaphaelBardini/WinClean/wiki/" + (_selected is null ? string.Empty : _selected.FileName).Replace(' ', '-'));
 
     private void PrepareForAnother()
     {
+        linkLabelMoreInfo.LinkVisited = false;
         if (_selected is not null)
         {
             new ScriptXmlSerializer(ScriptsDir.Instance.Info).Serialize(_selected);
