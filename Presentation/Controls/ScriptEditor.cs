@@ -49,9 +49,6 @@ public partial class ScriptEditor : UserControl
 
             textBoxCode.Text = value?.Code;
 
-            // If the user changes the setting, the propery will change after a script change.
-            textBoxCode.ReadOnly = !Program.Settings.AllowScriptCodeEdit;
-
             comboBoxImpact.SelectedItem = value?.Impact.LocalizedName;
         }
     }
@@ -62,6 +59,12 @@ public partial class ScriptEditor : UserControl
 
     #region Event Handlers
 
+    private void ScriptEditor_Enter(object _, EventArgs __)
+    {
+        // to actualize if the setting has changed
+        textBoxCode.ReadOnly = !Program.Settings.AllowScriptCodeEdit;
+    }
+    
     private void ButtonDelete_Click(object _, EventArgs __)
     {
         if (_selected is not null)
